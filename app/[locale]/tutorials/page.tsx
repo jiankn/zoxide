@@ -25,15 +25,18 @@ export default async function TutorialsPage() {
     'beginner': '入门教程',
     'advanced': '进阶技巧',
     'video': '视频 & FAQ',
+    'installation': '安装指南',
   } : {
     'beginner': '入门教程', // 数据文件中是中文，需要保持
     'advanced': '进阶技巧',
     'video': '视频 & FAQ',
+    'installation': '安装指南',
   };
 
   const beginnerTutorials = getTutorialsByCategory(categoryMap.beginner);
   const advancedTutorials = getTutorialsByCategory(categoryMap.advanced);
   const videoFaqTutorials = getTutorialsByCategory(categoryMap.video);
+  const installationTutorials = getTutorialsByCategory(categoryMap.installation);
 
   const tutorialCategories = [
     {
@@ -95,6 +98,25 @@ export default async function TutorialsPage() {
         }),
         { title: t('faqLink'), href: '/faq', duration: locale === 'zh' ? '阅读' : 'Read', level: t('detail.all') },
       ],
+    },
+    {
+      title: t('categories.installation'),
+      icon: BookOpen,
+      tutorials: installationTutorials.map((tutorial) => {
+        // 安全获取翻译数据，如果不存在则使用默认值
+        let tData: any = undefined;
+        try {
+          tData = t.raw(`data.${tutorial.slug}`);
+        } catch {
+          // 翻译不存在时使用默认值
+        }
+        return {
+          title: tData?.title || tutorial.title,
+          href: `/tutorials/${tutorial.slug}`,
+          duration: tData?.duration || tutorial.duration,
+          level: tData?.level || tutorial.level,
+        };
+      }),
     },
   ];
 

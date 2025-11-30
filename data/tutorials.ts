@@ -1569,6 +1569,538 @@ zsh -c "eval \\"\\$(zoxide init zsh)\\"; z --help"
 
 **注意**：当前视频为占位符，实际部署时需要替换为真实的 YouTube 视频 ID。`,
   },
+  {
+    slug: 'install-ubuntu',
+    title: 'zoxide install Ubuntu',
+    excerpt: 'Complete guide to installing zoxide on Ubuntu and other Debian-based Linux distributions.',
+    duration: '5 min',
+    level: 'Beginner',
+    category: '安装指南',
+    date: '2025-12-01',
+    content: `# How to Install zoxide on Ubuntu
+
+This guide will walk you through installing zoxide on Ubuntu and other Debian-based Linux distributions.
+
+## Prerequisites
+
+- Ubuntu 18.04 or later (or any Debian-based distribution)
+- Terminal access
+- Internet connection
+
+## Installation Methods
+
+### Method 1: Using Cargo (Recommended)
+
+If you have Rust installed, you can use Cargo to install zoxide:
+
+\`\`\`bash
+cargo install zoxide
+\`\`\`
+
+**Note**: If you don't have Rust installed, you can install it using:
+
+\`\`\`bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+\`\`\`
+
+### Method 2: Using Pre-built Binary
+
+Download the pre-built binary from the [zoxide releases page](https://github.com/ajeetdsouza/zoxide/releases):
+
+\`\`\`bash
+# Download the latest release for Linux x86_64
+wget https://github.com/ajeetdsouza/zoxide/releases/latest/download/zoxide-x86_64-unknown-linux-musl.tar.gz
+
+# Extract
+tar -xzf zoxide-x86_64-unknown-linux-musl.tar.gz
+
+# Move to a directory in your PATH
+sudo mv zoxide /usr/local/bin/
+\`\`\`
+
+### Method 3: Using Package Manager (if available)
+
+Some distributions may have zoxide in their repositories:
+
+\`\`\`bash
+# Check if available (may not be available in all distributions)
+sudo apt update
+sudo apt install zoxide
+\`\`\`
+
+## Shell Configuration
+
+After installation, you need to initialize zoxide in your shell configuration file.
+
+### For Bash
+
+Add the following to your \`~/.bashrc\`:
+
+\`\`\`bash
+eval "$(zoxide init bash)"
+\`\`\`
+
+Then reload your shell:
+
+\`\`\`bash
+source ~/.bashrc
+\`\`\`
+
+### For Zsh
+
+Add the following to your \`~/.zshrc\`:
+
+\`\`\`bash
+eval "$(zoxide init zsh)"
+\`\`\`
+
+Then reload your shell:
+
+\`\`\`bash
+source ~/.zshrc
+\`\`\`
+
+### For Fish
+
+Add the following to your \`~/.config/fish/config.fish\`:
+
+\`\`\`fish
+zoxide init fish | source
+\`\`\`
+
+Then reload your shell:
+
+\`\`\`fish
+source ~/.config/fish/config.fish
+\`\`\`
+
+## Verify Installation
+
+Test that zoxide is installed correctly:
+
+\`\`\`bash
+zoxide --version
+\`\`\`
+
+You should see the version number printed.
+
+## Basic Usage
+
+Once installed and configured, you can start using zoxide:
+
+\`\`\`bash
+# Navigate to a directory
+z project
+
+# Interactive selection
+zi project
+
+# Go back to previous directory
+z -
+\`\`\`
+
+## Troubleshooting
+
+### Command Not Found
+
+If you get "command not found" after installation:
+
+1. Check that zoxide is in your PATH:
+   \`\`\`bash
+   which zoxide
+   \`\`\`
+
+2. If not found, add the installation directory to your PATH in \`~/.bashrc\` or \`~/.zshrc\`:
+   \`\`\`bash
+   export PATH="$HOME/.cargo/bin:$PATH"
+   \`\`\`
+
+3. Reload your shell configuration.
+
+### Permission Denied
+
+If you get permission errors:
+
+1. Make sure the binary is executable:
+   \`\`\`bash
+   chmod +x /usr/local/bin/zoxide
+   \`\`\`
+
+2. Or install to a user directory instead:
+   \`\`\`bash
+   mkdir -p ~/.local/bin
+   mv zoxide ~/.local/bin/
+   export PATH="$HOME/.local/bin:$PATH"
+   \`\`\`
+
+## Next Steps
+
+- Learn [basic zoxide commands](/tutorials/basic-commands)
+- Configure [advanced settings](/tutorials/advanced-config)
+- Check out [performance tips](/tutorials/performance)`,
+  },
+  {
+    slug: 'install-macos',
+    title: 'zoxide install macOS',
+    excerpt: 'Step-by-step guide to installing zoxide on macOS using Homebrew or Cargo.',
+    duration: '5 min',
+    level: 'Beginner',
+    category: '安装指南',
+    date: '2025-12-01',
+    content: `# How to Install zoxide on macOS
+
+This guide will help you install zoxide on macOS using the most common methods.
+
+## Prerequisites
+
+- macOS 10.15 or later
+- Terminal access
+- Internet connection
+
+## Installation Methods
+
+### Method 1: Using Homebrew (Recommended)
+
+The easiest way to install zoxide on macOS is using Homebrew:
+
+\`\`\`bash
+brew install zoxide
+\`\`\`
+
+If you don't have Homebrew installed, install it first:
+
+\`\`\`bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+\`\`\`
+
+### Method 2: Using Cargo
+
+If you have Rust installed, you can use Cargo:
+
+\`\`\`bash
+cargo install zoxide
+\`\`\`
+
+**Note**: If you don't have Rust installed, you can install it using:
+
+\`\`\`bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+\`\`\`
+
+### Method 3: Using Pre-built Binary
+
+Download the pre-built binary from the [zoxide releases page](https://github.com/ajeetdsouza/zoxide/releases):
+
+\`\`\`bash
+# Download the latest release for macOS
+curl -LO https://github.com/ajeetdsouza/zoxide/releases/latest/download/zoxide-x86_64-apple-darwin.tar.gz
+
+# Extract
+tar -xzf zoxide-x86_64-apple-darwin.tar.gz
+
+# Move to a directory in your PATH
+sudo mv zoxide /usr/local/bin/
+\`\`\`
+
+For Apple Silicon (M1/M2) Macs:
+
+\`\`\`bash
+# Download the ARM64 version
+curl -LO https://github.com/ajeetdsouza/zoxide/releases/latest/download/zoxide-aarch64-apple-darwin.tar.gz
+
+# Extract
+tar -xzf zoxide-aarch64-apple-darwin.tar.gz
+
+# Move to a directory in your PATH
+sudo mv zoxide /usr/local/bin/
+\`\`\`
+
+## Shell Configuration
+
+After installation, you need to initialize zoxide in your shell configuration file.
+
+### For Zsh (Default on macOS)
+
+Add the following to your \`~/.zshrc\`:
+
+\`\`\`bash
+eval "$(zoxide init zsh)"
+\`\`\`
+
+Then reload your shell:
+
+\`\`\`bash
+source ~/.zshrc
+\`\`\`
+
+### For Bash
+
+If you're using Bash, add to your \`~/.bash_profile\` or \`~/.bashrc\`:
+
+\`\`\`bash
+eval "$(zoxide init bash)"
+\`\`\`
+
+Then reload your shell:
+
+\`\`\`bash
+source ~/.bash_profile
+\`\`\`
+
+### For Fish
+
+If you're using Fish shell, add to your \`~/.config/fish/config.fish\`:
+
+\`\`\`fish
+zoxide init fish | source
+\`\`\`
+
+## Verify Installation
+
+Test that zoxide is installed correctly:
+
+\`\`\`bash
+zoxide --version
+\`\`\`
+
+You should see the version number printed.
+
+## Basic Usage
+
+Once installed and configured, you can start using zoxide:
+
+\`\`\`bash
+# Navigate to a directory
+z project
+
+# Interactive selection
+zi project
+
+# Go back to previous directory
+z -
+\`\`\`
+
+## Troubleshooting
+
+### Command Not Found
+
+If you get "command not found" after installation:
+
+1. Check that zoxide is in your PATH:
+   \`\`\`bash
+   which zoxide
+   \`\`\`
+
+2. If using Homebrew, make sure Homebrew's bin directory is in your PATH:
+   \`\`\`bash
+   echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+   source ~/.zshrc
+   \`\`\`
+
+3. If using Cargo, add Cargo's bin directory to your PATH:
+   \`\`\`bash
+   export PATH="$HOME/.cargo/bin:$PATH"
+   \`\`\`
+
+### Permission Denied
+
+If you get permission errors:
+
+1. Make sure the binary is executable:
+   \`\`\`bash
+   chmod +x /usr/local/bin/zoxide
+   \`\`\`
+
+2. Or install to a user directory:
+   \`\`\`bash
+   mkdir -p ~/.local/bin
+   mv zoxide ~/.local/bin/
+   export PATH="$HOME/.local/bin:$PATH"
+   \`\`\`
+
+## Next Steps
+
+- Learn [basic zoxide commands](/tutorials/basic-commands)
+- Configure [advanced settings](/tutorials/advanced-config)
+- Check out [performance tips](/tutorials/performance)`,
+  },
+  {
+    slug: 'install-windows',
+    title: 'zoxide install Windows',
+    excerpt: 'Complete guide to installing zoxide on Windows using Scoop, Cargo, or pre-built binaries.',
+    duration: '5 min',
+    level: 'Beginner',
+    category: '安装指南',
+    date: '2025-12-01',
+    content: `# How to Install zoxide on Windows
+
+This guide will help you install zoxide on Windows using various methods.
+
+## Prerequisites
+
+- Windows 10 or later
+- PowerShell or Command Prompt
+- Internet connection
+
+## Installation Methods
+
+### Method 1: Using Scoop (Recommended)
+
+The easiest way to install zoxide on Windows is using Scoop:
+
+\`\`\`powershell
+scoop install zoxide
+\`\`\`
+
+If you don't have Scoop installed, install it first:
+
+\`\`\`powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm get.scoop.sh | iex
+\`\`\`
+
+### Method 2: Using Cargo
+
+If you have Rust installed, you can use Cargo:
+
+\`\`\`powershell
+cargo install zoxide
+\`\`\`
+
+**Note**: If you don't have Rust installed, download and run the Rust installer from [rustup.rs](https://rustup.rs/).
+
+### Method 3: Using Pre-built Binary
+
+Download the pre-built binary from the [zoxide releases page](https://github.com/ajeetdsouza/zoxide/releases):
+
+1. Download \`zoxide-x86_64-pc-windows-msvc.zip\` from the latest release
+2. Extract the ZIP file
+3. Move \`zoxide.exe\` to a directory in your PATH (e.g., \`C:\\Windows\\System32\` or create a custom directory)
+
+Or using PowerShell:
+
+\`\`\`powershell
+# Download
+Invoke-WebRequest -Uri "https://github.com/ajeetdsouza/zoxide/releases/latest/download/zoxide-x86_64-pc-windows-msvc.zip" -OutFile "zoxide.zip"
+
+# Extract
+Expand-Archive -Path "zoxide.zip" -DestinationPath "."
+
+# Move to a directory in PATH (create if doesn't exist)
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\\bin"
+Move-Item -Path "zoxide.exe" -Destination "$env:USERPROFILE\\bin\\"
+
+# Add to PATH (run in PowerShell as Administrator or add manually)
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\\bin", [EnvironmentVariableTarget]::User)
+\`\`\`
+
+## Shell Configuration
+
+After installation, you need to initialize zoxide in your shell configuration file.
+
+### For PowerShell
+
+Add the following to your PowerShell profile:
+
+\`\`\`powershell
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+\`\`\`
+
+To find your profile location:
+
+\`\`\`powershell
+$PROFILE
+\`\`\`
+
+If the profile doesn't exist, create it:
+
+\`\`\`powershell
+New-Item -Path $PROFILE -Type File -Force
+\`\`\`
+
+Then add the initialization command and reload:
+
+\`\`\`powershell
+. $PROFILE
+\`\`\`
+
+### For CMD
+
+For Command Prompt, you can create a batch file or add to your PATH. However, PowerShell is recommended for better zoxide integration.
+
+### For Git Bash / WSL
+
+If you're using Git Bash or WSL (Windows Subsystem for Linux), follow the Linux installation instructions.
+
+## Verify Installation
+
+Test that zoxide is installed correctly:
+
+\`\`\`powershell
+zoxide --version
+\`\`\`
+
+You should see the version number printed.
+
+## Basic Usage
+
+Once installed and configured, you can start using zoxide:
+
+\`\`\`powershell
+# Navigate to a directory
+z project
+
+# Interactive selection
+zi project
+
+# Go back to previous directory
+z -
+\`\`\`
+
+## Troubleshooting
+
+### Command Not Found
+
+If you get "command not found" after installation:
+
+1. Check that zoxide is in your PATH:
+   \`\`\`powershell
+   Get-Command zoxide
+   \`\`\`
+
+2. If using Scoop, make sure Scoop's shims are in your PATH (usually automatic).
+
+3. If using Cargo, add Cargo's bin directory to your PATH:
+   \`\`\`powershell
+   [Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\\.cargo\\bin", [EnvironmentVariableTarget]::User)
+   \`\`\`
+
+4. Restart your terminal after modifying PATH.
+
+### Execution Policy Error
+
+If you get an execution policy error in PowerShell:
+
+\`\`\`powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+\`\`\`
+
+### Permission Denied
+
+If you get permission errors:
+
+1. Make sure you have write permissions to the installation directory
+2. Try running PowerShell as Administrator
+3. Or install to a user directory instead
+
+## Next Steps
+
+- Learn [basic zoxide commands](/tutorials/basic-commands)
+- Configure [advanced settings](/tutorials/advanced-config)
+- Check out [performance tips](/tutorials/performance)`,
+  },
 ];
 
 // 根据 slug 获取教程

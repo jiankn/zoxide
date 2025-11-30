@@ -42,6 +42,7 @@ export default async function BlogPage() {
                 '教程': locale === 'zh' ? '教程' : 'Tutorial',
                 '对比': locale === 'zh' ? '对比' : 'Comparison',
                 '技巧': locale === 'zh' ? '技巧' : 'Tips',
+                '故障排除': locale === 'zh' ? '故障排除' : 'Troubleshooting',
               };
               const category = tData?.category || categoryMap[post.category] || post.category;
               return (

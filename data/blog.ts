@@ -310,6 +310,480 @@ j project
     tags: ['对比', '性能', 'autojump'],
     readTime: 8,
   },
+  {
+    id: '4',
+    slug: 'zoxide-command-not-found',
+    title: 'zoxide command not found - How to Fix',
+    excerpt: 'Troubleshooting guide for "zoxide command not found" error. Learn how to fix PATH issues and verify installation.',
+    content: `# zoxide command not found - How to Fix
+
+If you're seeing "zoxide command not found" after installation, this guide will help you troubleshoot and fix the issue.
+
+## Common Causes
+
+The "command not found" error typically occurs due to one of these reasons:
+
+1. **zoxide is not in your PATH**
+2. **Shell configuration not loaded**
+3. **Installation didn't complete successfully**
+4. **Wrong installation method for your system**
+
+## Solution 1: Check Installation
+
+First, verify that zoxide is actually installed:
+
+\`\`\`bash
+# Check if zoxide exists
+which zoxide
+
+# Or try to find it
+find /usr -name zoxide 2>/dev/null
+find ~ -name zoxide 2>/dev/null
+\`\`\`
+
+If zoxide is not found, you need to reinstall it. See the [installation guide](/tutorials/install-ubuntu) for your platform.
+
+## Solution 2: Add to PATH
+
+### Linux / macOS
+
+If zoxide is installed but not in PATH, add it manually:
+
+**For Cargo installation:**
+\`\`\`bash
+# Add to ~/.bashrc or ~/.zshrc
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Reload shell
+source ~/.bashrc  # or source ~/.zshrc
+\`\`\`
+
+**For manual installation:**
+\`\`\`bash
+# If installed to /usr/local/bin
+export PATH="/usr/local/bin:$PATH"
+
+# Or if installed to ~/.local/bin
+export PATH="$HOME/.local/bin:$PATH"
+\`\`\`
+
+### Windows
+
+**For Cargo installation:**
+\`\`\`powershell
+# Add to PATH
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\\.cargo\\bin", [EnvironmentVariableTarget]::User)
+\`\`\`
+
+**For manual installation:**
+\`\`\`powershell
+# Add your installation directory to PATH
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\\path\\to\\zoxide", [EnvironmentVariableTarget]::User)
+\`\`\`
+
+Restart your terminal after modifying PATH.
+
+## Solution 3: Verify Shell Configuration
+
+Make sure zoxide is initialized in your shell configuration file:
+
+**Bash (~/.bashrc):**
+\`\`\`bash
+eval "$(zoxide init bash)"
+\`\`\`
+
+**Zsh (~/.zshrc):**
+\`\`\`bash
+eval "$(zoxide init zsh)"
+\`\`\`
+
+**Fish (~/.config/fish/config.fish):**
+\`\`\`fish
+zoxide init fish | source
+\`\`\`
+
+**PowerShell ($PROFILE):**
+\`\`\`powershell
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+\`\`\`
+
+After adding the configuration, reload your shell:
+- Bash/Zsh: \`source ~/.bashrc\` or \`source ~/.zshrc\`
+- Fish: \`source ~/.config/fish/config.fish\`
+- PowerShell: \`. $PROFILE\`
+
+## Solution 4: Check Installation Method
+
+### Using Homebrew (macOS)
+
+If installed via Homebrew, make sure Homebrew is in your PATH:
+
+\`\`\`bash
+# Check Homebrew location
+brew --prefix
+
+# Add to PATH if needed
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+source ~/.zshrc
+\`\`\`
+
+### Using Scoop (Windows)
+
+Scoop should automatically add programs to PATH. If not working:
+
+\`\`\`powershell
+# Check Scoop installation
+scoop which zoxide
+
+# Reinstall if needed
+scoop uninstall zoxide
+scoop install zoxide
+\`\`\`
+
+### Using Cargo
+
+Verify Cargo is installed and in PATH:
+
+\`\`\`bash
+cargo --version
+which cargo
+
+# If cargo not found, install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+\`\`\`
+
+## Solution 5: Test in New Terminal
+
+Sometimes the PATH changes don't take effect in the current terminal. Try:
+
+1. Close your current terminal
+2. Open a new terminal window
+3. Test zoxide again:
+   \`\`\`bash
+   zoxide --version
+   \`\`\`
+
+## Quick Diagnostic Commands
+
+Run these commands to diagnose the issue:
+
+\`\`\`bash
+# Check if zoxide is installed
+which zoxide || echo "zoxide not in PATH"
+
+# Check PATH
+echo $PATH
+
+# Check shell configuration
+cat ~/.bashrc | grep zoxide  # or ~/.zshrc
+\`\`\`
+
+## Still Not Working?
+
+If none of the above solutions work:
+
+1. **Reinstall zoxide** using the recommended method for your platform
+2. **Check system logs** for installation errors
+3. **Verify your shell** is compatible (bash, zsh, fish, PowerShell)
+4. **Check permissions** - make sure zoxide binary is executable:
+   \`\`\`bash
+   chmod +x $(which zoxide)
+   \`\`\`
+
+## Prevention
+
+To avoid this issue in the future:
+
+1. Use package managers (Homebrew, Scoop) when possible
+2. Always add installation directories to PATH immediately
+3. Test installation right after completing it
+4. Keep your shell configuration files organized
+
+## Related Issues
+
+- [zoxide not working](/blog/zoxide-not-working)
+- [Installation guide for Ubuntu](/tutorials/install-ubuntu)
+- [Installation guide for macOS](/tutorials/install-macos)
+- [Installation guide for Windows](/tutorials/install-windows)`,
+    date: '2025-12-01',
+    author: 'zoxide.org',
+    category: '故障排除',
+    tags: ['troubleshooting', 'installation', 'error', 'command not found'],
+    readTime: 5,
+  },
+  {
+    id: '5',
+    slug: 'zoxide-not-working',
+    title: 'zoxide not working - Troubleshooting Guide',
+    excerpt: 'Comprehensive troubleshooting guide for when zoxide is not working correctly. Fix common issues and get zoxide running again.',
+    content: `# zoxide not working - Troubleshooting Guide
+
+If zoxide is installed but not working as expected, this guide will help you diagnose and fix the issue.
+
+## Common Issues
+
+### Issue 1: zoxide Commands Not Recognized
+
+**Symptoms:**
+- \`z\` command not found
+- \`zi\` command not found
+- "command not found" errors
+
+**Solutions:**
+
+1. **Verify shell configuration is loaded:**
+   \`\`\`bash
+   # Check if zoxide init is in your config
+   grep zoxide ~/.bashrc  # or ~/.zshrc
+   \`\`\`
+
+2. **Reload shell configuration:**
+   \`\`\`bash
+   source ~/.bashrc  # or source ~/.zshrc
+   \`\`\`
+
+3. **Check if zoxide binary exists:**
+   \`\`\`bash
+   which zoxide
+   zoxide --version
+   \`\`\`
+
+### Issue 2: zoxide Not Learning Directories
+
+**Symptoms:**
+- zoxide doesn't remember visited directories
+- \`z\` command always fails to find directories
+- No history is being built
+
+**Solutions:**
+
+1. **Check database location:**
+   \`\`\`bash
+   # Default location
+   ls -la ~/.zo
+   
+   # Check if database exists and is writable
+   touch ~/.zo
+   \`\`\`
+
+2. **Verify permissions:**
+   \`\`\`bash
+   # Make sure you have write permissions
+   ls -l ~/.zo
+   \`\`\`
+
+3. **Check environment variables:**
+   \`\`\`bash
+   echo $ZO_DATA_DIR
+   echo $ZO_EXCLUDE_DIRS
+   \`\`\`
+
+4. **Manually add a directory to test:**
+   \`\`\`bash
+   zoxide add ~/Documents
+   zoxide query Documents
+   \`\`\`
+
+### Issue 3: Slow Performance
+
+**Symptoms:**
+- zoxide commands are slow
+- Delay when using \`z\` command
+- High CPU usage
+
+**Solutions:**
+
+1. **Exclude large directories:**
+   \`\`\`bash
+   export _ZO_EXCLUDE_DIRS="/tmp:/var:/node_modules"
+   \`\`\`
+
+2. **Check database size:**
+   \`\`\`bash
+   ls -lh ~/.zo
+   \`\`\`
+
+3. **Clean up old entries:**
+   \`\`\`bash
+   # Backup first
+   cp ~/.zo ~/.zo.backup
+   
+   # zoxide will rebuild as you use it
+   # Or manually remove if too large
+   \`\`\`
+
+4. **Reduce max age:**
+   \`\`\`bash
+   export _ZO_MAXAGE=5000  # Reduce from default 10000
+   \`\`\`
+
+### Issue 4: Wrong Directory Selected
+
+**Symptoms:**
+- \`z project\` goes to wrong directory
+- Multiple matches but wrong one chosen
+- Inconsistent behavior
+
+**Solutions:**
+
+1. **Use interactive mode:**
+   \`\`\`bash
+   zi project  # Interactive selection
+   \`\`\`
+
+2. **List all matches first:**
+   \`\`\`bash
+   z -l project  # List all matches
+   \`\`\`
+
+3. **Be more specific:**
+   \`\`\`bash
+   z project/src  # More specific path
+   \`\`\`
+
+4. **Check frequency:**
+   - zoxide learns from usage
+   - Frequently visited directories get higher priority
+   - Use directories more often to improve matching
+
+### Issue 5: Shell Integration Not Working
+
+**Symptoms:**
+- \`z\` command works but doesn't change directory
+- Shell hooks not executing
+- No automatic directory tracking
+
+**Solutions:**
+
+1. **Verify initialization:**
+   \`\`\`bash
+   # Check if init command is correct
+   eval "$(zoxide init bash)"  # Test directly
+   \`\`\`
+
+2. **Check shell compatibility:**
+   - Make sure you're using a supported shell (bash, zsh, fish, PowerShell)
+   - Some shells may need different initialization
+
+3. **Manual hook setup (if needed):**
+   \`\`\`bash
+   # For bash/zsh, zoxide should handle this automatically
+   # But you can verify hooks are set:
+   type z
+   \`\`\`
+
+## Diagnostic Steps
+
+Run these commands to diagnose the issue:
+
+\`\`\`bash
+# 1. Check zoxide installation
+zoxide --version
+
+# 2. Check if commands are available
+type z
+type zi
+
+# 3. Check database
+ls -la ~/.zo
+
+# 4. Test basic functionality
+zoxide add ~
+zoxide query ~
+
+# 5. Check environment
+env | grep ZO
+
+# 6. Test in clean environment
+env -i bash -c 'eval "$(zoxide init bash)" && z --help'
+\`\`\`
+
+## Platform-Specific Issues
+
+### Linux
+
+**Issue: Permission denied**
+\`\`\`bash
+# Fix permissions
+chmod +x $(which zoxide)
+sudo chown $USER:$USER ~/.zo
+\`\`\`
+
+### macOS
+
+**Issue: Homebrew path not found**
+\`\`\`bash
+# Add Homebrew to PATH
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+source ~/.zshrc
+\`\`\`
+
+### Windows
+
+**Issue: PowerShell execution policy**
+\`\`\`powershell
+# Allow script execution
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+\`\`\`
+
+## Reset zoxide
+
+If nothing works, you can reset zoxide:
+
+\`\`\`bash
+# Backup current database
+cp ~/.zo ~/.zo.backup
+
+# Remove database (will be recreated)
+rm ~/.zo
+
+# Remove from shell config temporarily
+# Then re-add initialization command
+# Test fresh installation
+\`\`\`
+
+## Getting Help
+
+If you're still experiencing issues:
+
+1. Check the [official zoxide documentation](https://github.com/ajeetdsouza/zoxide)
+2. Search [GitHub issues](https://github.com/ajeetdsouza/zoxide/issues)
+3. Verify your zoxide version is up to date
+4. Check system compatibility
+
+## Prevention Tips
+
+1. **Keep zoxide updated:**
+   \`\`\`bash
+   # Homebrew
+   brew upgrade zoxide
+   
+   # Cargo
+   cargo install --force zoxide
+   \`\`\`
+
+2. **Regular maintenance:**
+   - Periodically check database size
+   - Exclude unnecessary directories
+   - Keep shell configuration clean
+
+3. **Test after changes:**
+   - Always test zoxide after modifying shell config
+   - Verify in new terminal window
+   - Check both \`z\` and \`zi\` commands
+
+## Related Articles
+
+- [zoxide command not found](/blog/zoxide-command-not-found)
+- [Installation guides](/tutorials)
+- [Advanced configuration](/tutorials/advanced-config)`,
+    date: '2025-12-01',
+    author: 'zoxide.org',
+    category: '故障排除',
+    tags: ['troubleshooting', 'error', 'fix', 'not working'],
+    readTime: 8,
+  },
 ];
 
 // 根据 slug 获取文章
