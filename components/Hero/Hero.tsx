@@ -20,7 +20,7 @@ export default function Hero() {
                 {t('subtitle')}
               </span>
             </h1>
-            <p className="mx-auto mt-8 text-xl text-[#787774] dark:text-gray-400 max-w-2xl leading-relaxed font-sans lg:mx-0">
+            <p className="mx-auto mt-8 text-xl text-[#6a6968] dark:text-gray-400 max-w-2xl leading-relaxed font-sans lg:mx-0">
               {t('description')}
             </p>
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -51,6 +51,7 @@ export default function Hero() {
                   fill
                   className="object-cover"
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
