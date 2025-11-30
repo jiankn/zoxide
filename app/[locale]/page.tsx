@@ -1,0 +1,189 @@
+import Hero from '@/components/Hero/Hero';
+import AdSlot from '@/components/AdSlot/AdSlot';
+import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { Zap, Search, Brain } from 'lucide-react';
+
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  return {
+    title: t('titles.home'),
+    description: 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。',
+    keywords: t('main'),
+  };
+}
+
+export default async function Home() {
+  const t = await getTranslations('home');
+  const tCommon = await getTranslations('common');
+
+  return (
+    <div className="flex flex-col">
+      {/* Hero 区域 */}
+      <Hero />
+
+      {/* 主内容区域 - 双栏布局 */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* 主内容区 - 占 2/3 宽度 */}
+          <main className="lg:col-span-2 space-y-12">
+            {/* 广告位 1: Hero 下方 */}
+            <AdSlot slotId="home-top" />
+
+            {/* 功能亮点卡片 */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                {t('features.title')}
+              </h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800">
+                  <Zap className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('features.fast.title')}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {t('features.fast.description')}
+                  </p>
+                </div>
+                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800">
+                  <Search className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('features.fuzzy.title')}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {t('features.fuzzy.description')}
+                  </p>
+                </div>
+                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800">
+                  <Brain className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('features.smart.title')}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {t('features.smart.description')}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* 安装指南 */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                {t('installation.title')}
+              </h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    Homebrew ({t('installation.macos')})
+                  </h3>
+                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                    brew install zoxide
+                  </code>
+                </div>
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    Scoop ({t('installation.windows')})
+                  </h3>
+                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                    scoop install zoxide
+                  </code>
+                </div>
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    Cargo ({t('installation.linux')})
+                  </h3>
+                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                    cargo install zoxide
+                  </code>
+                </div>
+              </div>
+            </section>
+
+            {/* 广告位 2: 安装指南与教程推荐之间 */}
+            <AdSlot slotId="home-middle" />
+
+            {/* 教程推荐 */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                {t('tutorials.title')}
+              </h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <Link
+                  href="/tutorials/quick-start"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('tutorials.quickStart')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('tutorials.quickStartDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/advanced-config"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('tutorials.advanced')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('tutorials.advancedDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/shell-setup"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('tutorials.shellIntegration')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('tutorials.shellIntegrationDesc')}
+                  </p>
+                </Link>
+              </div>
+            </section>
+
+            {/* CTA 区域 */}
+            <section className="rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center text-white">
+              <h2 className="text-2xl font-bold mb-4">
+                {t('cta.title')}
+              </h2>
+              <p className="mb-6 text-blue-100">
+                {t('cta.description')}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/download"
+                  className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-blue-600 transition-all hover:bg-gray-100"
+                >
+                  {t('cta.install')}
+                </Link>
+                <a
+                  href="https://github.com/ajeetdsouza/zoxide"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-lg border-2 border-white px-6 py-3 font-semibold text-white transition-all hover:bg-white/10"
+                >
+                  {t('cta.github')}
+                </a>
+              </div>
+            </section>
+
+            {/* 广告位 4: CTA 区域之后 */}
+            <AdSlot slotId="home-bottom" />
+          </main>
+
+          {/* 侧边栏 - 占 1/3 宽度，Sticky 定位 */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-20 self-start max-h-[calc(100vh-80px)]">
+              {/* 广告位 3: 侧边栏 Sticky 广告 */}
+              <AdSlot slotId="home-sidebar" lazy={true} />
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  );
+}

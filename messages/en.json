@@ -1,0 +1,694 @@
+{
+  "common": {
+    "home": "Home",
+    "features": "Features",
+    "tutorials": "Tutorials",
+    "download": "Download",
+    "blog": "Blog",
+    "changelog": "Changelog",
+    "faq": "FAQ",
+    "comparisons": "Comparisons",
+    "about": "About Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "search": "Search",
+    "searchPlaceholder": "Search tutorials, blog posts, pages...",
+    "noResults": "No results found",
+    "startSearching": "Type keywords to start searching",
+    "searchHint": "Supports searching tutorials, blog posts, and pages",
+    "currentLanguage": "Current Language",
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "back": "Back",
+    "accept": "Accept",
+    "manage": "Manage",
+    "savePreferences": "Save Preferences",
+    "acceptAll": "Accept All",
+    "close": "Close",
+    "toggleTheme": "Toggle Theme",
+    "github": "GitHub",
+    "share": "Share",
+    "shareLabel": "Share:",
+    "shareToTwitter": "Share to Twitter",
+    "shareToFacebook": "Share to Facebook",
+    "copyLink": "Copy Link",
+    "linkCopied": "Copied",
+    "copyFailed": "Copy failed"
+  },
+  "home": {
+    "title": "zoxide - A smarter cd command",
+    "subtitle": "Navigate directories 10x faster",
+    "description": "zoxide is a smart directory jumper written in Rust with exceptional performance. Supports fuzzy search and learns your usage patterns to make terminal navigation effortless and efficient.",
+    "getStarted": "Get Started",
+    "viewDocs": "View Docs",
+    "features": {
+      "title": "Why choose zoxide?",
+      "smart": {
+        "title": "Smart Learning",
+        "description": "Automatically records directories you visit and learns your usage patterns"
+      },
+      "fast": {
+        "title": "Blazing Fast",
+        "description": "Written in Rust, 10x faster than traditional cd command"
+      },
+      "fuzzy": {
+        "title": "Fuzzy Search",
+        "description": "Just type part of the directory name to jump"
+      }
+    },
+    "installation": {
+      "title": "Quick Install",
+      "macos": "macOS",
+      "linux": "Linux",
+      "windows": "Windows"
+    },
+    "tutorials": {
+      "title": "Recommended Tutorials",
+      "viewAll": "View All Tutorials",
+      "quickStart": "Quick Start",
+      "quickStartDesc": "Get started with zoxide in 5 minutes, learn basic commands and configuration.",
+      "advanced": "Advanced Config",
+      "advancedDesc": "Learn advanced configuration and tips to improve productivity.",
+      "shellIntegration": "Shell Integration",
+      "shellIntegrationDesc": "Configure zsh, bash, fish and other shell environments."
+    },
+    "cta": {
+      "title": "Join 100K+ Developers",
+      "description": "Experience zoxide now and make terminal navigation effortless and efficient",
+      "install": "Install Now",
+      "github": "View GitHub"
+    }
+  },
+  "features": {
+    "title": "zoxide Features",
+    "description": "Learn about zoxide's core features: blazing performance, smart search, learning patterns, team collaboration, and more.",
+    "core": {
+      "title": "Core Capabilities",
+      "fast": {
+        "title": "Blazing Fast",
+        "description": "Written in Rust, extremely fast startup speed, 10x faster than traditional cd command."
+      },
+      "fuzzy": {
+        "title": "Smart Search",
+        "description": "Supports fuzzy search, no need to type full path, just type part of the directory name to jump."
+      },
+      "smart": {
+        "title": "Learning Patterns",
+        "description": "Automatically learns your usage patterns, frequently visited directories are prioritized, gets smarter with use."
+      }
+    },
+    "advanced": {
+      "title": "Advanced Features",
+      "config": {
+        "title": "Flexible Configuration",
+        "description": "Supports environment variables, custom aliases, directory exclusion and other advanced features."
+      },
+      "team": {
+        "title": "Team Collaboration",
+        "description": "Supports shared database, team members can share common directories to improve team efficiency."
+      },
+      "performance": {
+        "title": "Performance Optimization",
+        "description": "Optimize performance by excluding directories, limiting history, and more to maintain blazing speed."
+      }
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Learn about zoxide.org - a zoxide fan site providing tutorials, tips, and latest updates.",
+    "mission": {
+      "title": "Our Mission",
+      "description": "zoxide.org is a fan site dedicated to promoting and helping users use zoxide. We provide detailed tutorials, usage tips, FAQs and more to help developers better use this powerful tool."
+    },
+    "disclaimer": {
+      "title": "Important Disclaimer",
+      "label": "Disclaimer:",
+      "message": "Zoxide.org is an independent, community-driven documentation project and is not affiliated with, endorsed by, or connected to Ajeet D'Souza or the official Zoxide project.",
+      "closeLabel": "Close"
+    },
+    "content": {
+      "title": "Website Content",
+      "description": "Our website includes the following content:",
+      "tutorials": "Tutorials: Complete tutorials from beginner to advanced",
+      "blog": "Blog: Usage tips, performance optimization, comparison articles, etc.",
+      "download": "Download Guide: Installation methods and configuration instructions for each platform",
+      "changelog": "Changelog: zoxide version update history",
+      "faq": "FAQ: Frequently asked questions and troubleshooting guide"
+    },
+    "opensource": {
+      "title": "Open Source Project",
+      "description": "zoxide is an open source project developed by <a href=\"https://github.com/ajeetdsouza\" target=\"_blank\" rel=\"noopener noreferrer\">Ajeet D'Souza</a>. You can view the source code and contributions on <a href=\"https://github.com/ajeetdsouza/zoxide\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "If you have any questions, suggestions, or feedback, please contact us through:",
+      "email": "Email: <a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>",
+      "website": "Website: <a href=\"https://zoxide.org\">zoxide.org</a>",
+      "github": "GitHub: <a href=\"https://github.com/ajeetdsouza/zoxide\" target=\"_blank\" rel=\"noopener noreferrer\">zoxide Official Repository</a>"
+    },
+    "legal": {
+      "title": "Privacy and Terms",
+      "description": "Please see our <a href=\"/privacy-policy\" className=\"text-blue-600 hover:text-blue-800 underline dark:text-blue-400\">Privacy Policy</a> and <a href=\"/terms-of-service\" className=\"text-blue-600 hover:text-blue-800 underline dark:text-blue-400\">Terms of Service</a>."
+    }
+  },
+  "faq": {
+    "title": "zoxide FAQ - Frequently Asked Questions",
+    "description": "Common questions and solutions about zoxide usage, including installation, configuration, troubleshooting, etc.",
+    "items": [
+      {
+        "question": "Which shells does zoxide support?",
+        "answer": "zoxide supports all major shells including zsh, bash, fish, PowerShell, etc."
+      },
+      {
+        "question": "How to install zoxide?",
+        "answer": "You can install using Homebrew (macOS), Scoop (Windows), or Cargo (all platforms). See the download page for detailed installation guide."
+      },
+      {
+        "question": "How much faster is zoxide than cd?",
+        "answer": "zoxide is written in Rust and starts up 10x faster than traditional cd command."
+      },
+      {
+        "question": "How to configure zoxide?",
+        "answer": "Just add the initialization command to your shell config file. For example, add to ~/.zshrc: eval \"$(zoxide init zsh)\""
+      },
+      {
+        "question": "Does zoxide learn my usage patterns?",
+        "answer": "Yes, zoxide automatically records directories you visit and learns your usage patterns. Frequently visited directories are prioritized."
+      }
+    ]
+  },
+  "cookie": {
+    "title": "Cookie Preferences",
+    "message": "We use cookies to improve your browsing experience, analyze website traffic, and personalize content. By continuing to use this website, you agree to our",
+    "privacyPolicy": "Privacy Policy",
+    "necessary": {
+      "title": "Necessary Cookies",
+      "description": "These cookies are essential for the website to function and cannot be disabled.",
+      "alwaysEnabled": "Always Enabled"
+    },
+    "analytics": {
+      "title": "Analytics Cookies",
+      "description": "Help us understand how visitors use the website to improve user experience."
+    },
+    "marketing": {
+      "title": "Marketing Cookies",
+      "description": "Used to display personalized ads and track ad performance."
+    }
+  },
+  "disclaimer": {
+    "label": "Disclaimer:",
+    "message": "Zoxide.org is an independent, community-driven documentation project and is not affiliated with, endorsed by, or connected to Ajeet D'Souza or the official Zoxide project.",
+    "closeLabel": "Close"
+  },
+  "footer": {
+    "description": "A smarter cd command alternative that makes directory navigation faster and more efficient.",
+    "product": "Product",
+    "resources": "Resources",
+    "comparisons": "Comparisons",
+    "about": "About Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© 2025 zoxide.org. Zoxide is open-source software distributed under the MIT License. All product names, logos, and brands are property of their respective owners.",
+    "disclaimer": "This website is informational only, not affiliated with ajeetdsouza or Ajeet D'Souza.",
+    "links": {
+      "features": "Features",
+      "download": "Download",
+      "changelog": "Changelog",
+      "tutorials": "Tutorials",
+      "blog": "Blog",
+      "faq": "FAQ",
+      "vsAutojump": "zoxide vs autojump",
+      "vsZ": "zoxide vs z",
+      "vsFasd": "zoxide vs fasd"
+    }
+  },
+  "seo": {
+    "main": "zoxide, smart cd command, cd alternative, zoxide tutorial, zoxide install, how to use zoxide",
+    "install": "zoxide install, how to install zoxide, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows",
+    "features": "zoxide features, zoxide capabilities, smart cd command, zoxide performance, best cd replacement",
+    "tutorial": "zoxide tutorial, zoxide quick start, how to use zoxide, zoxide setup guide, zoxide configuration, zoxide shell integration",
+    "comparison": "zoxide vs autojump, zoxide vs z, zoxide vs fasd, best cd replacement tool",
+    "blog": "zoxide blog, zoxide tutorial, zoxide tips, zoxide news",
+    "faq": "zoxide faq, zoxide common issues, zoxide troubleshooting, zoxide problems",
+    "changelog": "zoxide changelog, zoxide updates, zoxide new features, zoxide version history",
+    "video": "zoxide video tutorial, zoxide youtube",
+    "legal": "privacy policy, terms of service, about us",
+    "titles": {
+      "home": "zoxide install - Smart cd Command Alternative | Navigate 10x Faster",
+      "features": "zoxide Features - Smart cd Command Tool | Blazing Performance",
+      "download": "zoxide Install Guide - macOS Linux Windows | One-Click Install",
+      "tutorials": "zoxide Tutorial - Complete Guide | Smart cd Command",
+      "tutorial": "zoxide Tutorial - {title} | Complete Usage Guide",
+      "blog": "zoxide Command Tips - Tutorial & Best Practices | Blog",
+      "blogPost": "{title} - zoxide Blog | Tips and Best Practices",
+      "faq": "zoxide FAQ - Troubleshooting Guide | Common Questions",
+      "changelog": "zoxide Changelog - Version History and Feature Updates | Latest Version",
+      "comparisons": "zoxide vs Other Tools - Best cd Alternative Comparison | Tool Comparison",
+      "about": "About Us - zoxide.org Fan Site | zoxide Community",
+      "privacyPolicy": "Privacy Policy - zoxide.org | Data Protection",
+      "termsOfService": "Terms of Service - zoxide.org | Usage Agreement",
+      "videos": "zoxide Video Tutorial - YouTube Video Learning | Video Guide"
+    }
+  },
+  "tutorials": {
+    "title": "zoxide Tutorials",
+    "description": "From quick start to advanced configuration, here are complete zoxide usage tutorials. Whether you're a beginner or advanced user, you can find suitable content.",
+    "videos": {
+      "description": "Learn zoxide usage through videos, including installation, configuration, and advanced tips."
+    },
+    "categories": {
+      "beginner": "Beginner Tutorials",
+      "advanced": "Advanced Tips",
+      "video": "Video & FAQ"
+    },
+    "faqLink": "FAQ",
+    "read": "Read",
+    "all": "All",
+    "detail": {
+      "backToList": "← Back to Tutorials",
+      "readTime": "min read",
+      "all": "All"
+    },
+    "data": {
+      "quick-start": {
+        "title": "zoxide Quick Start",
+        "excerpt": "Get started with zoxide in 5 minutes, learn basic commands and configuration methods.",
+        "duration": "5 min",
+        "level": "Beginner",
+        "category": "Beginner Tutorials"
+      },
+      "basic-commands": {
+        "title": "zoxide Basic Commands",
+        "excerpt": "Learn all basic zoxide commands and usage tips in depth.",
+        "duration": "10 min",
+        "level": "Beginner",
+        "category": "Beginner Tutorials"
+      },
+      "shell-setup": {
+        "title": "Shell Configuration Guide",
+        "excerpt": "Detailed configuration of zoxide integration in different Shell environments.",
+        "duration": "15 min",
+        "level": "Beginner",
+        "category": "Beginner Tutorials"
+      },
+      "advanced-config": {
+        "title": "zoxide Advanced Configuration",
+        "excerpt": "Learn advanced zoxide configuration options, including environment variables, custom aliases, directory exclusion, etc.",
+        "duration": "15 min",
+        "level": "Intermediate",
+        "category": "Advanced Tips"
+      },
+      "fzf-integration": {
+        "title": "zoxide and fzf Integration",
+        "excerpt": "Learn how to combine zoxide with fzf to achieve more powerful directory search and selection.",
+        "duration": "25 min",
+        "level": "Advanced",
+        "category": "Advanced Tips"
+      },
+      "performance": {
+        "title": "zoxide Performance Optimization",
+        "excerpt": "Optimize zoxide performance, including database optimization, directory exclusion, history limiting, and more.",
+        "duration": "20 min",
+        "level": "Advanced",
+        "category": "Advanced Tips"
+      },
+      "team-collaboration": {
+        "title": "zoxide Team Collaboration",
+        "excerpt": "Learn how to share zoxide database in teams to improve team efficiency.",
+        "duration": "15 min",
+        "level": "Intermediate",
+        "category": "Advanced Tips"
+      },
+      "videos": {
+        "title": "zoxide Video Tutorials",
+        "excerpt": "Watch zoxide video tutorials to quickly learn basic usage and advanced tips.",
+        "duration": "10 min",
+        "level": "Beginner",
+        "category": "Video & FAQ"
+      },
+      "troubleshooting": {
+        "title": "zoxide Troubleshooting",
+        "excerpt": "Solve common problems when using zoxide, including installation issues, configuration problems, performance issues, etc.",
+        "duration": "20 min",
+        "level": "Intermediate",
+        "category": "Video & FAQ"
+      }
+    }
+  },
+  "blog": {
+    "title": "zoxide Blog",
+    "description": "Read zoxide-related articles: usage tutorials, configuration tips, performance optimization, version updates, etc.",
+    "readTime": "min read",
+    "detail": {
+      "author": "Author",
+      "category": "Category",
+      "readTime": "min read",
+      "relatedPosts": "Related Posts"
+    },
+    "notFound": "Post Not Found",
+    "data": {
+      "quick-start": {
+        "title": "zoxide Quick Start Guide",
+        "excerpt": "Get started with zoxide in 5 minutes, learn basic commands and configuration methods.",
+        "category": "Tutorial",
+        "author": "zoxide.org",
+        "tags": ["Quick Start", "Installation", "Configuration"],
+        "content": "# zoxide Quick Start Guide\n\nzoxide is a smart directory jumper written in Rust with exceptional performance. This guide will help you get started in 5 minutes.\n\n## Installing zoxide\n\n### macOS\n\\`\\`\\`bash\nbrew install zoxide\n\\`\\`\\`\n\n### Windows\n\\`\\`\\`bash\nscoop install zoxide\n\\`\\`\\`\n\n### Linux / All Platforms\n\\`\\`\\`bash\ncargo install zoxide\n\\`\\`\\`\n\n## Shell Configuration\n\nAfter installation, you need to add the initialization command to your Shell configuration file.\n\n### zsh\nAdd to \\`~/.zshrc\\`:\n\\`\\`\\`bash\neval \"$(zoxide init zsh)\"\n\\`\\`\\`\n\n### bash\nAdd to \\`~/.bashrc\\`:\n\\`\\`\\`bash\neval \"$(zoxide init bash)\"\n\\`\\`\\`\n\n### fish\nAdd to \\`~/.config/fish/config.fish\\`:\n\\`\\`\\`fish\nzoxide init fish | source\n\\`\\`\\`\n\n## Basic Usage\n\nAfter configuration, reload your Shell or open a new terminal window to start using zoxide.\n\n### Basic Commands\n\n- \\`z <directory>\\` - Jump to matching directory\n- \\`zi <directory>\\` - Interactive directory selection (with fuzzy search)\n- \\`z -\\` - Return to previous directory\n- \\`z -l\\` - List all matching directories\n\n### Examples\n\n\\`\\`\\`bash\n# Jump to directory containing \"project\"\nz project\n\n# Interactive directory selection\nzi pro\n\n# Return to previous directory\nz -\n\\`\\`\\`\n\n## Advanced Tips\n\n### Excluding Directories\n\nUse the \\`_ZO_EXCLUDE_DIRS\\` environment variable to exclude directories from indexing:\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var\"\n\\`\\`\\`\n\n### Custom Database Location\n\nBy default, the database is stored in \\`~/.zo\\`. You can customize it with \\`_ZO_DATA_DIR\\`:\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n## Summary\n\nzoxide makes directory navigation simple and efficient. With smart learning and fuzzy search, you can quickly jump to any directory without typing the full path.\n\nFor more advanced usage, check out the [Advanced Configuration Tutorial](/tutorials/advanced-config)."
+      },
+      "advanced-config": {
+        "title": "zoxide Advanced Configuration Tips",
+        "excerpt": "Learn how to configure zoxide to improve productivity, including alias settings, directory exclusion, etc.",
+        "category": "Tips",
+        "author": "zoxide.org",
+        "tags": ["Configuration", "Advanced", "Optimization"],
+        "content": "# zoxide Advanced Configuration Tips\n\nzoxide provides rich configuration options that allow you to customize your experience according to your needs.\n\n## Environment Variable Configuration\n\n### Excluding Directories\n\nUse \\`_ZO_EXCLUDE_DIRS\\` to exclude directories from indexing, improving performance:\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n\\`\\`\\`\n\nMultiple directories are separated by colons.\n\n### Custom Database Location\n\nBy default, the database is stored in the \\`.zo\\` file in your home directory. You can customize it with \\`_ZO_DATA_DIR\\`:\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n### Maximum History Age\n\nUse \\`_ZO_MAXAGE\\` to set the maximum history age in days (default 10000):\n\n\\`\\`\\`bash\nexport _ZO_MAXAGE=5000\n\\`\\`\\`\n\n## Alias Settings\n\nzoxide supports custom aliases to make common commands shorter:\n\n\\`\\`\\`bash\n# Add to Shell config file\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n\\`\\`\\`\n\n## Integration with fzf\n\nCombining with fzf enables more powerful directory search and selection:\n\n\\`\\`\\`bash\n# Add to ~/.zshrc\nzi() {\n  local dir\n  dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n\\`\\`\\`\n\n## Performance Optimization\n\n### Reducing Index Range\n\nOnly indexing commonly used directories can significantly improve performance:\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\\`\\`\\`\n\n### Regular Database Cleanup\n\nIf the database is too large, you can manually clean it:\n\n\\`\\`\\`bash\n# Check database size\nls -lh ~/.zo\n\n# Delete database to start fresh (use with caution)\nrm ~/.zo\n\\`\\`\\`\n\n## Team Collaboration\n\nzoxide supports shared databases, allowing team members to share common directories:\n\n\\`\\`\\`bash\n# Use shared database location\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n\\`\\`\\`\n\n## Summary\n\nWith proper configuration, zoxide can better adapt to your workflow. We recommend starting by excluding unnecessary directories and gradually optimizing the configuration.\n\nFor more configuration options, check out the [official documentation](https://github.com/ajeetdsouza/zoxide)."
+      },
+      "zoxide-vs-autojump": {
+        "title": "zoxide vs autojump Performance Comparison",
+        "excerpt": "Detailed comparison of the performance differences and user experience between zoxide and autojump.",
+        "category": "Comparison",
+        "author": "zoxide.org",
+        "tags": ["Comparison", "Performance", "autojump"],
+        "content": "# zoxide vs autojump Performance Comparison\n\nzoxide and autojump are both smart directory jump tools, but they have significant differences in performance, features, and usability.\n\n## Performance Comparison\n\n### Startup Speed\n\nzoxide is written in Rust and starts extremely fast:\n\n- **zoxide**: ~5ms startup time\n- **autojump**: ~50ms startup time\n\nzoxide is **10x faster** than autojump.\n\n### Query Speed\n\nIn large project directories, zoxide's query speed is also significantly faster:\n\n- **zoxide**: Fuzzy search < 10ms\n- **autojump**: Query time 20-50ms\n\n## Feature Comparison\n\n### Fuzzy Search\n\n- **zoxide**: ✅ Supports fuzzy search, no need for full path\n- **autojump**: ❌ No fuzzy search support\n\n### Interactive Selection\n\n- **zoxide**: ✅ Supports \\`zi\\` command for interactive selection\n- **autojump**: ❌ Not supported\n\n### Learning Algorithm\n\n- **zoxide**: ✅ Smart learning algorithm, gets more accurate with use\n- **autojump**: ✅ Basic frequency statistics\n\n## Usability Comparison\n\n### Command Simplicity\n\nzoxide's commands are more concise:\n\n\\`\\`\\`bash\n# zoxide\nz project\n\n# autojump\nj project\n\\`\\`\\`\n\n### Configuration Complexity\n\n- **zoxide**: Simple configuration, just one initialization command\n- **autojump**: Requires additional Shell integration configuration\n\n## Cross-Platform Support\n\n- **zoxide**: ✅ Supports macOS, Linux, Windows\n- **autojump**: ✅ Supports macOS, Linux (limited Windows support)\n\n## Maintenance Status\n\n- **zoxide**: Very active, continuous updates\n- **autojump**: Slower updates\n\n## Summary\n\n| Feature | zoxide | autojump |\n|---------|--------|----------|\n| Performance | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |\n| Fuzzy Search | ✅ | ❌ |\n| Interactive Selection | ✅ | ❌ |\n| Cross-platform | ✅ | ✅ |\n| Maintenance Status | Active | Slow |\n\n**Conclusion**: If you're looking for performance and modern experience, zoxide is the better choice. If you're already used to autojump, migrating to zoxide is also simple.\n\nCheck out the [full comparison](/comparisons) for more details."
+      }
+    }
+  },
+  "download": {
+    "title": "Download zoxide",
+    "description": "Install zoxide on macOS, Linux, and Windows. After installation, remember to initialize Shell configuration to make zoxide work. For more installation options and detailed documentation, see",
+    "githubLink": "Official GitHub Repository",
+    "installMethods": {
+      "title": "Choose Installation Method"
+    },
+    "installers": {
+      "homebrew": {
+        "platform": "macOS",
+        "description": "Simplest installation method on macOS"
+      },
+      "scoop": {
+        "platform": "Windows",
+        "description": "Recommended installation method on Windows"
+      },
+      "cargo": {
+        "platform": "All Platforms",
+        "description": "Requires Rust and Cargo to be installed first"
+      }
+    },
+    "shellConfig": {
+      "title": "Shell Configuration",
+      "description": "After installation, you need to add the following commands to your Shell configuration file. Choose the corresponding configuration based on the Shell you use:",
+      "tip": "💡 Tip: Add the configuration to the corresponding Shell config file (such as ~/.zshrc, ~/.bashrc, etc.), then reload the Shell or open a new terminal window to use it."
+    }
+  },
+  "changelog": {
+    "title": "zoxide Changelog",
+    "description": "View zoxide's version update history, learn about new features, fixes, and performance optimizations.",
+    "versions": [
+      {
+        "version": "0.9.4",
+        "date": "2024-10-28",
+        "changes": [
+          { "type": "Fix", "content": "Fixed path handling issues on Windows platform" },
+          { "type": "Improvement", "content": "Improved error handling mechanism" }
+        ]
+      },
+      {
+        "version": "0.9.3",
+        "date": "2024-09-15",
+        "changes": [
+          { "type": "New Feature", "content": "Added interactive directory selection feature (zi command)" },
+          { "type": "Performance", "content": "Optimized database query performance, improved by 20%" },
+          { "type": "Improvement", "content": "Improved fuzzy search algorithm, enhanced matching accuracy" }
+        ]
+      },
+      {
+        "version": "0.9.2",
+        "date": "2024-07-20",
+        "changes": [
+          { "type": "Fix", "content": "Fixed initialization issues in some Shell environments" },
+          { "type": "Improvement", "content": "Optimized memory usage" }
+        ]
+      },
+      {
+        "version": "0.9.1",
+        "date": "2024-05-10",
+        "changes": [
+          { "type": "New Feature", "content": "Added PowerShell integration support" },
+          { "type": "Improvement", "content": "Improved cross-platform compatibility" }
+        ]
+      },
+      {
+        "version": "0.9.0",
+        "date": "2024-03-15",
+        "changes": [
+          { "type": "New Feature", "content": "Added directory exclusion configuration option (_ZO_EXCLUDE_DIRS)" },
+          { "type": "Performance", "content": "Optimized startup speed, reduced initialization time" },
+          { "type": "Improvement", "content": "Improved database storage format" }
+        ]
+      },
+      {
+        "version": "0.8.5",
+        "date": "2023-12-20",
+        "changes": [
+          { "type": "Fix", "content": "Fixed path handling issues when paths contain special characters" },
+          { "type": "Improvement", "content": "Improved error message prompts" }
+        ]
+      },
+      {
+        "version": "0.8.4",
+        "date": "2023-11-05",
+        "changes": [
+          { "type": "New Feature", "content": "Added support for custom database location (_ZO_DATA_DIR)" },
+          { "type": "Improvement", "content": "Improved learning algorithm, enhanced matching accuracy" }
+        ]
+      }
+    ]
+  },
+  "comparisons": {
+    "title": "zoxide vs Other Tools",
+    "description": "Compare the differences between zoxide and other directory navigation tools to understand why choose zoxide.",
+    "vs": "zoxide vs {tool}",
+    "table": {
+      "feature": "Feature"
+    },
+    "features": {
+      "性能": "Performance",
+      "模糊搜索": "Fuzzy Search",
+      "学习算法": "Learning Algorithm",
+      "跨平台": "Cross-platform",
+      "维护状态": "Maintenance Status"
+    },
+    "items": [
+      {
+        "tool": "autojump",
+        "features": {
+          "性能": "Medium",
+          "模糊搜索": "Not Supported",
+          "学习算法": "Basic",
+          "跨平台": "Yes",
+          "维护状态": "Active"
+        },
+        "zoxideFeatures": {
+          "性能": "Very Fast (Rust)",
+          "模糊搜索": "Supported",
+          "学习算法": "Smart",
+          "跨平台": "Yes",
+          "维护状态": "Very Active"
+        }
+      },
+      {
+        "tool": "z",
+        "features": {
+          "性能": "Medium",
+          "模糊搜索": "Not Supported",
+          "学习算法": "Basic",
+          "跨平台": "Yes",
+          "维护状态": "Slow"
+        },
+        "zoxideFeatures": {
+          "性能": "Very Fast (Rust)",
+          "模糊搜索": "Supported",
+          "学习算法": "Smart",
+          "跨平台": "Yes",
+          "维护状态": "Very Active"
+        }
+      }
+    ]
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: November 30, 2025",
+    "sections": {
+      "collection": {
+        "title": "1. Information Collection",
+        "content": [
+          "<strong>Automatically Collected Information</strong>: When you visit our website, we may automatically collect certain information, including your IP address, browser type, access time, and pages visited.",
+          "<strong>Cookies and Similar Technologies</strong>: We use cookies to improve your browsing experience, analyze website traffic, and personalize content.",
+          "<strong>Third-Party Services</strong>: We use Google AdSense to display ads, and these services may collect your information for ad personalization."
+        ]
+      },
+      "usage": {
+        "title": "2. Information Use",
+        "content": "We use the collected information for the following purposes: providing and maintaining our services, improving user experience, analyzing website usage, and displaying relevant ads."
+      },
+      "cookies": {
+        "title": "3. Cookie Use",
+        "content": "We use cookies to: remember your preferences, analyze website traffic, and provide personalized ads. You can manage cookie preferences through your browser settings. Please note that disabling cookies may affect some website features."
+      },
+      "thirdParty": {
+        "title": "4. Third-Party Services",
+        "content": [
+          "<strong>Google AdSense</strong>: Used to display ads. Google may use cookies to display personalized ads based on your interests. You can visit <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google Privacy Policy</a> for more information.",
+          "<strong>Google Analytics</strong> (if used): Used to analyze website traffic."
+        ]
+      },
+      "security": {
+        "title": "5. Data Security",
+        "content": "We take reasonable security measures to protect your personal information, but we cannot guarantee absolute security. We recommend that you take appropriate measures to protect your personal information."
+      },
+      "children": {
+        "title": "6. Children's Privacy",
+        "content": "Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children."
+      },
+      "changes": {
+        "title": "7. Privacy Policy Changes",
+        "content": "We may update this privacy policy from time to time. We will post the updated privacy policy on this page and update the \"Last Updated\" date."
+      },
+      "contact": {
+        "title": "8. Contact Us",
+        "content": "If you have any questions about this privacy policy, please contact us through: Website: <a href=\"https://zoxide.org\">zoxide.org</a>"
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last Updated: November 30, 2025",
+    "sections": {
+      "accept": {
+        "title": "1. Acceptance of Terms",
+        "content": "By accessing and using zoxide.org (\"this website\"), you agree to comply with these Terms of Service. If you do not agree to these terms, please do not use this website."
+      },
+      "nature": {
+        "title": "2. Website Nature",
+        "content": "<strong>Important Notice</strong>: This website is informational only and is not affiliated with ajeetdsouza or Ajeet D'Souza. We do not host files, only link to SourceForge releases. All content is original."
+      },
+      "license": {
+        "title": "3. Use License",
+        "content": "Subject to compliance with these Terms of Service, we grant you a limited, non-exclusive, non-transferable license to access and use this website."
+      },
+      "prohibited": {
+        "title": "4. Prohibited Conduct",
+        "content": [
+          "Use this website in any illegal or unauthorized manner",
+          "Attempt to access any part of this website without authorization",
+          "Interfere with or disrupt the normal operation of this website",
+          "Copy, modify, or distribute the content of this website (unless expressly permitted)"
+        ]
+      },
+      "ip": {
+        "title": "5. Intellectual Property",
+        "content": "All content on this website, including but not limited to text, graphics, logos, icons, and software, is our property or property we are authorized to use, protected by copyright and other intellectual property laws."
+      },
+      "disclaimer": {
+        "title": "6. Disclaimer",
+        "content": "This website is provided \"as is\" without any express or implied warranties. We do not guarantee: the website will always be available or error-free, the website content is accurate, complete, or up-to-date, the website will meet your specific needs."
+      },
+      "liability": {
+        "title": "7. Limitation of Liability",
+        "content": "To the maximum extent permitted by law, we are not liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use this website."
+      },
+      "links": {
+        "title": "8. External Links",
+        "content": "This website may contain links to external websites. We are not responsible for the content, privacy policies, or practices of these external websites."
+      },
+      "ads": {
+        "title": "9. Advertising",
+        "content": "This website may contain third-party advertisements. We are not responsible for the content or accuracy of these advertisements. Clicking on advertisements means you agree to comply with the advertiser's terms and conditions."
+      },
+      "changes": {
+        "title": "10. Changes to Terms of Service",
+        "content": "We reserve the right to modify these Terms of Service at any time. We will post the updated Terms of Service on this page and update the \"Last Updated\" date. Continued use of this website means you accept the modified terms."
+      },
+      "contact": {
+        "title": "11. Contact Us",
+        "content": "If you have any questions about these Terms of Service, please contact us through: Website: <a href=\"https://zoxide.org\">zoxide.org</a>"
+      }
+    }
+  },
+  "ads": {
+    "default": "Ad Slot",
+    "home": {
+      "top": "💡 Usage Tip - \"Use `z` command to quickly jump to recently visited directories\"",
+      "middle": "⚡ Performance Boost - \"zoxide is 10x faster than traditional cd command\"",
+      "sidebar": "📚 Popular Tutorials - \"Check out zoxide advanced usage and real-world examples\"",
+      "bottom": "🎯 Advantage - \"zoxide supports fuzzy search, no need to type full paths\""
+    },
+    "features": {
+      "top": "🔧 Configuration Tip - \"Set `_ZO_EXCLUDE_DIRS` to exclude directories from indexing, improve performance\"",
+      "sidebar": "🔧 Configuration Tip - \"Set `_ZO_EXCLUDE_DIRS` to exclude directories from indexing, improve performance\"",
+      "middle": "💪 Core Advantage - \"zoxide is written in Rust with excellent performance\"",
+      "bottom": "📊 Performance Advantage - \"zoxide is 3x faster than autojump\""
+    },
+    "tutorials": {
+      "top": "🚀 Efficiency Tip - \"Combine with fzf for fuzzy search + smart directory jumping\"",
+      "sidebar": "🚀 Efficiency Tip - \"Combine with fzf for fuzzy search + smart directory jumping\"",
+      "middle": "📖 Deep Reading - \"Performance tuning and team collaboration docs all here\"",
+      "bottom": "💡 Usage Tip - \"Use `zi` command for interactive directory selection\""
+    },
+    "download": {
+      "top": "🔧 Configuration Tip - \"Remember to initialize Shell config after installation to make zoxide work\"",
+      "sidebar": "🔧 Configuration Tip - \"Remember to initialize Shell config after installation to make zoxide work\"",
+      "middle": "⚡ Performance Boost - \"zoxide supports all major shells\"",
+      "bottom": "🎯 Advantage - \"One-click install, quick start\""
+    },
+    "blog": {
+      "list": {
+        "top": "📚 Popular Articles - \"Check out zoxide version updates and community case studies\"",
+        "sidebar": "📚 Popular Articles - \"Check out zoxide version updates and community case studies\"",
+        "middle": "💡 Usage Tip - \"Check out latest tutorials and best practices\"",
+        "bottom": "📖 Deep Reading - \"Learn more about zoxide advanced usage\""
+      }
+    },
+    "article": {
+      "top": "💡 Usage Tip - \"Use `zi` command for interactive directory selection with fuzzy search and preview\"",
+      "sidebar": "📚 Popular Articles - \"Check out zoxide version updates and community case studies\"",
+      "inArticle": "📖 Deep Reading - \"Performance tuning and team collaboration docs all here\"",
+      "bottom": "📚 Advanced Tip - \"Use `zoxide query` to get matching results without jumping, perfect for scripts\""
+    },
+    "changelog": {
+      "top": "🔧 Configuration Tip - \"New versions may introduce new config options, remember to check docs\"",
+      "sidebar": "🔧 Configuration Tip - \"New versions may introduce new config options, remember to check docs\"",
+      "middle": "⚡ Performance Boost - \"Follow changelog to learn about latest features\"",
+      "bottom": "🎯 Advantage - \"Continuous updates, features keep improving\""
+    },
+    "faq": {
+      "top": "💡 FAQ - \"Check out common questions and solutions for using zoxide\"",
+      "sidebar": "💡 FAQ - \"Check out common questions and solutions for using zoxide\"",
+      "middle": "🔧 Configuration Tip - \"Having issues? Check FAQ for quick solutions\"",
+      "bottom": "📚 Advanced Tip - \"Learn more about advanced usage and tips\""
+    },
+    "comparisons": {
+      "top": "📊 Performance Data - \"View detailed performance comparison between zoxide and other tools\"",
+      "sidebar": "📊 Performance Data - \"View detailed performance comparison between zoxide and other tools\"",
+      "middle": "💪 Core Advantage - \"zoxide leads in both performance and usability\"",
+      "bottom": "🎯 Advantage - \"Choose zoxide, choose efficiency\""
+    },
+    "about": {
+      "top": "📚 About Us - \"Learn about zoxide.org's mission and vision\"",
+      "sidebar": "📚 About Us - \"Learn about zoxide.org's mission and vision\"",
+      "middle": "💡 Usage Tip - \"Check out our tutorials and resources\"",
+      "bottom": "🎯 Advantage - \"Professional zoxide fan site\""
+    },
+    "privacy": {
+      "top": "🔒 Privacy Protection - \"We value your privacy, check out our privacy policy\"",
+      "sidebar": "🔒 Privacy Protection - \"We value your privacy, check out our privacy policy\"",
+      "bottom": "📚 Learn More - \"Learn how we protect your data\""
+    },
+    "terms": {
+      "top": "📋 Terms of Service - \"Learn about conditions and rules for using this website\"",
+      "sidebar": "📋 Terms of Service - \"Learn about conditions and rules for using this website\"",
+      "bottom": "📚 Learn More - \"View complete terms of service\""
+    }
+  }
+}
+

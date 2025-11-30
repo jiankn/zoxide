@@ -1,0 +1,27 @@
+{
+  "zh": {
+    "main": "zoxide, 智能cd命令, cd替代工具, zoxide教程, zoxide安装, 如何使用zoxide",
+    "install": "zoxide安装, 如何安装zoxide, zoxide安装指南, ubuntu安装zoxide, mac安装zoxide, windows安装zoxide",
+    "features": "zoxide功能, zoxide特性, 智能cd命令, zoxide性能, 最佳cd替代工具",
+    "tutorial": "zoxide教程, zoxide快速开始, 如何使用zoxide, zoxide配置指南, zoxide配置, zoxide shell集成",
+    "comparison": "zoxide vs autojump, zoxide vs z, zoxide vs fasd, 最佳cd替代工具",
+    "blog": "zoxide博客, zoxide教程, zoxide技巧, zoxide新闻",
+    "faq": "zoxide常见问题, zoxide故障排除, zoxide问题解决",
+    "changelog": "zoxide更新日志, zoxide新功能, zoxide版本历史",
+    "video": "zoxide视频教程, zoxide youtube教程",
+    "legal": "隐私政策, 服务条款, 关于我们"
+  },
+  "en": {
+    "main": "zoxide, smart cd command, cd alternative, zoxide tutorial, zoxide install, how to use zoxide",
+    "install": "zoxide install, how to install zoxide, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows",
+    "features": "zoxide features, zoxide capabilities, smart cd command, zoxide performance, best cd replacement",
+    "tutorial": "zoxide tutorial, zoxide quick start, how to use zoxide, zoxide setup guide, zoxide configuration, zoxide shell integration",
+    "comparison": "zoxide vs autojump, zoxide vs z, zoxide vs fasd, best cd replacement tool",
+    "blog": "zoxide blog, zoxide tutorial, zoxide tips, zoxide news",
+    "faq": "zoxide faq, zoxide common issues, zoxide troubleshooting, zoxide problems",
+    "changelog": "zoxide changelog, zoxide updates, zoxide new features, zoxide version history",
+    "video": "zoxide video tutorial, zoxide youtube",
+    "legal": "privacy policy, terms of service, about us"
+  }
+}
+

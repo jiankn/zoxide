@@ -1,0 +1,694 @@
+{
+  "common": {
+    "home": "首页",
+    "features": "功能特性",
+    "tutorials": "教程",
+    "download": "下载",
+    "blog": "博客",
+    "changelog": "更新日志",
+    "faq": "FAQ",
+    "comparisons": "对比",
+    "about": "关于我们",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "search": "搜索",
+    "searchPlaceholder": "搜索教程、博客、页面...",
+    "noResults": "未找到相关结果",
+    "startSearching": "输入关键词开始搜索",
+    "searchHint": "支持搜索教程、博客文章和页面",
+    "currentLanguage": "当前语言",
+    "readMore": "了解更多",
+    "learnMore": "了解更多",
+    "back": "返回",
+    "accept": "接受",
+    "manage": "管理",
+    "savePreferences": "保存偏好",
+    "acceptAll": "接受全部",
+    "close": "关闭",
+    "toggleTheme": "切换主题",
+    "github": "GitHub",
+    "share": "分享",
+    "shareLabel": "分享：",
+    "shareToTwitter": "分享到 Twitter",
+    "shareToFacebook": "分享到 Facebook",
+    "copyLink": "复制链接",
+    "linkCopied": "已复制",
+    "copyFailed": "复制失败"
+  },
+  "home": {
+    "title": "zoxide - 更智能的 cd 命令",
+    "subtitle": "让目录导航快 10 倍",
+    "description": "zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。",
+    "getStarted": "快速开始",
+    "viewDocs": "查看文档",
+    "features": {
+      "title": "为什么选择 zoxide？",
+      "smart": {
+        "title": "智能学习",
+        "description": "自动记录你访问的目录，学习你的使用习惯"
+      },
+      "fast": {
+        "title": "极速性能",
+        "description": "使用 Rust 编写，比传统 cd 命令快 10 倍以上"
+      },
+      "fuzzy": {
+        "title": "模糊搜索",
+        "description": "只需输入目录名的一部分即可跳转"
+      }
+    },
+    "installation": {
+      "title": "快速安装",
+      "macos": "macOS",
+      "linux": "Linux",
+      "windows": "Windows"
+    },
+    "tutorials": {
+      "title": "推荐教程",
+      "viewAll": "查看所有教程",
+      "quickStart": "快速开始",
+      "quickStartDesc": "5 分钟快速上手 zoxide，学习基本命令和配置。",
+      "advanced": "高级配置",
+      "advancedDesc": "学习高级配置和技巧，提升工作效率。",
+      "shellIntegration": "Shell 集成",
+      "shellIntegrationDesc": "配置 zsh、bash、fish 等 Shell 环境。"
+    },
+    "cta": {
+      "title": "加入 10 万+ 开发者",
+      "description": "立即体验 zoxide，让终端导航变得轻松高效",
+      "install": "立即安装",
+      "github": "查看 GitHub"
+    }
+  },
+  "features": {
+    "title": "zoxide 功能特性",
+    "description": "了解 zoxide 的核心功能：极速性能、智能搜索、学习习惯、团队协作等。",
+    "core": {
+      "title": "核心能力",
+      "fast": {
+        "title": "极速性能",
+        "description": "使用 Rust 编写，启动速度极快，比传统 cd 命令快 10 倍以上。"
+      },
+      "fuzzy": {
+        "title": "智能搜索",
+        "description": "支持模糊搜索，无需输入完整路径，只需输入目录名的一部分即可跳转。"
+      },
+      "smart": {
+        "title": "学习习惯",
+        "description": "自动学习你的使用习惯，经常访问的目录会优先匹配，越用越智能。"
+      }
+    },
+    "advanced": {
+      "title": "高级特性",
+      "config": {
+        "title": "灵活配置",
+        "description": "支持环境变量配置、自定义别名、目录排除等高级功能。"
+      },
+      "team": {
+        "title": "团队协作",
+        "description": "支持共享数据库，团队成员可以共享常用目录，提升团队效率。"
+      },
+      "performance": {
+        "title": "性能优化",
+        "description": "通过排除目录、限制历史记录等方式优化性能，保持极速体验。"
+      }
+    }
+  },
+  "about": {
+    "title": "关于我们",
+    "description": "了解 zoxide.org - zoxide 粉丝网站，提供教程、技巧和最新动态。",
+    "mission": {
+      "title": "我们的使命",
+      "description": "zoxide.org 是一个致力于推广和帮助用户使用 zoxide 的粉丝网站。我们提供详细的教程、使用技巧、常见问题解答等内容，帮助开发者更好地使用这个强大的工具。"
+    },
+    "disclaimer": {
+      "title": "重要声明",
+      "label": "免责声明：",
+      "message": "Zoxide.org 是一个独立的、社区驱动的文档项目，与 Ajeet D'Souza 或 Zoxide 官方项目没有任何关联、认可或从属关系。",
+      "closeLabel": "关闭"
+    },
+    "content": {
+      "title": "网站内容",
+      "description": "我们的网站包含以下内容：",
+      "tutorials": "教程：从入门到高级的完整教程",
+      "blog": "博客：使用技巧、性能优化、对比分析等文章",
+      "download": "下载指南：各平台安装方法和配置说明",
+      "changelog": "更新日志：zoxide 版本更新历史",
+      "faq": "常见问题：FAQ 和故障排除指南"
+    },
+    "opensource": {
+      "title": "开源项目",
+      "description": "zoxide 是一个开源项目，由 <a href=\"https://github.com/ajeetdsouza\" target=\"_blank\" rel=\"noopener noreferrer\">Ajeet D'Souza</a> 开发。您可以在 <a href=\"https://github.com/ajeetdsouza/zoxide\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a> 上查看源代码和贡献。"
+    },
+    "contact": {
+      "title": "联系我们",
+      "description": "如果您有任何问题、建议或反馈，欢迎通过以下方式联系我们：",
+      "email": "邮箱：<a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>",
+      "website": "网站：<a href=\"https://zoxide.org\">zoxide.org</a>",
+      "github": "GitHub：<a href=\"https://github.com/ajeetdsouza/zoxide\" target=\"_blank\" rel=\"noopener noreferrer\">zoxide 官方仓库</a>"
+    },
+    "legal": {
+      "title": "隐私和条款",
+      "description": "请查看我们的 <a href=\"/privacy-policy\" className=\"text-blue-600 hover:text-blue-800 underline dark:text-blue-400\">隐私政策</a> 和 <a href=\"/terms-of-service\" className=\"text-blue-600 hover:text-blue-800 underline dark:text-blue-400\">服务条款</a>。"
+    }
+  },
+  "faq": {
+    "title": "zoxide FAQ - 常见问题解答",
+    "description": "zoxide 使用中的常见问题和解决方案，包括安装、配置、故障排除等。",
+    "items": [
+      {
+        "question": "zoxide 支持哪些 Shell？",
+        "answer": "zoxide 支持所有主流 Shell，包括 zsh、bash、fish、PowerShell 等。"
+      },
+      {
+        "question": "如何安装 zoxide？",
+        "answer": "可以使用 Homebrew (macOS)、Scoop (Windows) 或 Cargo (所有平台) 安装。详细安装指南请查看下载页面。"
+      },
+      {
+        "question": "zoxide 比 cd 快多少？",
+        "answer": "zoxide 使用 Rust 编写，启动速度比传统 cd 命令快 10 倍以上。"
+      },
+      {
+        "question": "如何配置 zoxide？",
+        "answer": "在 Shell 配置文件中添加初始化命令即可。例如在 ~/.zshrc 中添加：eval \"$(zoxide init zsh)\""
+      },
+      {
+        "question": "zoxide 会学习我的使用习惯吗？",
+        "answer": "是的，zoxide 会自动记录你访问的目录，学习你的使用习惯，经常访问的目录会优先匹配。"
+      }
+    ]
+  },
+  "cookie": {
+    "title": "Cookie 偏好设置",
+    "message": "我们使用 Cookie 来改善您的浏览体验、分析网站流量并个性化内容。继续使用本网站即表示您同意我们的",
+    "privacyPolicy": "隐私政策",
+    "necessary": {
+      "title": "必要 Cookie",
+      "description": "这些 Cookie 是网站运行所必需的，无法关闭。",
+      "alwaysEnabled": "始终启用"
+    },
+    "analytics": {
+      "title": "分析 Cookie",
+      "description": "帮助我们了解访客如何使用网站，以改善用户体验。"
+    },
+    "marketing": {
+      "title": "营销 Cookie",
+      "description": "用于展示个性化广告和跟踪广告效果。"
+    }
+  },
+  "disclaimer": {
+    "label": "免责声明：",
+    "message": "Zoxide.org 是一个独立的、社区驱动的文档项目，与 Ajeet D'Souza 或 Zoxide 官方项目没有任何关联、认可或从属关系。",
+    "closeLabel": "关闭提示"
+  },
+  "footer": {
+    "description": "一个更智能的 cd 命令替代工具，让目录导航更快更高效。",
+    "product": "产品",
+    "resources": "资源",
+    "comparisons": "对比",
+    "about": "关于我们",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "copyright": "© 2025 zoxide.org. Zoxide 是基于 MIT 协议分发的开源软件。所有产品名称、Logo 和品牌均为其各自所有者的财产。",
+    "disclaimer": "本网站为信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无关联。",
+    "links": {
+      "features": "功能特性",
+      "download": "下载",
+      "changelog": "更新日志",
+      "tutorials": "教程",
+      "blog": "博客",
+      "faq": "FAQ",
+      "vsAutojump": "zoxide vs autojump",
+      "vsZ": "zoxide vs z",
+      "vsFasd": "zoxide vs fasd"
+    }
+  },
+  "seo": {
+    "main": "zoxide, 智能cd命令, cd替代工具, zoxide教程, zoxide安装, 如何使用zoxide",
+    "install": "zoxide安装, 如何安装zoxide, zoxide安装指南, ubuntu安装zoxide, mac安装zoxide, windows安装zoxide",
+    "features": "zoxide功能, zoxide特性, 智能cd命令, zoxide性能, 最佳cd替代工具",
+    "tutorial": "zoxide教程, zoxide快速开始, 如何使用zoxide, zoxide配置指南, zoxide配置, zoxide shell集成",
+    "comparison": "zoxide vs autojump, zoxide vs z, zoxide vs fasd, 最佳cd替代工具",
+    "blog": "zoxide博客, zoxide教程, zoxide技巧, zoxide新闻",
+    "faq": "zoxide常见问题, zoxide故障排除, zoxide问题解决",
+    "changelog": "zoxide更新日志, zoxide新功能, zoxide版本历史",
+    "video": "zoxide视频教程, zoxide youtube教程",
+    "legal": "隐私政策, 服务条款, 关于我们",
+    "titles": {
+      "home": "zoxide安装 - 智能cd命令替代工具 | 让目录导航快10倍",
+      "features": "zoxide功能 - 智能cd命令工具 | 极速性能",
+      "download": "zoxide安装指南 - 一键安装教程 | macOS Linux Windows",
+      "tutorials": "zoxide教程 - 完整使用指南 | 从入门到精通",
+      "tutorial": "zoxide教程 - {title} | 完整使用指南",
+      "blog": "zoxide命令技巧 - 使用教程和最佳实践 | 博客",
+      "blogPost": "{title} - zoxide博客 | 使用技巧和最佳实践",
+      "faq": "zoxide常见问题 - FAQ故障排除指南 | 问题解答",
+      "changelog": "zoxide更新日志 - 版本历史和功能更新 | 最新版本",
+      "comparisons": "zoxide vs 其他工具 - 最佳cd替代工具对比 | 工具对比",
+      "about": "关于我们 - zoxide.org粉丝网站 | zoxide社区",
+      "privacyPolicy": "隐私政策 - zoxide.org | 数据保护",
+      "termsOfService": "服务条款 - zoxide.org | 使用协议",
+      "videos": "zoxide视频教程 - YouTube视频学习 | 视频指南"
+    }
+  },
+  "tutorials": {
+    "title": "zoxide 教程",
+    "description": "从快速开始到高级配置，这里有完整的 zoxide 使用教程。无论你是初学者还是高级用户，都能找到适合的内容。",
+    "videos": {
+      "description": "通过视频学习 zoxide 的使用方法，包括安装、配置和高级技巧。"
+    },
+    "categories": {
+      "beginner": "入门教程",
+      "advanced": "进阶技巧",
+      "video": "视频 & FAQ"
+    },
+    "faqLink": "常见问题",
+    "read": "阅读",
+    "all": "所有",
+    "detail": {
+      "backToList": "← 返回教程列表",
+      "readTime": "分钟阅读",
+      "all": "所有"
+    },
+    "data": {
+      "quick-start": {
+        "title": "zoxide 快速开始",
+        "excerpt": "5 分钟快速上手 zoxide，学习基本命令和配置方法。",
+        "duration": "5 分钟",
+        "level": "初级",
+        "category": "入门教程"
+      },
+      "basic-commands": {
+        "title": "zoxide 基本命令",
+        "excerpt": "深入学习 zoxide 的所有基本命令和使用技巧。",
+        "duration": "10 分钟",
+        "level": "初级",
+        "category": "入门教程"
+      },
+      "shell-setup": {
+        "title": "Shell 配置详解",
+        "excerpt": "详细配置 zoxide 在不同 Shell 环境中的集成。",
+        "duration": "15 分钟",
+        "level": "初级",
+        "category": "入门教程"
+      },
+      "advanced-config": {
+        "title": "zoxide 高级配置",
+        "excerpt": "学习 zoxide 的高级配置选项，包括环境变量、自定义别名、目录排除等。",
+        "duration": "15 分钟",
+        "level": "中级",
+        "category": "进阶技巧"
+      },
+      "fzf-integration": {
+        "title": "zoxide 与 fzf 集成",
+        "excerpt": "学习如何将 zoxide 与 fzf 结合使用，实现更强大的目录搜索和选择功能。",
+        "duration": "25 分钟",
+        "level": "高级",
+        "category": "进阶技巧"
+      },
+      "performance": {
+        "title": "zoxide 性能优化",
+        "excerpt": "优化 zoxide 的性能，包括数据库优化、排除目录、限制历史记录等技巧。",
+        "duration": "20 分钟",
+        "level": "高级",
+        "category": "进阶技巧"
+      },
+      "team-collaboration": {
+        "title": "zoxide 团队协作",
+        "excerpt": "学习如何在团队中共享 zoxide 数据库，提升团队效率。",
+        "duration": "15 分钟",
+        "level": "中级",
+        "category": "进阶技巧"
+      },
+      "videos": {
+        "title": "zoxide 视频教程",
+        "excerpt": "观看 zoxide 的视频教程，快速了解基本用法和高级技巧。",
+        "duration": "10 分钟",
+        "level": "初级",
+        "category": "视频 & FAQ"
+      },
+      "troubleshooting": {
+        "title": "zoxide 故障排除",
+        "excerpt": "解决 zoxide 使用中的常见问题，包括安装问题、配置问题、性能问题等。",
+        "duration": "20 分钟",
+        "level": "中级",
+        "category": "视频 & FAQ"
+      }
+    }
+  },
+  "blog": {
+    "title": "zoxide 博客",
+    "description": "阅读 zoxide 相关文章：使用教程、配置技巧、性能优化、版本更新等。",
+    "readTime": "分钟阅读",
+    "detail": {
+      "author": "作者",
+      "category": "分类",
+      "readTime": "分钟阅读",
+      "relatedPosts": "相关文章"
+    },
+    "notFound": "文章未找到",
+    "data": {
+      "quick-start": {
+        "title": "zoxide 快速开始指南",
+        "excerpt": "5 分钟快速上手 zoxide，学习基本命令和配置方法。",
+        "category": "教程",
+        "author": "zoxide.org",
+        "tags": ["快速开始", "安装", "配置"],
+        "content": "# zoxide 快速开始指南\n\nzoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。本指南将帮助你在 5 分钟内快速上手。\n\n## 安装 zoxide\n\n### macOS\n\\`\\`\\`bash\nbrew install zoxide\n\\`\\`\\`\n\n### Windows\n\\`\\`\\`bash\nscoop install zoxide\n\\`\\`\\`\n\n### Linux / 所有平台\n\\`\\`\\`bash\ncargo install zoxide\n\\`\\`\\`\n\n## Shell 配置\n\n安装完成后，需要在 Shell 配置文件中添加初始化命令。\n\n### zsh\n在 \\`~/.zshrc\\` 中添加：\n\\`\\`\\`bash\neval \"$(zoxide init zsh)\"\n\\`\\`\\`\n\n### bash\n在 \\`~/.bashrc\\` 中添加：\n\\`\\`\\`bash\neval \"$(zoxide init bash)\"\n\\`\\`\\`\n\n### fish\n在 \\`~/.config/fish/config.fish\\` 中添加：\n\\`\\`\\`fish\nzoxide init fish | source\n\\`\\`\\`\n\n## 基本使用\n\n配置完成后，重新加载 Shell 或打开新终端窗口，就可以开始使用 zoxide 了。\n\n### 基本命令\n\n- \\`z <目录名>\\` - 跳转到匹配的目录\n- \\`zi <目录名>\\` - 交互式选择目录（支持模糊搜索）\n- \\`z -\\` - 返回上一个目录\n- \\`z -l\\` - 列出所有匹配的目录\n\n### 示例\n\n\\`\\`\\`bash\n# 跳转到包含 \"project\" 的目录\nz project\n\n# 交互式选择目录\nzi pro\n\n# 返回上一个目录\nz -\n\\`\\`\\`\n\n## 高级技巧\n\n### 排除目录\n\n使用环境变量 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var\"\n\\`\\`\\`\n\n### 自定义数据库位置\n\n默认数据库存储在 \\`~/.zo\\`，可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n## 总结\n\nzoxide 让目录导航变得简单高效。通过智能学习和模糊搜索，你可以快速跳转到任何目录，无需输入完整路径。\n\n更多高级用法，请查看[高级配置教程](/tutorials/advanced-config)。"
+      },
+      "advanced-config": {
+        "title": "zoxide 高级配置技巧",
+        "excerpt": "学习如何配置 zoxide 以提升工作效率，包括别名设置、目录排除等。",
+        "category": "技巧",
+        "author": "zoxide.org",
+        "tags": ["配置", "高级", "优化"],
+        "content": "# zoxide 高级配置技巧\n\nzoxide 提供了丰富的配置选项，让你可以根据个人需求定制使用体验。\n\n## 环境变量配置\n\n### 排除目录\n\n使用 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录，提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n\\`\\`\\`\n\n多个目录用冒号分隔。\n\n### 自定义数据库位置\n\n默认数据库存储在用户主目录下的 \\`.zo\\` 文件中。可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n### 最大历史记录数\n\n使用 \\`_ZO_MAXAGE\\` 设置最大历史记录天数（默认 10000）：\n\n\\`\\`\\`bash\nexport _ZO_MAXAGE=5000\n\\`\\`\\`\n\n## 别名设置\n\nzoxide 支持自定义别名，让常用命令更简短：\n\n\\`\\`\\`bash\n# 在 Shell 配置文件中添加\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n\\`\\`\\`\n\n## 与 fzf 集成\n\n结合 fzf 可以实现更强大的目录搜索和选择：\n\n\\`\\`\\`bash\n# 在 ~/.zshrc 中添加\nzi() {\n  local dir\n  dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n\\`\\`\\`\n\n## 性能优化\n\n### 减少索引范围\n\n只索引常用目录，可以显著提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\\`\\`\\`\n\n### 定期清理数据库\n\n如果数据库过大，可以手动清理：\n\n\\`\\`\\`bash\n# 查看数据库大小\nls -lh ~/.zo\n\n# 删除数据库重新开始（谨慎操作）\nrm ~/.zo\n\\`\\`\\`\n\n## 团队协作\n\nzoxide 支持共享数据库，团队成员可以共享常用目录：\n\n\\`\\`\\`bash\n# 使用共享数据库位置\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n\\`\\`\\`\n\n## 总结\n\n通过合理配置，zoxide 可以更好地适应你的工作流程。建议从排除不需要的目录开始，逐步优化配置。\n\n更多配置选项，请查看[官方文档](https://github.com/ajeetdsouza/zoxide)。"
+      },
+      "zoxide-vs-autojump": {
+        "title": "zoxide vs autojump 性能对比",
+        "excerpt": "详细对比 zoxide 和 autojump 的性能差异和使用体验。",
+        "category": "对比",
+        "author": "zoxide.org",
+        "tags": ["对比", "性能", "autojump"],
+        "content": "# zoxide vs autojump 性能对比\n\nzoxide 和 autojump 都是智能目录跳转工具，但它们在性能、功能和易用性方面有显著差异。\n\n## 性能对比\n\n### 启动速度\n\nzoxide 使用 Rust 编写，启动速度极快：\n\n- **zoxide**: ~5ms 启动时间\n- **autojump**: ~50ms 启动时间\n\nzoxide 比 autojump 快 **10 倍**。\n\n### 查询速度\n\n在大型项目目录中，zoxide 的查询速度也明显更快：\n\n- **zoxide**: 模糊搜索 < 10ms\n- **autojump**: 查询时间 20-50ms\n\n## 功能对比\n\n### 模糊搜索\n\n- **zoxide**: ✅ 支持模糊搜索，无需完整路径\n- **autojump**: ❌ 不支持模糊搜索\n\n### 交互式选择\n\n- **zoxide**: ✅ 支持 \\`zi\\` 命令交互式选择\n- **autojump**: ❌ 不支持\n\n### 学习算法\n\n- **zoxide**: ✅ 智能学习算法，越用越准确\n- **autojump**: ✅ 基础频率统计\n\n## 易用性对比\n\n### 命令简洁性\n\nzoxide 的命令更简洁：\n\n\\`\\`\\`bash\n# zoxide\nz project\n\n# autojump\nj project\n\\`\\`\\`\n\n### 配置复杂度\n\n- **zoxide**: 配置简单，只需一行初始化命令\n- **autojump**: 需要额外配置 Shell 集成\n\n## 跨平台支持\n\n- **zoxide**: ✅ 支持 macOS、Linux、Windows\n- **autojump**: ✅ 支持 macOS、Linux（Windows 支持有限）\n\n## 维护状态\n\n- **zoxide**: 非常活跃，持续更新\n- **autojump**: 更新较慢\n\n## 总结\n\n| 特性 | zoxide | autojump |\n|------|--------|----------|\n| 性能 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |\n| 模糊搜索 | ✅ | ❌ |\n| 交互式选择 | ✅ | ❌ |\n| 跨平台 | ✅ | ✅ |\n| 维护状态 | 活跃 | 较慢 |\n\n**结论**：如果你追求性能和现代化体验，zoxide 是更好的选择。如果你已经习惯使用 autojump，迁移到 zoxide 也很简单。\n\n查看[完整对比](/comparisons)了解更多细节。"
+      }
+    }
+  },
+  "download": {
+    "title": "下载 zoxide",
+    "description": "在 macOS、Linux、Windows 上安装 zoxide。安装后记得初始化 Shell 配置，让 zoxide 生效。更多安装选项和详细文档，请查看",
+    "githubLink": "官方 GitHub 仓库",
+    "installMethods": {
+      "title": "选择安装方式"
+    },
+    "installers": {
+      "homebrew": {
+        "platform": "macOS",
+        "description": "macOS 上最简单的安装方式"
+      },
+      "scoop": {
+        "platform": "Windows",
+        "description": "Windows 上推荐的安装方式"
+      },
+      "cargo": {
+        "platform": "所有平台",
+        "description": "需要先安装 Rust 和 Cargo"
+      }
+    },
+    "shellConfig": {
+      "title": "Shell 配置",
+      "description": "安装后，需要在 Shell 配置文件中添加以下命令。根据你使用的 Shell 选择对应的配置：",
+      "tip": "💡 提示：将配置添加到对应的 Shell 配置文件（如 ~/.zshrc、~/.bashrc 等），然后重新加载 Shell 或打开新终端窗口即可使用。"
+    }
+  },
+  "changelog": {
+    "title": "zoxide 更新日志",
+    "description": "查看 zoxide 的版本更新历史，了解新功能、修复和性能优化。",
+    "versions": [
+      {
+        "version": "0.9.4",
+        "date": "2024-10-28",
+        "changes": [
+          { "type": "修复", "content": "修复 Windows 平台路径处理问题" },
+          { "type": "改进", "content": "改进错误处理机制" }
+        ]
+      },
+      {
+        "version": "0.9.3",
+        "date": "2024-09-15",
+        "changes": [
+          { "type": "新功能", "content": "新增交互式目录选择功能（zi 命令）" },
+          { "type": "性能优化", "content": "优化数据库查询性能，提升 20%" },
+          { "type": "改进", "content": "改进模糊搜索算法，提升匹配准确性" }
+        ]
+      },
+      {
+        "version": "0.9.2",
+        "date": "2024-07-20",
+        "changes": [
+          { "type": "修复", "content": "修复某些 Shell 环境下的初始化问题" },
+          { "type": "改进", "content": "优化内存使用" }
+        ]
+      },
+      {
+        "version": "0.9.1",
+        "date": "2024-05-10",
+        "changes": [
+          { "type": "新功能", "content": "支持 PowerShell 集成" },
+          { "type": "改进", "content": "改进跨平台兼容性" }
+        ]
+      },
+      {
+        "version": "0.9.0",
+        "date": "2024-03-15",
+        "changes": [
+          { "type": "新功能", "content": "新增目录排除配置选项（_ZO_EXCLUDE_DIRS）" },
+          { "type": "性能优化", "content": "优化启动速度，减少初始化时间" },
+          { "type": "改进", "content": "改进数据库存储格式" }
+        ]
+      },
+      {
+        "version": "0.8.5",
+        "date": "2023-12-20",
+        "changes": [
+          { "type": "修复", "content": "修复路径包含特殊字符时的处理问题" },
+          { "type": "改进", "content": "改进错误消息提示" }
+        ]
+      },
+      {
+        "version": "0.8.4",
+        "date": "2023-11-05",
+        "changes": [
+          { "type": "新功能", "content": "支持自定义数据库位置（_ZO_DATA_DIR）" },
+          { "type": "改进", "content": "改进学习算法，提升匹配准确性" }
+        ]
+      }
+    ]
+  },
+  "comparisons": {
+    "title": "zoxide vs 其他工具",
+    "description": "对比 zoxide 与其他目录导航工具的差异，了解为什么选择 zoxide。",
+    "vs": "zoxide vs {tool}",
+    "table": {
+      "feature": "特性"
+    },
+    "features": {
+      "性能": "性能",
+      "模糊搜索": "模糊搜索",
+      "学习算法": "学习算法",
+      "跨平台": "跨平台",
+      "维护状态": "维护状态"
+    },
+    "items": [
+      {
+        "tool": "autojump",
+        "features": {
+          "性能": "中等",
+          "模糊搜索": "不支持",
+          "学习算法": "基础",
+          "跨平台": "是",
+          "维护状态": "活跃"
+        },
+        "zoxideFeatures": {
+          "性能": "极快（Rust）",
+          "模糊搜索": "支持",
+          "学习算法": "智能",
+          "跨平台": "是",
+          "维护状态": "非常活跃"
+        }
+      },
+      {
+        "tool": "z",
+        "features": {
+          "性能": "中等",
+          "模糊搜索": "不支持",
+          "学习算法": "基础",
+          "跨平台": "是",
+          "维护状态": "较慢"
+        },
+        "zoxideFeatures": {
+          "性能": "极快（Rust）",
+          "模糊搜索": "支持",
+          "学习算法": "智能",
+          "跨平台": "是",
+          "维护状态": "非常活跃"
+        }
+      }
+    ]
+  },
+  "privacyPolicy": {
+    "title": "隐私政策",
+    "lastUpdated": "最后更新：2025年11月30日",
+    "sections": {
+      "collection": {
+        "title": "1. 信息收集",
+        "content": [
+          "<strong>自动收集的信息</strong>：当您访问我们的网站时，我们可能会自动收集某些信息，包括您的 IP 地址、浏览器类型、访问时间和访问的页面。",
+          "<strong>Cookie 和类似技术</strong>：我们使用 Cookie 来改善您的浏览体验、分析网站流量并个性化内容。",
+          "<strong>第三方服务</strong>：我们使用 Google AdSense 来展示广告，这些服务可能会收集您的信息用于广告个性化。"
+        ]
+      },
+      "usage": {
+        "title": "2. 信息使用",
+        "content": "我们使用收集的信息用于以下目的：提供和维护我们的服务、改善用户体验、分析网站使用情况、展示相关广告。"
+      },
+      "cookies": {
+        "title": "3. Cookie 使用",
+        "content": "我们使用 Cookie 来：记住您的偏好设置、分析网站流量、提供个性化广告。您可以通过浏览器设置管理 Cookie 偏好。请注意，禁用 Cookie 可能会影响网站的某些功能。"
+      },
+      "thirdParty": {
+        "title": "4. 第三方服务",
+        "content": [
+          "<strong>Google AdSense</strong>：用于展示广告。Google 可能会使用 Cookie 来根据您的兴趣展示个性化广告。您可以访问 <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google 隐私政策</a> 了解更多信息。",
+          "<strong>Google Analytics</strong>（如使用）：用于分析网站流量。"
+        ]
+      },
+      "security": {
+        "title": "5. 数据安全",
+        "content": "我们采取合理的安全措施来保护您的个人信息，但我们无法保证绝对安全。我们建议您采取适当措施保护您的个人信息。"
+      },
+      "children": {
+        "title": "6. 儿童隐私",
+        "content": "我们的服务不面向 13 岁以下的儿童。我们不会故意收集儿童的个人信息。"
+      },
+      "changes": {
+        "title": "7. 隐私政策变更",
+        "content": "我们可能会不时更新本隐私政策。我们会在本页面上发布更新后的隐私政策，并更新\"最后更新\"日期。"
+      },
+      "contact": {
+        "title": "8. 联系我们",
+        "content": "如果您对本隐私政策有任何疑问，请通过以下方式联系我们：网站：<a href=\"https://zoxide.org\">zoxide.org</a>"
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "服务条款",
+    "lastUpdated": "最后更新：2025年11月30日",
+    "sections": {
+      "accept": {
+        "title": "1. 接受条款",
+        "content": "通过访问和使用 zoxide.org（\"本网站\"），您同意遵守本服务条款。如果您不同意这些条款，请不要使用本网站。"
+      },
+      "nature": {
+        "title": "2. 网站性质",
+        "content": "<strong>重要声明</strong>：本网站是信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无任何关联。我们不托管文件，仅链接到 SourceForge 发布版本。所有内容均为原创。"
+      },
+      "license": {
+        "title": "3. 使用许可",
+        "content": "在遵守本服务条款的前提下，我们授予您有限的、非独占的、不可转让的许可，以访问和使用本网站。"
+      },
+      "prohibited": {
+        "title": "4. 禁止行为",
+        "content": [
+          "以任何非法或未经授权的方式使用本网站",
+          "尝试未经授权访问本网站的任何部分",
+          "干扰或破坏本网站的正常运行",
+          "复制、修改或分发本网站的内容（除非明确允许）"
+        ]
+      },
+      "ip": {
+        "title": "5. 知识产权",
+        "content": "本网站的所有内容，包括但不限于文本、图形、徽标、图标和软件，均为我们的财产或我们授权使用的财产，受版权和其他知识产权法保护。"
+      },
+      "disclaimer": {
+        "title": "6. 免责声明",
+        "content": "本网站按\"原样\"提供，不提供任何明示或暗示的保证。我们不保证：网站将始终可用或无错误、网站内容准确、完整或最新、网站将满足您的特定需求。"
+      },
+      "liability": {
+        "title": "7. 责任限制",
+        "content": "在法律允许的最大范围内，我们对因使用或无法使用本网站而产生的任何直接、间接、偶然或后果性损害不承担责任。"
+      },
+      "links": {
+        "title": "8. 外部链接",
+        "content": "本网站可能包含指向外部网站的链接。我们不对这些外部网站的内容、隐私政策或做法负责。"
+      },
+      "ads": {
+        "title": "9. 广告",
+        "content": "本网站可能包含第三方广告。我们不对这些广告的内容或准确性负责。点击广告即表示您同意遵守广告商的条款和条件。"
+      },
+      "changes": {
+        "title": "10. 服务条款变更",
+        "content": "我们保留随时修改本服务条款的权利。我们会在本页面上发布更新后的服务条款，并更新\"最后更新\"日期。继续使用本网站即表示您接受修改后的条款。"
+      },
+      "contact": {
+        "title": "11. 联系我们",
+        "content": "如果您对本服务条款有任何疑问，请通过以下方式联系我们：网站：<a href=\"https://zoxide.org\">zoxide.org</a>"
+      }
+    }
+  },
+  "ads": {
+    "default": "广告位",
+    "home": {
+      "top": "💡 使用技巧 - \"使用 `z` 命令可以快速跳转到最近访问的目录\"",
+      "middle": "⚡ 效率提升 - \"zoxide 比传统 cd 命令快 10 倍以上\"",
+      "sidebar": "📚 热门教程 - \"查看 zoxide 高级玩法和实战案例\"",
+      "bottom": "🎯 优势 - \"zoxide 支持模糊搜索，无需输入完整路径\""
+    },
+    "features": {
+      "top": "🔧 配置技巧 - \"设置 `_ZO_EXCLUDE_DIRS` 排除不需要索引的目录，提升性能\"",
+      "sidebar": "🔧 配置技巧 - \"设置 `_ZO_EXCLUDE_DIRS` 排除不需要索引的目录，提升性能\"",
+      "middle": "💪 核心优势 - \"zoxide 使用 Rust 编写，性能卓越\"",
+      "bottom": "📊 性能优势 - \"zoxide 比 autojump 快 3 倍\""
+    },
+    "tutorials": {
+      "top": "🚀 效率技巧 - \"结合 fzf 使用可以实现目录的模糊搜索 + 智能跳转\"",
+      "sidebar": "🚀 效率技巧 - \"结合 fzf 使用可以实现目录的模糊搜索 + 智能跳转\"",
+      "middle": "📖 深度阅读 - \"性能调优、团队协作文档全在这里\"",
+      "bottom": "💡 使用技巧 - \"使用 `zi` 命令可以交互式选择目录\""
+    },
+    "download": {
+      "top": "🔧 配置技巧 - \"安装后记得初始化 Shell 配置，让 zoxide 生效\"",
+      "sidebar": "🔧 配置技巧 - \"安装后记得初始化 Shell 配置，让 zoxide 生效\"",
+      "middle": "⚡ 效率提升 - \"zoxide 支持所有主流 Shell\"",
+      "bottom": "🎯 优势 - \"一键安装，快速上手\""
+    },
+    "blog": {
+      "list": {
+        "top": "📚 热门文章 - \"查看 zoxide 版本更新解读和社区案例分享\"",
+        "sidebar": "📚 热门文章 - \"查看 zoxide 版本更新解读和社区案例分享\"",
+        "middle": "💡 使用技巧 - \"查看最新教程和最佳实践\"",
+        "bottom": "📖 深度阅读 - \"了解更多 zoxide 高级用法\""
+      }
+    },
+    "article": {
+      "top": "💡 使用技巧 - \"使用 `zi` 命令可以交互式选择目录，支持模糊搜索和预览\"",
+      "sidebar": "📚 热门文章 - \"查看 zoxide 版本更新解读和社区案例分享\"",
+      "inArticle": "📖 深度阅读 - \"性能调优、团队协作文档全在这里\"",
+      "bottom": "📚 进阶技巧 - \"使用 `zoxide query` 可以获取匹配结果但不跳转，适合脚本使用\""
+    },
+    "changelog": {
+      "top": "🔧 配置技巧 - \"新版本可能引入新的配置选项，记得查看文档\"",
+      "sidebar": "🔧 配置技巧 - \"新版本可能引入新的配置选项，记得查看文档\"",
+      "middle": "⚡ 效率提升 - \"关注更新日志，了解最新功能\"",
+      "bottom": "🎯 优势 - \"持续更新，功能不断完善\""
+    },
+    "faq": {
+      "top": "💡 常见问题解答 - \"查看 zoxide 使用中的常见问题和解决方案\"",
+      "sidebar": "💡 常见问题解答 - \"查看 zoxide 使用中的常见问题和解决方案\"",
+      "middle": "🔧 配置技巧 - \"遇到问题？查看 FAQ 快速解决\"",
+      "bottom": "📚 进阶技巧 - \"了解更多高级用法和技巧\""
+    },
+    "comparisons": {
+      "top": "📊 性能数据 - \"查看 zoxide 与其他工具的详细性能对比\"",
+      "sidebar": "📊 性能数据 - \"查看 zoxide 与其他工具的详细性能对比\"",
+      "middle": "💪 核心优势 - \"zoxide 在性能和易用性方面全面领先\"",
+      "bottom": "🎯 优势 - \"选择 zoxide，选择效率\""
+    },
+    "about": {
+      "top": "📚 关于我们 - \"了解 zoxide.org 的使命和愿景\"",
+      "sidebar": "📚 关于我们 - \"了解 zoxide.org 的使命和愿景\"",
+      "middle": "💡 使用技巧 - \"查看我们的教程和资源\"",
+      "bottom": "🎯 优势 - \"专业的 zoxide 粉丝网站\""
+    },
+    "privacy": {
+      "top": "🔒 隐私保护 - \"我们重视您的隐私，查看我们的隐私政策\"",
+      "sidebar": "🔒 隐私保护 - \"我们重视您的隐私，查看我们的隐私政策\"",
+      "bottom": "📚 了解更多 - \"了解我们如何保护您的数据\""
+    },
+    "terms": {
+      "top": "📋 服务条款 - \"了解使用本网站的条件和规则\"",
+      "sidebar": "📋 服务条款 - \"了解使用本网站的条件和规则\"",
+      "bottom": "📚 了解更多 - \"查看完整的服务条款\""
+    }
+  }
+}
+
