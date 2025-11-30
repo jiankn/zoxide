@@ -3,11 +3,12 @@ import { getTranslations, getLocale, getMessages } from 'next-intl/server';
 import { generateFAQPageSchema } from '@/lib/seo/schema';
 
 export async function generateMetadata() {
-  const t = await getTranslations(['seo', 'faq']);
+  const tSeo = await getTranslations('seo');
+  const tFaq = await getTranslations('faq');
   return {
-    title: t('seo.titles.faq'),
-    description: t('faq.description'),
-    keywords: t('seo.faq'),
+    title: tSeo('titles.faq'),
+    description: tFaq('description'),
+    keywords: tSeo('faq'),
   };
 }
 

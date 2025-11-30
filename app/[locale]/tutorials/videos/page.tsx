@@ -4,11 +4,12 @@ import { Play } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
-  const t = await getTranslations(['seo', 'tutorials']);
+  const tSeo = await getTranslations('seo');
+  const tTutorials = await getTranslations('tutorials');
   return {
-    title: t('seo.titles.videos'),
-    description: t('tutorials.videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',
-    keywords: t('seo.video'),
+    title: tSeo('titles.videos'),
+    description: tTutorials('videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',
+    keywords: tSeo('video'),
   };
 }
 

@@ -37,9 +37,10 @@ export default function Search() {
         const response = await fetch(`/api/search?locale=${locale}&allLocales=true`);
         if (response.ok) {
           const { data } = await response.json();
-          setSearchData(data);
+          const searchDataArray = data as SearchResult[];
+          setSearchData(searchDataArray);
           // 初始化 Fuse.js
-          const fuseInstance = new Fuse(data, {
+          const fuseInstance = new Fuse<SearchResult>(searchDataArray, {
             keys: ['title', 'description'],
             threshold: 0.3, // 匹配阈值（0-1，越小越严格）
             includeScore: true,
