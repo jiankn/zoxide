@@ -1,12 +1,13 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import CopyButton from './CopyButton';
+import CodeBlock from '@/components/CodeBlock/CodeBlock';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
+  const tDownload = await getTranslations('download');
   return {
     title: t('titles.download'),
-    description: '在 macOS、Linux、Windows 上安装 zoxide。支持 Homebrew、Scoop、Cargo 等多种安装方式，包含 Shell 配置说明。',
+    description: tDownload('description'),
     keywords: t('install'),
   };
 }
@@ -72,7 +73,7 @@ export default async function DownloadPage() {
               >
                 {t('githubLink')}
               </a>
-              。
+              {'.'}
             </p>
           </div>
 
@@ -84,23 +85,16 @@ export default async function DownloadPage() {
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {installers.map((installer, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800"
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                    {installer.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                <div key={index} className="space-y-3">
+                  <h3 className="font-serif font-bold text-lg text-[#37352F] dark:text-gray-100 mb-2">
                     {installer.platform}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <code className="flex-1 text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
-                      {installer.command}
-                    </code>
-                    <CopyButton text={installer.command} />
-                  </div>
-                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
+                  </h3>
+                  <CodeBlock 
+                    code={installer.command}
+                    language="bash"
+                    showPrompt={true}
+                  />
+                  <p className="text-xs text-[#787774] dark:text-gray-400">
                     {installer.description}
                   </p>
                 </div>
@@ -118,24 +112,26 @@ export default async function DownloadPage() {
               {t('shellConfig.description')}
             </p>
             <div className="space-y-4">
-              {shellConfigs.map((config, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-800"
-                >
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="font-semibold text-gray-900 dark:text-white">
-                      {config.name}
-                    </span>
+              {shellConfigs.map((config, index) => {
+                // 根据 Shell 类型确定语言和提示符
+                const language = config.name === 'PowerShell' ? 'powershell' : 
+                               config.name === 'fish' ? 'fish' : 'bash';
+                const prompt = config.name === 'PowerShell' ? 'PS C:\\>' : 'user@dev:~$';
+                
+                return (
+                  <div key={index} className="space-y-2">
+                    <h3 className="font-serif font-bold text-lg text-[#37352F] dark:text-gray-100 mb-2">
+                        {config.name}
+                    </h3>
+                    <CodeBlock 
+                      code={config.command}
+                      language={language}
+                      showPrompt={true}
+                      prompt={prompt}
+                    />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <code className="flex-1 text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded">
-                      {config.command}
-                    </code>
-                    <CopyButton text={config.command} />
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <div className="mt-4 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
               <p className="text-sm text-blue-800 dark:text-blue-300">

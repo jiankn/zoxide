@@ -30,7 +30,7 @@ zoxide 是一个更智能的 \`cd\` 命令替代工具。它能够：
 
 - **智能学习**：自动记录你访问的目录，学习你的使用习惯
 - **模糊搜索**：只需输入目录名的一部分即可跳转
-- **极速性能**：使用 Rust 编写，比传统 cd 命令快 10 倍以上
+- **极速性能**：使用 Rust 编写，比传统 \`cd\` 命令快 10 倍以上
 
 ## 安装 zoxide
 
@@ -196,7 +196,7 @@ zi project
 
 这会显示一个交互式列表，你可以：
 - 使用方向键上下移动
-- 按 Enter 选择目录
+- 按 \`Enter\` 选择目录
 - 按 Esc 取消
 
 ### z - - 返回上一个目录
@@ -220,7 +220,7 @@ z -l project
 \`\`\`
 
 输出示例：
-\`\`\`
+\`\`\`text
 /home/user/projects/web-project    10
 /home/user/projects/mobile-project  5
 /home/user/old-project              1

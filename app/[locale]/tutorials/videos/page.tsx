@@ -1,40 +1,39 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
 import { Play } from 'lucide-react';
-
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations(['seo', 'tutorials']);
   return {
     title: t('seo.titles.videos'),
-    description: t('tutorials.videos.description') || '通过视频学习 zoxide 的使用方法，包括安装、配置和高级技巧。',
+    description: t('tutorials.videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',
     keywords: t('seo.video'),
   };
 }
 
-// 视频数据
+// Video data
 const videos = [
   {
     id: 'quick-start',
-    title: 'zoxide 快速入门',
-    description: '5 分钟快速了解 zoxide 的安装和基本使用方法。',
+    title: 'zoxide Quick Start',
+    description: 'Install zoxide and learn the basics in 5 minutes.',
     duration: '5:30',
     youtubeId: 'aghxkpyRVDY',
     thumbnail: 'https://img.youtube.com/vi/aghxkpyRVDY/maxresdefault.jpg',
   },
   {
     id: 'advanced-config',
-    title: 'zoxide 高级配置',
-    description: '学习 zoxide 的高级配置选项，包括环境变量、自定义别名等。',
+    title: 'zoxide Advanced Configuration',
+    description: 'Environment variables, custom aliases, exclusions, and more.',
     duration: '12:15',
     youtubeId: '_tFuiIIADzg',
     thumbnail: 'https://img.youtube.com/vi/_tFuiIIADzg/maxresdefault.jpg',
   },
   {
     id: 'fzf-integration',
-    title: 'zoxide 与 fzf 集成',
-    description: '将 zoxide 与 fzf 结合使用，实现更强大的目录搜索功能。',
+    title: 'zoxide + fzf Integration',
+    description: 'Combine zoxide with fzf for powerful fuzzy directory search.',
     duration: '8:45',
     youtubeId: '-2Nz8rn05bk',
     thumbnail: 'https://img.youtube.com/vi/-2Nz8rn05bk/maxresdefault.jpg',
@@ -48,16 +47,16 @@ export default function VideosPage() {
         <main className="lg:col-span-2 space-y-12">
           <div>
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              zoxide 视频教程
+              zoxide Video Tutorials
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              通过视频学习 zoxide 的使用方法，包括安装、配置和高级技巧。
+              Watch video guides to learn installation, configuration, and advanced tips.
             </p>
           </div>
 
           <AdSlot slotId="tutorials-top" />
 
-          {/* 视频列表 */}
+          {/* Video list */}
           <div className="space-y-8">
             {videos.map((video) => (
               <div
@@ -97,10 +96,10 @@ export default function VideosPage() {
 
           <AdSlot slotId="tutorials-middle" />
 
-          {/* 相关资源 */}
+          {/* Related resources */}
           <section>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              相关教程
+              Related Tutorials
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Link
@@ -108,10 +107,10 @@ export default function VideosPage() {
                 className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
               >
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  快速开始
+                  Quick Start
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  5 分钟快速上手 zoxide
+                  Get started with zoxide in minutes.
                 </p>
               </Link>
               <Link
@@ -119,10 +118,10 @@ export default function VideosPage() {
                 className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
               >
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  高级配置
+                  Advanced Configuration
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  学习高级配置技巧
+                  Learn advanced setup tips.
                 </p>
               </Link>
             </div>
@@ -140,4 +139,3 @@ export default function VideosPage() {
     </div>
   );
 }
-

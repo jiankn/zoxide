@@ -15,11 +15,11 @@ export default function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="ml-2 rounded p-1 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+      className="opacity-0 group-hover:opacity-100 transition-opacity rounded p-1.5 text-[#37352F] dark:text-gray-300 hover:bg-[#E3E2E0] dark:hover:bg-[#2F2F2F]"
       aria-label="复制命令"
     >
       {copied ? (
-        <Check className="h-4 w-4 text-green-600" />
+        <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
       ) : (
         <Copy className="h-4 w-4" />
       )}

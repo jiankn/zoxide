@@ -31,6 +31,7 @@
     "shareLabel": "Share:",
     "shareToTwitter": "Share to Twitter",
     "shareToFacebook": "Share to Facebook",
+    "copy": "Copy",
     "copyLink": "Copy Link",
     "linkCopied": "Copied",
     "copyFailed": "Copy failed"
@@ -42,7 +43,7 @@
     "getStarted": "Get Started",
     "viewDocs": "View Docs",
     "features": {
-      "title": "Why choose zoxide?",
+      "title": "Why choose zoxide-",
       "smart": {
         "title": "Smart Learning",
         "description": "Automatically records directories you visit and learns your usage patterns"
@@ -269,48 +270,55 @@
       "readTime": "min read",
       "all": "All"
     },
+    "notFound": "Tutorial Not Found",
     "data": {
       "quick-start": {
         "title": "zoxide Quick Start",
         "excerpt": "Get started with zoxide in 5 minutes, learn basic commands and configuration methods.",
         "duration": "5 min",
         "level": "Beginner",
-        "category": "Beginner Tutorials"
+        "category": "Beginner Tutorials",
+        "content": "\n# zoxide Quick Start Guide\n\nzoxide is a smart directory jumper written in Rust. Get started in minutes.\n\n## Install zoxide\n\n### macOS\n```bash\nbrew install zoxide\n```\n\n### Windows\n```powershell\nscoop install zoxide\n```\n\n### Linux / all platforms\n```bash\ncargo install zoxide\n```\n\n## Shell configuration\n\nAdd initialization to your shell config and reload.\n\n#### zsh\n```bash\neval \"$(zoxide init zsh)\"\n```\n\n#### bash\n```bash\neval \"$(zoxide init bash)\"\n```\n\n#### fish\n```fish\nzoxide init fish | source\n```\n\n#### PowerShell\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n## Basic usage\n\n```bash\n# Jump to a matching directory\nz project\n\n# Interactive fuzzy pick\nzi pro\n\n# Go back\nz -\n\n# List matches\nz -l project\n```\n\nzoxide learns your habits and makes directory navigation fast and fuzzy.\n"
       },
       "basic-commands": {
         "title": "zoxide Basic Commands",
         "excerpt": "Learn all basic zoxide commands and usage tips in depth.",
         "duration": "10 min",
         "level": "Beginner",
-        "category": "Beginner Tutorials"
+        "category": "Beginner Tutorials",
+        "content": "\n# zoxide Basic Commands\n\nKey commands you need every day.\n\n## z - smart jump\n```bash\nz project\nz proj       # partial name\nz src/main   # path fragments\n```\nzoxide ranks results by relevance and frequency.\n\n## zi - interactive selection\n```bash\nzi project\n```\nUse arrow keys to pick, Enter to jump.\n\n## z - - go back\n```bash\nz docs\nz -          # back to previous\n```\n\n## z -l - list matches\n```bash\nz -l project\n```\n\n## Tips\n- Combine: `z -l proj` then `z proj`\n- Pipe results: `z -l test | head -5`\n"
       },
       "shell-setup": {
         "title": "Shell Configuration Guide",
         "excerpt": "Detailed configuration of zoxide integration in different Shell environments.",
         "duration": "15 min",
         "level": "Beginner",
-        "category": "Beginner Tutorials"
+        "category": "Beginner Tutorials",
+        "content": "\n# Shell Configuration Guide\n\nConfigure zoxide in your favorite shell.\n\n## zsh\n```bash\neval \"$(zoxide init zsh)\"\n```\n\n## bash\n```bash\neval \"$(zoxide init bash)\"\n```\n\n### macOS bash profile\n```bash\nif [ -f ~/.bashrc ]; then\n    source ~/.bashrc\nfi\n```\n\n## fish\n```fish\nzoxide init fish | source\n```\n\n## PowerShell\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n## Verify\n```bash\nz --help\nz ~\n```\n\nIf command not found: check install, config file, and reload the shell.\n"
       },
       "advanced-config": {
         "title": "zoxide Advanced Configuration",
-        "excerpt": "Learn advanced zoxide configuration options, including environment variables, custom aliases, directory exclusion, etc.",
-        "duration": "15 min",
+        "excerpt": "Learn zoxide's advanced configuration options, including environment variables, custom aliases, directory exclusion, and more.",
+        "duration": "20 min",
         "level": "Intermediate",
-        "category": "Advanced Tips"
+        "category": "Advanced Tips",
+        "content": "\n# zoxide Advanced Configuration\n\nCustomize zoxide with env vars, aliases, and performance tweaks.\n\n## Environment Variables\n\n### Exclude directories\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n```\nSeparate multiple paths with colons.\n\n### Custom database location\n```bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n```\n\n### Maximum history age\n```bash\nexport _ZO_MAXAGE=5000\n```\n\n### Exclusion patterns\n```bash\nexport _ZO_EXCLUDE_PATHS=\".git\"\n```\n\n## Alias Settings\n```bash\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\nalias zr='zoxide remove'\n```\n\n## fzf Integration\n```bash\n# Add to ~/.zshrc\nzi() {\n  local dir\n  dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n```\n\n## Performance Optimization\n\n### Reduce index scope\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n```\n\n### Periodic cleanup\n```bash\nls -lh ~/.zo\nrm ~/.zo\n```\n\n## Team Collaboration\n```bash\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n```\n\n## Summary\nStart with exclusions, then fine-tune history and database location to fit your workflow. See the official docs for more options.\n"
       },
       "fzf-integration": {
         "title": "zoxide and fzf Integration",
         "excerpt": "Learn how to combine zoxide with fzf to achieve more powerful directory search and selection.",
         "duration": "25 min",
         "level": "Advanced",
-        "category": "Advanced Tips"
+        "category": "Advanced Tips",
+        "content": "\n# zoxide and fzf Integration\n\nCombine zoxide with fzf for powerful fuzzy selection of directories.\n\n## What is fzf-\n- Fuzzy search for files and directories\n- Interactive selection with preview\n- Highly customizable\n\n## Installing fzf\n\n### macOS\n```bash\nbrew install fzf\n```\n\n### Linux\n```bash\n# Ubuntu/Debian\nsudo apt install fzf\n\n# Arch Linux\nsudo pacman -S fzf\n```\n\n### Manual install\n```bash\ngit clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf\n~/.fzf/install\n```\n\n## Basic Integration\n\n### Use fzf to pick a zoxide result\n```bash\n# zsh/bash\nzi() {\n    local dir\n    dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n```\n\n### fish version\n```fish\nfunction zi\n    set dir (zoxide query -l | fzf)\n    if test -n \"$dir\"\n        z \"$dir\"\n    end\nend\n```\n\n## Advanced Integration\n\n### Add preview\n```bash\nzi() {\n    local dir\n    dir=$(zoxide query -l | fzf --preview 'ls -la {}') && z \"$dir\"\n}\n```\n\n### Multi-select\n```bash\nzi() {\n    local dirs\n    dirs=$(zoxide query -l | fzf -m)\n    if [ -n \"$dirs\" ]; then\n        echo \"$dirs\" | while read dir; do\n            echo \"Selected: $dir\"\n        done\n    fi\n}\n```\n\n## Practical functions\n\n### Jump with preview\n```bash\nzfp() {\n    local dir\n    dir=$(zoxide query -l | fzf --preview 'tree -L 2 {}')\n    [ -n \"$dir\" ] && z \"$dir\" && ls -la\n}\n```\n\n### Search and open editor\n```bash\nzcode() {\n    local dir\n    dir=$(zoxide query -l | fzf)\n    [ -n \"$dir\" ] && z \"$dir\" && code .\n}\n```\n\n### Search then run a command\n```bash\nzexec() {\n    local dir cmd\n    dir=$(zoxide query -l | fzf)\n    if [ -n \"$dir\" ]; then\n        z \"$dir\"\n        read -p \"Enter command: \" cmd\n        eval \"$cmd\"\n    fi\n}\n```\n\n## fzf Configuration\n\n### Custom theme\n```bash\nexport FZF_DEFAULT_OPTS='\n  --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9\n  --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9\n  --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6\n  --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4\n'\n```\n\n### Custom preview command\n```bash\nexport FZF_DEFAULT_OPTS=\"--preview 'tree -C {} | head -20'\"\n```\n\n## Real-World Use\n\n### Quick project switching\n```bash\nzp() {\n    local dir\n    dir=$(zoxide query -l | grep -i project | fzf)\n    [ -n \"$dir\" ] && z \"$dir\"\n}\n```\n\n### Recent directories\n```bash\nzr() {\n    local dir\n    dir=$(zoxide query -l | sort -k2 -rn | fzf)\n    [ -n \"$dir\" ] && z \"$dir\"\n}\n```\n\n### Filter by type (git repos)\n```bash\nzgit() {\n    local dir\n    dir=$(zoxide query -l | xargs -I {} sh -c 'test -d {}/.git && echo {}' | fzf)\n    [ -n \"$dir\" ] && z \"$dir\"\n}\n```\n\n## Performance Tips\n\n- Limit results: `head -50`\n- Use lighter previews when data is large\n\n```bash\nzi() {\n    local dir\n    dir=$(zoxide query -l | head -50 | fzf)\n    [ -n \"$dir\" ] && z \"$dir\"\n}\n```\n\n```bash\nzi() {\n    local dir\n    dir=$(zoxide query -l | fzf --bind 'change:reload:zoxide query -l {q}') && z \"$dir\"\n}\n```\n\n## Troubleshooting\n\nIf you see `fzf: command not found`:\n1. Verify installation\n2. Ensure `fzf` is in PATH\n3. Reload your shell config\n\n## Best Practices\n1. Use previews when helpful, not always\n2. Limit result count for large datasets\n3. Make aliases for your common workflows\n\n## Next Steps\n- [Troubleshooting](/tutorials/troubleshooting)\n- [Performance Optimization](/tutorials/performance)\n- [Advanced Configuration Tips](/tutorials/advanced-config)\n"
       },
       "performance": {
         "title": "zoxide Performance Optimization",
-        "excerpt": "Optimize zoxide performance, including database optimization, directory exclusion, history limiting, and more.",
-        "duration": "20 min",
-        "level": "Advanced",
-        "category": "Advanced Tips"
+        "excerpt": "Learn how to optimize zoxide's performance, including database optimization, startup speed improvements, and more.",
+        "duration": "15 min",
+        "level": "Intermediate",
+        "category": "Advanced Tips",
+        "content": "\n# zoxide Performance Optimization\n\nThis guide shows how to tune zoxide for speed: smaller databases, faster startup, and snappy queries.\n\n## Database Optimization\n\n### Exclude unnecessary directories\nKeep noise out of the index:\n```bash\n# System and temp paths\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\n# Add development dependencies if you have many projects\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules:/.git\"\n```\n\nBenefits:\n- Smaller database\n- Faster queries\n- Lower memory\n\n### Clean the database regularly\n```bash\n# Check database size\nls -lh ~/.zo\n\n# If it grows too large, rebuild it (zoxide will relearn)\nrm ~/.zo\n```\n\n### Limit history\n```bash\n# Keep roughly one year of history\nexport _ZO_MAXAGE=365\n```\n\n## Startup Speed\n\n### Lazy initialization (zsh example)\n```bash\nzoxide() {\n    unfunction zoxide\n    eval \"$(command zoxide init zsh)\"\n    zoxide \"$@\"\n}\n```\n\n### Place init at the end of your rc file\n```bash\n# ~/.zshrc\neval \"$(zoxide init zsh)\"\n```\n\n## Query Optimization\n\n- Prefer precise keywords: `z my-project` instead of `z pro`\n- Use the access frequency zoxide learns automatically\n\n## Memory Optimization\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys:/node_modules\"\nexport _ZO_MAXAGE=1000\n```\n\n## Performance Testing\n```bash\n# Measure init time\ntime eval \"$(zoxide init zsh)\"\n\n# Measure a query\ntime z project\n```\n\n## Real-World Cases\n\n### Many projects\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/node_modules:/.git:/dist:/build\"\n```\n\n### Sysadmin\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys:/usr\"\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n```\n\n### Team collaboration\n```bash\nexport _ZO_DATA_DIR=\"/shared/zoxide\"\n```\n\n## Monitoring\n```bash\n# Weekly size check via cron\n0 0 * * 0 ls -lh ~/.zo >> ~/zoxide-size.log\n```\n\n```bash\n# cleanup-zoxide.sh\n#!/bin/bash\nZO_DB=\"$HOME/.zo\"\nMAX_SIZE=10485760  # 10MB\nif [ -f \"$ZO_DB\" ]; then\n    SIZE=$(stat -f%z \"$ZO_DB\" 2>/dev/null || stat -c%s \"$ZO_DB\" 2>/dev/null)\n    if [ \"$SIZE\" -gt \"$MAX_SIZE\" ]; then\n        echo \"Database too large, backing up and resetting...\"\n        cp \"$ZO_DB\" \"$ZO_DB.backup\"\n        rm \"$ZO_DB\"\n    fi\nfi\n```\n\n## Best Practices\n1. Exclude noisy directories first\n2. Clean up occasionally\n3. Limit history if needed\n4. Keep init near the end of your rc file\n5. Monitor database size and tweak\n\n## Next Steps\n- [fzf Integration](/tutorials/fzf-integration)\n- [Troubleshooting](/tutorials/troubleshooting)\n- [Advanced Configuration Tips](/tutorials/advanced-config)\n"
       },
       "team-collaboration": {
         "title": "zoxide Team Collaboration",
@@ -324,14 +332,16 @@
         "excerpt": "Watch zoxide video tutorials to quickly learn basic usage and advanced tips.",
         "duration": "10 min",
         "level": "Beginner",
-        "category": "Video & FAQ"
+        "category": "Video & FAQ",
+        "content": "\n# zoxide Video Tutorials\n\nWatch video guides to learn install, config, and advanced tips.\n\n## Recommended topics\n- Quick start walkthrough\n- Advanced configuration\n- zoxide + fzf workflow\n\n## Tips\n- Follow along with commands in your shell\n- After watching, run:\n```bash\nz --help\nz -l\n```\n"
       },
       "troubleshooting": {
         "title": "zoxide Troubleshooting",
         "excerpt": "Solve common problems when using zoxide, including installation issues, configuration problems, performance issues, etc.",
         "duration": "20 min",
         "level": "Intermediate",
-        "category": "Video & FAQ"
+        "category": "Video & FAQ",
+        "content": "\n# zoxide Troubleshooting\n\nCommon issues and quick fixes.\n\n## Install issues\n- `zoxide: command not found`: ensure install and PATH.\n```bash\nwhich zoxide\nzoxide --version\necho $PATH\n```\n\n## Config not applied\n- Confirm init lines exist and reload shell.\n```bash\nsource ~/.zshrc   # or bashrc / fish config\n```\n\n## Wrong jump\n- Use interactive list:\n```bash\nzi project\nz -l project\n```\n- Manually add:\n```bash\nzoxide add /path/to/dir\n```\n\n## Database issues\n```bash\nls -lh ~/.zo\ncp ~/.zo ~/.zo.backup\nrm ~/.zo          # rebuild if corrupted/too big\n```\n\n## Startup too slow\n- Try lazy loading for zsh:\n```bash\nzoxide() {\n    unfunction zoxide\n    eval \"$(command zoxide init zsh)\"\n    zoxide \"$@\"\n}\n```\n- Place init near end of rc file.\n\n## Query slow\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\nexport _ZO_MAXAGE=1000\n```\n\n## Windows path issues\nUse PowerShell init:\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n## Debug\n```bash\nexport _ZO_DEBUG=1\nz project\n```\n"
       }
     }
   },
@@ -339,6 +349,7 @@
     "title": "zoxide Blog",
     "description": "Read zoxide-related articles: usage tutorials, configuration tips, performance optimization, version updates, etc.",
     "readTime": "min read",
+    "readMore": "Read More",
     "detail": {
       "author": "Author",
       "category": "Category",
@@ -352,24 +363,36 @@
         "excerpt": "Get started with zoxide in 5 minutes, learn basic commands and configuration methods.",
         "category": "Tutorial",
         "author": "zoxide.org",
-        "tags": ["Quick Start", "Installation", "Configuration"],
-        "content": "# zoxide Quick Start Guide\n\nzoxide is a smart directory jumper written in Rust with exceptional performance. This guide will help you get started in 5 minutes.\n\n## Installing zoxide\n\n### macOS\n\\`\\`\\`bash\nbrew install zoxide\n\\`\\`\\`\n\n### Windows\n\\`\\`\\`bash\nscoop install zoxide\n\\`\\`\\`\n\n### Linux / All Platforms\n\\`\\`\\`bash\ncargo install zoxide\n\\`\\`\\`\n\n## Shell Configuration\n\nAfter installation, you need to add the initialization command to your Shell configuration file.\n\n### zsh\nAdd to \\`~/.zshrc\\`:\n\\`\\`\\`bash\neval \"$(zoxide init zsh)\"\n\\`\\`\\`\n\n### bash\nAdd to \\`~/.bashrc\\`:\n\\`\\`\\`bash\neval \"$(zoxide init bash)\"\n\\`\\`\\`\n\n### fish\nAdd to \\`~/.config/fish/config.fish\\`:\n\\`\\`\\`fish\nzoxide init fish | source\n\\`\\`\\`\n\n## Basic Usage\n\nAfter configuration, reload your Shell or open a new terminal window to start using zoxide.\n\n### Basic Commands\n\n- \\`z <directory>\\` - Jump to matching directory\n- \\`zi <directory>\\` - Interactive directory selection (with fuzzy search)\n- \\`z -\\` - Return to previous directory\n- \\`z -l\\` - List all matching directories\n\n### Examples\n\n\\`\\`\\`bash\n# Jump to directory containing \"project\"\nz project\n\n# Interactive directory selection\nzi pro\n\n# Return to previous directory\nz -\n\\`\\`\\`\n\n## Advanced Tips\n\n### Excluding Directories\n\nUse the \\`_ZO_EXCLUDE_DIRS\\` environment variable to exclude directories from indexing:\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var\"\n\\`\\`\\`\n\n### Custom Database Location\n\nBy default, the database is stored in \\`~/.zo\\`. You can customize it with \\`_ZO_DATA_DIR\\`:\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n## Summary\n\nzoxide makes directory navigation simple and efficient. With smart learning and fuzzy search, you can quickly jump to any directory without typing the full path.\n\nFor more advanced usage, check out the [Advanced Configuration Tutorial](/tutorials/advanced-config)."
+        "tags": [
+          "Quick Start",
+          "Installation",
+          "Configuration"
+        ],
+        "content": "\n# zoxide Quick Start Guide\n\nzoxide is a smart directory jumper written in Rust. Get up and running in minutes.\n\n## Install zoxide\n\n### macOS\n```bash\nbrew install zoxide\n```\n\n### Windows\n```bash\nscoop install zoxide\n```\n\n### Linux / all platforms\n```bash\ncargo install zoxide\n```\n\n## Shell setup\n\nAdd initialization to your shell config and reload.\n\n```bash\n# zsh\neval \"$(zoxide init zsh)\"\n\n# bash\neval \"$(zoxide init bash)\"\n```\n\n```fish\n# fish\nzoxide init fish | source\n```\n\n## Basic commands\n- `z <dir>` jump to a matching directory\n- `zi <dir>` interactive fuzzy pick\n- `z -` go back to previous directory\n- `z -l` list matches\n\n```bash\n# Examples\nz project\nzi pro\nz -\n```\n\n## Advanced tips\n\nExclude noisy paths:\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var\"\n```\n\nCustom database location:\n```bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n```\n\n## Summary\nzoxide makes navigation fast with smart learning and fuzzy search. Check [Advanced Config](/tutorials/advanced-config) for more.\n"
       },
       "advanced-config": {
         "title": "zoxide Advanced Configuration Tips",
         "excerpt": "Learn how to configure zoxide to improve productivity, including alias settings, directory exclusion, etc.",
         "category": "Tips",
         "author": "zoxide.org",
-        "tags": ["Configuration", "Advanced", "Optimization"],
-        "content": "# zoxide Advanced Configuration Tips\n\nzoxide provides rich configuration options that allow you to customize your experience according to your needs.\n\n## Environment Variable Configuration\n\n### Excluding Directories\n\nUse \\`_ZO_EXCLUDE_DIRS\\` to exclude directories from indexing, improving performance:\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n\\`\\`\\`\n\nMultiple directories are separated by colons.\n\n### Custom Database Location\n\nBy default, the database is stored in the \\`.zo\\` file in your home directory. You can customize it with \\`_ZO_DATA_DIR\\`:\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n### Maximum History Age\n\nUse \\`_ZO_MAXAGE\\` to set the maximum history age in days (default 10000):\n\n\\`\\`\\`bash\nexport _ZO_MAXAGE=5000\n\\`\\`\\`\n\n## Alias Settings\n\nzoxide supports custom aliases to make common commands shorter:\n\n\\`\\`\\`bash\n# Add to Shell config file\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n\\`\\`\\`\n\n## Integration with fzf\n\nCombining with fzf enables more powerful directory search and selection:\n\n\\`\\`\\`bash\n# Add to ~/.zshrc\nzi() {\n  local dir\n  dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n\\`\\`\\`\n\n## Performance Optimization\n\n### Reducing Index Range\n\nOnly indexing commonly used directories can significantly improve performance:\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\\`\\`\\`\n\n### Regular Database Cleanup\n\nIf the database is too large, you can manually clean it:\n\n\\`\\`\\`bash\n# Check database size\nls -lh ~/.zo\n\n# Delete database to start fresh (use with caution)\nrm ~/.zo\n\\`\\`\\`\n\n## Team Collaboration\n\nzoxide supports shared databases, allowing team members to share common directories:\n\n\\`\\`\\`bash\n# Use shared database location\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n\\`\\`\\`\n\n## Summary\n\nWith proper configuration, zoxide can better adapt to your workflow. We recommend starting by excluding unnecessary directories and gradually optimizing the configuration.\n\nFor more configuration options, check out the [official documentation](https://github.com/ajeetdsouza/zoxide)."
+        "tags": [
+          "Configuration",
+          "Advanced",
+          "Optimization"
+        ],
+        "content": "\n# zoxide Advanced Configuration Tips\n\nGo deeper with environment variables, aliases, and fzf.\n\n## Environment variables\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\nexport _ZO_MAXAGE=5000\n```\n\n## Aliases\n```bash\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n```\n\n## fzf integration\n```bash\nzi() {\n  local dir\n  dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n```\n\n## Performance\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\nls -lh ~/.zo\nrm ~/.zo\n```\n\n## Team sharing\n```bash\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n```\n\nTune these settings to fit your workflow, starting with exclusions and database location.\n"
       },
       "zoxide-vs-autojump": {
         "title": "zoxide vs autojump Performance Comparison",
         "excerpt": "Detailed comparison of the performance differences and user experience between zoxide and autojump.",
         "category": "Comparison",
         "author": "zoxide.org",
-        "tags": ["Comparison", "Performance", "autojump"],
-        "content": "# zoxide vs autojump Performance Comparison\n\nzoxide and autojump are both smart directory jump tools, but they have significant differences in performance, features, and usability.\n\n## Performance Comparison\n\n### Startup Speed\n\nzoxide is written in Rust and starts extremely fast:\n\n- **zoxide**: ~5ms startup time\n- **autojump**: ~50ms startup time\n\nzoxide is **10x faster** than autojump.\n\n### Query Speed\n\nIn large project directories, zoxide's query speed is also significantly faster:\n\n- **zoxide**: Fuzzy search < 10ms\n- **autojump**: Query time 20-50ms\n\n## Feature Comparison\n\n### Fuzzy Search\n\n- **zoxide**: ✅ Supports fuzzy search, no need for full path\n- **autojump**: ❌ No fuzzy search support\n\n### Interactive Selection\n\n- **zoxide**: ✅ Supports \\`zi\\` command for interactive selection\n- **autojump**: ❌ Not supported\n\n### Learning Algorithm\n\n- **zoxide**: ✅ Smart learning algorithm, gets more accurate with use\n- **autojump**: ✅ Basic frequency statistics\n\n## Usability Comparison\n\n### Command Simplicity\n\nzoxide's commands are more concise:\n\n\\`\\`\\`bash\n# zoxide\nz project\n\n# autojump\nj project\n\\`\\`\\`\n\n### Configuration Complexity\n\n- **zoxide**: Simple configuration, just one initialization command\n- **autojump**: Requires additional Shell integration configuration\n\n## Cross-Platform Support\n\n- **zoxide**: ✅ Supports macOS, Linux, Windows\n- **autojump**: ✅ Supports macOS, Linux (limited Windows support)\n\n## Maintenance Status\n\n- **zoxide**: Very active, continuous updates\n- **autojump**: Slower updates\n\n## Summary\n\n| Feature | zoxide | autojump |\n|---------|--------|----------|\n| Performance | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |\n| Fuzzy Search | ✅ | ❌ |\n| Interactive Selection | ✅ | ❌ |\n| Cross-platform | ✅ | ✅ |\n| Maintenance Status | Active | Slow |\n\n**Conclusion**: If you're looking for performance and modern experience, zoxide is the better choice. If you're already used to autojump, migrating to zoxide is also simple.\n\nCheck out the [full comparison](/comparisons) for more details."
+        "tags": [
+          "Comparison",
+          "Performance",
+          "autojump"
+        ],
+        "content": "\n# zoxide vs autojump Performance Comparison\n\nzoxide and autojump are both directory jumpers, but their speed and features differ.\n\n## Performance\n- Startup: **zoxide ~5ms** vs **autojump ~50ms**\n- Query: zoxide fuzzy search < 10ms; autojump 20-50ms in large trees\n\n## Features\n- Fuzzy search: zoxide - / autojump -\n- Interactive selection (`zi`): zoxide - / autojump -\n- Learning: zoxide smart weighting; autojump basic frequency\n\n## Usability\n```bash\n# zoxide\nz project\n\n# autojump\nj project\n```\n\nConfig: zoxide needs one init command; autojump requires extra shell setup.\n\n## Cross-platform\n- zoxide: macOS, Linux, Windows\n- autojump: macOS, Linux (limited Windows)\n\n## Conclusion\nChoose zoxide for speed and modern UX. Migration is straightforward if you currently use autojump. See the [full comparison](/comparisons).\n"
       }
     }
   },
@@ -408,58 +431,106 @@
         "version": "0.9.4",
         "date": "2024-10-28",
         "changes": [
-          { "type": "Fix", "content": "Fixed path handling issues on Windows platform" },
-          { "type": "Improvement", "content": "Improved error handling mechanism" }
+          {
+            "type": "Fix",
+            "content": "Fixed path handling issues on Windows platform"
+          },
+          {
+            "type": "Improvement",
+            "content": "Improved error handling mechanism"
+          }
         ]
       },
       {
         "version": "0.9.3",
         "date": "2024-09-15",
         "changes": [
-          { "type": "New Feature", "content": "Added interactive directory selection feature (zi command)" },
-          { "type": "Performance", "content": "Optimized database query performance, improved by 20%" },
-          { "type": "Improvement", "content": "Improved fuzzy search algorithm, enhanced matching accuracy" }
+          {
+            "type": "New Feature",
+            "content": "Added interactive directory selection feature (zi command)"
+          },
+          {
+            "type": "Performance",
+            "content": "Optimized database query performance, improved by 20%"
+          },
+          {
+            "type": "Improvement",
+            "content": "Improved fuzzy search algorithm, enhanced matching accuracy"
+          }
         ]
       },
       {
         "version": "0.9.2",
         "date": "2024-07-20",
         "changes": [
-          { "type": "Fix", "content": "Fixed initialization issues in some Shell environments" },
-          { "type": "Improvement", "content": "Optimized memory usage" }
+          {
+            "type": "Fix",
+            "content": "Fixed initialization issues in some Shell environments"
+          },
+          {
+            "type": "Improvement",
+            "content": "Optimized memory usage"
+          }
         ]
       },
       {
         "version": "0.9.1",
         "date": "2024-05-10",
         "changes": [
-          { "type": "New Feature", "content": "Added PowerShell integration support" },
-          { "type": "Improvement", "content": "Improved cross-platform compatibility" }
+          {
+            "type": "New Feature",
+            "content": "Added PowerShell integration support"
+          },
+          {
+            "type": "Improvement",
+            "content": "Improved cross-platform compatibility"
+          }
         ]
       },
       {
         "version": "0.9.0",
         "date": "2024-03-15",
         "changes": [
-          { "type": "New Feature", "content": "Added directory exclusion configuration option (_ZO_EXCLUDE_DIRS)" },
-          { "type": "Performance", "content": "Optimized startup speed, reduced initialization time" },
-          { "type": "Improvement", "content": "Improved database storage format" }
+          {
+            "type": "New Feature",
+            "content": "Added directory exclusion configuration option (_ZO_EXCLUDE_DIRS)"
+          },
+          {
+            "type": "Performance",
+            "content": "Optimized startup speed, reduced initialization time"
+          },
+          {
+            "type": "Improvement",
+            "content": "Improved database storage format"
+          }
         ]
       },
       {
         "version": "0.8.5",
         "date": "2023-12-20",
         "changes": [
-          { "type": "Fix", "content": "Fixed path handling issues when paths contain special characters" },
-          { "type": "Improvement", "content": "Improved error message prompts" }
+          {
+            "type": "Fix",
+            "content": "Fixed path handling issues when paths contain special characters"
+          },
+          {
+            "type": "Improvement",
+            "content": "Improved error message prompts"
+          }
         ]
       },
       {
         "version": "0.8.4",
         "date": "2023-11-05",
         "changes": [
-          { "type": "New Feature", "content": "Added support for custom database location (_ZO_DATA_DIR)" },
-          { "type": "Improvement", "content": "Improved learning algorithm, enhanced matching accuracy" }
+          {
+            "type": "New Feature",
+            "content": "Added support for custom database location (_ZO_DATA_DIR)"
+          },
+          {
+            "type": "Improvement",
+            "content": "Improved learning algorithm, enhanced matching accuracy"
+          }
         ]
       }
     ]
@@ -524,7 +595,7 @@
         "content": [
           "<strong>Automatically Collected Information</strong>: When you visit our website, we may automatically collect certain information, including your IP address, browser type, access time, and pages visited.",
           "<strong>Cookies and Similar Technologies</strong>: We use cookies to improve your browsing experience, analyze website traffic, and personalize content.",
-          "<strong>Third-Party Services</strong>: We use Google AdSense to display ads, and these services may collect your information for ad personalization."
+          "<strong>Third-Party Services</strong>: We use third-party ad services (e.g., ad networks) to display ads; these services may collect your information for ad personalization."
         ]
       },
       "usage": {
@@ -538,7 +609,7 @@
       "thirdParty": {
         "title": "4. Third-Party Services",
         "content": [
-          "<strong>Google AdSense</strong>: Used to display ads. Google may use cookies to display personalized ads based on your interests. You can visit <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google Privacy Policy</a> for more information.",
+          "<strong>Third-Party Ad Services</strong>: Used to display ads. Google may use cookies to display personalized ads based on your interests. You can visit <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google Privacy Policy</a> for more information.",
           "<strong>Google Analytics</strong> (if used): Used to analyze website traffic."
         ]
       },
@@ -664,7 +735,7 @@
     "faq": {
       "top": "💡 FAQ - \"Check out common questions and solutions for using zoxide\"",
       "sidebar": "💡 FAQ - \"Check out common questions and solutions for using zoxide\"",
-      "middle": "🔧 Configuration Tip - \"Having issues? Check FAQ for quick solutions\"",
+      "middle": "🔧 Configuration Tip - \"Having issues- Check FAQ for quick solutions\"",
       "bottom": "📚 Advanced Tip - \"Learn more about advanced usage and tips\""
     },
     "comparisons": {
@@ -691,4 +762,3 @@
     }
   }
 }
-

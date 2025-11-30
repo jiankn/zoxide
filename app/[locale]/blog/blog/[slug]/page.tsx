@@ -5,6 +5,7 @@ import { getPostBySlug, getRelatedPosts } from '@/data/blog';
 import AdSlot from '@/components/AdSlot/AdSlot';
 import ShareButtons from '@/components/ShareButtons/ShareButtons';
 import RelatedPosts from '@/components/RelatedPosts/RelatedPosts';
+import CodeBlockWrapper from '@/components/CodeBlock/CodeBlockWrapper';
 import { Calendar, Clock, User } from 'lucide-react';
 import { generateArticleSchema } from '@/lib/seo/schema';
 
@@ -104,81 +105,57 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <AdSlot slotId="article-top" />
 
           {/* 文章正文 */}
-          <article className="markdown-content">
+          <article className="markdown-content max-w-3xl mx-auto">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                // 自定义代码块样式
                 code: ({ node, inline, className, children, ...props }: any) => {
                   const match = /language-(\w+)/.exec(className || '');
                   return !inline && match ? (
-                    <div className="relative my-4">
-                      <pre className="rounded-lg bg-gray-900 p-4 overflow-x-auto">
-                        <code
-                          className={className}
-                          {...props}
-                          style={{
-                            color: '#e5e7eb',
-                            fontSize: '0.875rem',
-                          }}
-                        >
-                          {children}
-                        </code>
-                      </pre>
-                    </div>
+                    <CodeBlockWrapper className={className || ''} language={match[1]}>
+                      {children}
+                    </CodeBlockWrapper>
                   ) : (
                     <code
-                      className={className}
+                      className="bg-[#E3E2E0] dark:bg-[#37352F] text-[#EB5757] dark:text-[#FF7B72] px-1.5 py-0.5 rounded font-mono text-sm"
                       {...props}
-                      style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                        padding: '0.2rem 0.4rem',
-                        borderRadius: '0.25rem',
-                        fontSize: '0.9em',
-                        color: '#e11d48',
-                      }}
                     >
                       {children}
                     </code>
                   );
                 },
-                // 自定义链接样式
                 a: ({ node, ...props }: any) => (
                   <a
                     {...props}
-                    className="text-blue-600 hover:text-blue-800 underline dark:text-blue-400 dark:hover:text-blue-300"
+                    className="text-gray-500 underline decoration-gray-300 underline-offset-4 hover:text-black dark:hover:text-gray-300 transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                   />
                 ),
-                // 自定义标题样式
                 h1: ({ node, ...props }: any) => (
-                  <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-900 dark:text-white" {...props} />
+                  <h1 className="font-serif font-bold text-4xl text-[#37352F] dark:text-gray-100 mt-10 mb-4" {...props} />
                 ),
                 h2: ({ node, ...props }: any) => (
-                  <h2 className="text-2xl font-bold mt-6 mb-3 text-gray-900 dark:text-white" {...props} />
+                  <h2 className="font-serif font-bold text-2xl text-[#37352F] dark:text-gray-100 border-b border-[#E9E9E7] dark:border-[#2F2F2F] pb-2 mt-10 mb-4" {...props} />
                 ),
                 h3: ({ node, ...props }: any) => (
-                  <h3 className="text-xl font-semibold mt-4 mb-2 text-gray-900 dark:text-white" {...props} />
+                  <h3 className="font-serif font-bold text-xl text-[#37352F] dark:text-gray-100 mt-10 mb-4" {...props} />
                 ),
-                // 自定义段落样式
                 p: ({ node, ...props }: any) => (
-                  <p className="mb-4 text-gray-700 dark:text-gray-300 leading-7" {...props} />
+                  <p className="font-sans text-base leading-7 text-[#37352F] dark:text-gray-300 mb-4" {...props} />
                 ),
-                // 自定义列表样式
                 ul: ({ node, ...props }: any) => (
-                  <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300" {...props} />
+                  <ul className="list-disc text-[#37352F] dark:text-gray-300 mb-4 space-y-2 ml-6" {...props} />
                 ),
                 ol: ({ node, ...props }: any) => (
-                  <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700 dark:text-gray-300" {...props} />
+                  <ol className="list-decimal text-[#37352F] dark:text-gray-300 mb-4 space-y-2 ml-6" {...props} />
                 ),
                 li: ({ node, ...props }: any) => (
-                  <li className="ml-4" {...props} />
+                  <li className="mb-1" {...props} />
                 ),
-                // 自定义引用样式
                 blockquote: ({ node, ...props }: any) => (
                   <blockquote
-                    className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-600 dark:text-gray-400"
+                    className="border-l-4 border-black dark:border-gray-300 pl-4 py-1 my-6 italic text-lg font-serif text-[#37352F] dark:text-gray-300"
                     {...props}
                   />
                 ),

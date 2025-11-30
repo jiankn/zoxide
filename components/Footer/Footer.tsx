@@ -2,6 +2,7 @@
 
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
+import Logo from '@/components/Logo/Logo';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -26,22 +27,23 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+    <footer className="border-t border-transparent bg-gradient-to-r from-[#0b1f4b] via-[#0f2f6b] to-[#123a7f] text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo 和描述 */}
-          <div className="col-span-1 md:col-span-1">
-            <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              zoxide
+          <div className="col-span-1 md:col-span-1 space-y-3">
+            <Link href="/" className="inline-flex items-center gap-2 group">
+              <Logo size={48} className="text-white group-hover:opacity-80 transition-opacity" />
+              <span className="text-2xl font-bold tracking-tight text-white">zoxide</span>
             </Link>
-            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-white/80">
               {t('description')}
             </p>
           </div>
 
-          {/* 链接组 */}
+          {/* 链接区 */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+            <h3 className="text-sm font-semibold text-white">
               {t('product')}
             </h3>
             <ul className="mt-4 space-y-2">
@@ -49,7 +51,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                    className="text-sm text-white/80 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -59,7 +61,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+            <h3 className="text-sm font-semibold text-white">
               {t('resources')}
             </h3>
             <ul className="mt-4 space-y-2">
@@ -67,7 +69,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                    className="text-sm text-white/80 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -77,7 +79,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+            <h3 className="text-sm font-semibold text-white">
               {t('comparisons')}
             </h3>
             <ul className="mt-4 space-y-2">
@@ -85,7 +87,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                    className="text-sm text-white/80 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -96,29 +98,29 @@ export default function Footer() {
         </div>
 
         {/* 法律链接 */}
-        <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-800">
+        <div className="mt-8 border-t border-white/30 pt-8">
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <Link
               href="/about"
-              className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+              className="text-white/80 hover:text-white"
             >
               {t('about')}
             </Link>
             <Link
               href="/privacy-policy"
-              className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+              className="text-white/80 hover:text-white"
             >
               {t('privacyPolicy')}
             </Link>
             <Link
               href="/terms-of-service"
-              className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+              className="text-white/80 hover:text-white"
             >
               {t('termsOfService')}
             </Link>
           </div>
-          <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-            {t('copyright')}
+          <p className="mt-4 text-center text-sm text-white/70">
+            {t('copyright')} © {currentYear}
           </p>
         </div>
       </div>

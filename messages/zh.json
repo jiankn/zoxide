@@ -31,6 +31,7 @@
     "shareLabel": "分享：",
     "shareToTwitter": "分享到 Twitter",
     "shareToFacebook": "分享到 Facebook",
+    "copy": "复制",
     "copyLink": "复制链接",
     "linkCopied": "已复制",
     "copyFailed": "复制失败"
@@ -269,6 +270,7 @@
       "readTime": "分钟阅读",
       "all": "所有"
     },
+    "notFound": "教程未找到",
     "data": {
       "quick-start": {
         "title": "zoxide 快速开始",
@@ -339,6 +341,7 @@
     "title": "zoxide 博客",
     "description": "阅读 zoxide 相关文章：使用教程、配置技巧、性能优化、版本更新等。",
     "readTime": "分钟阅读",
+    "readMore": "了解更多",
     "detail": {
       "author": "作者",
       "category": "分类",
@@ -352,7 +355,11 @@
         "excerpt": "5 分钟快速上手 zoxide，学习基本命令和配置方法。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["快速开始", "安装", "配置"],
+        "tags": [
+          "快速开始",
+          "安装",
+          "配置"
+        ],
         "content": "# zoxide 快速开始指南\n\nzoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。本指南将帮助你在 5 分钟内快速上手。\n\n## 安装 zoxide\n\n### macOS\n\\`\\`\\`bash\nbrew install zoxide\n\\`\\`\\`\n\n### Windows\n\\`\\`\\`bash\nscoop install zoxide\n\\`\\`\\`\n\n### Linux / 所有平台\n\\`\\`\\`bash\ncargo install zoxide\n\\`\\`\\`\n\n## Shell 配置\n\n安装完成后，需要在 Shell 配置文件中添加初始化命令。\n\n### zsh\n在 \\`~/.zshrc\\` 中添加：\n\\`\\`\\`bash\neval \"$(zoxide init zsh)\"\n\\`\\`\\`\n\n### bash\n在 \\`~/.bashrc\\` 中添加：\n\\`\\`\\`bash\neval \"$(zoxide init bash)\"\n\\`\\`\\`\n\n### fish\n在 \\`~/.config/fish/config.fish\\` 中添加：\n\\`\\`\\`fish\nzoxide init fish | source\n\\`\\`\\`\n\n## 基本使用\n\n配置完成后，重新加载 Shell 或打开新终端窗口，就可以开始使用 zoxide 了。\n\n### 基本命令\n\n- \\`z <目录名>\\` - 跳转到匹配的目录\n- \\`zi <目录名>\\` - 交互式选择目录（支持模糊搜索）\n- \\`z -\\` - 返回上一个目录\n- \\`z -l\\` - 列出所有匹配的目录\n\n### 示例\n\n\\`\\`\\`bash\n# 跳转到包含 \"project\" 的目录\nz project\n\n# 交互式选择目录\nzi pro\n\n# 返回上一个目录\nz -\n\\`\\`\\`\n\n## 高级技巧\n\n### 排除目录\n\n使用环境变量 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var\"\n\\`\\`\\`\n\n### 自定义数据库位置\n\n默认数据库存储在 \\`~/.zo\\`，可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n## 总结\n\nzoxide 让目录导航变得简单高效。通过智能学习和模糊搜索，你可以快速跳转到任何目录，无需输入完整路径。\n\n更多高级用法，请查看[高级配置教程](/tutorials/advanced-config)。"
       },
       "advanced-config": {
@@ -360,7 +367,11 @@
         "excerpt": "学习如何配置 zoxide 以提升工作效率，包括别名设置、目录排除等。",
         "category": "技巧",
         "author": "zoxide.org",
-        "tags": ["配置", "高级", "优化"],
+        "tags": [
+          "配置",
+          "高级",
+          "优化"
+        ],
         "content": "# zoxide 高级配置技巧\n\nzoxide 提供了丰富的配置选项，让你可以根据个人需求定制使用体验。\n\n## 环境变量配置\n\n### 排除目录\n\n使用 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录，提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n\\`\\`\\`\n\n多个目录用冒号分隔。\n\n### 自定义数据库位置\n\n默认数据库存储在用户主目录下的 \\`.zo\\` 文件中。可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n### 最大历史记录数\n\n使用 \\`_ZO_MAXAGE\\` 设置最大历史记录天数（默认 10000）：\n\n\\`\\`\\`bash\nexport _ZO_MAXAGE=5000\n\\`\\`\\`\n\n## 别名设置\n\nzoxide 支持自定义别名，让常用命令更简短：\n\n\\`\\`\\`bash\n# 在 Shell 配置文件中添加\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n\\`\\`\\`\n\n## 与 fzf 集成\n\n结合 fzf 可以实现更强大的目录搜索和选择：\n\n\\`\\`\\`bash\n# 在 ~/.zshrc 中添加\nzi() {\n  local dir\n  dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n\\`\\`\\`\n\n## 性能优化\n\n### 减少索引范围\n\n只索引常用目录，可以显著提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\\`\\`\\`\n\n### 定期清理数据库\n\n如果数据库过大，可以手动清理：\n\n\\`\\`\\`bash\n# 查看数据库大小\nls -lh ~/.zo\n\n# 删除数据库重新开始（谨慎操作）\nrm ~/.zo\n\\`\\`\\`\n\n## 团队协作\n\nzoxide 支持共享数据库，团队成员可以共享常用目录：\n\n\\`\\`\\`bash\n# 使用共享数据库位置\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n\\`\\`\\`\n\n## 总结\n\n通过合理配置，zoxide 可以更好地适应你的工作流程。建议从排除不需要的目录开始，逐步优化配置。\n\n更多配置选项，请查看[官方文档](https://github.com/ajeetdsouza/zoxide)。"
       },
       "zoxide-vs-autojump": {
@@ -368,7 +379,11 @@
         "excerpt": "详细对比 zoxide 和 autojump 的性能差异和使用体验。",
         "category": "对比",
         "author": "zoxide.org",
-        "tags": ["对比", "性能", "autojump"],
+        "tags": [
+          "对比",
+          "性能",
+          "autojump"
+        ],
         "content": "# zoxide vs autojump 性能对比\n\nzoxide 和 autojump 都是智能目录跳转工具，但它们在性能、功能和易用性方面有显著差异。\n\n## 性能对比\n\n### 启动速度\n\nzoxide 使用 Rust 编写，启动速度极快：\n\n- **zoxide**: ~5ms 启动时间\n- **autojump**: ~50ms 启动时间\n\nzoxide 比 autojump 快 **10 倍**。\n\n### 查询速度\n\n在大型项目目录中，zoxide 的查询速度也明显更快：\n\n- **zoxide**: 模糊搜索 < 10ms\n- **autojump**: 查询时间 20-50ms\n\n## 功能对比\n\n### 模糊搜索\n\n- **zoxide**: ✅ 支持模糊搜索，无需完整路径\n- **autojump**: ❌ 不支持模糊搜索\n\n### 交互式选择\n\n- **zoxide**: ✅ 支持 \\`zi\\` 命令交互式选择\n- **autojump**: ❌ 不支持\n\n### 学习算法\n\n- **zoxide**: ✅ 智能学习算法，越用越准确\n- **autojump**: ✅ 基础频率统计\n\n## 易用性对比\n\n### 命令简洁性\n\nzoxide 的命令更简洁：\n\n\\`\\`\\`bash\n# zoxide\nz project\n\n# autojump\nj project\n\\`\\`\\`\n\n### 配置复杂度\n\n- **zoxide**: 配置简单，只需一行初始化命令\n- **autojump**: 需要额外配置 Shell 集成\n\n## 跨平台支持\n\n- **zoxide**: ✅ 支持 macOS、Linux、Windows\n- **autojump**: ✅ 支持 macOS、Linux（Windows 支持有限）\n\n## 维护状态\n\n- **zoxide**: 非常活跃，持续更新\n- **autojump**: 更新较慢\n\n## 总结\n\n| 特性 | zoxide | autojump |\n|------|--------|----------|\n| 性能 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |\n| 模糊搜索 | ✅ | ❌ |\n| 交互式选择 | ✅ | ❌ |\n| 跨平台 | ✅ | ✅ |\n| 维护状态 | 活跃 | 较慢 |\n\n**结论**：如果你追求性能和现代化体验，zoxide 是更好的选择。如果你已经习惯使用 autojump，迁移到 zoxide 也很简单。\n\n查看[完整对比](/comparisons)了解更多细节。"
       }
     }
@@ -408,58 +423,106 @@
         "version": "0.9.4",
         "date": "2024-10-28",
         "changes": [
-          { "type": "修复", "content": "修复 Windows 平台路径处理问题" },
-          { "type": "改进", "content": "改进错误处理机制" }
+          {
+            "type": "修复",
+            "content": "修复 Windows 平台路径处理问题"
+          },
+          {
+            "type": "改进",
+            "content": "改进错误处理机制"
+          }
         ]
       },
       {
         "version": "0.9.3",
         "date": "2024-09-15",
         "changes": [
-          { "type": "新功能", "content": "新增交互式目录选择功能（zi 命令）" },
-          { "type": "性能优化", "content": "优化数据库查询性能，提升 20%" },
-          { "type": "改进", "content": "改进模糊搜索算法，提升匹配准确性" }
+          {
+            "type": "新功能",
+            "content": "新增交互式目录选择功能（zi 命令）"
+          },
+          {
+            "type": "性能优化",
+            "content": "优化数据库查询性能，提升 20%"
+          },
+          {
+            "type": "改进",
+            "content": "改进模糊搜索算法，提升匹配准确性"
+          }
         ]
       },
       {
         "version": "0.9.2",
         "date": "2024-07-20",
         "changes": [
-          { "type": "修复", "content": "修复某些 Shell 环境下的初始化问题" },
-          { "type": "改进", "content": "优化内存使用" }
+          {
+            "type": "修复",
+            "content": "修复某些 Shell 环境下的初始化问题"
+          },
+          {
+            "type": "改进",
+            "content": "优化内存使用"
+          }
         ]
       },
       {
         "version": "0.9.1",
         "date": "2024-05-10",
         "changes": [
-          { "type": "新功能", "content": "支持 PowerShell 集成" },
-          { "type": "改进", "content": "改进跨平台兼容性" }
+          {
+            "type": "新功能",
+            "content": "支持 PowerShell 集成"
+          },
+          {
+            "type": "改进",
+            "content": "改进跨平台兼容性"
+          }
         ]
       },
       {
         "version": "0.9.0",
         "date": "2024-03-15",
         "changes": [
-          { "type": "新功能", "content": "新增目录排除配置选项（_ZO_EXCLUDE_DIRS）" },
-          { "type": "性能优化", "content": "优化启动速度，减少初始化时间" },
-          { "type": "改进", "content": "改进数据库存储格式" }
+          {
+            "type": "新功能",
+            "content": "新增目录排除配置选项（_ZO_EXCLUDE_DIRS）"
+          },
+          {
+            "type": "性能优化",
+            "content": "优化启动速度，减少初始化时间"
+          },
+          {
+            "type": "改进",
+            "content": "改进数据库存储格式"
+          }
         ]
       },
       {
         "version": "0.8.5",
         "date": "2023-12-20",
         "changes": [
-          { "type": "修复", "content": "修复路径包含特殊字符时的处理问题" },
-          { "type": "改进", "content": "改进错误消息提示" }
+          {
+            "type": "修复",
+            "content": "修复路径包含特殊字符时的处理问题"
+          },
+          {
+            "type": "改进",
+            "content": "改进错误消息提示"
+          }
         ]
       },
       {
         "version": "0.8.4",
         "date": "2023-11-05",
         "changes": [
-          { "type": "新功能", "content": "支持自定义数据库位置（_ZO_DATA_DIR）" },
-          { "type": "改进", "content": "改进学习算法，提升匹配准确性" }
+          {
+            "type": "新功能",
+            "content": "支持自定义数据库位置（_ZO_DATA_DIR）"
+          },
+          {
+            "type": "改进",
+            "content": "改进学习算法，提升匹配准确性"
+          }
         ]
       }
     ]
@@ -524,27 +587,27 @@
         "content": [
           "<strong>自动收集的信息</strong>：当您访问我们的网站时，我们可能会自动收集某些信息，包括您的 IP 地址、浏览器类型、访问时间和访问的页面。",
           "<strong>Cookie 和类似技术</strong>：我们使用 Cookie 来改善您的浏览体验、分析网站流量并个性化内容。",
-          "<strong>第三方服务</strong>：我们使用 Google AdSense 来展示广告，这些服务可能会收集您的信息用于广告个性化。"
+          "<strong>第三方服务</strong>：我们使用第三方广告服务（例如广告网络）来展示广告；这些服务可能会收集您的信息用于广告个性化。"
         ]
       },
       "usage": {
         "title": "2. 信息使用",
-        "content": "我们使用收集的信息用于以下目的：提供和维护我们的服务、改善用户体验、分析网站使用情况、展示相关广告。"
+        "content": "我们使用收集的信息用于以下目的：提供和维护我们的服务、改善用户体验、分析网站使用情况以及展示相关广告。"
       },
       "cookies": {
         "title": "3. Cookie 使用",
-        "content": "我们使用 Cookie 来：记住您的偏好设置、分析网站流量、提供个性化广告。您可以通过浏览器设置管理 Cookie 偏好。请注意，禁用 Cookie 可能会影响网站的某些功能。"
+        "content": "我们使用 Cookie 来：记住您的偏好设置、分析网站流量以及提供个性化广告。您可以通过浏览器设置管理 Cookie 偏好。请注意，禁用 Cookie 可能会影响网站的某些功能。"
       },
       "thirdParty": {
         "title": "4. 第三方服务",
         "content": [
-          "<strong>Google AdSense</strong>：用于展示广告。Google 可能会使用 Cookie 来根据您的兴趣展示个性化广告。您可以访问 <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google 隐私政策</a> 了解更多信息。",
+          "<strong>第三方广告服务</strong>：用于展示广告。Google 可能会使用 Cookie 根据您的兴趣展示个性化广告。您可以访问 <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google 隐私政策</a> 了解更多信息。",
           "<strong>Google Analytics</strong>（如使用）：用于分析网站流量。"
         ]
       },
       "security": {
         "title": "5. 数据安全",
-        "content": "我们采取合理的安全措施来保护您的个人信息，但我们无法保证绝对安全。我们建议您采取适当措施保护您的个人信息。"
+        "content": "我们采取合理的安全措施来保护您的个人信息，但我们无法保证绝对安全。我们建议您采取适当措施来保护您的个人信息。"
       },
       "children": {
         "title": "6. 儿童隐私",
@@ -552,11 +615,11 @@
       },
       "changes": {
         "title": "7. 隐私政策变更",
-        "content": "我们可能会不时更新本隐私政策。我们会在本页面上发布更新后的隐私政策，并更新\"最后更新\"日期。"
+        "content": "我们可能会不时更新此隐私政策。我们将在本页面上发布更新后的隐私政策，并更新\"最后更新\"日期。"
       },
       "contact": {
         "title": "8. 联系我们",
-        "content": "如果您对本隐私政策有任何疑问，请通过以下方式联系我们：网站：<a href=\"https://zoxide.org\">zoxide.org</a>"
+        "content": "如果您对此隐私政策有任何疑问，请通过以下方式联系我们：网站：<a href=\"https://zoxide.org\">zoxide.org</a>"
       }
     }
   },
@@ -691,4 +754,3 @@
     }
   }
 }
-

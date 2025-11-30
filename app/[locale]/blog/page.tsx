@@ -34,8 +34,8 @@ export default async function BlogPage() {
 
           <AdSlot slotId="blog-list-top" />
 
-          <div className="space-y-6">
-            {blogPosts.map((post) => {
+          <div className="flex flex-col gap-0 border border-[#E9E9E7] dark:border-[#2F2F2F] rounded-md overflow-hidden">
+            {blogPosts.map((post, index) => {
               const tData = t.raw(`data.${post.slug}`);
               // 分类翻译
               const categoryMap: Record<string, string> = {
@@ -48,23 +48,25 @@ export default async function BlogPage() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#202020] ${
+                    index !== blogPosts.length - 1 ? 'border-b border-[#E9E9E7] dark:border-[#2F2F2F]' : ''
+                  }`}
                 >
-                  <div className="mb-2 flex items-center gap-3">
-                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
-                      {category}
-                    </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <h2 className="font-serif text-xl font-bold text-[#37352F] dark:text-gray-100 mb-2">
+                    {tData?.title || post.title}
+                  </h2>
+                  <div className="flex items-center mb-2">
+                    <span className="text-xs font-sans text-[#787774] dark:text-gray-400 uppercase tracking-wide">
                       {post.date}
                     </span>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                    <span className="px-2 py-0.5 rounded bg-[#E3E2E0] text-[#32302C] dark:bg-[#37352F] dark:text-gray-300 text-xs mr-3 ml-3">
+                      {category}
+                    </span>
+                    <span className="text-xs font-sans text-[#787774] dark:text-gray-400 uppercase tracking-wide">
                       {post.readTime} {t('readTime')}
                     </span>
                   </div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {tData?.title || post.title}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-[#37352F] dark:text-gray-300 mt-2 line-clamp-2">
                     {tData?.excerpt || post.excerpt}
                   </p>
                 </Link>

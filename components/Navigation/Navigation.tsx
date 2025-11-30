@@ -7,6 +7,7 @@ import { useTheme } from 'next-themes';
 import { useTranslations, useLocale } from 'next-intl';
 import Search from '@/components/Search/Search';
 import { routing } from '@/i18n/routing';
+import Logo from '@/components/Logo/Logo';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,13 +53,23 @@ export default function Navigation() {
     window.location.href = `/${newLocale}${pathname}`;
   };
 
+  const isActive = (href: string) => {
+    const current = pathname || '';
+    const localePrefix = `/${locale}`;
+    if (href === '/') {
+      return current === localePrefix || current === `${localePrefix}/`;
+    }
+    return current.startsWith(`${localePrefix}${href}`);
+  };
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
+          <Link href="/" className="flex items-center gap-2 group">
+            <Logo size={48} className="text-[#37352F] dark:text-gray-100 group-hover:opacity-80 transition-opacity" />
+            <span className="font-serif text-xl font-bold tracking-tight text-[#37352F] dark:text-gray-100">
               zoxide
             </span>
           </Link>
@@ -69,9 +80,21 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                className={`group relative inline-flex items-center px-1 text-sm font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span
+                  className={`pointer-events-none absolute left-0 right-0 bottom-0 h-0.5 origin-left bg-blue-600 dark:bg-blue-400 transition-all duration-300 ${
+                    isActive(item.href)
+                      ? 'opacity-100 scale-x-100'
+                      : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
+                  }`}
+                  style={{ transformOrigin: 'left' }}
+                />
               </Link>
             ))}
           </div>
@@ -111,8 +134,8 @@ export default function Navigation() {
                         switchLocale(loc);
                         setLangMenuOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                        locale === loc ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                      className={`w-full text-left px-4 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                        locale === loc ? 'bg-blue-50 dark:bg-blue-900/20 font-semibold' : ''
                       }`}
                     >
                       {loc === 'zh' ? '中文' : 'English'}
@@ -148,23 +171,34 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* 移动端菜单 */}
-        {isOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-800 py-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
+          {/* 移动端菜单 */}
+          {isOpen && (
+            <div className="md:hidden border-t border-gray-200 dark:border-gray-800 py-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                className={`group relative block px-4 py-2 text-sm font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span
+                  className={`pointer-events-none absolute left-4 right-4 bottom-1 h-0.5 origin-left bg-blue-600 dark:bg-blue-400 transition-all duration-300 ${
+                    isActive(item.href)
+                      ? 'opacity-100 scale-x-100'
+                      : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
+                  }`}
+                  style={{ transformOrigin: 'left' }}
+                />
               </Link>
             ))}
           </div>
         )}
-      </div>
+        </div>
     </nav>
   );
 }
-

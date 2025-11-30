@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li><strong>自动收集的信息</strong>：当您访问我们的网站时，我们可能会自动收集某些信息，包括您的 IP 地址、浏览器类型、访问时间和访问的页面。</li>
               <li><strong>Cookie 和类似技术</strong>：我们使用 Cookie 来改善您的浏览体验、分析网站流量并个性化内容。</li>
-              <li><strong>第三方服务</strong>：我们使用 Google AdSense 来展示广告，这些服务可能会收集您的信息用于广告个性化。</li>
+              <li><strong>第三方服务</strong>：我们使用第三方广告服务（例如广告网络）来展示广告，这些服务可能会收集您的信息用于广告个性化。</li>
             </ul>
 
             <h2>2. 信息使用</h2>
@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
               我们的网站使用以下第三方服务：
             </p>
             <ul>
-              <li><strong>Google AdSense</strong>：用于展示广告。Google 可能会使用 Cookie 来根据您的兴趣展示个性化广告。您可以访问 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google 隐私政策</a> 了解更多信息。</li>
+              <li><strong>第三方广告服务</strong>：用于展示广告。服务提供商可能使用 Cookie 来根据您的兴趣展示个性化广告。请参阅提供商的隐私政策以了解详情。</li>
               <li><strong>Google Analytics</strong>（如使用）：用于分析网站流量。</li>
             </ul>
 
@@ -100,4 +100,3 @@ export default function PrivacyPolicyPage() {
     </div>
   );
 }
-

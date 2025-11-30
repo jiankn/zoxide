@@ -73,32 +73,32 @@ export default async function FeaturesPage() {
 
           <AdSlot slotId="features-top" />
 
-          {featureGroups.map((group, groupIndex) => (
-            <section key={groupIndex}>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {group.title}
-              </h2>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {featureGroups.map((group, groupIndex) => (
+              <section key={groupIndex} className="space-y-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {group.title}
+                </h2>
                 {group.features.map((feature, index) => {
                   const Icon = feature.icon;
                   return (
                     <div
                       key={index}
-                      className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800"
+                      className="bg-white dark:bg-[#191919] border border-[#E9E9E7] dark:border-[#2F2F2F] rounded-md p-6 transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#202020]"
                     >
-                      <Icon className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      <Icon className="h-6 w-6 text-[#37352F] dark:text-gray-300 mb-4" />
+                      <h3 className="font-serif font-bold text-lg mb-2 text-[#37352F] dark:text-gray-100">
                         {feature.title}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="font-sans text-[#787774] dark:text-gray-400 text-sm leading-6">
                         {feature.description}
                       </p>
                     </div>
                   );
                 })}
-              </div>
-            </section>
-          ))}
+              </section>
+            ))}
+          </div>
 
           <AdSlot slotId="features-middle" />
           <AdSlot slotId="features-bottom" />
