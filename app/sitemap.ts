@@ -1,86 +1,70 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/data/blog';
 import { getAllTutorials } from '@/data/tutorials';
+import { routing } from '@/i18n/routing';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://zoxide.org';
   const currentDate = new Date().toISOString();
+  const locales = routing.locales; // ['zh', 'en']
 
-  // 静态页面
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/features`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tutorials`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/tutorials/videos`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/download`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: currentDate,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/changelog`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/comparisons`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+  // 生成多语言静态页面
+  const staticPages: MetadataRoute.Sitemap = [];
+  
+  const staticRoutes = [
+    { path: '', priority: 1, changeFrequency: 'weekly' as const },
+    { path: '/features', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/tutorials', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/tutorials/videos', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/download', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/blog', priority: 0.8, changeFrequency: 'daily' as const },
+    { path: '/changelog', priority: 0.7, changeFrequency: 'weekly' as const },
+    { path: '/faq', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/comparisons', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/about', priority: 0.6, changeFrequency: 'monthly' as const },
+    { path: '/privacy-policy', priority: 0.5, changeFrequency: 'yearly' as const },
+    { path: '/terms-of-service', priority: 0.5, changeFrequency: 'yearly' as const },
   ];
 
-  // 博客文章页面
-  const blogPosts = getAllPosts();
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.date,
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }));
+  // 为每个语言生成静态页面
+  staticRoutes.forEach((route) => {
+    locales.forEach((locale) => {
+      staticPages.push({
+        url: `${baseUrl}/${locale}${route.path}`,
+        lastModified: currentDate,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+      });
+    });
+  });
 
-  // 教程页面
+  // 博客文章页面（多语言）
+  const blogPosts = getAllPosts();
+  const blogPages: MetadataRoute.Sitemap = [];
+  blogPosts.forEach((post) => {
+    locales.forEach((locale) => {
+      blogPages.push({
+        url: `${baseUrl}/${locale}/blog/${post.slug}`,
+        lastModified: post.date,
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      });
+    });
+  });
+
+  // 教程页面（多语言）
   const tutorials = getAllTutorials();
-  const tutorialPages: MetadataRoute.Sitemap = tutorials.map((tutorial) => ({
-    url: `${baseUrl}/tutorials/${tutorial.slug}`,
-    lastModified: tutorial.date,
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }));
+  const tutorialPages: MetadataRoute.Sitemap = [];
+  tutorials.forEach((tutorial) => {
+    locales.forEach((locale) => {
+      tutorialPages.push({
+        url: `${baseUrl}/${locale}/tutorials/${tutorial.slug}`,
+        lastModified: tutorial.date,
+        changeFrequency: 'monthly',
+        priority: 0.8,
+      });
+    });
+  });
 
   return [...staticPages, ...blogPages, ...tutorialPages];
 }
