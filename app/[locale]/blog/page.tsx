@@ -57,13 +57,13 @@ export default async function BlogPage() {
                     {tData?.title || post.title}
                   </h2>
                   <div className="flex items-center mb-2">
-                    <span className="text-xs font-sans text-[#787774] dark:text-gray-400 uppercase tracking-wide">
+                    <span className="text-xs font-sans text-[#6a6968] dark:text-gray-400 uppercase tracking-wide">
                       {post.date}
                     </span>
                     <span className="px-2 py-0.5 rounded bg-[#E3E2E0] text-[#32302C] dark:bg-[#37352F] dark:text-gray-300 text-xs mr-3 ml-3">
                       {category}
                     </span>
-                    <span className="text-xs font-sans text-[#787774] dark:text-gray-400 uppercase tracking-wide">
+                    <span className="text-xs font-sans text-[#6a6968] dark:text-gray-400 uppercase tracking-wide">
                       {post.readTime} {t('readTime')}
                     </span>
                   </div>

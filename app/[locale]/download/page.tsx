@@ -94,7 +94,7 @@ export default async function DownloadPage() {
                     language="bash"
                     showPrompt={true}
                   />
-                  <p className="text-xs text-[#787774] dark:text-gray-400">
+                  <p className="text-xs text-[#6a6968] dark:text-gray-400">
                     {installer.description}
                   </p>
                 </div>

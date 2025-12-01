@@ -90,7 +90,7 @@ export default async function FeaturesPage() {
                       <h3 className="font-serif font-bold text-lg mb-2 text-[#37352F] dark:text-gray-100">
                         {feature.title}
                       </h3>
-                      <p className="font-sans text-[#787774] dark:text-gray-400 text-sm leading-6">
+                      <p className="font-sans text-[#6a6968] dark:text-gray-400 text-sm leading-6">
                         {feature.description}
                       </p>
                     </div>

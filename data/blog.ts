@@ -784,6 +784,20 @@ If you're still experiencing issues:
     tags: ['troubleshooting', 'error', 'fix', 'not working'],
     readTime: 8,
   },
+  {
+    id: '6',
+    slug: 'stop-using-cd',
+    title: '别再只用 `cd` 了：Zoxide 如何彻底变革终端导航',
+    excerpt:
+      '如果你还在频繁手动输入 `cd`、反复敲 Tab 补全路径，这篇文章会向你展示 Zoxide 如何用“智能跳转”彻底改变你的终端导航方式。',
+    // 真实内容由多语言文案文件提供，这里只做占位，避免在翻译缺失时完全为空
+    content: '# Stop Using cd: How Zoxide Revolutionizes Terminal Navigation',
+    date: '2025-12-02',
+    author: 'zoxide.org',
+    category: '教程',
+    tags: ['zoxide', 'command not found', 'setup', 'fzf', 'config'],
+    readTime: 10,
+  },
 ];
 
 // 根据 slug 获取文章
