@@ -17,7 +17,9 @@ export async function generateMetadata() {
 export default async function BlogPage() {
   const locale = await getLocale();
   const t = await getTranslations('blog');
-  const blogPosts = getAllPosts();
+  const blogPosts = getAllPosts()
+    .slice()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
     <div className="container mx-auto px-4 py-12">
