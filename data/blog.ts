@@ -798,6 +798,20 @@ If you're still experiencing issues:
     tags: ['zoxide', 'command not found', 'setup', 'fzf', 'config'],
     readTime: 10,
   },
+  {
+    id: '7',
+    slug: 'zoxide-alias-autocomplete',
+    title: '提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能',
+    excerpt:
+      '通过 zoxide alias 和 autocomplete（自动补全）深度优化终端导航体验，结合 fzf、Arch 与 NixOS 配置，构建高效、可重复的工作流。',
+    // 真实内容由多语言文案文件提供，这里只做占位，避免在翻译缺失时完全为空
+    content: '# Boosting Terminal Efficiency: A Deep Dive into Zoxide Aliases and Autocomplete',
+    date: '2025-12-03',
+    author: 'zoxide.org',
+    category: '技巧',
+    tags: ['alias', 'autocomplete', 'fzf', 'arch', 'nixos'],
+    readTime: 8,
+  },
 ];
 
 // 根据 slug 获取文章
