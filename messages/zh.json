@@ -351,6 +351,14 @@
         "category": "安装指南",
         "content": "# 如何在 Windows 上安装 zoxide\n\n本指南介绍在 Windows 上安装 zoxide 的常用方式，并完成基本配置。\n\n## 先决条件\n- Windows 10/11\n- PowerShell 访问权限\n- 网络连接\n\n## 安装方法\n\n### 方式 1：使用 Scoop（推荐）\n```powershell\nscoop install zoxide\n```\n\n### 方式 2：使用 Cargo\n```powershell\ncargo install zoxide\n```\n> 如果未安装 Rust，可先安装 rustup，然后重新打开终端。\n\n### 方式 3：手动下载二进制\n1. 前往 [zoxide releases](https://github.com/ajeetdsouza/zoxide/releases) 下载 Windows 版本\n2. 解压后将 `zoxide.exe` 放入 PATH 目录（如 `C:\\\\Users\\\\<user>\\\\bin`）\n3. 确认该目录已加入环境变量 `Path`\n\n## Shell 配置（PowerShell）\n在 PowerShell 配置文件中添加：\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n然后执行：\n```powershell\n. $PROFILE\n```\n\n## 验证安装\n```powershell\nzoxide --version\n```\n出现版本号即表示安装成功。\n\n## 常见问题\n- **command not found**：确认安装目录在 PATH 中，重新打开终端。\n- **权限不足**：在管理员终端运行或安装到用户可写目录。\n\n## 下一步\n- 查看 [快速开始](/tutorials/quick-start)\n- 配置 [高级选项](/tutorials/advanced-config)\n- 学习 [性能优化](/tutorials/performance)\n"
       },
+      "install-arch-nixos": {
+        "title": "在 Linux 上安装 Zoxide：Arch 和 NixOS 用户终极指南",
+        "excerpt": "在 Arch Linux 和 NixOS 上安装和配置 zoxide 的完整指南，包括包管理和 Shell 集成。",
+        "duration": "10 分钟",
+        "level": "中级",
+        "category": "安装指南",
+        "content": "# 在 Linux 上安装 Zoxide：Arch 和 NixOS 用户终极指南\n\nLinux 用户拥有各种各样的发行版，但 Arch Linux 和 NixOS 因其独特的包管理风格而脱颖而出。虽然 Zoxide 是一个跨平台工具，但在这些系统之间的安装和配置过程却大相径庭。本指南将探讨如何正确设置 **zoxide arch** 和 **zoxide nixos** 软件包，同时避免常见的陷阱。\n\n### 在 Arch Linux 上安装\n\n对于 Arch Linux 爱好者来说，官方仓库中现成提供了 **zoxide arch** 软件包。它轻量且快速。你只需运行以下命令即可安装：\n\n```bash\nsudo pacman -S zoxide\n# 或者从 AUR 安装开发版本\nyay -S zoxide-git\n```\n\n安装完成后，最重要的一步是将初始化行添加到你的 Shell 配置中。没有这一行，你的 **zoxide alias** 命令将无法工作，工具也无法跟踪你的目录移动。Arch 用户经常将 Zoxide 与 `exa` 和 `bat` 等其他基于 Rust 的工具结合使用，以创建现代化的终端体验。\n\n### 在 NixOS 上安装\n\n另一方面，**zoxide nixos** 用户生活在一个不同的世界里。因为 NixOS 依赖于声明式配置文件，你不能简单地运行安装命令并期望它能持久保存。相反，你应该使用 `home-manager`。\n\n以下是用于 `home.nix` 文件的代码片段，用于启用具有完整集成的 Zoxide：\n\n```nix\nprograms.zoxide = {\n  enable = true;\n  enableBashIntegration = true;\n  enableZshIntegration = true;\n  options = [\n    \"--cmd cd\" # 这将用 zoxide 替换 cd 命令\n  ];\n};\n```\n\n这种声明式方法非常强大，因为它简化了启用 **zoxide autocomplete** 的过程。如果在你的配置中 `programs.fzf.enable` 也设置为 true，NixOS 通常会自动将它们连接在一起。\n\n### 处理 \"No Match Found\"\n\n两个平台上的用户报告的一个常见问题是，在尝试跳转到新建的项目文件夹时出现 **zoxide no match found** 错误。\n\n这不是一个 Bug，而是数据库工作方式的一个特性。它需要在跳转之前\"看到\"你至少访问过该目录一次。如果你刚刚安装 Zoxide，你的数据库是空的。为了快速缓解这个问题，请确保你的 **zoxide alias** 设置为替换 `cd`（如上面的 Nix 配置所示）。这样，你的初始导航就会被记录下来。\n\n### 验证安装\n\n设置完成后，通过检查版本和数据库健康状况来验证 **zoxide autocomplete** 和别名是否工作正常：\n\n```bash\nzoxide --version\n# 检查别名是否处于活动状态\ntype z\n```\n\n无论你是运行最小化的 **zoxide arch** 设置还是复杂的 **zoxide nixos** flake，正确配置这些元素都能确保你花更少的时间输入路径，而花更多的时间编写代码。\n"
+      },
       "videos": {
         "title": "zoxide 视频教程",
         "excerpt": "观看 zoxide 的视频教程，快速了解基本用法和高级技巧。",
@@ -400,6 +408,20 @@
           "nixos"
         ],
         "content": "# 提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能\n\n对于开发人员和系统管理员来说，命令行就像是第二个家。然而，使用传统的 `cd` 命令在复杂的目录结构中导航既枯燥又容易出错。这就是像 Zoxide 这样现代工具发挥作用的地方。Zoxide 是一个更智能的 `cd` 命令，它能学习你的习惯，让你用最少的按键跳转到常用目录。要真正掌握这个工具，必须了解如何利用 **zoxide alias** 功能及其与 Shell 补全的强大集成。\n\n### 配置 Zoxide Alias\n\nZoxide 的核心魔力在于其排名算法。但仅仅安装它是不够的；你需要在 Shell 中初始化它。许多高级用户会在他们的 Shell 配置文件（如 `.bashrc` 或 `.zshrc`）中手动配置一个 **zoxide alias**，完全用 `z` 替换 `cd`。\n\n以下是在初始化期间设置别名的典型方法，用于通过 zoxide 的智能导航替换默认的 `cd` 命令：\n\n```bash\n# 在你的 .zshrc 或 .bashrc 文件中\n# 这将初始化 zoxide 并自动设置 'cd' 别名\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n通过添加 `--cmd cd` 标志，你可以确保每一次目录更改都被记录下来，从而建立一个强大的导航历史数据库。如果没有这个特定的 **zoxide alias**，你可能会错过该工具的学习功能。这通常会导致当你试图跳转到一个文件夹时遇到 **zoxide no match found** 的错误，因为数据库是空的。\n\n### 掌握 Autocomplete（自动补全）\n\n生产力最关键的功能之一是 **zoxide autocomplete**。配置正确时，Zoxide 可以与 `fzf`（命令行模糊查找器）集成，提供交互式选择菜单。\n\n要启用此功能，你需要确保安装了 `fzf`，然后使用交互式选项。例如，在 **zoxide arch** 设置中，你可能会配置一个像 `zi` 这样的别名来触发交互式选择：\n\n```bash\n# 使用 fzf 进行交互式选择的别名\nalias zi='__zoxide_zi'\n```\n\n现在，如果你输入 `zi` 并按回车键，**zoxide autocomplete** 就会启动，根据你的历史记录显示匹配的目录列表。这比标准的 Tab 补全要优越得多，因为它优先考虑你实际使用的文件夹。\n\n### 平台特性：NixOS 和 Arch\n\n不同发行版的用户面临着独特的设置挑战。**zoxide arch** 社区经常在 Reddit 上讨论集成这些自动补全功能的最佳脚本。与此同时，设置 **zoxide nixos** 配置需要使用声明式方法。你不能只是编辑一个文本文件；你必须配置环境模块，以确保 **zoxide alias** 在重启后依然存在。\n\n### 故障排除常见错误\n\n新用户面临的一个常见障碍是 **zoxide no match found** 消息。这通常发生在数据库尚未学习该路径时。\n\n```text\n$ z my-new-project\nzoxide: no match found\n```\n\n要解决这个问题，你只需使用完整路径手动导航到该目录一次：\n\n```bash\n# 通过访问一次来教 zoxide 识别该路径\ncd /home/user/development/my-new-project\n# 现在你可以从任何地方跳转到它\nz my-new-project\n```\n\n无论你是为 **zoxide nixos** 环境配置 flake，还是在 Arch 上调整 Shell，掌握这些 alias 和 autocomplete 功能都是释放这个工具真正潜力的关键。\n"
+      },
+      "troubleshooting-zoxide-no-match-found": {
+        "title": "Zoxide 故障排除：修复 \"No Match Found\" 和数据库错误",
+        "excerpt": "Zoxide 通常是一个\"安装后即忘\"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。本指南涵盖了如何调试和修复 \"No Match Found\" 错误以及数据库相关问题。",
+        "category": "故障排除",
+        "author": "zoxide.org",
+        "tags": [
+          "故障排除",
+          "数据库",
+          "no match found",
+          "arch",
+          "nixos"
+        ],
+        "content": "# Zoxide 故障排除：修复 \"No Match Found\" 和数据库错误\n\nZoxide 通常是一个\"安装后即忘\"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。用户最常见的挫折是 **zoxide no match found** 错误。虽然这通常只意味着\"我还没去过那里\"，但有时它可能表明数据库损坏或 Shell 配置错误。本指南涵盖了如何在各种系统（包括 **zoxide arch** 和 **zoxide nixos** 设置）上调试这些问题。\n\n### 理解 \"No Match Found\"\n\n当你输入 `z foo` 并收到 **zoxide no match found** 响应时，这意味着排名算法（frecency）产生的结果为零。发生这种情况有两个原因：\n\n1.  **新路径：** 你以前从未访问过该目录。\n2.  **已删除路径：** 目录已被删除，但 Zoxide 试图跳转到该目录并失败，随后将其从数据库中删除（自我修复）。\n\n要解决第一个问题，请确保你的 **zoxide alias** 正确挂钩到你的 Shell 以记录移动。运行以下命令以检查 Zoxide 是否正在跟踪你的命令：\n\n```bash\n# 检查 'z' 函数或别名是否存在\ntype z\n\n# 手动将路径添加到数据库以进行测试\nzoxide add /path/to/your/directory\n```\n\n### 清理 \"幽灵\" 条目\n\n有时 **zoxide autocomplete** 可能会建议不再存在的目录，从而使你的工作流变得混乱。虽然 Zoxide 试图自我清理，但你可以强制进行清理。\n\n在像 **zoxide arch** 这样的滚动发行版上，你可能会频繁移动大型项目文件夹，幽灵条目很常见。你可以手动移除特定路径：\n\n```bash\n# 从数据库中移除特定路径\nzoxide remove /path/to/deleted/project\n\n# 或者交互式移除路径（需要 fzf）\nzoxide remove -i\n```\n\n这确保了你的 **zoxide autocomplete** 列表保持相关且快速。\n\n### 平台特定的调试\n\n对于 **zoxide nixos** 用户，问题通常源于 Nix 存储的只读性质或环境变量冲突。如果 Zoxide 在重启后忘记了你的历史记录，请检查 `_ZO_DATA_DIR` 指向的位置。在 NixOS `home-manager` 设置中，确保你的状态版本是兼容的。\n\n```nix\n# 在 home.nix 中，确保启用了集成以挂钩到 Shell 历史记录\nprograms.zoxide = {\n  enable = true;\n  # 这确保了别名被创建\n  enableZshIntegration = true; \n};\n```\n\n如果你在访问目录后仍然遇到 **zoxide no match found** 错误，请检查你的排除列表。Zoxide 默认会忽略某些临时目录。正确配置环境可确保 **zoxide alias** 捕获你真正关心的路径。\n"
       },
       "stop-using-cd": {
         "title": "别再只用 `cd` 了：Zoxide 如何彻底变革终端导航",

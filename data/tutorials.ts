@@ -2101,6 +2101,67 @@ If you get permission errors:
 - Configure [advanced settings](/tutorials/advanced-config)
 - Check out [performance tips](/tutorials/performance)`,
   },
+  {
+    slug: 'install-arch-nixos',
+    title: 'Zoxide install Linux',
+    excerpt: 'Complete guide to installing and configuring zoxide on Arch Linux and NixOS, including package management and shell integration.',
+    duration: '10 min',
+    level: 'Intermediate',
+    category: '安装指南',
+    date: '2025-12-04',
+    content: `# Installing Zoxide on Linux: The Definitive Guide for Arch and NixOS Users
+
+Linux users enjoy a variety of distributions, but two that stand out for their unique package management styles are Arch Linux and NixOS. While Zoxide is a cross-platform tool, the installation and configuration process differs significantly between these systems. This guide explores how to properly set up the **zoxide arch** and **zoxide nixos** packages while avoiding common pitfalls.
+
+### Installing on Arch Linux
+
+For Arch Linux enthusiasts, the **zoxide arch** package is readily available in the official repositories. It is lightweight and fast. You can install it simply by running:
+
+\`\`\`bash
+sudo pacman -S zoxide
+# Or for the development version from AUR
+yay -S zoxide-git
+\`\`\`
+
+Once installed, the most important step is adding the initialization line to your shell config. Without this line, your **zoxide alias** commands won't work, and the tool won't be able to track your directory movements. Arch users often combine Zoxide with other Rust-based tools like \`exa\` and \`bat\` to create a modern terminal experience.
+
+### Installing on NixOS
+
+On the other hand, **zoxide nixos** users live in a different world. Because NixOS relies on declarative configuration files, you cannot simply run an install command and expect it to persist. Instead, you should use \`home-manager\`.
+
+Here is a snippet for your \`home.nix\` file to enable Zoxide with full integration:
+
+\`\`\`nix
+programs.zoxide = {
+  enable = true;
+  enableBashIntegration = true;
+  enableZshIntegration = true;
+  options = [
+    "--cmd cd" # This replaces the cd command with zoxide
+  ];
+};
+\`\`\`
+
+This declarative method is powerful because it simplifies enabling **zoxide autocomplete**. If \`programs.fzf.enable\` is also set to true in your config, NixOS often wires them together automatically.
+
+### Handling "No Match Found"
+
+A frequent issue that users on both platforms report is the **zoxide no match found** error when trying to jump to a newly created project folder.
+
+This is not a bug but a feature of how the database works. It needs to "see" you visit a directory at least once. If you just installed Zoxide, your database is empty. To mitigate this quickly, ensure your **zoxide alias** is set up to replace \`cd\` (as shown in the Nix config above). This way, your initial navigation is recorded.
+
+### Verifying the Installation
+
+After setting up, verify that **zoxide autocomplete** and aliases are working by checking the version and database health:
+
+\`\`\`bash
+zoxide --version
+# Check if the alias is active
+type z
+\`\`\`
+
+Whether you are running a minimal **zoxide arch** setup or a complex **zoxide nixos** flake, properly configuring these elements ensures you spend less time typing paths and more time coding.`,
+  },
 ];
 
 // 根据 slug 获取教程

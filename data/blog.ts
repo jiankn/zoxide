@@ -812,6 +812,20 @@ If you're still experiencing issues:
     tags: ['alias', 'autocomplete', 'fzf', 'arch', 'nixos'],
     readTime: 8,
   },
+  {
+    id: '8',
+    slug: 'troubleshooting-zoxide-no-match-found',
+    title: 'Zoxide 故障排除：修复 "No Match Found" 和数据库错误',
+    excerpt:
+      'Zoxide 通常是一个"安装后即忘"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。本指南涵盖了如何调试和修复 "No Match Found" 错误以及数据库相关问题。',
+    // 真实内容由多语言文案文件提供，这里只做占位，避免在翻译缺失时完全为空
+    content: '# Troubleshooting Zoxide: Fixing "No Match Found" and Database Errors',
+    date: '2025-12-04',
+    author: 'zoxide.org',
+    category: '故障排除',
+    tags: ['troubleshooting', 'database', 'no match found', 'arch', 'nixos'],
+    readTime: 10,
+  },
 ];
 
 // 根据 slug 获取文章
