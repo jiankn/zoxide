@@ -69,7 +69,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <Logo size={48} className="text-[#37352F] dark:text-gray-100 group-hover:opacity-80 transition-opacity" />
-            <span className="font-serif text-xl font-bold tracking-tight text-[#37352F] dark:text-gray-100">
+            <span className="font-serif text-3xl font-bold tracking-tight text-[#37352F] dark:text-gray-100">
               zoxide
             </span>
           </Link>
