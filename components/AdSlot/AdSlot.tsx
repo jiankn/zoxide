@@ -71,7 +71,8 @@ export default function AdSlot({ slotId, lazy = false, className = '' }: AdSlotP
     return null;
   }
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isClient = typeof window !== 'undefined';
+  const isMobile = isClient && window.innerWidth < 768;
   const dimensions = isMobile ? config.mobile : config.desktop;
 
   return (
@@ -80,10 +81,10 @@ export default function AdSlot({ slotId, lazy = false, className = '' }: AdSlotP
       id={`ad-${slotId}`}
       className={`ad-slot ${className}`}
       style={{
-        minWidth: `${dimensions.width}px`,
+        // 高度保持配置，宽度在移动端走 100%，避免撑爆带内边距的容器导致横向滚动
         minHeight: `${dimensions.height}px`,
         width: '100%',
-        maxWidth: `${dimensions.width}px`,
+        maxWidth: isMobile ? '100%' : `${dimensions.width}px`,
       }}
     />
   );
