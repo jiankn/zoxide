@@ -47,50 +47,83 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
   };
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('shareLabel')}</span>
-      
-      {/* Twitter */}
-      <button
-        type="button"
-        onClick={shareToTwitter}
-        className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-        aria-label={t('shareToTwitter')}
-      >
-        <Twitter className="h-4 w-4" />
-        Twitter
-      </button>
+    <div className="flex flex-wrap items-center gap-3">
+      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        {t('shareLabel')}
+      </span>
 
-      {/* Facebook */}
-      <button
-        type="button"
-        onClick={shareToFacebook}
-        className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-        aria-label={t('shareToFacebook')}
-      >
-        <Facebook className="h-4 w-4" />
-        Facebook
-      </button>
+      {/* 桌面端：文字按钮，移动端：彩色图标圆按钮 */}
+      <div className="flex items-center gap-2">
+        {/* Twitter */}
+        <button
+          type="button"
+          onClick={shareToTwitter}
+          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          aria-label={t('shareToTwitter')}
+        >
+          <Twitter className="h-4 w-4" />
+          Twitter
+        </button>
+        <button
+          type="button"
+          onClick={shareToTwitter}
+          className="inline-flex md:hidden items-center justify-center h-9 w-9 rounded-full bg-[#1DA1F2] text-white shadow-sm hover:opacity-90 transition-opacity"
+          aria-label={t('shareToTwitter')}
+        >
+          <Twitter className="h-4 w-4" />
+        </button>
 
-      {/* 复制链接 */}
-      <button
-        type="button"
-        onClick={handleCopyClick}
-        className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-        aria-label={t('copyLink')}
-      >
-        {copied ? (
-          <>
-            <Check className="h-4 w-4 text-green-600" />
-            {t('linkCopied')}
-          </>
-        ) : (
-          <>
+        {/* Facebook */}
+        <button
+          type="button"
+          onClick={shareToFacebook}
+          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          aria-label={t('shareToFacebook')}
+        >
+          <Facebook className="h-4 w-4" />
+          Facebook
+        </button>
+        <button
+          type="button"
+          onClick={shareToFacebook}
+          className="inline-flex md:hidden items-center justify-center h-9 w-9 rounded-full bg-[#1877F2] text-white shadow-sm hover:opacity-90 transition-opacity"
+          aria-label={t('shareToFacebook')}
+        >
+          <Facebook className="h-4 w-4" />
+        </button>
+
+        {/* 复制链接 */}
+        <button
+          type="button"
+          onClick={handleCopyClick}
+          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          aria-label={t('copyLink')}
+        >
+          {copied ? (
+            <>
+              <Check className="h-4 w-4 text-green-600" />
+              {t('linkCopied')}
+            </>
+          ) : (
+            <>
+              <LinkIcon className="h-4 w-4" />
+              {t('copyLink')}
+            </>
+          )}
+        </button>
+        <button
+          type="button"
+          onClick={handleCopyClick}
+          className="inline-flex md:hidden items-center justify-center h-9 w-9 rounded-full bg-gray-900 text-white shadow-sm hover:opacity-90 transition-opacity dark:bg-gray-100 dark:text-gray-900"
+          aria-label={t('copyLink')}
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-green-300" />
+          ) : (
             <LinkIcon className="h-4 w-4" />
-            {t('copyLink')}
-          </>
-        )}
-      </button>
+          )}
+        </button>
+      </div>
     </div>
   );
 }
