@@ -826,6 +826,20 @@ If you're still experiencing issues:
     tags: ['troubleshooting', 'database', 'no match found', 'arch', 'nixos'],
     readTime: 10,
   },
+  {
+    id: '9',
+    slug: 'mastering-terminal-navigation-zoxide-guide',
+    title: '终端导航大师 —— Zoxide 使用终极指南',
+    excerpt:
+      '如果你每天在命令行界面花费大量时间，你一定体会过使用标准 `cd` 命令在深层目录结构中导航的痛苦。这篇综合指南将深入探讨如何使用 Zoxide，涵盖从 Ubuntu 安装到高级 `fzf` 集成以及常见错误排查的所有内容。',
+    // 真实内容由多语言文案文件提供，这里只做占位，避免在翻译缺失时完全为空
+    content: '# Mastering Terminal Navigation – The Ultimate Guide on How to Use Zoxide',
+    date: '2025-12-04',
+    author: 'zoxide.org',
+    category: '教程',
+    tags: ['zoxide', 'how to use', 'tutorial', 'ubuntu', 'fzf', 'query'],
+    readTime: 12,
+  },
 ];
 
 // 根据 slug 获取文章
