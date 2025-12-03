@@ -43,7 +43,7 @@
     "getStarted": "Get Started",
     "viewDocs": "View Docs",
     "features": {
-      "title": "Why choose zoxide-",
+      "title": "Why choose zoxide?",
       "smart": {
         "title": "Smart Learning",
         "description": "Automatically records directories you visit and learns your usage patterns"
@@ -58,10 +58,13 @@
       }
     },
     "installation": {
-      "title": "Quick Install",
-      "macos": "macOS",
-      "linux": "Linux",
-      "windows": "Windows",
+      "title": "How to Install Zoxide",
+      "macos": "How to install Zoxide on macOS",
+      "macosDesc": "Step-by-step guide for macOS installation",
+      "linux": "How to install Zoxide on Linux",
+      "linuxDesc": "Complete guide for Linux distributions",
+      "windows": "How to install Zoxide on Windows",
+      "windowsDesc": "Step-by-step guide for Windows installation",
       "ubuntu": "Ubuntu/Debian",
       "ubuntuCommand": "sudo apt install zoxide"
     },
@@ -71,6 +74,12 @@
       "commandNotFoundDesc": "Troubleshoot installation and PATH issues",
       "installUbuntu": "zoxide install Ubuntu",
       "installUbuntuDesc": "Complete installation guide for Ubuntu",
+      "installLinux": "How to install Zoxide on Linux",
+      "installLinuxDesc": "Complete installation guide for Linux",
+      "installWindows": "How to install Zoxide on Windows",
+      "installWindowsDesc": "Step-by-step Windows installation guide",
+      "installMacos": "How to install Zoxide on macOS",
+      "installMacosDesc": "Step-by-step macOS installation guide",
       "download": "zoxide download",
       "downloadDesc": "Download zoxide for your platform",
       "fzfIntegration": "fzf zoxide integration",
@@ -246,8 +255,8 @@
     }
   },
   "seo": {
-    "main": "zoxide install, zoxide install Ubuntu, zoxide command not found, zoxide nvim, zoxide download, fzf zoxide, brew zoxide, command zoxide not found, autojump, smart cd command, cd alternative, zoxide tutorial, how to use zoxide",
-    "install": "zoxide install, zoxide install Ubuntu, how to install zoxide, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows, brew zoxide, zoxide download",
+    "main": "zoxide install, zoxide install Ubuntu, zoxide command not found, zoxide nvim, zoxide download, fzf zoxide, brew zoxide, command zoxide not found, autojump, smart cd command, cd alternative, zoxide tutorial, how to use zoxide, How to install Zoxide on Linux, How to install Zoxide on Windows, How to install Zoxide on macOS",
+    "install": "zoxide install, zoxide install Ubuntu, how to install zoxide, How to install Zoxide on Linux, How to install Zoxide on Windows, How to install Zoxide on macOS, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows, brew zoxide, zoxide download",
     "features": "zoxide features, zoxide capabilities, smart cd command, zoxide performance, best cd replacement",
     "tutorial": "zoxide tutorial, zoxide quick start, how to use zoxide, zoxide setup guide, zoxide configuration, zoxide shell integration",
     "comparison": "zoxide vs autojump, zoxide vs z, zoxide vs fasd, best cd replacement tool",

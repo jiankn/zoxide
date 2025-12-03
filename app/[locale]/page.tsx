@@ -79,39 +79,49 @@ export default async function Home() {
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
                 {t('installation.title')}
               </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <Link
+                  href="/tutorials/install-macos"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Homebrew ({t('installation.macos')})
+                    {t('installation.macos')}
                   </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    {t('installation.macosDesc')}
+                  </p>
                   <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
                     brew install zoxide
                   </code>
-                </div>
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+                </Link>
+                <Link
+                  href="/tutorials/install-windows"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    {t('installation.ubuntu')}
+                    {t('installation.windows')}
                   </h3>
-                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
-                    {t('installation.ubuntuCommand')}
-                  </code>
-                </div>
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Scoop ({t('installation.windows')})
-                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    {t('installation.windowsDesc')}
+                  </p>
                   <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
                     scoop install zoxide
                   </code>
-                </div>
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+                </Link>
+                <Link
+                  href="/tutorials/install-ubuntu"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    Cargo ({t('installation.linux')})
+                    {t('installation.linux')}
                   </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    {t('installation.linuxDesc')}
+                  </p>
                   <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
-                    cargo install zoxide
+                    {t('installation.ubuntuCommand')}
                   </code>
-                </div>
+                </Link>
               </div>
             </section>
 
@@ -186,6 +196,39 @@ export default async function Home() {
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     {t('quickLinks.installUbuntuDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/install-arch-nixos"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.installLinux')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.installLinuxDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/install-windows"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.installWindows')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.installWindowsDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/install-macos"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.installMacos')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.installMacosDesc')}
                   </p>
                 </Link>
                 <Link
