@@ -61,7 +61,29 @@
       "title": "快速安装",
       "macos": "macOS",
       "linux": "Linux",
-      "windows": "Windows"
+      "windows": "Windows",
+      "ubuntu": "Ubuntu/Debian",
+      "ubuntuCommand": "sudo apt install zoxide"
+    },
+    "quickLinks": {
+      "title": "常见问题与快速链接",
+      "commandNotFound": "zoxide 命令未找到",
+      "commandNotFoundDesc": "排查安装和 PATH 问题",
+      "installUbuntu": "在 Ubuntu 上安装 zoxide",
+      "installUbuntuDesc": "Ubuntu 完整安装指南",
+      "download": "下载 zoxide",
+      "downloadDesc": "为您的平台下载 zoxide",
+      "fzfIntegration": "fzf zoxide 集成",
+      "fzfIntegrationDesc": "结合 fzf 实现强大的搜索功能",
+      "nvimIntegration": "zoxide nvim 配置",
+      "nvimIntegrationDesc": "为 Neovim 工作流配置 zoxide"
+    },
+    "relatedTools": {
+      "title": "相关工具与替代方案",
+      "autojump": "zoxide vs autojump",
+      "autojumpDesc": "比较 zoxide 与 autojump - 更快、更智能的导航",
+      "fzf": "fzf zoxide 集成",
+      "fzfDesc": "强大的模糊查找器与 zoxide 集成"
     },
     "tutorials": {
       "title": "推荐教程",

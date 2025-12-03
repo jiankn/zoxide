@@ -2,14 +2,21 @@ import Hero from '@/components/Hero/Hero';
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
+  const locale = await getLocale();
+  
+  // 根据语言设置不同的描述
+  const description = locale === 'en' 
+    ? 'Learn how to zoxide install on Ubuntu, fix zoxide command not found errors, integrate with fzf zoxide, and use brew zoxide. Download zoxide and discover why it\'s better than autojump. Perfect for nvim users seeking faster terminal navigation.'
+    : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
+  
   return {
     title: t('titles.home'),
-    description: 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。',
+    description,
     keywords: t('main'),
   };
 }
@@ -72,13 +79,21 @@ export default async function Home() {
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
                 {t('installation.title')}
               </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     Homebrew ({t('installation.macos')})
                   </h3>
                   <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
                     brew install zoxide
+                  </code>
+                </div>
+                <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('installation.ubuntu')}
+                  </h3>
+                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                    {t('installation.ubuntuCommand')}
                   </code>
                 </div>
                 <div className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800">
@@ -140,6 +155,101 @@ export default async function Home() {
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     {t('tutorials.shellIntegrationDesc')}
+                  </p>
+                </Link>
+              </div>
+            </section>
+
+            {/* 常见问题/快速链接 */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                {t('quickLinks.title')}
+              </h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <Link
+                  href="/blog/zoxide-command-not-found"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.commandNotFound')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.commandNotFoundDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/install-ubuntu"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.installUbuntu')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.installUbuntuDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/download"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.download')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.downloadDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/fzf-integration"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.fzfIntegration')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.fzfIntegrationDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/advanced-config"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('quickLinks.nvimIntegration')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('quickLinks.nvimIntegrationDesc')}
+                  </p>
+                </Link>
+              </div>
+            </section>
+
+            {/* 相关工具 */}
+            <section>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                {t('relatedTools.title')}
+              </h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Link
+                  href="/comparisons"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('relatedTools.autojump')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('relatedTools.autojumpDesc')}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials/fzf-integration"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                >
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t('relatedTools.fzf')}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {t('relatedTools.fzfDesc')}
                   </p>
                 </Link>
               </div>

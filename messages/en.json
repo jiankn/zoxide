@@ -39,7 +39,7 @@
   "home": {
     "title": "zoxide - A smarter cd command",
     "subtitle": "Navigate directories 10x faster",
-    "description": "zoxide is a smart directory jumper written in Rust with exceptional performance. Supports fuzzy search and learns your usage patterns to make terminal navigation effortless and efficient.",
+    "description": "Learn how to zoxide install on Ubuntu, fix zoxide command not found errors, integrate with fzf zoxide, and use brew zoxide. Download zoxide and discover why it's better than autojump. Perfect for nvim users seeking faster terminal navigation.",
     "getStarted": "Get Started",
     "viewDocs": "View Docs",
     "features": {
@@ -61,7 +61,29 @@
       "title": "Quick Install",
       "macos": "macOS",
       "linux": "Linux",
-      "windows": "Windows"
+      "windows": "Windows",
+      "ubuntu": "Ubuntu/Debian",
+      "ubuntuCommand": "sudo apt install zoxide"
+    },
+    "quickLinks": {
+      "title": "Common Questions & Quick Links",
+      "commandNotFound": "zoxide command not found",
+      "commandNotFoundDesc": "Troubleshoot installation and PATH issues",
+      "installUbuntu": "zoxide install Ubuntu",
+      "installUbuntuDesc": "Complete installation guide for Ubuntu",
+      "download": "zoxide download",
+      "downloadDesc": "Download zoxide for your platform",
+      "fzfIntegration": "fzf zoxide integration",
+      "fzfIntegrationDesc": "Combine zoxide with fzf for powerful search",
+      "nvimIntegration": "zoxide nvim setup",
+      "nvimIntegrationDesc": "Configure zoxide for Neovim workflows"
+    },
+    "relatedTools": {
+      "title": "Related Tools & Alternatives",
+      "autojump": "zoxide vs autojump",
+      "autojumpDesc": "Compare zoxide with autojump - faster, smarter navigation",
+      "fzf": "fzf zoxide integration",
+      "fzfDesc": "Powerful fuzzy finder integration with zoxide"
     },
     "tutorials": {
       "title": "Recommended Tutorials",
@@ -224,8 +246,8 @@
     }
   },
   "seo": {
-    "main": "zoxide, smart cd command, cd alternative, zoxide tutorial, zoxide install, how to use zoxide",
-    "install": "zoxide install, how to install zoxide, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows",
+    "main": "zoxide install, zoxide install Ubuntu, zoxide command not found, zoxide nvim, zoxide download, fzf zoxide, brew zoxide, command zoxide not found, autojump, smart cd command, cd alternative, zoxide tutorial, how to use zoxide",
+    "install": "zoxide install, zoxide install Ubuntu, how to install zoxide, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows, brew zoxide, zoxide download",
     "features": "zoxide features, zoxide capabilities, smart cd command, zoxide performance, best cd replacement",
     "tutorial": "zoxide tutorial, zoxide quick start, how to use zoxide, zoxide setup guide, zoxide configuration, zoxide shell integration",
     "comparison": "zoxide vs autojump, zoxide vs z, zoxide vs fasd, best cd replacement tool",
@@ -235,7 +257,7 @@
     "video": "zoxide video tutorial, zoxide youtube",
     "legal": "privacy policy, terms of service, about us",
     "titles": {
-      "home": "zoxide install - Smart cd Command Alternative | Navigate 10x Faster",
+      "home": "zoxide install Ubuntu - Smart cd Command | Fix zoxide command not found | fzf zoxide",
       "features": "zoxide Features - Smart cd Command Tool | Blazing Performance",
       "download": "zoxide Install Guide - macOS Linux Windows | One-Click Install",
       "tutorials": "zoxide Tutorial - Complete Guide | Smart cd Command",
