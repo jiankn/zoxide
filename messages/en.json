@@ -38,7 +38,7 @@
   "home": {
     "title": "zoxide - A smarter cd command",
     "subtitle": "Navigate directories 10x faster",
-    "description": "Learn how to zoxide install on Ubuntu, fix zoxide command not found errors, integrate with fzf zoxide, and use brew zoxide. Download zoxide and discover why it's better than autojump. Perfect for nvim users seeking faster terminal navigation.",
+    "description": "zoxide is a smarter cd command that helps you jump between directories instantly. Follow our guides to install zoxide on Ubuntu, macOS, Windows and more, fix common \"zoxide command not found\" issues, and integrate it with tools like fzf and Neovim for a faster terminal workflow.",
     "getStarted": "Get Started",
     "viewDocs": "View Docs",
     "features": {

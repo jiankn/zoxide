@@ -10,7 +10,7 @@ export async function generateMetadata() {
   
   // 根据语言设置不同的描述
   const description = locale === 'en' 
-    ? 'Learn how to zoxide install on Ubuntu, fix zoxide command not found errors, integrate with fzf zoxide, and use brew zoxide. Download zoxide and discover why it\'s better than autojump. Perfect for nvim users seeking faster terminal navigation.'
+    ? 'zoxide is a smarter cd command that helps you jump between directories instantly. This site provides installation guides, troubleshooting tips, and tutorials on using zoxide with fzf, Neovim, and more.'
     : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
   
   return {
