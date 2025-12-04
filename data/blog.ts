@@ -840,6 +840,80 @@ If you're still experiencing issues:
     tags: ['zoxide', 'how to use', 'tutorial', 'ubuntu', 'fzf', 'query'],
     readTime: 12,
   },
+  {
+    id: '10',
+    slug: 'advanced-zoxide-techniques',
+    title: 'Advanced Zoxide Techniques: Mastering Frecency and Custom Workflows',
+    excerpt:
+      'Unlock frecency scoring, database backups, and scripted workflows so your zoxide setup on Arch or NixOS stays fast, portable, and automation-ready.',
+    content: `# Advanced Zoxide Techniques: Mastering Frecency and Custom Workflows
+
+Once you have the basics down, Zoxide can do much more than just jump folders. Understanding the underlying database mechanics allows you to manipulate rankings, backup your history, and script custom workflows. This is essential for power users on **zoxide arch** and **zoxide nixos** systems who want total control over their environment.
+
+### Manipulating the Frecency Score
+
+Zoxide ranks directories based on frequency and recency. Sometimes, you might want to manually check the score of a directory to understand why **zoxide autocomplete** is prioritizing it.
+
+You can query the raw database:
+
+\`\`\`bash
+# List all matches with their scores
+zoxide query --list --score
+\`\`\`
+
+If a directory has a low score, you might get a **zoxide no match found** error when using a short abbreviation. You can manually boost a path's score by visiting it repeatedly or using \`zoxide add\` multiple times.
+
+### Backup and Sync
+
+Your navigation history is valuable. If you switch machines or reinstall your OS, you don't want to start from scratch.
+
+  * **Linux/Arch:** The data usually lives in \`~/.local/share/zoxide/db.zo\`.
+  * **macOS:** It is often in \`~/Library/Application Support/zoxide\`.
+
+For **zoxide nixos** users, persisting this file is crucial since the root filesystem might be ephemeral (erased on boot). Ensure your persistence configuration includes the Zoxide data directory so your **zoxide alias** history survives reboots.
+
+\`\`\`nix
+# Example NixOS persistence config snippet
+environment.persistence."/persist".directories = [
+  ".local/share/zoxide"
+];
+\`\`\`
+
+### Scripting with Zoxide
+
+You can use Zoxide inside your own scripts. Since \`z\` is a shell function (an alias), scripts should use the binary \`zoxide query\` to find paths without changing the directory.
+
+\`\`\`bash
+# A script to open the most "frecent" project in an editor
+PROJECT_DIR=$(zoxide query my-project)
+if [ -z "$PROJECT_DIR" ]; then
+    echo "Error: zoxide no match found"
+else
+    nvim "$PROJECT_DIR"
+fi
+\`\`\`
+
+### Advanced Aliases
+
+Beyond the standard \`z\`, you can create custom **zoxide alias** functions. For example, a command that jumps to a directory and immediately lists its contents:
+
+\`\`\`bash
+# Add this to .bashrc or .zshrc
+za() {
+    z "$@" && ls -F
+}
+\`\`\`
+
+This effectively combines navigation and inspection. Whether you are fine-tuning a **zoxide arch** setup or defining declarative modules in **zoxide nixos**, these advanced techniques turn a simple tool into a productivity powerhouse.
+
+-----
+`,
+    date: '2025-12-05',
+    author: 'zoxide.org',
+    category: '技巧',
+    tags: ['frecency', 'workflow', 'backup', 'arch', 'nixos'],
+    readTime: 9,
+  },
 ];
 
 // 根据 slug 获取文章

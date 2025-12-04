@@ -454,6 +454,20 @@
         ],
         "content": "# Zoxide 故障排除：修复 \"No Match Found\" 和数据库错误\n\nZoxide 通常是一个\"安装后即忘\"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。用户最常见的挫折是 **zoxide no match found** 错误。虽然这通常只意味着\"我还没去过那里\"，但有时它可能表明数据库损坏或 Shell 配置错误。本指南涵盖了如何在各种系统（包括 **zoxide arch** 和 **zoxide nixos** 设置）上调试这些问题。\n\n### 理解 \"No Match Found\"\n\n当你输入 `z foo` 并收到 **zoxide no match found** 响应时，这意味着排名算法（frecency）产生的结果为零。发生这种情况有两个原因：\n\n1.  **新路径：** 你以前从未访问过该目录。\n2.  **已删除路径：** 目录已被删除，但 Zoxide 试图跳转到该目录并失败，随后将其从数据库中删除（自我修复）。\n\n要解决第一个问题，请确保你的 **zoxide alias** 正确挂钩到你的 Shell 以记录移动。运行以下命令以检查 Zoxide 是否正在跟踪你的命令：\n\n```bash\n# 检查 'z' 函数或别名是否存在\ntype z\n\n# 手动将路径添加到数据库以进行测试\nzoxide add /path/to/your/directory\n```\n\n### 清理 \"幽灵\" 条目\n\n有时 **zoxide autocomplete** 可能会建议不再存在的目录，从而使你的工作流变得混乱。虽然 Zoxide 试图自我清理，但你可以强制进行清理。\n\n在像 **zoxide arch** 这样的滚动发行版上，你可能会频繁移动大型项目文件夹，幽灵条目很常见。你可以手动移除特定路径：\n\n```bash\n# 从数据库中移除特定路径\nzoxide remove /path/to/deleted/project\n\n# 或者交互式移除路径（需要 fzf）\nzoxide remove -i\n```\n\n这确保了你的 **zoxide autocomplete** 列表保持相关且快速。\n\n### 平台特定的调试\n\n对于 **zoxide nixos** 用户，问题通常源于 Nix 存储的只读性质或环境变量冲突。如果 Zoxide 在重启后忘记了你的历史记录，请检查 `_ZO_DATA_DIR` 指向的位置。在 NixOS `home-manager` 设置中，确保你的状态版本是兼容的。\n\n```nix\n# 在 home.nix 中，确保启用了集成以挂钩到 Shell 历史记录\nprograms.zoxide = {\n  enable = true;\n  # 这确保了别名被创建\n  enableZshIntegration = true; \n};\n```\n\n如果你在访问目录后仍然遇到 **zoxide no match found** 错误，请检查你的排除列表。Zoxide 默认会忽略某些临时目录。正确配置环境可确保 **zoxide alias** 捕获你真正关心的路径。\n"
       },
+      "advanced-zoxide-techniques": {
+        "title": "Zoxide 高级技巧：掌握 Frecency 和自定义工作流",
+        "excerpt": "深入理解 frecency 排名、数据库备份与同步以及脚本化工作流，让你的 zoxide 在 Arch/NixOS 上始终高效。",
+        "category": "技巧",
+        "author": "zoxide.org",
+        "tags": [
+          "frecency",
+          "workflow",
+          "backup",
+          "arch",
+          "nixos"
+        ],
+        "content": "# Zoxide 高级技巧：掌握 Frecency 和自定义工作流\n\n一旦你掌握了基础知识，Zoxide 能做的不仅仅是跳转文件夹。了解底层数据库机制可以让你操作排名、备份历史记录以及编写自定义工作流脚本。这对于想要完全控制其环境的 **zoxide arch** 和 **zoxide nixos** 系统的高级用户来说至关重要。\n\n### 操作 Frecency 分数\n\nZoxide 根据频率（Frequency）和新近度（Recency）对目录进行排名。有时，你可能想要手动检查目录的分数，以了解为什么 **zoxide autocomplete** 会优先显示它。\n\n你可以查询原始数据库：\n\n```bash\n# 列出所有匹配项及其分数\nzoxide query --list --score\n```\n\n如果目录的分数很低，你在使用简短缩写时可能会遇到 **zoxide no match found** 错误。你可以通过重复访问该路径或多次使用 `zoxide add` 来手动提高路径的分数。\n\n### 备份和同步\n\n你的导航历史记录很有价值。如果你更换机器或重装操作系统，你不会想从头开始。\n\n  * **Linux/Arch:** 数据通常位于 `~/.local/share/zoxide/db.zo`。\n  * **macOS:** 通常位于 `~/Library/Application Support/zoxide`。\n\n对于 **zoxide nixos** 用户，持久化此文件至关重要，因为根文件系统可能是临时的（启动时擦除）。确保你的持久化配置包含 Zoxide 数据目录，以便你的 **zoxide alias** 历史记录在重启后依然存在。\n\n```nix\n# NixOS 持久化配置片段示例\nenvironment.persistence.\"/persist\".directories = [\n  \".local/share/zoxide\"\n];\n```\n\n### 使用 Zoxide 编写脚本\n\n你可以在自己的脚本中使用 Zoxide。由于 `z` 是一个 Shell 函数（别名），脚本应使用二进制文件 `zoxide query` 来查找路径，而无需更改目录。\n\n```bash\n# 一个在编辑器中打开\"最常用\"项目的脚本\nPROJECT_DIR=$(zoxide query my-project)\nif [ -z \"$PROJECT_DIR\" ]; then\n    echo \"Error: zoxide no match found\"\nelse\n    nvim \"$PROJECT_DIR\"\nfi\n```\n\n### 高级 Aliases (别名)\n\n除了标准的 `z` 之外，你还可以创建自定义 **zoxide alias** 函数。例如，一个跳转到目录并立即列出其内容的命令：\n\n```bash\n# 将此添加到 .bashrc 或 .zshrc\nza() {\n    z \"$@\" && ls -F\n}\n```\n\n这有效地结合了导航和检查。无论你是在微调 **zoxide arch** 设置，还是在 **zoxide nixos** 中定义声明式模块，这些高级技巧都能将一个简单的工具变成生产力利器。"
+      },
       "mastering-terminal-navigation-zoxide-guide": {
         "title": "终端导航大师 —— Zoxide 使用终极指南",
         "excerpt": "如果你每天在命令行界面花费大量时间，你一定体会过使用标准 `cd` 命令在深层目录结构中导航的痛苦。这篇综合指南将深入探讨如何使用 Zoxide，涵盖从 Ubuntu 安装到高级 `fzf` 集成以及常见错误排查的所有内容。",
