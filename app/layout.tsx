@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { routing } from '@/i18n/routing';
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +28,7 @@ export default function RootLayout({
   // 使用默认 locale，客户端组件会在需要时更新
   return (
     <html lang={routing.defaultLocale} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-417HF3TV3L"
@@ -44,6 +42,10 @@ export default function RootLayout({
             gtag('config', 'G-417HF3TV3L');
           `}
         </Script>
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
