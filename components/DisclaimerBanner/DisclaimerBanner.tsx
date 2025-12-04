@@ -1,24 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 
-export default function DisclaimerBanner() {
-  const [isVisible, setIsVisible] = useState(false);
-  const t = useTranslations('disclaimer');
+const shouldDisplayDisclaimer = () => {
+  if (typeof window === 'undefined') return false;
+  return !window.localStorage.getItem('disclaimer-dismissed');
+};
 
-  useEffect(() => {
-    // 检查是否已经关闭过
-    const dismissed = localStorage.getItem('disclaimer-dismissed');
-    if (!dismissed) {
-      setIsVisible(true);
-    }
-  }, []);
+export default function DisclaimerBanner() {
+  const t = useTranslations('disclaimer');
+  const [isVisible, setIsVisible] = useState(shouldDisplayDisclaimer);
 
   const handleClose = () => {
     setIsVisible(false);
-    localStorage.setItem('disclaimer-dismissed', 'true');
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('disclaimer-dismissed', 'true');
+    }
   };
 
   if (!isVisible) return null;

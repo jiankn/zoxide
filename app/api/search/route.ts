@@ -12,16 +12,40 @@ export interface SearchResult {
   matchScore?: number; // 匹配分数（可选）
 }
 
+type BlogTranslation = Record<string, { title?: string; excerpt?: string }>;
+type TutorialTranslation = Record<string, { title?: string; excerpt?: string }>;
+
+type PageSection = {
+  title?: string;
+  description?: string;
+};
+
+type LocaleMessages = {
+  blog?: {
+    data?: BlogTranslation;
+  };
+  tutorials?: {
+    data?: TutorialTranslation;
+  };
+  common?: Record<string, string>;
+  features?: PageSection;
+  download?: PageSection;
+  faq?: PageSection;
+  changelog?: PageSection;
+  comparisons?: PageSection;
+  about?: PageSection;
+};
+
 // 获取单个语言的可搜索内容
 async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   // 直接导入 messages 文件（API 路由不在 next-intl 上下文中）
-  const messages = (await import(`@/messages/${locale}.json`)).default;
+  const messages = (await import(`@/messages/${locale}.json`)).default as LocaleMessages;
   const results: SearchResult[] = [];
 
   // 博客文章 - 从数据文件动态获取
   const posts = getAllPosts();
   for (const post of posts) {
-    const tData = (messages.blog as any)?.data?.[post.slug];
+    const tData = messages.blog?.data?.[post.slug];
     results.push({
       type: 'blog',
       title: tData?.title || post.title,
@@ -34,7 +58,7 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   // 教程 - 从数据文件动态获取
   const tutorials = getAllTutorials();
   for (const tutorial of tutorials) {
-    const tData = (messages.tutorials as any)?.data?.[tutorial.slug];
+    const tData = messages.tutorials?.data?.[tutorial.slug];
     results.push({
       type: 'tutorial',
       title: tData?.title || tutorial.title,
@@ -45,7 +69,7 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   }
 
   // 静态页面 - 从翻译文件获取
-  const common = messages.common as any;
+  const common = messages.common || {};
   const pages = [
     {
       type: 'page' as const,
@@ -86,7 +110,7 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   ];
 
   for (const page of pages) {
-    const pageMessages = messages[page.titleKey as keyof typeof messages] as any;
+    const pageMessages = messages[page.titleKey as keyof LocaleMessages] as PageSection | undefined;
     results.push({
       type: page.type,
       title: pageMessages?.title || common[page.titleKey] || page.titleKey,
@@ -119,7 +143,7 @@ export async function GET(request: NextRequest) {
     const allLocales = searchParams.get('allLocales') === 'true'; // 是否跨语言搜索
 
     // 验证 locale
-    if (!routing.locales.includes(locale as any)) {
+    if (!routing.locales.includes(locale)) {
       return NextResponse.json(
         { error: 'Invalid locale' },
         { status: 400 }

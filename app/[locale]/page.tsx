@@ -1,7 +1,6 @@
 import Hero from '@/components/Hero/Hero';
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 
@@ -23,7 +22,6 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const t = await getTranslations('home');
-  const tCommon = await getTranslations('common');
 
   return (
     <div className="flex flex-col">

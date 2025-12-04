@@ -25,12 +25,12 @@ export default function TermsOfServicePage() {
           <section className="prose prose-lg max-w-none dark:prose-invert">
             <h2>1. 接受条款</h2>
             <p>
-              通过访问和使用 zoxide.org（"本网站"），您同意遵守本服务条款。如果您不同意这些条款，请不要使用本网站。
+              通过访问和使用 zoxide.org（&quot;本网站&quot;），您同意遵守本服务条款。如果您不同意这些条款，请不要使用本网站。
             </p>
 
             <h2>2. 网站性质</h2>
             <p>
-              <strong>重要声明</strong>：本网站是信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无任何关联。我们不托管文件，仅链接到 SourceForge 发布版本。所有内容均为原创。
+              <strong>重要声明</strong>：本网站是信息性网站，与 ajeetdsouza 或 Ajeet D&apos;Souza 无任何关联。我们不托管文件，仅链接到 SourceForge 发布版本。所有内容均为原创。
             </p>
 
             <h2>3. 使用许可</h2>
@@ -52,7 +52,7 @@ export default function TermsOfServicePage() {
 
             <h2>6. 免责声明</h2>
             <p>
-              本网站按"原样"提供，不提供任何明示或暗示的保证。我们不保证：
+              本网站按 &quot;原样&quot; 提供，不提供任何明示或暗示的保证。我们不保证：
             </p>
             <ul>
               <li>网站将始终可用或无错误</li>
@@ -77,7 +77,7 @@ export default function TermsOfServicePage() {
 
             <h2>10. 服务条款变更</h2>
             <p>
-              我们保留随时修改本服务条款的权利。我们会在本页面上发布更新后的服务条款，并更新"最后更新"日期。继续使用本网站即表示您接受修改后的条款。
+              我们保留随时修改本服务条款的权利。我们会在本页面上发布更新后的服务条款，并更新 &quot;最后更新&quot; 日期。继续使用本网站即表示您接受修改后的条款。
             </p>
 
             <h2>11. 联系我们</h2>

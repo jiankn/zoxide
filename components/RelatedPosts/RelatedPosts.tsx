@@ -3,7 +3,6 @@
 import { Link } from '@/i18n/routing';
 import { BlogPost } from '@/data/blog';
 import { useTranslations, useLocale } from 'next-intl';
-import { useMemo } from 'react';
 
 interface RelatedPostsProps {
   posts: BlogPost[];
@@ -13,35 +12,32 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
   const t = useTranslations('blog.detail');
   const tBlog = useTranslations('blog');
   const locale = useLocale();
-  
-  if (posts.length === 0) {
+
+  const categoryMap: Record<string, string> = {
+    '教程': locale === 'zh' ? '教程' : 'Tutorial',
+    '对比': locale === 'zh' ? '对比' : 'Comparison',
+    '技巧': locale === 'zh' ? '技巧' : 'Tips',
+  };
+
+  const translatedPosts = posts.map((post) => {
+    let translation: { title?: string; excerpt?: string; category?: string } | undefined;
+    try {
+      translation = tBlog.raw(`data.${post.slug}`) as typeof translation;
+    } catch {
+      translation = undefined;
+    }
+
+    return {
+      ...post,
+      title: translation?.title || post.title,
+      excerpt: translation?.excerpt || post.excerpt,
+      category: translation?.category || categoryMap[post.category] || post.category,
+    };
+  });
+
+  if (translatedPosts.length === 0) {
     return null;
   }
-
-  // 获取翻译后的文章数据
-  const translatedPosts = useMemo(() => {
-    // 翻译分类映射
-    const categoryMap: Record<string, string> = {
-      '教程': locale === 'zh' ? '教程' : 'Tutorial',
-      '对比': locale === 'zh' ? '对比' : 'Comparison',
-      '技巧': locale === 'zh' ? '技巧' : 'Tips',
-    };
-
-    return posts.map((post) => {
-      let tData: any = undefined;
-      try {
-        tData = tBlog.raw(`data.${post.slug}`);
-      } catch {
-        // 翻译不存在时使用默认值
-      }
-      return {
-        ...post,
-        title: tData?.title || post.title,
-        excerpt: tData?.excerpt || post.excerpt,
-        category: tData?.category || categoryMap[post.category] || post.category,
-      };
-    });
-  }, [posts, tBlog, locale]);
 
   return (
     <section className="mt-12">

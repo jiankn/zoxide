@@ -3,6 +3,20 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
 
+type ComparisonFeatureSet = Record<string, string>;
+
+interface ComparisonItem {
+  tool: string;
+  features: ComparisonFeatureSet;
+  zoxideFeatures: ComparisonFeatureSet;
+}
+
+type ComparisonMessages = {
+  comparisons?: {
+    items?: ComparisonItem[];
+  };
+};
+
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   return {
@@ -15,8 +29,8 @@ export async function generateMetadata() {
 export default async function ComparisonsPage() {
   const t = await getTranslations('comparisons');
   const locale = await getLocale();
-  const messages = locale === 'zh' ? zhMessages : enMessages;
-  const comparisons = (messages as any).comparisons?.items || [];
+  const messages: ComparisonMessages = locale === 'zh' ? zhMessages : enMessages;
+  const comparisons = messages.comparisons?.items ?? [];
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -34,7 +48,7 @@ export default async function ComparisonsPage() {
           <AdSlot slotId="comparisons-top" />
 
           <div className="space-y-8">
-            {comparisons.map((comparison: any, index: number) => (
+            {comparisons.map((comparison, index) => (
               <div
                 key={index}
                 className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-800"
@@ -72,7 +86,7 @@ export default async function ComparisonsPage() {
                             {value as string}
                           </td>
                           <td className="px-6 py-4 text-sm font-semibold text-blue-600 dark:text-blue-400">
-                            {comparison.zoxideFeatures[feature as keyof typeof comparison.zoxideFeatures] as string}
+                            {comparison.zoxideFeatures[feature] ?? ''}
                           </td>
                         </tr>
                       ))}

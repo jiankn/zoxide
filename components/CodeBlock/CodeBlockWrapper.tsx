@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, isValidElement } from 'react';
 import { useTranslations } from 'next-intl';
 
 // 动态导入 CodeBlock 以避免 SSR 问题
@@ -35,35 +35,28 @@ function extractText(node: ReactNode): string {
     return node.map(extractText).join('');
   }
   
-  // 处理对象和 React 元素
+  if (isValidElement(node)) {
+    return extractText(node.props.children);
+  }
+
   if (node && typeof node === 'object') {
-    // 处理 React 元素（有 type 和 props）
-    if ('type' in node && 'props' in node) {
-      const reactNode = node as any;
-      if (reactNode.props && reactNode.props.children !== undefined) {
-        return extractText(reactNode.props.children);
-      }
+    type WithProps = { props?: { children?: ReactNode } };
+    type WithChildren = { children?: ReactNode };
+
+    const withProps = node as WithProps;
+    if (withProps.props?.children !== undefined) {
+      return extractText(withProps.props.children);
     }
-    // 处理只有 props 的对象
-    else if ('props' in node) {
-      const propsNode = node as any;
-      if (propsNode.props && propsNode.props.children !== undefined) {
-        return extractText(propsNode.props.children);
-      }
+
+    const withChildren = node as WithChildren;
+    if (withChildren.children !== undefined) {
+      return extractText(withChildren.children);
     }
-    // 处理有 children 属性的对象
-    else if ('children' in node) {
-      return extractText((node as any).children);
-    }
-    // 处理 Fragment 类型
-    else if (node.toString && node.toString() === '[object Object]') {
-      // 尝试获取任何可能的文本内容
-      const keys = Object.keys(node);
-      for (const key of keys) {
-        const value = (node as any)[key];
-        if (typeof value === 'string') {
-          return value;
-        }
+
+    const values = Object.values(node as Record<string, unknown>);
+    for (const value of values) {
+      if (typeof value === 'string') {
+        return value;
       }
     }
   }

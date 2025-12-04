@@ -2,6 +2,12 @@
 
 import { ENABLE_ADS } from './config';
 
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[];
+  }
+}
+
 // AdSense Publisher ID（从环境变量读取）
 const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID || '';
 
@@ -67,7 +73,7 @@ export class AdManager {
       adContainer.appendChild(ins);
 
       // 触发广告加载
-      const adsbygoogle = (window as any).adsbygoogle;
+      const adsbygoogle = window.adsbygoogle;
       if (adsbygoogle && Array.isArray(adsbygoogle)) {
         adsbygoogle.push({});
       }

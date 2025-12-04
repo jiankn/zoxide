@@ -1,6 +1,13 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { getTranslations } from 'next-intl/server';
 
+type LegalSection = {
+  title: string;
+  content: string | string[];
+};
+
+type LegalSectionMap = Record<string, LegalSection>;
+
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   return {
@@ -12,6 +19,8 @@ export async function generateMetadata() {
 
 export default async function TermsOfServicePage() {
   const t = await getTranslations('termsOfService');
+  const sections = t.raw('sections') as LegalSectionMap;
+  const sectionEntries = Object.entries(sections);
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -29,23 +38,20 @@ export default async function TermsOfServicePage() {
           <AdSlot slotId="terms-top" />
 
           <section className="prose prose-lg max-w-none dark:prose-invert">
-            {Object.keys(t.raw('sections') as object).map((key) => {
-              const section = (t.raw('sections') as any)[key];
-              return (
-                <div key={key} className="mb-8">
-                  <h2>{section.title}</h2>
-                  {Array.isArray(section.content) ? (
-                    <ul>
-                      {section.content.map((item: string, idx: number) => (
-                        <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
-                      ))}
-                    </ul>
-                  ) : (
-                    <p dangerouslySetInnerHTML={{ __html: section.content }} />
-                  )}
-                </div>
-              );
-            })}
+            {sectionEntries.map(([key, section]) => (
+              <div key={key} className="mb-8">
+                <h2>{section.title}</h2>
+                {Array.isArray(section.content) ? (
+                  <ul>
+                    {section.content.map((item, idx) => (
+                      <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
+                    ))}
+                  </ul>
+                ) : (
+                  <p dangerouslySetInnerHTML={{ __html: section.content }} />
+                )}
+              </div>
+            ))}
           </section>
 
           <AdSlot slotId="terms-bottom" />

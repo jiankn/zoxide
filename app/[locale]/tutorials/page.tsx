@@ -1,9 +1,26 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
-import { BookOpen, Video, HelpCircle } from 'lucide-react';
-import { getAllTutorials, getTutorialsByCategory } from '@/data/tutorials';
+import { BookOpen, Video } from 'lucide-react';
+import { getTutorialsByCategory } from '@/data/tutorials';
 import { getLocale } from 'next-intl/server';
+
+type TutorialTranslationMeta = {
+  title?: string;
+  duration?: string;
+  level?: string;
+};
+
+const fetchTutorialTranslation = (
+  translator: Awaited<ReturnType<typeof getTranslations>>,
+  slug: string
+): TutorialTranslationMeta | undefined => {
+  try {
+    return translator.raw(`data.${slug}`) as TutorialTranslationMeta;
+  } catch {
+    return undefined;
+  }
+};
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
@@ -43,18 +60,12 @@ export default async function TutorialsPage() {
       title: t('categories.beginner'),
       icon: BookOpen,
       tutorials: beginnerTutorials.map((tutorial) => {
-        // 安全获取翻译数据，如果不存在则使用默认值
-        let tData: any = undefined;
-        try {
-          tData = t.raw(`data.${tutorial.slug}`);
-        } catch {
-          // 翻译不存在时使用默认值
-        }
+        const translation = fetchTutorialTranslation(t, tutorial.slug);
         return {
-          title: tData?.title || tutorial.title,
+          title: translation?.title || tutorial.title,
           href: `/tutorials/${tutorial.slug}`,
-          duration: tData?.duration || tutorial.duration,
-          level: tData?.level || tutorial.level,
+          duration: translation?.duration || tutorial.duration,
+          level: translation?.level || tutorial.level,
         };
       }),
     },
@@ -62,18 +73,12 @@ export default async function TutorialsPage() {
       title: t('categories.advanced'),
       icon: BookOpen,
       tutorials: advancedTutorials.map((tutorial) => {
-        // 安全获取翻译数据，如果不存在则使用默认值
-        let tData: any = undefined;
-        try {
-          tData = t.raw(`data.${tutorial.slug}`);
-        } catch {
-          // 翻译不存在时使用默认值
-        }
+        const translation = fetchTutorialTranslation(t, tutorial.slug);
         return {
-          title: tData?.title || tutorial.title,
+          title: translation?.title || tutorial.title,
           href: `/tutorials/${tutorial.slug}`,
-          duration: tData?.duration || tutorial.duration,
-          level: tData?.level || tutorial.level,
+          duration: translation?.duration || tutorial.duration,
+          level: translation?.level || tutorial.level,
         };
       }),
     },
@@ -82,18 +87,12 @@ export default async function TutorialsPage() {
       icon: Video,
       tutorials: [
         ...videoFaqTutorials.map((tutorial) => {
-          // 安全获取翻译数据，如果不存在则使用默认值
-          let tData: any = undefined;
-          try {
-            tData = t.raw(`data.${tutorial.slug}`);
-          } catch {
-            // 翻译不存在时使用默认值
-          }
+          const translation = fetchTutorialTranslation(t, tutorial.slug);
           return {
-            title: tData?.title || tutorial.title,
+            title: translation?.title || tutorial.title,
             href: `/tutorials/${tutorial.slug}`,
-            duration: tData?.duration || tutorial.duration,
-            level: tData?.level || tutorial.level,
+            duration: translation?.duration || tutorial.duration,
+            level: translation?.level || tutorial.level,
           };
         }),
         { title: t('faqLink'), href: '/faq', duration: locale === 'zh' ? '阅读' : 'Read', level: t('detail.all') },
@@ -103,18 +102,12 @@ export default async function TutorialsPage() {
       title: t('categories.installation'),
       icon: BookOpen,
       tutorials: installationTutorials.map((tutorial) => {
-        // 安全获取翻译数据，如果不存在则使用默认值
-        let tData: any = undefined;
-        try {
-          tData = t.raw(`data.${tutorial.slug}`);
-        } catch {
-          // 翻译不存在时使用默认值
-        }
+        const translation = fetchTutorialTranslation(t, tutorial.slug);
         return {
-          title: tData?.title || tutorial.title,
+          title: translation?.title || tutorial.title,
           href: `/tutorials/${tutorial.slug}`,
-          duration: tData?.duration || tutorial.duration,
-          level: tData?.level || tutorial.level,
+          duration: translation?.duration || tutorial.duration,
+          level: translation?.level || tutorial.level,
         };
       }),
     },

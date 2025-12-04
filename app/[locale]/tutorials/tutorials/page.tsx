@@ -1,7 +1,7 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
-import { BookOpen, Video, HelpCircle } from 'lucide-react';
-import { getAllTutorials, getTutorialsByCategory } from '@/data/tutorials';
+import { BookOpen, Video } from 'lucide-react';
+import { getTutorialsByCategory } from '@/data/tutorials';
 
 export const metadata = {
   title: 'zoxide 教程 - 快速开始和进阶指南',

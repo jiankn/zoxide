@@ -5,6 +5,7 @@
  * 用于检查代码块改造的基本问题
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 

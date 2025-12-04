@@ -20,7 +20,6 @@ export default function Search() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [searchData, setSearchData] = useState<SearchResult[]>([]);
   const [fuse, setFuse] = useState<Fuse<SearchResult> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -38,7 +37,6 @@ export default function Search() {
         if (response.ok) {
           const { data } = await response.json();
           const searchDataArray = data as SearchResult[];
-          setSearchData(searchDataArray);
           // 初始化 Fuse.js
           const fuseInstance = new Fuse<SearchResult>(searchDataArray, {
             keys: ['title', 'description'],
@@ -189,11 +187,6 @@ export default function Search() {
   // 获取语言标签
   const getLocaleLabel = (resultLocale: string) => {
     return resultLocale === 'zh' ? '中文' : 'English';
-  };
-
-  // 判断是否为当前语言
-  const isCurrentLocale = (resultLocale: string) => {
-    return resultLocale === locale;
   };
 
   // 按语言分组结果

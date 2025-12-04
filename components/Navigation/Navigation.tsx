@@ -1,6 +1,6 @@
 'use client';
 
-import { Link, usePathname } from '@/i18n/routing';
+import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Moon, Sun, Globe, Github } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -11,16 +11,18 @@ import Logo from '@/components/Logo/Logo';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
   const t = useTranslations('common');
   const locale = useLocale();
   const pathname = usePathname();
+  const router = useRouter();
 
-  // 防止 hydration 不匹配
+  // 防止主题等依赖 window 的逻辑在服务端渲染时导致 Hydration 不一致
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -50,7 +52,7 @@ export default function Navigation() {
   ];
 
   const switchLocale = (newLocale: string) => {
-    window.location.href = `/${newLocale}${pathname}`;
+    router.replace(pathname || '/', { locale: newLocale });
   };
 
   const isActive = (href: string) => {
@@ -148,13 +150,13 @@ export default function Navigation() {
               </div>
 
               {/* 主题切换（桌面端显示） */}
-              {mounted && (
+              {mounted && resolvedTheme && (
                 <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
                   className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
                   aria-label={t('toggleTheme')}
                 >
-                  {theme === 'dark' ? (
+                  {resolvedTheme === 'dark' ? (
                     <Sun className="h-5 w-5" />
                   ) : (
                     <Moon className="h-5 w-5" />
@@ -228,13 +230,13 @@ export default function Navigation() {
               </div>
 
               {/* 主题切换（移动端） */}
-              {mounted && (
+              {mounted && resolvedTheme && (
                 <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
                   className="flex items-center rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
                   aria-label={t('toggleTheme')}
                 >
-                  {theme === 'dark' ? (
+                  {resolvedTheme === 'dark' ? (
                     <>
                       <Sun className="mr-2 h-4 w-4" />
                       <span>Light</span>

@@ -3,6 +3,23 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
 
+type VersionChange = {
+  type: string;
+  content: string;
+};
+
+type ChangelogVersion = {
+  version: string;
+  date: string;
+  changes: VersionChange[];
+};
+
+type ChangelogMessages = {
+  changelog?: {
+    versions?: ChangelogVersion[];
+  };
+};
+
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   return {
@@ -15,8 +32,8 @@ export async function generateMetadata() {
 export default async function ChangelogPage() {
   const t = await getTranslations('changelog');
   const locale = await getLocale();
-  const messages = locale === 'zh' ? zhMessages : enMessages;
-  const versions = (messages as any).changelog?.versions || [];
+  const messages: ChangelogMessages = locale === 'zh' ? zhMessages : enMessages;
+  const versions = messages.changelog?.versions ?? [];
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -34,7 +51,7 @@ export default async function ChangelogPage() {
           <AdSlot slotId="changelog-top" />
 
           <div className="space-y-8">
-            {versions.map((version: any, index: number) => (
+            {versions.map((version, index) => (
               <div
                 key={index}
                 className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800"
@@ -48,7 +65,7 @@ export default async function ChangelogPage() {
                   </span>
                 </div>
                 <ul className="space-y-2">
-                  {version.changes.map((change: any, changeIndex: number) => (
+                  {version.changes.map((change, changeIndex) => (
                     <li key={changeIndex} className="flex items-start gap-2">
                       <span className="mt-1 rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                         {change.type}

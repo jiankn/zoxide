@@ -32,7 +32,7 @@ export default function AboutPage() {
             <h2>重要声明</h2>
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 dark:bg-yellow-900/20 dark:border-yellow-600 mb-6">
               <p className="text-yellow-800 dark:text-yellow-200">
-                <strong>免责声明：</strong>本网站是信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无任何关联。
+                <strong>免责声明：</strong>本网站是信息性网站，与 ajeetdsouza 或 Ajeet D&apos;Souza 无任何关联。
                 我们不托管文件，仅链接到 SourceForge 发布版本。所有内容均为原创。
               </p>
             </div>
@@ -60,7 +60,7 @@ export default function AboutPage() {
 
             <h2>开源项目</h2>
             <p>
-              zoxide 是一个开源项目，由 <a href="https://github.com/ajeetdsouza" target="_blank" rel="noopener noreferrer">Ajeet D'Souza</a> 开发。
+              zoxide 是一个开源项目，由 <a href="https://github.com/ajeetdsouza" target="_blank" rel="noopener noreferrer">Ajeet D&apos;Souza</a> 开发。
               您可以在 <a href="https://github.com/ajeetdsouza/zoxide" target="_blank" rel="noopener noreferrer">GitHub</a> 上查看源代码和贡献。
             </p>
 

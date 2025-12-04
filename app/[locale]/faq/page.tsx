@@ -1,5 +1,5 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations, getLocale, getMessages } from 'next-intl/server';
+import { getTranslations, getMessages } from 'next-intl/server';
 import { generateFAQPageSchema } from '@/lib/seo/schema';
 
 export async function generateMetadata() {
@@ -14,7 +14,6 @@ export async function generateMetadata() {
 
 export default async function FAQPage() {
   const t = await getTranslations('faq');
-  const locale = await getLocale();
   const messages = await getMessages();
   const faqs = messages.faq.items as Array<{ question: string; answer: string }>;
   const faqSchema = generateFAQPageSchema(faqs);

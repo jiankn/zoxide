@@ -1,5 +1,4 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 import { Zap, Search, Brain, Users, Settings, Rocket } from 'lucide-react';
 

@@ -1,34 +1,59 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { X, Cookie, Settings } from 'lucide-react';
 
+type PreferenceKey = 'analytics' | 'marketing';
+
+interface CookiePreferences {
+  necessary: boolean;
+  analytics: boolean;
+  marketing: boolean;
+}
+
+const defaultPreferences: CookiePreferences = {
+  necessary: true,
+  analytics: false,
+  marketing: false,
+};
+
+const getStoredPreferences = (): CookiePreferences => {
+  if (typeof window === 'undefined') return defaultPreferences;
+
+  const savedPreferences = window.localStorage.getItem('cookie-preferences');
+  if (!savedPreferences) return defaultPreferences;
+
+  try {
+    const parsed = JSON.parse(savedPreferences) as Partial<CookiePreferences>;
+    return {
+      ...defaultPreferences,
+      ...parsed,
+    };
+  } catch {
+    return defaultPreferences;
+  }
+};
+
+const shouldDisplayBanner = () => {
+  if (typeof window === 'undefined') return false;
+  return !window.localStorage.getItem('cookie-consent');
+};
+
 export default function CookieBanner() {
   const t = useTranslations('cookie');
   const tCommon = useTranslations('common');
-  const [isVisible, setIsVisible] = useState(false);
+  const [cookiePreferences, setCookiePreferences] = useState<CookiePreferences>(getStoredPreferences);
   const [showSettings, setShowSettings] = useState(false);
-  const [cookiePreferences, setCookiePreferences] = useState({
-    necessary: true, // 必要 Cookie 始终启用
-    analytics: false,
-    marketing: false,
-  });
 
-  useEffect(() => {
-    // 检查是否已经接受过 Cookie
-    const cookieConsent = localStorage.getItem('cookie-consent');
-    if (!cookieConsent) {
-      setIsVisible(true);
-    } else {
-      // 如果已接受，加载保存的偏好设置
-      const savedPreferences = localStorage.getItem('cookie-preferences');
-      if (savedPreferences) {
-        setCookiePreferences(JSON.parse(savedPreferences));
-      }
-    }
-  }, []);
+  const isVisible = shouldDisplayBanner() || showSettings;
+
+  const persistPreferences = (preferences: CookiePreferences) => {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('cookie-consent', 'accepted');
+    window.localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+  };
 
   const handleAcceptAll = () => {
     const preferences = {
@@ -36,16 +61,13 @@ export default function CookieBanner() {
       analytics: true,
       marketing: true,
     };
-    localStorage.setItem('cookie-consent', 'accepted');
-    localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    persistPreferences(preferences);
     setCookiePreferences(preferences);
-    setIsVisible(false);
+    setShowSettings(false);
   };
 
   const handleAcceptSelected = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
-    localStorage.setItem('cookie-preferences', JSON.stringify(cookiePreferences));
-    setIsVisible(false);
+    persistPreferences(cookiePreferences);
     setShowSettings(false);
   };
 
@@ -53,14 +75,16 @@ export default function CookieBanner() {
     setShowSettings(!showSettings);
   };
 
-  const togglePreference = (type: 'analytics' | 'marketing') => {
+  const togglePreference = (type: PreferenceKey) => {
     setCookiePreferences((prev) => ({
       ...prev,
       [type]: !prev[type],
     }));
   };
 
-  if (!isVisible) return null;
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg dark:bg-gray-800 dark:border-gray-700">
