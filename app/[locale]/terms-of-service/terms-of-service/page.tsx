@@ -12,17 +12,17 @@ export default function TermsOfServicePage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               服务条款
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-sm text-gray-600 mb-6">
               最后更新：2025年11月30日
             </p>
           </div>
 
           <AdSlot slotId="faq-top" />
 
-          <section className="prose prose-lg max-w-none dark:prose-invert">
+          <section className="prose prose-lg max-w-none">
             <h2>1. 接受条款</h2>
             <p>
               通过访问和使用 zoxide.org（&quot;本网站&quot;），您同意遵守本服务条款。如果您不同意这些条款，请不要使用本网站。

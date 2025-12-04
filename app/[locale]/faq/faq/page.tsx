@@ -48,10 +48,10 @@ export default function FAQPage() {
         <main className="lg:col-span-2 space-y-12">
           {/* 页面标题 */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               常见问题 (FAQ)
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               zoxide 使用中的常见问题和解决方案。
             </p>
           </div>
@@ -64,12 +64,12 @@ export default function FAQPage() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800"
+                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
               >
-                <h2 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+                <h2 className="mb-3 text-lg font-semibold text-gray-900">
                   {faq.question}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">{faq.answer}</p>
+                <p className="text-gray-600">{faq.answer}</p>
               </div>
             ))}
           </div>

@@ -48,7 +48,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+      <span className="text-sm font-medium text-gray-700">
         {t('shareLabel')}
       </span>
 
@@ -58,7 +58,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         <button
           type="button"
           onClick={shareToTwitter}
-          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           aria-label={t('shareToTwitter')}
         >
           <Twitter className="h-4 w-4" />
@@ -77,7 +77,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         <button
           type="button"
           onClick={shareToFacebook}
-          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           aria-label={t('shareToFacebook')}
         >
           <Facebook className="h-4 w-4" />
@@ -96,7 +96,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         <button
           type="button"
           onClick={handleCopyClick}
-          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="hidden md:inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           aria-label={t('copyLink')}
         >
           {copied ? (
@@ -114,7 +114,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         <button
           type="button"
           onClick={handleCopyClick}
-          className="inline-flex md:hidden items-center justify-center h-9 w-9 rounded-full bg-gray-900 text-white shadow-sm hover:opacity-90 transition-opacity dark:bg-gray-100 dark:text-gray-900"
+          className="inline-flex md:hidden items-center justify-center h-9 w-9 rounded-full bg-gray-900 text-white shadow-sm hover:opacity-90 transition-opacity"
           aria-label={t('copyLink')}
         >
           {copied ? (

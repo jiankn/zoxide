@@ -59,10 +59,10 @@ export default function FeaturesPage() {
         <main className="lg:col-span-2 space-y-12">
           {/* 页面标题 */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               zoxide 功能特性
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。
               它比传统的 cd 命令更快、更智能，支持模糊搜索和自动学习，让终端导航变得轻松高效。
               了解更多信息，请访问{' '}
@@ -70,7 +70,7 @@ export default function FeaturesPage() {
                 href="https://github.com/ajeetdsouza/zoxide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline dark:text-blue-400 dark:hover:text-blue-300"
+                className="text-blue-600 hover:text-blue-800 underline"
               >
                 GitHub 仓库
               </a>
@@ -84,7 +84,7 @@ export default function FeaturesPage() {
           {/* 功能卡片组 */}
           {featureGroups.map((group, groupIndex) => (
             <section key={groupIndex}>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 {group.title}
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -93,13 +93,13 @@ export default function FeaturesPage() {
                   return (
                     <div
                       key={index}
-                      className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800"
+                      className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
                     >
-                      <Icon className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      <Icon className="h-8 w-8 text-blue-600 mb-4" />
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
                         {feature.title}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-gray-600">
                         {feature.description}
                       </p>
                     </div>

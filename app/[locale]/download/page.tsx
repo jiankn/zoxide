@@ -60,16 +60,16 @@ export default async function DownloadPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-12">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               {t('description')}{' '}
               <a
                 href="https://github.com/ajeetdsouza/zoxide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline dark:text-blue-400 dark:hover:text-blue-300"
+                className="text-blue-600 hover:text-blue-800 underline"
               >
                 {t('githubLink')}
               </a>
@@ -80,13 +80,13 @@ export default async function DownloadPage() {
           <AdSlot slotId="download-top" />
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               {t('installMethods.title')}
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {installers.map((installer, index) => (
                 <div key={index} className="space-y-3">
-                  <h3 className="font-serif font-bold text-lg text-[#37352F] dark:text-gray-100 mb-2">
+                  <h3 className="font-serif font-bold text-lg text-[#37352F] mb-2">
                     {installer.platform}
                   </h3>
                   <CodeBlock 
@@ -94,7 +94,7 @@ export default async function DownloadPage() {
                     language="bash"
                     showPrompt={true}
                   />
-                  <p className="text-xs text-[#6a6968] dark:text-gray-400">
+                  <p className="text-xs text-[#6a6968]">
                     {installer.description}
                   </p>
                 </div>
@@ -105,10 +105,10 @@ export default async function DownloadPage() {
           <AdSlot slotId="download-middle" />
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               {t('shellConfig.title')}
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-gray-600 mb-4">
               {t('shellConfig.description')}
             </p>
             <div className="space-y-4">
@@ -120,7 +120,7 @@ export default async function DownloadPage() {
                 
                 return (
                   <div key={index} className="space-y-2">
-                    <h3 className="font-serif font-bold text-lg text-[#37352F] dark:text-gray-100 mb-2">
+                    <h3 className="font-serif font-bold text-lg text-[#37352F] mb-2">
                         {config.name}
                     </h3>
                     <CodeBlock 
@@ -133,8 +133,8 @@ export default async function DownloadPage() {
                 );
               })}
             </div>
-            <div className="mt-4 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
-              <p className="text-sm text-blue-800 dark:text-blue-300">
+            <div className="mt-4 rounded-lg bg-blue-50 p-4">
+              <p className="text-sm text-blue-800">
                 {t('shellConfig.tip')}
               </p>
             </div>

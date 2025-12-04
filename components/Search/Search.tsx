@@ -174,11 +174,11 @@ export default function Search() {
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'blog':
-        return 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300';
+        return 'bg-purple-100 text-purple-700 ';
       case 'tutorial':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300';
+        return 'bg-blue-100 text-blue-700 ';
       case 'page':
-        return 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300';
+        return 'bg-green-100 text-green-700 ';
       default:
         return '';
     }
@@ -211,7 +211,7 @@ export default function Search() {
       {/* 搜索按钮 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+        className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 transition-colors"
         aria-label={t('search')}
       >
         <SearchIcon className="h-5 w-5" />
@@ -219,9 +219,9 @@ export default function Search() {
 
       {/* 搜索下拉框 */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700 z-50">
+        <div className="absolute right-0 top-full mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
           {/* 搜索输入框 */}
-          <div className="flex items-center gap-2 p-3 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-2 p-3 border-b border-gray-200">
             <SearchIcon className="h-5 w-5 text-gray-400" />
             <input
               ref={inputRef}
@@ -229,7 +229,7 @@ export default function Search() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-white placeholder-gray-400"
+              className="flex-1 bg-transparent border-none outline-none text-gray-900 placeholder-gray-400"
             />
             {query && (
               <button
@@ -237,7 +237,7 @@ export default function Search() {
                   setQuery('');
                   setResults([]);
                 }}
-                className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="p-1 text-gray-400 hover:text-gray-600"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -257,7 +257,7 @@ export default function Search() {
                       <div key={groupLocale} className="mb-2">
                         {/* 语言分组标题（仅当有多个语言时显示） */}
                         {sortedGroups.length > 1 && (
-                          <div className="px-4 py-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/50">
+                          <div className="px-4 py-1.5 text-xs font-semibold text-gray-500 bg-gray-50">
                             {isCurrentLang ? t('currentLanguage') : getLocaleLabel(groupLocale)}
                           </div>
                         )}
@@ -274,8 +274,8 @@ export default function Search() {
                               <li key={`${result.type}-${result.url}-${result.locale}`}>
                       <button
                         onClick={() => handleResultClick(result.url)}
-                        className={`w-full text-left px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                                    globalIndex === selectedIndex ? 'bg-gray-100 dark:bg-gray-700' : ''
+                        className={`w-full text-left px-4 py-3 hover:bg-gray-100 transition-colors ${
+                                    globalIndex === selectedIndex ? 'bg-gray-100 ' : ''
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -288,17 +288,17 @@ export default function Search() {
                               >
                                 {getTypeLabel(result.type)}
                               </span>
-                              <span className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                              <span className="text-sm font-semibold text-gray-900 truncate">
                                 {result.title}
                               </span>
                                         {/* 语言标签（仅当不是当前语言时显示） */}
                                         {!isCurrentLang && (
-                                          <span className="px-2 py-0.5 text-xs rounded bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+                                          <span className="px-2 py-0.5 text-xs rounded bg-gray-200 text-gray-600">
                                             {getLocaleLabel(result.locale)}
                                           </span>
                                         )}
                             </div>
-                            <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-1">
+                            <p className="text-xs text-gray-600 line-clamp-1">
                               {result.description}
                             </p>
                           </div>
@@ -313,7 +313,7 @@ export default function Search() {
                   })}
                 </div>
               ) : (
-                <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                <div className="px-4 py-8 text-center text-gray-500">
                   <p className="text-sm">{t('noResults')}</p>
                 </div>
               )}
@@ -322,7 +322,7 @@ export default function Search() {
 
           {/* 提示信息 */}
           {!query && (
-            <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+            <div className="px-4 py-8 text-center text-gray-500">
               {isLoading ? (
                 <p className="text-sm">加载中...</p>
               ) : (

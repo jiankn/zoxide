@@ -118,10 +118,10 @@ export default async function TutorialsPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-12">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               {t('description')}
             </p>
           </div>
@@ -134,8 +134,8 @@ export default async function TutorialsPage() {
               return (
                 <div key={categoryIndex} className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <Icon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <Icon className="h-6 w-6 text-blue-600" />
+                    <h2 className="text-xl font-bold text-gray-900">
                       {category.title}
                     </h2>
                   </div>
@@ -144,14 +144,14 @@ export default async function TutorialsPage() {
                       <Link
                         key={index}
                         href={tutorial.href}
-                        className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                        className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
                       >
-                        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        <h3 className="font-semibold text-gray-900 mb-2">
                           {tutorial.title}
                         </h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-4 text-sm text-gray-600">
                           <span>{tutorial.duration}</span>
-                          <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                          <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">
                             {tutorial.level}
                           </span>
                         </div>

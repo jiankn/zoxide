@@ -7,7 +7,6 @@
 - **Next.js 16** (App Router)
 - **TypeScript** (严格模式)
 - **Tailwind CSS** (样式)
-- **next-themes** (主题切换)
 - **lucide-react** (图标)
 
 ## 快速开始
@@ -56,31 +55,31 @@ NEXT_PUBLIC_ENABLE_ADS=false
 
 ```
 web/
-├── app/                    # Next.js App Router 页面
-│   ├── page.tsx           # 首页
-│   ├── features/          # 功能特性页面
-│   ├── tutorials/         # 教程页面
-│   ├── download/          # 下载页面
-│   ├── blog/              # 博客页面
-│   ├── changelog/         # 更新日志页面
-│   ├── faq/               # FAQ 页面
-│   ├── comparisons/       # 对比页面
-│   ├── layout.tsx         # 根布局
-│   └── providers.tsx      # 全局 Provider
-├── components/            # React 组件
-│   ├── AdSlot/           # 广告位组件
-│   ├── Navigation/       # 导航栏
-│   ├── Footer/           # 页脚
-│   └── Hero/             # Hero 区域
-├── lib/                   # 工具函数
-│   └── ads/              # 广告管理
-└── public/                # 静态资源
+├── app/ # Next.js App Router 页面
+│ ├── page.tsx # 首页
+│ ├── features/ # 功能特性页面
+│ ├── tutorials/ # 教程页面
+│ ├── download/ # 下载页面
+│ ├── blog/ # 博客页面
+│ ├── changelog/ # 更新日志页面
+│ ├── faq/ # FAQ 页面
+│ ├── comparisons/ # 对比页面
+│ ├── layout.tsx # 根布局
+│ └── providers.tsx # 全局 Provider
+├── components/ # React 组件
+│ ├── AdSlot/ # 广告位组件
+│ ├── Navigation/ # 导航栏
+│ ├── Footer/ # 页脚
+│ └── Hero/ # Hero 区域
+├── lib/ # 工具函数
+│ └── ads/ # 广告管理
+└── public/ # 静态资源
 ```
 
 ## 功能特性
 
 - ✅ 响应式设计（移动端/桌面端）
-- ✅ 暗色/亮色主题切换
+- ✅ 统一亮色主题体验
 - ✅ 广告位系统（支持占位符和 AdSense 切换）
 - ✅ SEO 优化（Metadata、关键词）
 - ✅ 双栏布局 + 侧边栏 Sticky 广告

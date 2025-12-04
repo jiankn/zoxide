@@ -27,17 +27,17 @@ export default async function PrivacyPolicyPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {t('title')}
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-sm text-gray-600 mb-6">
               {t('lastUpdated')}
             </p>
           </div>
 
           <AdSlot slotId="privacy-top" />
 
-          <section className="prose prose-lg max-w-none dark:prose-invert">
+          <section className="prose prose-lg max-w-none">
             {sectionEntries.map(([key, section]) => (
               <div key={key} className="mb-8">
                 <h2>{section.title}</h2>

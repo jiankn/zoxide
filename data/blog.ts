@@ -355,7 +355,7 @@ If zoxide is installed but not in PATH, add it manually:
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Reload shell
-source ~/.bashrc  # or source ~/.zshrc
+source ~/.bashrc # or source ~/.zshrc
 \`\`\`
 
 **For manual installation:**
@@ -476,7 +476,7 @@ which zoxide || echo "zoxide not in PATH"
 echo $PATH
 
 # Check shell configuration
-cat ~/.bashrc | grep zoxide  # or ~/.zshrc
+cat ~/.bashrc | grep zoxide # or ~/.zshrc
 \`\`\`
 
 ## Still Not Working?
@@ -535,12 +535,12 @@ If zoxide is installed but not working as expected, this guide will help you dia
 1. **Verify shell configuration is loaded:**
    \`\`\`bash
    # Check if zoxide init is in your config
-   grep zoxide ~/.bashrc  # or ~/.zshrc
+   grep zoxide ~/.bashrc # or ~/.zshrc
    \`\`\`
 
 2. **Reload shell configuration:**
    \`\`\`bash
-   source ~/.bashrc  # or source ~/.zshrc
+   source ~/.bashrc # or source ~/.zshrc
    \`\`\`
 
 3. **Check if zoxide binary exists:**
@@ -615,7 +615,7 @@ If zoxide is installed but not working as expected, this guide will help you dia
 
 4. **Reduce max age:**
    \`\`\`bash
-   export _ZO_MAXAGE=5000  # Reduce from default 10000
+   export _ZO_MAXAGE=5000 # Reduce from default 10000
    \`\`\`
 
 ### Issue 4: Wrong Directory Selected
@@ -629,17 +629,17 @@ If zoxide is installed but not working as expected, this guide will help you dia
 
 1. **Use interactive mode:**
    \`\`\`bash
-   zi project  # Interactive selection
+   zi project # Interactive selection
    \`\`\`
 
 2. **List all matches first:**
    \`\`\`bash
-   z -l project  # List all matches
+   z -l project # List all matches
    \`\`\`
 
 3. **Be more specific:**
    \`\`\`bash
-   z project/src  # More specific path
+   z project/src # More specific path
    \`\`\`
 
 4. **Check frequency:**
@@ -659,7 +659,7 @@ If zoxide is installed but not working as expected, this guide will help you dia
 1. **Verify initialization:**
    \`\`\`bash
    # Check if init command is correct
-   eval "$(zoxide init bash)"  # Test directly
+   eval "$(zoxide init bash)" # Test directly
    \`\`\`
 
 2. **Check shell compatibility:**

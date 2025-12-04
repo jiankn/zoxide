@@ -26,17 +26,17 @@ export default async function BlogPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-12">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               {t('description')}
             </p>
           </div>
 
           <AdSlot slotId="blog-list-top" />
 
-          <div className="flex flex-col gap-0 border border-[#E9E9E7] dark:border-[#2F2F2F] rounded-md overflow-hidden">
+          <div className="flex flex-col gap-0 border border-[#E9E9E7] rounded-md overflow-hidden">
             {blogPosts.map((post, index) => {
               const tData = t.raw(`data.${post.slug}`);
               // 分类翻译
@@ -51,25 +51,25 @@ export default async function BlogPage() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] dark:hover:bg-[#202020] ${
-                    index !== blogPosts.length - 1 ? 'border-b border-[#E9E9E7] dark:border-[#2F2F2F]' : ''
+                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] ${
+                    index !== blogPosts.length - 1 ? 'border-b border-[#E9E9E7] ' : ''
                   }`}
                 >
-                  <h2 className="font-serif text-xl font-bold text-[#37352F] dark:text-gray-100 mb-2">
+                  <h2 className="font-serif text-xl font-bold text-[#37352F] mb-2">
                     {tData?.title || post.title}
                   </h2>
                   <div className="flex items-center mb-2">
-                    <span className="text-xs font-sans text-[#6a6968] dark:text-gray-400 uppercase tracking-wide">
+                    <span className="text-xs font-sans text-[#6a6968] uppercase tracking-wide">
                       {post.date}
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-[#E3E2E0] text-[#32302C] dark:bg-[#37352F] dark:text-gray-300 text-xs mr-3 ml-3">
+                    <span className="px-2 py-0.5 rounded bg-[#E3E2E0] text-[#32302C] text-xs mr-3 ml-3">
                       {category}
                     </span>
-                    <span className="text-xs font-sans text-[#6a6968] dark:text-gray-400 uppercase tracking-wide">
+                    <span className="text-xs font-sans text-[#6a6968] uppercase tracking-wide">
                       {post.readTime} {t('readTime')}
                     </span>
                   </div>
-                  <p className="text-[#37352F] dark:text-gray-300 mt-2 line-clamp-2">
+                  <p className="text-[#37352F] mt-2 line-clamp-2">
                     {tData?.excerpt || post.excerpt}
                   </p>
                 </Link>

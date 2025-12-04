@@ -56,10 +56,10 @@ export default function DownloadPage() {
         <main className="lg:col-span-2 space-y-12">
           {/* 页面标题 */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               下载 zoxide
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               在 macOS、Linux、Windows 上安装 zoxide。
               安装后记得初始化 Shell 配置，让 zoxide 生效。
               更多安装选项和详细文档，请查看{' '}
@@ -67,7 +67,7 @@ export default function DownloadPage() {
                 href="https://github.com/ajeetdsouza/zoxide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 underline dark:text-blue-400 dark:hover:text-blue-300"
+                className="text-blue-600 hover:text-blue-800 underline"
               >
                 官方 GitHub 仓库
               </a>
@@ -80,28 +80,28 @@ export default function DownloadPage() {
 
           {/* 安装器卡片 */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               选择安装方式
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {installers.map((installer, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     {installer.name}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <p className="text-sm text-gray-600 mb-4">
                     {installer.platform}
                   </p>
                   <div className="flex items-center gap-2">
-                    <code className="flex-1 text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                    <code className="flex-1 text-sm text-gray-800 bg-white p-3 rounded">
                       {installer.command}
                     </code>
                     <CopyButton text={installer.command} />
                   </div>
-                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
+                  <p className="mt-2 text-xs text-gray-500">
                     {installer.description}
                   </p>
                 </div>
@@ -114,25 +114,25 @@ export default function DownloadPage() {
 
           {/* Shell 配置区域 */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Shell 配置
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-gray-600 mb-4">
               安装后，需要在 Shell 配置文件中添加以下命令。根据你使用的 Shell 选择对应的配置：
             </p>
             <div className="space-y-4">
               {shellConfigs.map((config, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-4"
                 >
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="font-semibold text-gray-900 dark:text-white">
+                    <span className="font-semibold text-gray-900">
                       {config.name}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <code className="flex-1 text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 p-3 rounded">
+                    <code className="flex-1 text-sm text-gray-800 bg-gray-50 p-3 rounded">
                       {config.command}
                     </code>
                     <CopyButton text={config.command} />
@@ -140,8 +140,8 @@ export default function DownloadPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
-              <p className="text-sm text-blue-800 dark:text-blue-300">
+            <div className="mt-4 rounded-lg bg-blue-50 p-4">
+              <p className="text-sm text-blue-800">
                 💡 提示：将配置添加到对应的 Shell 配置文件（如 ~/.zshrc、~/.bashrc 等），
                 然后重新加载 Shell 或打开新终端窗口即可使用。
               </p>

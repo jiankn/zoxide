@@ -12,17 +12,17 @@ export default function PrivacyPolicyPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               隐私政策
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-sm text-gray-600 mb-6">
               最后更新：2025年11月30日
             </p>
           </div>
 
           <AdSlot slotId="faq-top" />
 
-          <section className="prose prose-lg max-w-none dark:prose-invert">
+          <section className="prose prose-lg max-w-none">
             <h2>1. 信息收集</h2>
             <p>
               我们收集以下类型的信息：

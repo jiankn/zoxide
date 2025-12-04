@@ -30,10 +30,10 @@ export default async function FAQPage() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <main className="lg:col-span-2 space-y-8">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
                 {t('title')}
               </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-400">
+              <p className="text-lg text-gray-600">
                 {t('description')}
               </p>
             </div>
@@ -44,12 +44,12 @@ export default async function FAQPage() {
               {faqs.map((faq, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
                 >
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3">
                     {faq.question}
                   </h2>
-                  <p className="text-gray-700 dark:text-gray-300">{faq.answer}</p>
+                  <p className="text-gray-700">{faq.answer}</p>
                 </div>
               ))}
             </div>

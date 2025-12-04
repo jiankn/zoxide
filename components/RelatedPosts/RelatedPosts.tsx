@@ -41,7 +41,7 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
 
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
         {t('relatedPosts')}
       </h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -49,20 +49,20 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
-            className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+            className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
           >
             <div className="mb-2 flex items-center gap-3">
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                 {post.category}
               </span>
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-500">
                 {post.readTime} {tBlog('readTime')}
               </span>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {post.title}
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+            <p className="text-sm text-gray-600 line-clamp-2">
               {post.excerpt}
             </p>
           </Link>

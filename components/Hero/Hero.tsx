@@ -9,31 +9,31 @@ export default function Hero() {
   const t = useTranslations('home');
 
   return (
-    <section className="relative w-full bg-white dark:bg-[#191919] py-20 md:py-32 overflow-hidden">
+    <section className="relative w-full bg-white py-20 md:py-32 overflow-hidden">
       <div className="container mx-auto px-6 md:px-8 relative z-10">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20 items-center">
           {/* 左侧：文字内容 */}
           <div className="text-center lg:text-left relative">
-            <h1 className="font-serif text-5xl md:text-6xl font-bold tracking-tight text-[#37352F] dark:text-gray-100">
+            <h1 className="font-serif text-5xl md:text-6xl font-bold tracking-tight text-[#37352F]">
               {t('title')}
               <span className="block mt-3">
                 {t('subtitle')}
               </span>
             </h1>
-            <p className="mx-auto mt-8 text-xl text-[#6a6968] dark:text-gray-400 max-w-2xl leading-relaxed font-sans lg:mx-0">
+            <p className="mx-auto mt-8 text-xl text-[#6a6968] max-w-2xl leading-relaxed font-sans lg:mx-0">
               {t('description')}
             </p>
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Link
                 href="/download"
-                className="flex items-center justify-center gap-2 bg-[#37352F] text-white hover:bg-[#504e49] dark:bg-white dark:text-black rounded-md px-6 py-3 font-medium transition-all"
+                className="flex items-center justify-center gap-2 bg-[#37352F] text-white hover:bg-[#504e49] rounded-md px-6 py-3 font-medium transition-all"
               >
                 <Download className="h-5 w-5" />
                 {t('getStarted')}
               </Link>
               <Link
                 href="/tutorials"
-                className="flex items-center justify-center gap-2 text-[#37352F] hover:bg-[#F7F6F3] dark:text-gray-300 dark:hover:bg-[#2F2F2F] rounded-md px-6 py-3 font-medium transition-all"
+                className="flex items-center justify-center gap-2 text-[#37352F] hover:bg-[#F7F6F3] rounded-md px-6 py-3 font-medium transition-all"
               >
                 {t('viewDocs')}
                 <ArrowRight className="h-5 w-5" />
@@ -43,8 +43,8 @@ export default function Hero() {
 
           {/* 右侧：图片 */}
           <div className="relative flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200/50 dark:ring-gray-800/50 bg-white dark:bg-gray-900 p-3 transition-transform hover:scale-[1.01]">
-              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white dark:bg-gray-900">
+            <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200/50 bg-white p-3 transition-transform hover:scale-[1.01]">
+              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
                 <Image
                   src="/tutorial.webp"
                   alt="zoxide 教程演示 - 智能目录导航工具"

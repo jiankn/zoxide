@@ -13,25 +13,25 @@ export default function AboutPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               关于我们
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-sm text-gray-600 mb-6">
               最后更新：2025年11月30日
             </p>
           </div>
 
           <AdSlot slotId="faq-top" />
 
-          <section className="prose prose-lg max-w-none dark:prose-invert">
+          <section className="prose prose-lg max-w-none">
             <h2>网站简介</h2>
             <p>
               zoxide.org 是一个专注于 zoxide 工具的粉丝网站。我们的目标是提供高质量的教程、技巧和最新动态，帮助用户更好地使用 zoxide 提升工作效率。
             </p>
 
             <h2>重要声明</h2>
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 dark:bg-yellow-900/20 dark:border-yellow-600 mb-6">
-              <p className="text-yellow-800 dark:text-yellow-200">
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+              <p className="text-yellow-800">
                 <strong>免责声明：</strong>本网站是信息性网站，与 ajeetdsouza 或 Ajeet D&apos;Souza 无任何关联。
                 我们不托管文件，仅链接到 SourceForge 发布版本。所有内容均为原创。
               </p>
@@ -76,11 +76,11 @@ export default function AboutPage() {
             <h2>隐私和条款</h2>
             <p>
               请查看我们的{' '}
-              <Link href="/privacy-policy" className="text-blue-600 hover:text-blue-800 underline dark:text-blue-400">
+              <Link href="/privacy-policy" className="text-blue-600 hover:text-blue-800 underline">
                 隐私政策
               </Link>
               {' '}和{' '}
-              <Link href="/terms-of-service" className="text-blue-600 hover:text-blue-800 underline dark:text-blue-400">
+              <Link href="/terms-of-service" className="text-blue-600 hover:text-blue-800 underline">
                 服务条款
               </Link>
               。

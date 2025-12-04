@@ -18,10 +18,10 @@ export default function BlogPage() {
         <main className="lg:col-span-2 space-y-12">
           {/* 页面标题 */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               zoxide 博客
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               阅读 zoxide 相关文章：使用教程、配置技巧、性能优化、版本更新等。
             </p>
           </div>
@@ -35,23 +35,23 @@ export default function BlogPage() {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                className="block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
               >
                 <div className="mb-2 flex items-center gap-3">
-                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                  <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                     {post.category}
                   </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm text-gray-500">
                     {post.date}
                   </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm text-gray-500">
                     {post.readTime} 分钟阅读
                   </span>
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">
                   {post.title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">{post.excerpt}</p>
+                <p className="text-gray-600">{post.excerpt}</p>
               </Link>
             ))}
           </div>

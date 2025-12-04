@@ -88,8 +88,8 @@ export class AdManager {
     if (!adContainer) return;
 
     adContainer.innerHTML = `
-      <div class="flex items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 p-4 text-center">
-        <p class="text-sm text-gray-600 dark:text-gray-400">${placeholder}</p>
+      <div class="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 p-4 text-center">
+        <p class="text-sm text-gray-600 ">${placeholder}</p>
       </div>
     `;
   }

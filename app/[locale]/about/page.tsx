@@ -18,23 +18,23 @@ export default async function AboutPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               {t('description')}
             </p>
           </div>
 
           <AdSlot slotId="about-top" />
 
-          <section className="prose prose-lg max-w-none dark:prose-invert">
+          <section className="prose prose-lg max-w-none">
             <h2>{t('mission.title')}</h2>
             <p>{t('mission.description')}</p>
 
             <h2>{t('disclaimer.title')}</h2>
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 dark:bg-yellow-900/20 dark:border-yellow-600 mb-6">
-              <p className="text-yellow-800 dark:text-yellow-200">
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+              <p className="text-yellow-800">
                 <strong>{t('disclaimer.label')}</strong>{t('disclaimer.message')}
               </p>
             </div>

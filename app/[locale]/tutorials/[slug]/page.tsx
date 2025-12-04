@@ -100,16 +100,16 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
             <div className="mb-4">
               <Link
                 href="/tutorials"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm"
+                className="text-blue-600 hover:text-blue-800 text-sm"
               >
                 ← {t('backToList')}
               </Link>
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 <span>{tutorial.date}</span>
@@ -122,7 +122,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
                 <BookOpen className="h-4 w-4" />
                 <span>{category}</span>
               </div>
-              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+              <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                 {level}
               </span>
             </div>

@@ -105,11 +105,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <main className="lg:col-span-2 space-y-8">
             <header>
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">
                 {title}
               </h1>
               
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
                   <span>{post.date}</span>
@@ -122,7 +122,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <User className="h-4 w-4" />
                   <span>{author}</span>
                 </div>
-                <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                   {category}
                 </span>
               </div>
@@ -149,7 +149,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {tags.map((tag: string) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
                 >
                   #{tag}
                 </span>

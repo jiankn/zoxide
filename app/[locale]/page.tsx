@@ -38,34 +38,34 @@ export default async function Home() {
 
             {/* 功能亮点卡片 */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 {t('features.title')}
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800">
-                  <Zap className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                  <Zap className="h-8 w-8 text-blue-600 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {t('features.fast.title')}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600">
                     {t('features.fast.description')}
                   </p>
                 </div>
-                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800">
-                  <Search className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                  <Search className="h-8 w-8 text-blue-600 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {t('features.fuzzy.title')}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600">
                     {t('features.fuzzy.description')}
                   </p>
                 </div>
-                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800">
-                  <Brain className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                  <Brain className="h-8 w-8 text-blue-600 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     {t('features.smart.title')}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600">
                     {t('features.smart.description')}
                   </p>
                 </div>
@@ -74,49 +74,49 @@ export default async function Home() {
 
             {/* 安装指南 */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 {t('installation.title')}
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <Link
                   href="/tutorials/install-macos"
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('installation.macos')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-gray-600 mb-3">
                     {t('installation.macosDesc')}
                   </p>
-                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                  <code className="block text-sm text-gray-800 bg-white p-3 rounded">
                     brew install zoxide
                   </code>
                 </Link>
                 <Link
                   href="/tutorials/install-windows"
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('installation.windows')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-gray-600 mb-3">
                     {t('installation.windowsDesc')}
                   </p>
-                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                  <code className="block text-sm text-gray-800 bg-white p-3 rounded">
                     scoop install zoxide
                   </code>
                 </Link>
                 <Link
                   href="/tutorials/install-ubuntu"
-                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('installation.linux')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-sm text-gray-600 mb-3">
                     {t('installation.linuxDesc')}
                   </p>
-                  <code className="block text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 p-3 rounded">
+                  <code className="block text-sm text-gray-800 bg-white p-3 rounded">
                     {t('installation.ubuntuCommand')}
                   </code>
                 </Link>
@@ -128,40 +128,40 @@ export default async function Home() {
 
             {/* 教程推荐 */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 {t('tutorials.title')}
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <Link
                   href="/tutorials/quick-start"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('tutorials.quickStart')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('tutorials.quickStartDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/advanced-config"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('tutorials.advanced')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('tutorials.advancedDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/shell-setup"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('tutorials.shellIntegration')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('tutorials.shellIntegrationDesc')}
                   </p>
                 </Link>
@@ -170,95 +170,95 @@ export default async function Home() {
 
             {/* 常见问题/快速链接 */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 {t('quickLinks.title')}
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <Link
                   href="/blog/zoxide-command-not-found"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.commandNotFound')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.commandNotFoundDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/install-ubuntu"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.installUbuntu')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.installUbuntuDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/install-arch-nixos"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.installLinux')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.installLinuxDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/install-windows"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.installWindows')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.installWindowsDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/install-macos"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.installMacos')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.installMacosDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/download"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.download')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.downloadDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/fzf-integration"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.fzfIntegration')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.fzfIntegrationDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/advanced-config"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('quickLinks.nvimIntegration')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('quickLinks.nvimIntegrationDesc')}
                   </p>
                 </Link>
@@ -267,29 +267,29 @@ export default async function Home() {
 
             {/* 相关工具 */}
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 {t('relatedTools.title')}
               </h2>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <Link
                   href="/comparisons"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('relatedTools.autojump')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('relatedTools.autojumpDesc')}
                   </p>
                 </Link>
                 <Link
                   href="/tutorials/fzf-integration"
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {t('relatedTools.fzf')}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600">
                     {t('relatedTools.fzfDesc')}
                   </p>
                 </Link>

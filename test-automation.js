@@ -33,7 +33,7 @@ function checkFileContent(filePath, pattern, description, shouldExist = true) {
   if (shouldExist && !exists) {
     errors.push(`❌ ${description}: ${filePath} 中未找到预期内容`);
   } else if (!shouldExist && exists) {
-    warnings.push(`⚠️  ${description}: ${filePath} 中发现旧代码`);
+    warnings.push(`⚠️ ${description}: ${filePath} 中发现旧代码`);
   }
 }
 
@@ -96,7 +96,7 @@ if (fs.existsSync(downloadPage)) {
   const content = fs.readFileSync(downloadPage, 'utf-8');
   const hardcodedChinese = /在 macOS|安装|配置|下载/;
   if (hardcodedChinese.test(content)) {
-    warnings.push('⚠️  下载页面可能包含硬编码中文文本');
+    warnings.push('⚠️ 下载页面可能包含硬编码中文文本');
   }
 }
 
@@ -121,12 +121,12 @@ if (errors.length === 0 && warnings.length === 0) {
 } else {
   if (errors.length > 0) {
     console.log('❌ 发现错误:');
-    errors.forEach(error => console.log(`  ${error}`));
+    errors.forEach(error => console.log(` ${error}`));
   }
   
   if (warnings.length > 0) {
-    console.log('\n⚠️  警告:');
-    warnings.forEach(warning => console.log(`  ${warning}`));
+    console.log('\n⚠️ 警告:');
+    warnings.forEach(warning => console.log(` ${warning}`));
   }
   
   process.exit(errors.length > 0 ? 1 : 0);

@@ -40,10 +40,10 @@ export default async function ChangelogPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-12">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               {t('description')}
             </p>
           </div>
@@ -54,23 +54,23 @@ export default async function ChangelogPage() {
             {versions.map((version, index) => (
               <div
                 key={index}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-800"
+                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
               >
                 <div className="mb-4 flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="text-2xl font-bold text-gray-900">
                     v{version.version}
                   </h2>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm text-gray-500">
                     {version.date}
                   </span>
                 </div>
                 <ul className="space-y-2">
                   {version.changes.map((change, changeIndex) => (
                     <li key={changeIndex} className="flex items-start gap-2">
-                      <span className="mt-1 rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                      <span className="mt-1 rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700">
                         {change.type}
                       </span>
-                      <span className="text-gray-600 dark:text-gray-400">
+                      <span className="text-gray-600">
                         {change.content}
                       </span>
                     </li>

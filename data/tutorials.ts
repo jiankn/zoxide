@@ -221,9 +221,9 @@ z -l project
 
 输出示例：
 \`\`\`text
-/home/user/projects/web-project    10
-/home/user/projects/mobile-project  5
-/home/user/old-project              1
+/home/user/projects/web-project 10
+/home/user/projects/mobile-project 5
+/home/user/old-project 1
 \`\`\`
 
 数字表示访问频率。
@@ -883,7 +883,7 @@ export _ZO_DATA_DIR="/shared/zoxide"
 # cleanup-zoxide.sh
 
 ZO_DB="$HOME/.zo"
-MAX_SIZE=10485760  # 10MB
+MAX_SIZE=10485760 # 10MB
 
 if [ -f "$ZO_DB" ]; then
     SIZE=$(stat -f%z "$ZO_DB" 2>/dev/null || stat -c%s "$ZO_DB" 2>/dev/null)

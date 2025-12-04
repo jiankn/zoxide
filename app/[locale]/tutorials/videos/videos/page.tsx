@@ -42,10 +42,10 @@ export default function VideosPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-12">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
               zoxide 视频教程
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               通过视频学习 zoxide 的使用方法，包括安装、配置和高级技巧。
             </p>
           </div>
@@ -57,7 +57,7 @@ export default function VideosPage() {
             {videos.map((video) => (
               <div
                 key={video.id}
-                className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-800 overflow-hidden"
+                className="rounded-lg border border-gray-200 bg-white shadow-sm overflow-hidden"
               >
                 <div className="aspect-video bg-gray-900 relative overflow-hidden rounded-t-lg">
                   <iframe
@@ -74,15 +74,15 @@ export default function VideosPage() {
                 </div>
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-2">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h2 className="text-xl font-semibold text-gray-900">
                       {video.title}
                     </h2>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                    <span className="text-sm text-gray-500 flex items-center gap-1">
                       <Play className="h-4 w-4" />
                       {video.duration}
                     </span>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-600">
                     {video.description}
                   </p>
                 </div>
@@ -94,29 +94,29 @@ export default function VideosPage() {
 
           {/* 相关资源 */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               相关教程
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Link
                 href="/tutorials/quick-start"
-                className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
               >
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="font-semibold text-gray-900 mb-2">
                   快速开始
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   5 分钟快速上手 zoxide
                 </p>
               </Link>
               <Link
                 href="/tutorials/advanced-config"
-                className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-800"
+                className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
               >
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="font-semibold text-gray-900 mb-2">
                   高级配置
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   学习高级配置技巧
                 </p>
               </Link>

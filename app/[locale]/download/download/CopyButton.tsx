@@ -15,7 +15,7 @@ export default function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="ml-2 rounded p-1 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+      className="ml-2 rounded p-1 text-gray-600 hover:bg-gray-100"
       aria-label="复制命令"
     >
       {copied ? (
