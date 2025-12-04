@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
     const allLocales = searchParams.get('allLocales') === 'true'; // 是否跨语言搜索
 
     // 验证 locale
-    if (!routing.locales.includes(locale)) {
+    if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
       return NextResponse.json(
         { error: 'Invalid locale' },
         { status: 400 }

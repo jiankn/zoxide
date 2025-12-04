@@ -36,7 +36,8 @@ function extractText(node: ReactNode): string {
   }
   
   if (isValidElement(node)) {
-    return extractText(node.props.children);
+    const element = node as React.ReactElement<{ children?: ReactNode }>;
+    return extractText(element.props.children);
   }
 
   if (node && typeof node === 'object') {
@@ -53,12 +54,6 @@ function extractText(node: ReactNode): string {
       return extractText(withChildren.children);
     }
 
-    const values = Object.values(node as Record<string, unknown>);
-    for (const value of values) {
-      if (typeof value === 'string') {
-        return value;
-      }
-    }
   }
   
   return '';

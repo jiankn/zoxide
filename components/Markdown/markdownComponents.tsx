@@ -14,27 +14,34 @@ export function createMarkdownComponents(
 ): Components {
   const { linkTarget } = options;
 
-  return {
-    code({ inline, className, children, ...props }) {
-      const match = /language-(\w+)/.exec(className || '');
+  const Code = ({
+    inline,
+    className,
+    children,
+    ...props
+  }: React.HTMLAttributes<HTMLElement> & { inline?: boolean }) => {
+    const match = /language-(\w+)/.exec(className || '');
 
-      if (!inline && match) {
-        return (
-          <CodeBlockWrapper className={className || ''} language={match[1]}>
-            {children}
-          </CodeBlockWrapper>
-        );
-      }
-
+    if (!inline && match) {
       return (
-        <code
-          className="bg-[#E3E2E0] dark:bg-[#37352F] text-[#EB5757] dark:text-[#FF7B72] px-1.5 py-0.5 rounded font-mono text-sm"
-          {...props}
-        >
+        <CodeBlockWrapper className={className || ''} language={match[1]}>
           {children}
-        </code>
+        </CodeBlockWrapper>
       );
-    },
+    }
+
+    return (
+      <code
+        className="bg-[#E3E2E0] dark:bg-[#37352F] text-[#EB5757] dark:text-[#FF7B72] px-1.5 py-0.5 rounded font-mono text-sm"
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  };
+
+  return {
+    code: Code,
     a({ children, ...props }) {
       const target = linkTarget ?? props.target;
 
