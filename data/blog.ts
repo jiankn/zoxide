@@ -914,6 +914,18 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
     tags: ['frecency', 'workflow', 'backup', 'arch', 'nixos'],
     readTime: 9,
   },
+  {
+    id: '11',
+    slug: 'zoxide-commands',
+    title: 'The Ultimate Guide to Zoxide Commands: Navigating Your Terminal at Light Speed',
+    excerpt: 'Master the full suite of zoxide commands from initialization to database management. Learn how to debug navigation, clean history, script workflows, and migrate data with practical examples.',
+    content: '# The Ultimate Guide to Zoxide Commands',
+    date: '2025-12-06',
+    author: 'zoxide.org',
+    category: '教程',
+    tags: ['zoxide commands', 'commands', 'tutorial', 'guide', 'navigation'],
+    readTime: 12,
+  },
 ];
 
 // 根据 slug 获取文章
