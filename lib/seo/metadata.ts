@@ -22,16 +22,24 @@ export function generateMultilingualMetadata(
     [key: string]: any;
   }
 ): Metadata {
-  // 确保 path 以 / 开头
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  // 处理路径：首页为空字符串，其他页面以 / 开头
+  // 如果 path 是空字符串，normalizedPath 也应该是空字符串
+  // 如果 path 不是空字符串且不以 / 开头，则添加 /
+  const normalizedPath = path === '' ? '' : (path.startsWith('/') ? path : `/${path}`);
   
   // 生成当前页面的完整 URL（canonical）
-  const canonicalUrl = `${baseUrl}/${locale}${normalizedPath}`;
+  // 首页：https://zoxide.org/zh/ 或 https://zoxide.org/en/
+  // 其他页面：https://zoxide.org/zh/blog/xxx
+  const canonicalUrl = normalizedPath === '' 
+    ? `${baseUrl}/${locale}/`
+    : `${baseUrl}/${locale}${normalizedPath}`;
   
   // 生成所有语言版本的 URL（用于 hreflang）
   const languages: Record<string, string> = {};
   routing.locales.forEach((loc) => {
-    languages[loc] = `${baseUrl}/${loc}${normalizedPath}`;
+    languages[loc] = normalizedPath === ''
+      ? `${baseUrl}/${loc}/`
+      : `${baseUrl}/${loc}${normalizedPath}`;
   });
   
   return {
