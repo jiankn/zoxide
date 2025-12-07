@@ -7,7 +7,6 @@ import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
 import CookieBanner from "@/components/CookieBanner/CookieBanner";
-import HtmlLang from "@/components/HtmlLang/HtmlLang";
 import { generateOrganizationSchema } from "@/lib/seo/schema";
 
 export function generateStaticParams() {
@@ -35,15 +34,6 @@ export default async function LocaleLayout({
 
   return (
     <>
-      {/* 在服务端和客户端都设置 html lang 属性，避免水合错误 */}
-      {/* 这个 script 会在服务端渲染时包含在 HTML 中，客户端水合时也会执行 */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang="${locale}";`,
-        }}
-      />
-      {/* 客户端组件用于确保 lang 属性在客户端正确设置（作为备用） */}
-      <HtmlLang locale={locale} />
       {/* 结构化数据 - 放在 body 开头以避免 hydration 错误 */}
       <script
         type="application/ld+json"

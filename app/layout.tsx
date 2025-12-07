@@ -25,11 +25,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 设置默认 lang，[locale]/layout.tsx 中的 script 会在客户端立即更新为正确的 locale
-  // suppressHydrationWarning 用于避免客户端修改 lang 时的水合警告
+  // 不在根 layout 中设置 lang，由 head 中的 script 在 React 水合之前设置
+  // 这样可以确保服务端和客户端都通过 script 设置 lang，避免水合错误
+  // suppressHydrationWarning 用于避免任何可能的警告
   return (
-    <html lang={routing.defaultLocale} suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
+        {/* 在 head 中立即设置 html lang 属性，确保在 React 水合之前执行 */}
+        {/* 从 URL 路径中提取 locale（格式：/zh/... 或 /en/...） */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var path = window.location.pathname;
+                var match = path.match(/^\\/(zh|en|ja|fr|de)(\\/|$)/);
+                var locale = match ? match[1] : '${routing.defaultLocale}';
+                document.documentElement.setAttribute('lang', locale);
+              })();
+            `,
+          }}
+        />
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-417HF3TV3L"
