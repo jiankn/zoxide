@@ -11,7 +11,7 @@ export async function generateMetadata() {
   
   // 根据语言设置不同的描述
   const description = locale === 'en' 
-    ? 'zoxide is a smarter cd command that helps you jump between directories instantly. This site provides installation guides, troubleshooting tips, and tutorials on using zoxide with fzf, Neovim, and more.'
+    ? 'zoxide is a smarter cd command for instant directory navigation. Get installation guides, troubleshooting tips, and tutorials for Ubuntu, macOS, Windows, fzf, and Neovim integration.'
     : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
   
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
