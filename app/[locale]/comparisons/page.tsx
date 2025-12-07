@@ -2,6 +2,7 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import { getTranslations, getLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type ComparisonFeatureSet = Record<string, string>;
 
@@ -19,11 +20,16 @@ type ComparisonMessages = {
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
-  return {
-    title: t('titles.comparisons'),
-    description: '对比 zoxide 与 autojump、z、fasd 等工具的差异，了解为什么选择 zoxide。',
-    keywords: t('comparison'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/comparisons',
+    {
+      title: t('titles.comparisons'),
+      description: '对比 zoxide 与 autojump、z、fasd 等工具的差异，了解为什么选择 zoxide。',
+      keywords: t('comparison'),
+    }
+  );
 }
 
 export default async function ComparisonsPage() {

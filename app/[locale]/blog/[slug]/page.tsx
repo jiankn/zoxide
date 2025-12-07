@@ -9,6 +9,7 @@ import { createMarkdownComponents } from '@/components/Markdown/markdownComponen
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Calendar, Clock, User } from 'lucide-react';
 import { generateArticleSchema } from '@/lib/seo/schema';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 const blogMarkdownComponents = createMarkdownComponents({ linkTarget: '_blank' });
 
@@ -49,11 +50,16 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   // 使用 SEO 标题模板，替换 {title} 占位符
   const seoTitle = tSeo('titles.blogPost', { title });
 
-  return {
-    title: seoTitle,
-    description: excerpt,
-    keywords: post.tags.join(', '),
-  };
+  // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  return generateMultilingualMetadata(
+    locale,
+    `/blog/${slug}`,
+    {
+      title: seoTitle,
+      description: excerpt,
+      keywords: post.tags.join(', '),
+    }
+  );
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

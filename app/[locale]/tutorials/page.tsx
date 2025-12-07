@@ -1,9 +1,9 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { BookOpen, Video } from 'lucide-react';
 import { getTutorialsByCategory } from '@/data/tutorials';
-import { getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type TutorialTranslationMeta = {
   title?: string;
@@ -25,12 +25,17 @@ const fetchTutorialTranslation = (
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   const tTutorials = await getTranslations('tutorials');
+  const locale = await getLocale();
   
-  return {
-    title: t('titles.tutorials'),
-    description: tTutorials('description'),
-    keywords: t('tutorial'),
-  };
+  return generateMultilingualMetadata(
+    locale,
+    '/tutorials',
+    {
+      title: t('titles.tutorials'),
+      description: tTutorials('description'),
+      keywords: t('tutorial'),
+    }
+  );
 }
 
 export default async function TutorialsPage() {

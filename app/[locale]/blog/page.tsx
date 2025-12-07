@@ -2,16 +2,22 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { getAllPosts } from '@/data/blog';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   const tBlog = await getTranslations('blog');
+  const locale = await getLocale();
   
-  return {
-    title: t('titles.blog'),
-    description: tBlog('description'),
-    keywords: t('blog'),
-  };
+  return generateMultilingualMetadata(
+    locale,
+    '/blog',
+    {
+      title: t('titles.blog'),
+      description: tBlog('description'),
+      keywords: t('blog'),
+    }
+  );
 }
 
 export default async function BlogPage() {

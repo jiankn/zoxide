@@ -1,5 +1,6 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type LegalSection = {
   title: string;
@@ -10,11 +11,16 @@ type LegalSectionMap = Record<string, LegalSection>;
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
-  return {
-    title: t('titles.termsOfService'),
-    description: 'zoxide.org 服务条款，说明使用本网站的条件和规则。',
-    keywords: t('legal'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/terms-of-service',
+    {
+      title: t('titles.termsOfService'),
+      description: 'zoxide.org 服务条款，说明使用本网站的条件和规则。',
+      keywords: t('legal'),
+    }
+  );
 }
 
 export default async function TermsOfServicePage() {

@@ -1,15 +1,21 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import CodeBlock from '@/components/CodeBlock/CodeBlock';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   const tDownload = await getTranslations('download');
-  return {
-    title: t('titles.download'),
-    description: tDownload('description'),
-    keywords: t('install'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/download',
+    {
+      title: t('titles.download'),
+      description: tDownload('description'),
+      keywords: t('install'),
+    }
+  );
 }
 
 export default async function DownloadPage() {

@@ -1,5 +1,6 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type LegalSection = {
   title: string;
@@ -10,11 +11,16 @@ type LegalSectionMap = Record<string, LegalSection>;
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
-  return {
-    title: t('titles.privacyPolicy'),
-    description: 'zoxide.org 隐私政策，说明我们如何收集、使用和保护您的个人信息。',
-    keywords: t('legal'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/privacy-policy',
+    {
+      title: t('titles.privacyPolicy'),
+      description: 'zoxide.org 隐私政策，说明我们如何收集、使用和保护您的个人信息。',
+      keywords: t('legal'),
+    }
+  );
 }
 
 export default async function PrivacyPolicyPage() {

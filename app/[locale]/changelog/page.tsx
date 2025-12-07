@@ -2,6 +2,7 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import { getTranslations, getLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type VersionChange = {
   type: string;
@@ -22,11 +23,16 @@ type ChangelogMessages = {
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
-  return {
-    title: t('titles.changelog'),
-    description: '查看 zoxide 的版本更新历史，了解新功能、修复和性能优化。',
-    keywords: t('changelog'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/changelog',
+    {
+      title: t('titles.changelog'),
+      description: '查看 zoxide 的版本更新历史，了解新功能、修复和性能优化。',
+      keywords: t('changelog'),
+    }
+  );
 }
 
 export default async function ChangelogPage() {

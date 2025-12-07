@@ -1,14 +1,20 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain, Users, Settings, Rocket } from 'lucide-react';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
-  return {
-    title: t('titles.features'),
-    description: '了解 zoxide 的核心功能：极速性能、智能搜索、学习习惯、团队协作等。zoxide 使用 Rust 编写，比传统 cd 命令快 10 倍，支持模糊搜索和自动学习。',
-    keywords: t('features'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/features',
+    {
+      title: t('titles.features'),
+      description: '了解 zoxide 的核心功能：极速性能、智能搜索、学习习惯、团队协作等。zoxide 使用 Rust 编写，比传统 cd 命令快 10 倍，支持模糊搜索和自动学习。',
+      keywords: t('features'),
+    }
+  );
 }
 
 export default async function FeaturesPage() {

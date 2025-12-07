@@ -1,15 +1,21 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations, getMessages } from 'next-intl/server';
+import { getTranslations, getMessages, getLocale } from 'next-intl/server';
 import { generateFAQPageSchema } from '@/lib/seo/schema';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const tSeo = await getTranslations('seo');
   const tFaq = await getTranslations('faq');
-  return {
-    title: tSeo('titles.faq'),
-    description: tFaq('description'),
-    keywords: tSeo('faq'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/faq',
+    {
+      title: tSeo('titles.faq'),
+      description: tFaq('description'),
+      keywords: tSeo('faq'),
+    }
+  );
 }
 
 export default async function FAQPage() {

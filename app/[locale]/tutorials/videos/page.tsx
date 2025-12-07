@@ -1,16 +1,22 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
 import { Play } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const tSeo = await getTranslations('seo');
   const tTutorials = await getTranslations('tutorials');
-  return {
-    title: tSeo('titles.videos'),
-    description: tTutorials('videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',
-    keywords: tSeo('video'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/tutorials/videos',
+    {
+      title: tSeo('titles.videos'),
+      description: tTutorials('videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',
+      keywords: tSeo('video'),
+    }
+  );
 }
 
 // Video data

@@ -3,6 +3,7 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
@@ -13,11 +14,16 @@ export async function generateMetadata() {
     ? 'zoxide is a smarter cd command that helps you jump between directories instantly. This site provides installation guides, troubleshooting tips, and tutorials on using zoxide with fzf, Neovim, and more.'
     : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
   
-  return {
-    title: t('titles.home'),
-    description,
-    keywords: t('main'),
-  };
+  // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  return generateMultilingualMetadata(
+    locale,
+    '',
+    {
+      title: t('titles.home'),
+      description,
+      keywords: t('main'),
+    }
+  );
 }
 
 export default async function Home() {

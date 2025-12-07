@@ -5,8 +5,9 @@ import { getTutorialBySlug, getAllTutorials } from '@/data/tutorials';
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { createMarkdownComponents } from '@/components/Markdown/markdownComponents';
 import { Link } from '@/i18n/routing';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { Calendar, Clock, BookOpen } from 'lucide-react';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 const tutorialMarkdownComponents = createMarkdownComponents();
 
@@ -46,6 +47,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: TutorialPageProps) {
   const { slug } = await params;
+  const locale = await getLocale();
   const tutorial = getTutorialBySlug(slug);
   const t = await getTranslations('tutorials');
   
@@ -64,10 +66,15 @@ export async function generateMetadata({ params }: TutorialPageProps) {
   // 使用 SEO 标题模板，替换 {title} 占位符
   const seoTitle = tSeo('titles.tutorial', { title });
 
-  return {
-    title: seoTitle,
-    description: excerpt,
-  };
+  // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  return generateMultilingualMetadata(
+    locale,
+    `/tutorials/${slug}`,
+    {
+      title: seoTitle,
+      description: excerpt,
+    }
+  );
 }
 
 export default async function TutorialPage({ params }: TutorialPageProps) {

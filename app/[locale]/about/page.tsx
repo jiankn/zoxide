@@ -1,13 +1,19 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
-  return {
-    title: t('titles.about'),
-    description: '了解 zoxide.org - zoxide 粉丝网站，提供教程、技巧和最新动态。',
-    keywords: t('legal'),
-  };
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/about',
+    {
+      title: t('titles.about'),
+      description: '了解 zoxide.org - zoxide 粉丝网站，提供教程、技巧和最新动态。',
+      keywords: t('legal'),
+    }
+  );
 }
 
 export default async function AboutPage() {
