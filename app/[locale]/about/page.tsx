@@ -4,13 +4,14 @@ import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
+  const tAbout = await getTranslations('about');
   const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/about',
     {
       title: t('titles.about'),
-      description: '了解 zoxide.org - zoxide 粉丝网站，提供教程、技巧和最新动态。',
+      description: tAbout('description'),
       keywords: t('legal'),
     }
   );

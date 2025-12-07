@@ -23,13 +23,14 @@ type ChangelogMessages = {
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
+  const tChangelog = await getTranslations('changelog');
   const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/changelog',
     {
       title: t('titles.changelog'),
-      description: '查看 zoxide 的版本更新历史，了解新功能、修复和性能优化。',
+      description: tChangelog('description'),
       keywords: t('changelog'),
     }
   );

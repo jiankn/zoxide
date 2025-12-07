@@ -11,13 +11,14 @@ type LegalSectionMap = Record<string, LegalSection>;
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
+  const tTerms = await getTranslations('termsOfService');
   const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/terms-of-service',
     {
       title: t('titles.termsOfService'),
-      description: 'zoxide.org 服务条款，说明使用本网站的条件和规则。',
+      description: tTerms('description'),
       keywords: t('legal'),
     }
   );

@@ -20,13 +20,14 @@ type ComparisonMessages = {
 
 export async function generateMetadata() {
   const t = await getTranslations('seo');
+  const tComparisons = await getTranslations('comparisons');
   const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/comparisons',
     {
       title: t('titles.comparisons'),
-      description: '对比 zoxide 与 autojump、z、fasd 等工具的差异，了解为什么选择 zoxide。',
+      description: tComparisons('description'),
       keywords: t('comparison'),
     }
   );

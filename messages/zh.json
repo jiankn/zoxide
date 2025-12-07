@@ -766,6 +766,7 @@
   },
   "privacyPolicy": {
     "title": "隐私政策",
+    "description": "zoxide.org 隐私政策，说明我们如何收集、使用和保护您的个人信息。",
     "lastUpdated": "最后更新：2025年11月30日",
     "sections": {
       "collection": {
@@ -811,6 +812,7 @@
   },
   "termsOfService": {
     "title": "服务条款",
+    "description": "zoxide.org 服务条款，说明使用本网站的条件和规则。",
     "lastUpdated": "最后更新：2025年11月30日",
     "sections": {
       "accept": {
