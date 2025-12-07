@@ -25,22 +25,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 不在根 layout 中设置 lang，由 head 中的 script 在 React 水合之前设置
-  // 这样可以确保服务端和客户端都通过 script 设置 lang，避免水合错误
-  // suppressHydrationWarning 用于避免任何可能的警告
+  // 设置默认 lang，[locale]/layout.tsx 中的 script 会在服务端渲染时输出正确的 lang
+  // suppressHydrationWarning 用于避免客户端修改 lang 时的水合警告
+  // 注意：虽然服务端和客户端的 lang 可能不同，但 suppressHydrationWarning 会抑制警告
   return (
-    <html suppressHydrationWarning>
+    <html lang={routing.defaultLocale} suppressHydrationWarning>
       <head>
-        {/* 在 head 中立即设置 html lang 属性，确保在 React 水合之前执行 */}
-        {/* 从 URL 路径中提取 locale（格式：/zh/... 或 /en/...） */}
+        {/* 备用 script：如果 [locale]/layout.tsx 中的 script 没有执行，这个 script 会从 URL 提取 locale */}
+        {/* 这个 script 会在 React 水合之前执行，确保 lang 属性在检查之前就设置好 */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var path = window.location.pathname;
-                var match = path.match(/^\\/(zh|en|ja|fr|de)(\\/|$)/);
-                var locale = match ? match[1] : '${routing.defaultLocale}';
-                document.documentElement.setAttribute('lang', locale);
+                if (typeof window !== 'undefined' && window.location) {
+                  var path = window.location.pathname;
+                  var match = path.match(/^\\/(zh|en|ja|fr|de)(\\/|$)/);
+                  var locale = match ? match[1] : '${routing.defaultLocale}';
+                  if (document.documentElement.getAttribute('lang') !== locale) {
+                    document.documentElement.setAttribute('lang', locale);
+                  }
+                }
               })();
             `,
           }}
