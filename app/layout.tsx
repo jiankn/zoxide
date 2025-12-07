@@ -25,7 +25,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 使用默认 locale，客户端组件会在需要时更新
+  // 设置默认 lang，[locale]/layout.tsx 中的 script 会在客户端立即更新为正确的 locale
+  // suppressHydrationWarning 用于避免客户端修改 lang 时的水合警告
   return (
     <html lang={routing.defaultLocale} suppressHydrationWarning>
       <head>
