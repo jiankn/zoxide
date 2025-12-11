@@ -926,6 +926,20 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
     tags: ['zoxide commands', 'commands', 'tutorial', 'guide', 'navigation'],
     readTime: 12,
   },
+  {
+    id: '12',
+    slug: 'zoxide-download-guide',
+    title: 'Zoxide Download Guide: Safe, Fast Install for macOS, Windows, and Linux',
+    excerpt:
+      'A practical, SEO-focused guide for the keyword “zoxide download”: where to get the official binaries, how to install on macOS, Windows, and Linux, plus verification, troubleshooting, and upgrade tips.',
+    // 内容由多语言文案文件提供，这里只做占位
+    content: '# Zoxide Download Guide',
+    date: '2025-12-11',
+    author: 'zoxide.org',
+    category: '教程',
+    tags: ['zoxide download', 'install', 'macos', 'windows', 'linux', 'package manager'],
+    readTime: 11,
+  },
 ];
 
 // 根据 slug 获取文章
