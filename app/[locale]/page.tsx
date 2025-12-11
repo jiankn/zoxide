@@ -1,14 +1,10 @@
 import Hero from '@/components/Hero/Hero';
-import dynamic from 'next/dynamic';
 import { Link } from '@/i18n/routing';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import AdSlot from '@/components/AdSlot/AdSlotClient';
 
-// 非首屏广告位延迟到客户端渲染，减少首屏 JS
-const AdSlot = dynamic(() => import('@/components/AdSlot/AdSlot'), {
-  ssr: false,
-});
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   const locale = await getLocale();

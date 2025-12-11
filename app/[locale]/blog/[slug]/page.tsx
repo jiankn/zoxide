@@ -1,15 +1,18 @@
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import dynamic from 'next/dynamic';
 import { getPostBySlug, getRelatedPosts } from '@/data/blog';
-import AdSlot from '@/components/AdSlot/AdSlot';
-import ShareButtons from '@/components/ShareButtons/ShareButtons';
 import RelatedPosts from '@/components/RelatedPosts/RelatedPosts';
 import { createMarkdownComponents } from '@/components/Markdown/markdownComponents';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Calendar, Clock, User } from 'lucide-react';
 import { generateArticleSchema } from '@/lib/seo/schema';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+
+// 客户端再加载的交互组件，减小首包体积
+const AdSlot = dynamic(() => import('@/components/AdSlot/AdSlotClient'), { ssr: false });
+const ShareButtons = dynamic(() => import('@/components/ShareButtons/ShareButtons'), { ssr: false, loading: () => null });
 
 const blogMarkdownComponents = createMarkdownComponents({ linkTarget: '_blank' });
 
