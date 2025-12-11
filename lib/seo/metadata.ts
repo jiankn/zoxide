@@ -27,17 +27,18 @@ export function generateMultilingualMetadata(
   // 如果 path 不是空字符串且不以 / 开头，则添加 /
   const normalizedPath = path === '' ? '' : (path.startsWith('/') ? path : `/${path}`);
   
-  // 生成 canonical URL：所有语言版本都指向默认语言版本（主语言版本）
-  // 这是 Google 推荐的多语言网站最佳实践，可以避免重复内容问题
-  // 首页：https://zoxide.org/en/
-  // 其他页面：https://zoxide.org/en/blog/xxx
-  const defaultLocale = routing.defaultLocale;
-  const canonicalUrl = normalizedPath === '' 
-    ? `${baseUrl}/${defaultLocale}/`
-    : `${baseUrl}/${defaultLocale}${normalizedPath}`;
+  // 生成 canonical：指向当前语言版本，避免各语言都指向同一个 canonical 造成提示
+  const canonicalUrl = normalizedPath === ''
+    ? `${baseUrl}/${locale}/`
+    : `${baseUrl}/${locale}${normalizedPath}`;
   
   // 生成所有语言版本的 URL（用于 hreflang）
-  const languages: Record<string, string> = {};
+  const languages: Record<string, string> = {
+    'x-default': normalizedPath === ''
+      ? `${baseUrl}/${routing.defaultLocale}/`
+      : `${baseUrl}/${routing.defaultLocale}${normalizedPath}`,
+  };
+
   routing.locales.forEach((loc) => {
     languages[loc] = normalizedPath === ''
       ? `${baseUrl}/${loc}/`
