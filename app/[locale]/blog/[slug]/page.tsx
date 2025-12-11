@@ -11,8 +11,12 @@ import { generateArticleSchema } from '@/lib/seo/schema';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 // 客户端再加载的交互组件，减小首包体积
-const AdSlot = dynamic(() => import('@/components/AdSlot/AdSlotClient'), { ssr: false });
-const ShareButtons = dynamic(() => import('@/components/ShareButtons/ShareButtons'), { ssr: false, loading: () => null });
+const AdSlot = dynamic(() => import('@/components/AdSlot/AdSlotClient'), {
+  loading: () => null,
+});
+const ShareButtons = dynamic(() => import('@/components/ShareButtons/ShareButtons'), {
+  loading: () => null,
+});
 
 const blogMarkdownComponents = createMarkdownComponents({ linkTarget: '_blank' });
 
