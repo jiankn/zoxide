@@ -1,10 +1,14 @@
 import Hero from '@/components/Hero/Hero';
-import AdSlot from '@/components/AdSlot/AdSlot';
+import dynamic from 'next/dynamic';
 import { Link } from '@/i18n/routing';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
+// 非首屏广告位延迟到客户端渲染，减少首屏 JS
+const AdSlot = dynamic(() => import('@/components/AdSlot/AdSlot'), {
+  ssr: false,
+});
 export async function generateMetadata() {
   const t = await getTranslations('seo');
   const locale = await getLocale();
@@ -39,8 +43,8 @@ export default async function Home() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* 主内容区 - 占 2/3 宽度 */}
           <main className="lg:col-span-2 space-y-12">
-            {/* 广告位 1: Hero 下方 */}
-            <AdSlot slotId="home-top" />
+            {/* 广告位 1: Hero 下方，延迟加载 */}
+            <AdSlot slotId="home-top" lazy />
 
             {/* 功能亮点卡片 */}
             <section>
@@ -129,8 +133,8 @@ export default async function Home() {
               </div>
             </section>
 
-            {/* 广告位 2: 安装指南与教程推荐之间 */}
-            <AdSlot slotId="home-middle" />
+            {/* 广告位 2: 安装指南与教程推荐之间，延迟加载 */}
+            <AdSlot slotId="home-middle" lazy />
 
             {/* 教程推荐 */}
             <section>

@@ -52,7 +52,8 @@ export default function Hero() {
                   className="object-cover"
                   priority
                   fetchPriority="high"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  // 更保守的首屏图片尺寸，减小移动端 LCP 体积
+                  sizes="(max-width: 640px) 95vw, (max-width: 1024px) 80vw, 45vw"
                 />
               </div>
             </div>
