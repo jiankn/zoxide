@@ -6,7 +6,6 @@ import Logo from '@/components/Logo/Logo';
 
 export default function Footer() {
   const t = useTranslations('footer');
-  const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     product: [
@@ -28,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-transparent bg-gradient-to-r from-[#0b1f4b] via-[#0f2f6b] to-[#123a7f] text-white">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo 和描述 */}
           <div className="col-span-1 md:col-span-1 space-y-3">
@@ -120,7 +119,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="mt-4 text-center text-sm text-white/70">
-            {t('copyright')} © {currentYear}
+            {t('copyright')}
           </p>
         </div>
       </div>

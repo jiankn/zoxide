@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 
-const shouldDisplayDisclaimer = () => {
-  if (typeof window === 'undefined') return false;
-  return !window.localStorage.getItem('disclaimer-dismissed');
-};
-
 export default function DisclaimerBanner() {
   const t = useTranslations('disclaimer');
-  const [isVisible, setIsVisible] = useState(shouldDisplayDisclaimer);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // 只在客户端检查localStorage，避免hydration错误
+    if (typeof window !== 'undefined') {
+      const dismissed = window.localStorage.getItem('disclaimer-dismissed');
+      setIsVisible(!dismissed);
+    }
+  }, []);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -24,7 +27,7 @@ export default function DisclaimerBanner() {
 
   return (
     <div className="bg-yellow-50 border-b border-yellow-200">
-      <div className="container mx-auto px-4 py-3">
+      <div className="container mx-auto max-w-7xl px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm text-yellow-800 flex-1">
             <strong>{t('label')}</strong> {t('message')}

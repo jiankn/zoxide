@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import dynamic from 'next/dynamic';
+import { Link } from '@/i18n/routing';
 import { getPostBySlug, getRelatedPosts } from '@/data/blog';
 import RelatedPosts from '@/components/RelatedPosts/RelatedPosts';
 import { createMarkdownComponents } from '@/components/Markdown/markdownComponents';
@@ -52,21 +53,59 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const tData = t.raw(`data.${slug}`);
   const title = tData?.title || post.title;
   const excerpt = tData?.excerpt || post.excerpt;
+  const author = tData?.author || post.author;
   const tSeo = await getTranslations('seo');
   
   // 使用 SEO 标题模板，替换 {title} 占位符
   const seoTitle = tSeo('titles.blogPost', { title });
+  
+  // 优化 description：确保长度在 150-160 字符之间，包含关键词
+  const optimizedDescription = excerpt.length > 160 
+    ? excerpt.substring(0, 157) + '...'
+    : excerpt;
+
+  const canonicalUrl = `https://zoxide.org/${locale}/blog/${slug}`;
+  const imageUrl = `https://zoxide.org/icon.svg`;
 
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
-  return generateMultilingualMetadata(
+  const metadata = generateMultilingualMetadata(
     locale,
     `/blog/${slug}`,
     {
       title: seoTitle,
-      description: excerpt,
+      description: optimizedDescription,
       keywords: post.tags.join(', '),
+      // Open Graph 元数据
+      openGraph: {
+        title: seoTitle,
+        description: optimizedDescription,
+        url: canonicalUrl,
+        siteName: 'zoxide.org',
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+        locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+        type: 'article',
+        publishedTime: post.date,
+        authors: [author],
+        tags: post.tags,
+      },
+      // Twitter Card 元数据
+      twitter: {
+        card: 'summary_large_image',
+        title: seoTitle,
+        description: optimizedDescription,
+        images: [imageUrl],
+      },
     }
   );
+
+  return metadata;
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -98,23 +137,118 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // 标签翻译
   const tags = tData?.tags || post.tags;
 
+  const articleUrl = `https://zoxide.org/${locale}/blog/${post.slug}`;
+  
+  // 生成文章结构化数据
   const articleSchema = generateArticleSchema(
     title,
     excerpt,
     author,
     post.date,
-    `https://zoxide.org/${locale}/blog/${post.slug}`
+    articleUrl,
+    post.date // dateModified 使用发布日期（如果有更新日期可以单独设置）
   );
+
+  // 如果是教程类文章，添加 HowTo Schema
+  const isTutorial = post.category === '教程' || post.category === 'Tutorial';
+  let howToSchema = null;
+  
+  if (isTutorial && slug === 'zoxide-init-guide') {
+    // 为 zoxide init 文章生成 HowTo Schema
+    const { generateHowToSchema } = await import('@/lib/seo/schema');
+    howToSchema = generateHowToSchema(
+      title,
+      excerpt,
+      [
+        {
+          name: 'Install zoxide',
+          text: 'Install zoxide using a package manager like Homebrew, Scoop, or Apt.',
+        },
+        {
+          name: 'Initialize Shell',
+          text: 'Run zoxide init command for your shell (bash, zsh, fish, PowerShell, or nushell).',
+        },
+        {
+          name: 'Configure Shell',
+          text: 'Add the initialization command to your shell configuration file.',
+        },
+        {
+          name: 'Reload Shell',
+          text: 'Reload your shell or open a new terminal window to activate zoxide.',
+        },
+      ]
+    );
+  }
 
   return (
     <>
+      {/* 文章结构化数据 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(articleSchema),
         }}
       />
-      <div className="container mx-auto px-4 py-12">
+      {/* HowTo 结构化数据（如果是教程） */}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(howToSchema),
+          }}
+        />
+      )}
+      {/* 面包屑导航结构化数据 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: locale === 'zh' ? '首页' : 'Home',
+                item: `https://zoxide.org/${locale}/`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: locale === 'zh' ? '博客' : 'Blog',
+                item: `https://zoxide.org/${locale}/blog`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: title,
+                item: articleUrl,
+              },
+            ],
+          }),
+        }}
+      />
+      <div className="container mx-auto max-w-7xl px-4 py-12">
+        {/* 面包屑导航 UI */}
+        <nav className="mb-6 text-sm text-gray-600" aria-label="Breadcrumb">
+          <ol className="flex items-center space-x-2">
+            <li>
+              <Link href="/" className="hover:text-blue-600 transition-colors">
+                {locale === 'zh' ? '首页' : 'Home'}
+              </Link>
+            </li>
+            <li className="text-gray-400">/</li>
+            <li>
+              <Link href="/blog" className="hover:text-blue-600 transition-colors">
+                {locale === 'zh' ? '博客' : 'Blog'}
+              </Link>
+            </li>
+            <li className="text-gray-400">/</li>
+            <li className="text-gray-900 truncate max-w-xs" aria-current="page">
+              {title}
+            </li>
+          </ol>
+        </nav>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <main className="lg:col-span-2 space-y-8">
             <header>

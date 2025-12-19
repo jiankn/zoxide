@@ -10,10 +10,12 @@ export default function Hero() {
 
   return (
     <section className="relative w-full bg-white py-20 md:py-32 overflow-hidden">
-      <div className="container mx-auto px-6 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20 items-center">
+      {/* 添加明确的容器宽度限制，确保在所有浏览器下一致 */}
+      <div className="container mx-auto max-w-7xl px-6 md:px-8 relative z-10">
+        {/* Grid 布局添加明确的宽度限制和居中对齐 */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20 items-center max-w-full">
           {/* 左侧：文字内容 */}
-          <div className="text-center lg:text-left relative">
+          <div className="text-center lg:text-left relative w-full max-w-full">
             <h1 className="font-serif text-5xl md:text-6xl font-bold tracking-tight text-[#37352F]">
               {t('title')}
               <span className="block mt-3">
@@ -41,9 +43,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* 右侧：图片 */}
-          <div className="relative flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200/50 bg-white p-3 transition-transform hover:scale-[1.01]">
+          {/* 右侧：图片 - 修复 flexbox 布局，避免内容分散到边缘 */}
+          <div className="relative flex items-center justify-center order-first lg:order-last w-full max-w-full">
+            <div className="relative w-full max-w-lg mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200/50 bg-white p-3 transition-transform hover:scale-[1.01]">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
                 <Image
                   src="/tutorial.webp"

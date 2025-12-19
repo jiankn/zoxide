@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { X, Cookie, Settings } from 'lucide-react';
@@ -19,40 +19,42 @@ const defaultPreferences: CookiePreferences = {
   marketing: false,
 };
 
-const getStoredPreferences = (): CookiePreferences => {
-  if (typeof window === 'undefined') return defaultPreferences;
-
-  const savedPreferences = window.localStorage.getItem('cookie-preferences');
-  if (!savedPreferences) return defaultPreferences;
-
-  try {
-    const parsed = JSON.parse(savedPreferences) as Partial<CookiePreferences>;
-    return {
-      ...defaultPreferences,
-      ...parsed,
-    };
-  } catch {
-    return defaultPreferences;
-  }
-};
-
-const shouldDisplayBanner = () => {
-  if (typeof window === 'undefined') return false;
-  return !window.localStorage.getItem('cookie-consent');
-};
-
 export default function CookieBanner() {
   const t = useTranslations('cookie');
   const tCommon = useTranslations('common');
-  const [cookiePreferences, setCookiePreferences] = useState<CookiePreferences>(getStoredPreferences);
+  const [cookiePreferences, setCookiePreferences] = useState<CookiePreferences>(defaultPreferences);
   const [showSettings, setShowSettings] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const isVisible = shouldDisplayBanner() || showSettings;
+  // 只在客户端挂载后检查 localStorage，避免 hydration 错误
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // 获取存储的偏好设置
+    const savedPreferences = window.localStorage.getItem('cookie-preferences');
+    if (savedPreferences) {
+      try {
+        const parsed = JSON.parse(savedPreferences) as Partial<CookiePreferences>;
+        setCookiePreferences({
+          ...defaultPreferences,
+          ...parsed,
+        });
+      } catch {
+        // 忽略解析错误，使用默认值
+      }
+    }
+
+    // 检查是否应该显示 banner
+    const hasConsent = window.localStorage.getItem('cookie-consent');
+    setIsVisible(!hasConsent || showSettings);
+  }, [showSettings]);
 
   const persistPreferences = (preferences: CookiePreferences) => {
     if (typeof window === 'undefined') return;
     window.localStorage.setItem('cookie-consent', 'accepted');
     window.localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    setIsVisible(false);
   };
 
   const handleAcceptAll = () => {
@@ -61,8 +63,8 @@ export default function CookieBanner() {
       analytics: true,
       marketing: true,
     };
-    persistPreferences(preferences);
     setCookiePreferences(preferences);
+    persistPreferences(preferences);
     setShowSettings(false);
   };
 
@@ -73,6 +75,10 @@ export default function CookieBanner() {
 
   const handleManage = () => {
     setShowSettings(!showSettings);
+    // 当打开设置时，确保 banner 可见
+    if (!showSettings) {
+      setIsVisible(true);
+    }
   };
 
   const togglePreference = (type: PreferenceKey) => {
@@ -82,13 +88,14 @@ export default function CookieBanner() {
     }));
   };
 
-  if (!isVisible) {
+  // 在客户端挂载前不渲染任何内容，避免 hydration 错误
+  if (!isMounted || !isVisible) {
     return null;
   }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto max-w-7xl px-4 py-4">
         {!showSettings ? (
           // 简化视图：接受和管理
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">

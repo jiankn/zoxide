@@ -35,7 +35,7 @@ export default async function Home() {
       <Hero />
 
       {/* 主内容区域 - 双栏布局 */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* 主内容区 - 占 2/3 宽度 */}
           <main className="lg:col-span-2 space-y-12">

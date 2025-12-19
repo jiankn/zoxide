@@ -28,7 +28,7 @@ export default async function BlogPage() {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto max-w-7xl px-4 py-12">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-2 space-y-12">
           <div>
