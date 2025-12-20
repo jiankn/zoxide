@@ -29,8 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 为每个语言生成静态页面
   staticRoutes.forEach((route) => {
     locales.forEach((locale) => {
+      // 确保 URL 格式一致：首页添加末尾斜杠，其他路径保持原样
+      const url = route.path === ''
+        ? `${baseUrl}/${locale}/`
+        : `${baseUrl}/${locale}${route.path}`;
+      
       staticPages.push({
-        url: `${baseUrl}/${locale}${route.path}`,
+        url,
         lastModified: currentDate,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
@@ -46,7 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       blogPages.push({
         url: `${baseUrl}/${locale}/blog/${post.slug}`,
         lastModified: post.date,
-        changeFrequency: 'monthly',
+        changeFrequency: 'monthly' as const,
         priority: 0.8,
       });
     });
@@ -60,7 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       tutorialPages.push({
         url: `${baseUrl}/${locale}/tutorials/${tutorial.slug}`,
         lastModified: tutorial.date,
-        changeFrequency: 'monthly',
+        changeFrequency: 'monthly' as const,
         priority: 0.8,
       });
     });

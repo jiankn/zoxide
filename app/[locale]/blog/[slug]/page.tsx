@@ -64,10 +64,11 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     ? excerpt.substring(0, 157) + '...'
     : excerpt;
 
+  // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  // canonical URL 由 generateMultilingualMetadata 自动生成，确保格式一致
   const canonicalUrl = `https://zoxide.org/${locale}/blog/${slug}`;
   const imageUrl = `https://zoxide.org/icon.svg`;
-
-  // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  
   const metadata = generateMultilingualMetadata(
     locale,
     `/blog/${slug}`,
@@ -137,6 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // 标签翻译
   const tags = tData?.tags || post.tags;
 
+  // 使用与 canonical URL 一致的格式
   const articleUrl = `https://zoxide.org/${locale}/blog/${post.slug}`;
   
   // 生成文章结构化数据
