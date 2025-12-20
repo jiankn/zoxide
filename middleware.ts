@@ -24,10 +24,12 @@ export default function middleware(request: NextRequest) {
   }
 
   // 3. 根路径重定向到默认语言（301 永久重定向，SEO 友好）
-  // 确保根路径返回 HTML 重定向而不是纯文本，这对 SEO 很重要
+  // 确保根路径返回 HTTP 301 重定向而不是 HTML meta refresh
+  // 使用绝对 URL 确保重定向正确工作
   if (pathname === '/') {
-    url.pathname = `/${routing.defaultLocale}/`;
-    return NextResponse.redirect(url, { status: 301 });
+    const redirectUrl = new URL(`/${routing.defaultLocale}/`, url);
+    // 确保使用绝对 URL 进行重定向
+    return NextResponse.redirect(redirectUrl, { status: 301 });
   }
 
   // 4. 阻止代码示例中的路径被访问（返回 404）
@@ -59,11 +61,15 @@ export default function middleware(request: NextRequest) {
 
   // 5. 处理国际化路由（next-intl）
   // 注意：根路径已经在上面处理，这里只处理其他路径
-  return createMiddleware({
+  // 创建 next-intl 中间件实例
+  const intlMiddleware = createMiddleware({
     ...routing,
     localeDetection: true,
     localePrefix: 'always',
-  })(request);
+  });
+  
+  // 执行 next-intl 中间件
+  return intlMiddleware(request);
 }
 
 export const config = {
