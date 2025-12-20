@@ -1,13 +1,24 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: '关于我们 - zoxide.org',
-  description: '了解 zoxide.org - zoxide 粉丝网站，提供教程、技巧和最新动态。',
-  keywords: 'about us, 关于我们, zoxide fan site',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tAbout = await getTranslations('about');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/about',
+    {
+      title: t('titles.about'),
+      description: tAbout('description'),
+      keywords: t('legal'),
+    }
+  );
+}
 
-export default function AboutPage() {
+export default async function AboutPage() {
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">

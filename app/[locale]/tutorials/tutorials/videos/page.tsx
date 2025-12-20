@@ -1,12 +1,23 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
 import { Play } from 'lucide-react';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'zoxide 视频教程 - 通过视频学习 zoxide',
-  description: '通过视频学习 zoxide 的使用方法，包括安装、配置和高级技巧。',
-  keywords: 'zoxide video tutorial, zoxide youtube, zoxide 视频教程',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tTutorials = await getTranslations('tutorials');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/tutorials/videos',
+    {
+      title: t('titles.videos'),
+      description: tTutorials('videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',
+      keywords: t('tutorial'),
+    }
+  );
+}
 
 // 视频数据
 const videos = [

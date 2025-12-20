@@ -1,14 +1,25 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
 import { getAllPosts } from '@/data/blog';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'zoxide 博客 - 教程、技巧和最新动态',
-  description: '阅读 zoxide 相关文章：使用教程、配置技巧、性能优化、版本更新等。',
-  keywords: 'zoxide blog, zoxide tutorial, zoxide tips, zoxide news',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tBlog = await getTranslations('blog');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/blog',
+    {
+      title: t('titles.blog'),
+      description: tBlog('description'),
+      keywords: t('blog'),
+    }
+  );
+}
 
-export default function BlogPage() {
+export default async function BlogPage() {
   const blogPosts = getAllPosts();
 
   return (

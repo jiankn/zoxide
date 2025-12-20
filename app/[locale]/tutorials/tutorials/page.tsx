@@ -2,12 +2,23 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
 import { BookOpen, Video } from 'lucide-react';
 import { getTutorialsByCategory } from '@/data/tutorials';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'zoxide 教程 - 快速开始和进阶指南',
-  description: '学习如何使用 zoxide：从快速开始到高级配置，包括 Shell 集成、性能调优、团队协作等完整教程。',
-  keywords: 'zoxide tutorial, zoxide quick start, how to use zoxide, zoxide setup guide, zoxide configuration, zoxide shell integration',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tTutorials = await getTranslations('tutorials');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/tutorials',
+    {
+      title: t('titles.tutorials'),
+      description: tTutorials('description'),
+      keywords: t('tutorial'),
+    }
+  );
+}
 
 export default function TutorialsPage() {
   const beginnerTutorials = getTutorialsByCategory('入门教程');

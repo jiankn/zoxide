@@ -1,10 +1,21 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'zoxide 更新日志 - 版本历史和功能更新',
-  description: '查看 zoxide 的版本更新历史，了解新功能、修复和性能优化。',
-  keywords: 'zoxide changelog, zoxide updates, zoxide new features, zoxide version history',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tChangelog = await getTranslations('changelog');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/changelog',
+    {
+      title: t('titles.changelog'),
+      description: tChangelog('description'),
+      keywords: t('changelog'),
+    }
+  );
+}
 
 // zoxide 版本更新数据（基于官方 GitHub Releases）
 const versions = [

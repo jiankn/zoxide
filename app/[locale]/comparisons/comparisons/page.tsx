@@ -1,10 +1,21 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'zoxide vs 其他工具对比 - 性能和使用体验',
-  description: '对比 zoxide 与 autojump、z、fasd 等工具的差异，了解为什么选择 zoxide。',
-  keywords: 'zoxide vs autojump comparison, zoxide vs z, zoxide vs fasd, best cd replacement tool',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tComparisons = await getTranslations('comparisons');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/comparisons',
+    {
+      title: t('titles.comparisons'),
+      description: tComparisons('description'),
+      keywords: t('comparison'),
+    }
+  );
+}
 
 // 对比数据
 const comparisons = [

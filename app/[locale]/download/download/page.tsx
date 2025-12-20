@@ -1,11 +1,22 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import CopyButton from './CopyButton';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: '下载 zoxide - 安装指南（macOS、Linux、Windows）',
-  description: '在 macOS、Linux、Windows 上安装 zoxide。支持 Homebrew、Scoop、Cargo 等多种安装方式，包含 Shell 配置说明。',
-  keywords: 'zoxide install, how to install zoxide, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tDownload = await getTranslations('download');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/download',
+    {
+      title: t('titles.download'),
+      description: tDownload('description'),
+      keywords: t('install'),
+    }
+  );
+}
 
 
 export default function DownloadPage() {

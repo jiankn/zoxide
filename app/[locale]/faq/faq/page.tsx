@@ -1,11 +1,22 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { generateFAQPageSchema } from '@/lib/seo/schema';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: 'zoxide FAQ - 常见问题解答',
-  description: 'zoxide 使用中的常见问题和解决方案，包括安装、配置、故障排除等。',
-  keywords: 'zoxide faq, zoxide common issues, zoxide troubleshooting, zoxide problems',
-};
+export async function generateMetadata() {
+  const tSeo = await getTranslations('seo');
+  const tFaq = await getTranslations('faq');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/faq',
+    {
+      title: tSeo('titles.faq'),
+      description: tFaq('description'),
+      keywords: tSeo('faq'),
+    }
+  );
+}
 
 // 常见问题数据
 const faqs = [

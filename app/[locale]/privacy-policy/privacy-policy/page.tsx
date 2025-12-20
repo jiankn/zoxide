@@ -1,12 +1,23 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: '隐私政策 - zoxide.org',
-  description: 'zoxide.org 隐私政策，说明我们如何收集、使用和保护您的个人信息。',
-  keywords: 'privacy policy, 隐私政策, data protection',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tPrivacy = await getTranslations('privacyPolicy');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/privacy-policy',
+    {
+      title: t('titles.privacyPolicy'),
+      description: tPrivacy('description'),
+      keywords: t('legal'),
+    }
+  );
+}
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">

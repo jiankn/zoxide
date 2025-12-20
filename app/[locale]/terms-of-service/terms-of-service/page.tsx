@@ -1,12 +1,23 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
+import { getTranslations, getLocale } from 'next-intl/server';
+import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
-  title: '服务条款 - zoxide.org',
-  description: 'zoxide.org 服务条款，说明使用本网站的条件和规则。',
-  keywords: 'terms of service, 服务条款, terms and conditions',
-};
+export async function generateMetadata() {
+  const t = await getTranslations('seo');
+  const tTerms = await getTranslations('termsOfService');
+  const locale = await getLocale();
+  return generateMultilingualMetadata(
+    locale,
+    '/terms-of-service',
+    {
+      title: t('titles.termsOfService'),
+      description: tTerms('description'),
+      keywords: t('legal'),
+    }
+  );
+}
 
-export default function TermsOfServicePage() {
+export default async function TermsOfServicePage() {
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
