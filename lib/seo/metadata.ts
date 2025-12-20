@@ -59,9 +59,13 @@ export function generateMultilingualMetadata(
   languages['x-default'] = normalizedPath === ''
     ? `${baseUrl}/${routing.defaultLocale}/`
     : `${baseUrl}/${routing.defaultLocale}${normalizedPath}`;
+
+  // 确保 additionalMetadata 中的 alternates 不会覆盖我们的设置
+  // 根据 Chrome 开发者文档：使用 hreflang 时，canonical 必须指向该语言版本的自己
+  const { alternates: _, ...restMetadata } = additionalMetadata || {};
   
   return {
-    ...additionalMetadata,
+    ...restMetadata,
     alternates: {
       canonical: canonicalUrl,
       languages,
