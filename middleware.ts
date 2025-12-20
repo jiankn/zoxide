@@ -23,6 +23,15 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
+  // 3. 语言首页末尾斜杠规范化（301 永久重定向）
+  // 将 /zh 重定向到 /zh/，确保与 canonical URL 一致
+  const localeMatch = pathname.match(/^\/(zh|en)$/);
+  if (localeMatch) {
+    // 如果路径正好是 /zh 或 /en（无末尾斜杠），重定向到带斜杠的版本
+    url.pathname = `/${localeMatch[1]}/`;
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
   // 3. 根路径重定向到默认语言（301 永久重定向，SEO 友好）
   // 确保根路径返回 HTTP 301 重定向而不是 HTML meta refresh
   // 使用绝对 URL 确保重定向正确工作
