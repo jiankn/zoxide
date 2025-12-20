@@ -4,10 +4,10 @@ import { getAllPosts } from '@/data/blog';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations('seo');
   const tBlog = await getTranslations('blog');
-  const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/blog',

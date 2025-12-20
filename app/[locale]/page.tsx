@@ -5,9 +5,9 @@ import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import AdSlot from '@/components/AdSlot/AdSlotClient';
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations('seo');
-  const locale = await getLocale();
   
   // 根据语言设置不同的描述（优化长度：155-160字符）
   const description = locale === 'en' 
@@ -15,6 +15,7 @@ export async function generateMetadata() {
     : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
   
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  // 直接从 params 获取 locale，确保 canonical URL 与 URL 路径一致
   return generateMultilingualMetadata(
     locale,
     '',

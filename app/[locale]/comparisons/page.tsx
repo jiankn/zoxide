@@ -18,10 +18,10 @@ type ComparisonMessages = {
   };
 };
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations('seo');
   const tComparisons = await getTranslations('comparisons');
-  const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/comparisons',

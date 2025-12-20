@@ -9,10 +9,10 @@ type LegalSection = {
 
 type LegalSectionMap = Record<string, LegalSection>;
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations('seo');
   const tTerms = await getTranslations('termsOfService');
-  const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/terms-of-service',

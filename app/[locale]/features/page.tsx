@@ -3,10 +3,10 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { Zap, Search, Brain, Users, Settings, Rocket } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const t = await getTranslations('seo');
   const tFeatures = await getTranslations('features');
-  const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/features',

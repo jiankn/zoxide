@@ -46,8 +46,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: TutorialPageProps) {
-  const { slug } = await params;
-  const locale = await getLocale();
+  const { slug, locale } = await params;
   const tutorial = getTutorialBySlug(slug);
   const t = await getTranslations('tutorials');
   

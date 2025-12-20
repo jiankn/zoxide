@@ -14,6 +14,7 @@ const tutorialMarkdownComponents = createMarkdownComponents();
 interface TutorialPageProps {
   params: Promise<{
     slug: string;
+    locale: string;
   }>;
 }
 
@@ -28,8 +29,7 @@ export async function generateStaticParams() {
 
 // 生成元数据
 export async function generateMetadata({ params }: TutorialPageProps) {
-  const { slug } = await params;
-  const locale = await getLocale();
+  const { slug, locale } = await params;
   const tutorial = getTutorialBySlug(slug);
   const t = await getTranslations('tutorials');
   

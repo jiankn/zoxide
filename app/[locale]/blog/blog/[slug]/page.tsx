@@ -23,6 +23,7 @@ const blogMarkdownComponents = createMarkdownComponents({ linkTarget: '_blank' }
 interface BlogPostPageProps {
   params: Promise<{
     slug: string;
+    locale: string;
   }>;
 }
 
@@ -38,8 +39,7 @@ export async function generateStaticParams() {
 
 // 生成元数据
 export async function generateMetadata({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const locale = await getLocale();
+  const { slug, locale } = await params;
   const post = getPostBySlug(slug);
   const t = await getTranslations('blog');
   

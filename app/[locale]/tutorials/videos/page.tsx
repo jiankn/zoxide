@@ -4,10 +4,10 @@ import { Play } from 'lucide-react';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const tSeo = await getTranslations('seo');
   const tTutorials = await getTranslations('tutorials');
-  const locale = await getLocale();
   return generateMultilingualMetadata(
     locale,
     '/tutorials/videos',
