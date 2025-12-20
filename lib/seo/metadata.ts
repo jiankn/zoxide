@@ -22,12 +22,19 @@ export function generateMultilingualMetadata(
     [key: string]: any;
   }
 ): Metadata {
+  // 验证 locale 是否有效
+  if (!locale || !routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    // 如果 locale 无效，使用默认语言
+    locale = routing.defaultLocale;
+  }
+  
   // 处理路径：首页为空字符串，其他页面以 / 开头
   // 如果 path 是空字符串，normalizedPath 也应该是空字符串
   // 如果 path 不是空字符串且不以 / 开头，则添加 /
   const normalizedPath = path === '' ? '' : (path.startsWith('/') ? path : `/${path}`);
   
-  // 生成 canonical：指向当前语言版本，避免各语言都指向同一个 canonical 造成提示
+  // 生成 canonical：指向当前语言版本，确保每个页面的 canonical 指向自己
+  // 这是 SEO 最佳实践：每个页面的 canonical URL 应该指向自己，而不是其他语言版本
   const canonicalUrl = normalizedPath === ''
     ? `${baseUrl}/${locale}/`
     : `${baseUrl}/${locale}${normalizedPath}`;
