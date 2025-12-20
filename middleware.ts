@@ -23,7 +23,14 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
-  // 3. 阻止代码示例中的路径被访问（返回 404）
+  // 3. 根路径重定向到默认语言（301 永久重定向，SEO 友好）
+  // 确保根路径返回 HTML 重定向而不是纯文本，这对 SEO 很重要
+  if (pathname === '/') {
+    url.pathname = `/${routing.defaultLocale}/`;
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
+  // 4. 阻止代码示例中的路径被访问（返回 404）
   // 这些路径通常出现在代码示例中，不应该被当作真实 URL
   // 匹配模式：
   // - /home/user/... (代码示例中的用户目录)
@@ -50,9 +57,8 @@ export default function middleware(request: NextRequest) {
     return new NextResponse(null, { status: 404 });
   }
 
-  // 4. 处理国际化路由（next-intl）
-  // 注意：暂时移除了语言首页末尾斜杠规范化重定向，以避免与 next-intl 的重定向逻辑冲突
-  // next-intl 会自动处理根路径到语言路径的重定向
+  // 5. 处理国际化路由（next-intl）
+  // 注意：根路径已经在上面处理，这里只处理其他路径
   return createMiddleware({
     ...routing,
     localeDetection: true,
