@@ -33,7 +33,10 @@
     "copy": "复制",
     "copyLink": "复制链接",
     "linkCopied": "已复制",
-    "copyFailed": "复制失败"
+    "copyFailed": "复制失败",
+    "notFound": "页面未找到",
+    "notFoundDescription": "您访问的页面不存在或已被移动。",
+    "backToBlog": "返回博客"
   },
   "home": {
     "title": "zoxide - 更智能的 cd 命令",

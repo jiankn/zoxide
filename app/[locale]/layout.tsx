@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
 import CookieBanner from "@/components/CookieBanner/CookieBanner";
+import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
 import { generateOrganizationSchema } from "@/lib/seo/schema";
 
 export function generateStaticParams() {
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
           <main className="min-h-screen">{children}</main>
           <Footer />
           <CookieBanner />
+          <GoogleAnalytics />
         </Providers>
       </NextIntlClientProvider>
     </>

@@ -33,7 +33,10 @@
     "copy": "Copy",
     "copyLink": "Copy Link",
     "linkCopied": "Copied",
-    "copyFailed": "Copy failed"
+    "copyFailed": "Copy failed",
+    "notFound": "Page Not Found",
+    "notFoundDescription": "The page you are looking for does not exist or has been moved.",
+    "backToBlog": "Back to Blog"
   },
   "home": {
     "title": "zoxide - A smarter cd command",

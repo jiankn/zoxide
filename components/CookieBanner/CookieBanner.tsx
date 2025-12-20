@@ -55,6 +55,8 @@ export default function CookieBanner() {
     window.localStorage.setItem('cookie-consent', 'accepted');
     window.localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
     setIsVisible(false);
+    // 触发自定义事件，通知 GoogleAnalytics 组件更新
+    window.dispatchEvent(new Event('cookieConsentChanged'));
   };
 
   const handleAcceptAll = () => {
