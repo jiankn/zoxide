@@ -23,14 +23,7 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
-  // 3. 语言首页末尾斜杠规范化（301 永久重定向）
-  // 将 /zh 重定向到 /zh/，确保与 canonical URL 一致
-  const localeMatch = pathname.match(/^\/(zh|en)$/);
-  if (localeMatch) {
-    // 如果路径正好是 /zh 或 /en（无末尾斜杠），重定向到带斜杠的版本
-    url.pathname = `/${localeMatch[1]}/`;
-    return NextResponse.redirect(url, { status: 301 });
-  }
+
 
   // 3. 根路径重定向到默认语言（301 永久重定向，SEO 友好）
   // 确保根路径返回 HTTP 301 重定向而不是 HTML meta refresh
@@ -59,7 +52,7 @@ export default function middleware(request: NextRequest) {
     /^\/node_modules(\/|$)/, // /node_modules 或 /node_modules/...
     /^\/\.git(\/|$)/,      // /.git 或 /.git/...
   ];
-  
+
   // 检查路径是否匹配代码示例模式
   const isCodeExamplePath = codeExamplePatterns.some(pattern => pattern.test(pathname));
 
@@ -76,7 +69,7 @@ export default function middleware(request: NextRequest) {
     localeDetection: true,
     localePrefix: 'always',
   });
-  
+
   // 执行 next-intl 中间件
   return intlMiddleware(request);
 }
