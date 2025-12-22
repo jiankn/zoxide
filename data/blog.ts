@@ -2,6 +2,8 @@
 export interface BlogPost {
   id: string;
   slug: string;
+  // 可选：限定文章展示的语言（不填则在所有语言显示）
+  locales?: ('zh' | 'en')[];
   title: string;
   excerpt: string;
   content: string; // Markdown 格式
@@ -14,6 +16,175 @@ export interface BlogPost {
 
 // 博客文章数据
 export const blogPosts: BlogPost[] = [
+  {
+    id: '15',
+    slug: 'zoxide-linux-en',
+    locales: ['en'],
+    title: 'zoxide linux: Fast Directory Jumps on Linux',
+    excerpt:
+      'A practical “zoxide linux” guide: installation on Ubuntu/Arch, shell init, fzf integration, and troubleshooting so your Linux terminal navigation stays fast.',
+    content: `# zoxide linux: Fast Directory Jumps on Linux
+
+This article is the English companion to the Chinese version \`zoxide-linux-zh\`. It targets the keyword **zoxide linux** and walks through install, shell init, fzf integration, and common fixes on popular distributions.
+
+## Why zoxide on Linux
+
+- Smarter than \`cd\` with frecency-based jumps
+- Works with Bash, Zsh, Fish, and PowerShell on WSL
+- Tiny footprint; written in Rust
+
+## Install zoxide on Linux
+
+### Ubuntu / Debian
+\`\`\`bash
+sudo apt update
+sudo apt install zoxide
+\`\`\`
+
+### Arch / Manjaro
+\`\`\`bash
+sudo pacman -S zoxide
+\`\`\`
+
+### Fedora
+\`\`\`bash
+sudo dnf install zoxide
+\`\`\`
+
+### Cargo (all distros)
+\`\`\`bash
+cargo install zoxide
+\`\`\`
+
+## Initialize zoxide in your shell
+
+- Bash: \`eval "$(zoxide init bash)"\`
+- Zsh: \`eval "$(zoxide init zsh)"\`
+- Fish: \`zoxide init fish | source\`
+
+For faster workflows, alias \`cd\` to zoxide:
+\`\`\`bash
+eval "$(zoxide init zsh --cmd cd)"
+\`\`\`
+
+## fzf integration for linux
+
+Interactive selection with fzf:
+\`\`\`bash
+zi() {
+  local dir
+  dir=$(zoxide query -l | fzf) && z "$dir"
+}
+\`\`\`
+
+## Troubleshooting “zoxide linux”
+
+- **command not found**: ensure \`~/.local/bin\` or \`/usr/local/bin\` is in PATH
+- **no match found**: use \`zoxide add <path>\` or visit directories more often
+- **slow shell startup**: place init near the end of your rc file or lazy-load
+
+## Best practices
+
+- Exclude large dirs to keep the database lean:
+\`\`\`bash
+export _ZO_EXCLUDE_DIRS="/tmp:/var:/proc:/sys:/node_modules"
+\`\`\`
+- Backup the database on NixOS/Arch:
+\`\`\`bash
+cp ~/.local/share/zoxide/db.zo ~/backups/db.zo
+\`\`\`
+
+With these steps, your **zoxide linux** setup will deliver instant jumps, predictable results, and reliable fzf workflows across distributions.`,
+    date: '2025-12-22',
+    author: 'zoxide.org',
+    category: '教程',
+    tags: ['zoxide linux', 'linux', 'installation', 'fzf', 'troubleshooting'],
+    readTime: 8,
+  },
+  {
+    id: '14',
+    slug: 'zoxide-linux-zh',
+    locales: ['zh'],
+    title: 'zoxide linux 安装与使用全攻略',
+    excerpt:
+      '面向关键词 “zoxide linux”：覆盖 Ubuntu/Arch 安装、Shell 初始化、fzf 集成、常见错误修复，让你的 Linux 终端跳转更快。',
+    content: `# zoxide linux 安装与使用全攻略
+
+这是一篇针对关键词 **zoxide linux** 的中文教程，涵盖安装、初始化、fzf 集成与常见问题排查，对应的英文版为 \`zoxide-linux-en\`。
+
+## 为什么在 Linux 上用 zoxide
+
+- 比 \`cd\` 更智能的模糊跳转（基于频率+时间的 frecency）
+- 兼容 Bash、Zsh、Fish 以及 WSL 的 PowerShell
+- Rust 编写，启动与查询都很快
+
+## 在 Linux 上安装 zoxide
+
+### Ubuntu / Debian
+\`\`\`bash
+sudo apt update
+sudo apt install zoxide
+\`\`\`
+
+### Arch / Manjaro
+\`\`\`bash
+sudo pacman -S zoxide
+\`\`\`
+
+### Fedora
+\`\`\`bash
+sudo dnf install zoxide
+\`\`\`
+
+### Cargo（所有发行版通用）
+\`\`\`bash
+cargo install zoxide
+\`\`\`
+
+## 初始化 zoxide（Shell 配置）
+
+- Bash：\`eval "$(zoxide init bash)"\`
+- Zsh：\`eval "$(zoxide init zsh)"\`
+- Fish：\`zoxide init fish | source\`
+
+想直接用 \`cd\` 享受 zoxide 的模糊跳转，可以：
+\`\`\`bash
+eval "$(zoxide init zsh --cmd cd)"
+\`\`\`
+
+## fzf 集成（交互式选择）
+
+\`\`\`bash
+zi() {
+  local dir
+  dir=$(zoxide query -l | fzf) && z "$dir"
+}
+\`\`\`
+
+## 常见问题排查（zoxide linux）
+
+- **command not found**：确认 \`~/.local/bin\` 或 \`/usr/local/bin\` 已加入 PATH
+- **no match found**：用 \`zoxide add <路径>\` 手动加入，或多访问该目录
+- **启动变慢**：把 init 放到 rc 文件靠后位置，或采用 lazy-load
+
+## 最佳实践
+
+- 排除超大目录，避免数据库膨胀：
+\`\`\`bash
+export _ZO_EXCLUDE_DIRS="/tmp:/var:/proc:/sys:/node_modules"
+\`\`\`
+- 在 NixOS/Arch 备份数据库，防止重装丢失：
+\`\`\`bash
+cp ~/.local/share/zoxide/db.zo ~/backups/db.zo
+\`\`\`
+
+按上述步骤完成后，你的 **zoxide linux** 环境将获得更快的目录跳转、更稳定的 fzf 体验。`,
+    date: '2025-12-22',
+    author: 'zoxide.org',
+    category: '教程',
+    tags: ['zoxide linux', 'linux', '安装', 'fzf', '故障排除'],
+    readTime: 9,
+  },
   {
     id: '1',
     slug: 'quick-start',
@@ -1167,6 +1338,11 @@ export function getRelatedPosts(currentPost: BlogPost, limit: number = 3): BlogP
     .filter((post) => {
       // 排除当前文章
       if (post.id === currentPost.id) return false;
+
+      // 如果当前文章限定了语言，只推荐同语言的文章
+      if (currentPost.locales && !currentPost.locales.some((loc) => post.locales?.includes(loc))) {
+        return false;
+      }
       
       // 优先匹配相同分类
       if (post.category === currentPost.category) return true;

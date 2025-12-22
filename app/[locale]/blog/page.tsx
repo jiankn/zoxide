@@ -24,6 +24,7 @@ export default async function BlogPage() {
   const locale = await getLocale();
   const t = await getTranslations('blog');
   const blogPosts = getAllPosts()
+    .filter((post) => !post.locales || post.locales.includes(locale as 'zh' | 'en'))
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 

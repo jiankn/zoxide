@@ -40,6 +40,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
   const post = getPostBySlug(slug);
+  
+  // 如果文章限定了语言且不包含当前 locale，返回 404 元数据
+  if (post && post.locales && !post.locales.includes(locale as 'zh' | 'en')) {
+    return {
+      title: locale === 'zh' ? '文章未找到' : 'Post Not Found',
+    };
+  }
   const t = await getTranslations('blog');
   
   if (!post) {
@@ -114,7 +121,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getPostBySlug(slug);
   const t = await getTranslations('blog.detail');
 
-  if (!post) {
+  if (!post || (post.locales && !post.locales.includes(locale as 'zh' | 'en'))) {
     notFound();
   }
 
