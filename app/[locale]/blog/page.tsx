@@ -45,7 +45,14 @@ export default async function BlogPage() {
 
           <div className="flex flex-col gap-0 border border-[#E9E9E7] rounded-md overflow-hidden">
             {blogPosts.map((post, index) => {
-              const tData = t.raw(`data.${post.slug}`);
+              // 防御：当翻译中缺少对应 slug 时不抛错
+              const tData = (() => {
+                try {
+                  return t.raw(`data.${post.slug}`);
+                } catch {
+                  return undefined;
+                }
+              })();
               // 分类翻译
               const categoryMap: Record<string, string> = {
                 '教程': locale === 'zh' ? '教程' : 'Tutorial',

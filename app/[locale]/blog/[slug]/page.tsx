@@ -126,7 +126,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const tBlog = await getTranslations('blog');
-  const tData = tBlog.raw(`data.${slug}`) || {};
+  const tData = (() => {
+    try {
+      return tBlog.raw(`data.${slug}`);
+    } catch {
+      return {};
+    }
+  })();
   const relatedPosts = getRelatedPosts(post, 3);
   
   // 获取翻译后的数据
