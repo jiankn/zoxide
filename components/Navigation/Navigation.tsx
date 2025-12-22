@@ -42,8 +42,44 @@ export default function Navigation() {
     { href: '/comparisons', label: t('comparisons') },
   ];
 
-  const switchLocale = (newLocale: string) => {
-    router.replace(pathname || '/', { locale: newLocale });
+  const switchLocale = async (newLocale: string) => {
+    const currentPath = pathname || '/';
+
+    // 检查是否在博客或教程文章详情页
+    // 注意：pathname 可能带有尾部斜杠，正则需要适配
+    const blogMatch = currentPath.match(/^\/blog\/([^\/]+)\/?$/);
+    const tutorialMatch = currentPath.match(/^\/tutorials\/([^\/]+)\/?$/);
+
+    if (blogMatch) {
+      const slug = blogMatch[1];
+      try {
+        const res = await fetch(`/api/alternate-slug?slug=${slug}&locale=${newLocale}`);
+        const data = await res.json();
+        if (data.alternateSlug && data.alternateSlug !== slug) {
+          // 有配对文章，跳转到配对的 slug
+          router.replace(`/blog/${data.alternateSlug}`, { locale: newLocale });
+          return;
+        } else if (data.alternateSlug === null) {
+          // 无配对文章，跳转到博客列表页
+          router.replace('/blog', { locale: newLocale });
+          return;
+        }
+        // alternateSlug === slug，表示该文章在目标语言可用，正常切换
+      } catch {
+        // 出错时跳转到博客列表页
+        router.replace('/blog', { locale: newLocale });
+        return;
+      }
+    }
+
+    if (tutorialMatch) {
+      // 教程页暂时没有配对机制，直接切换可能 404
+      // 如果将来需要，可复用同样的逻辑
+      // 目前保持原有行为
+    }
+
+    // 其他页面正常切换
+    router.replace(currentPath, { locale: newLocale });
   };
 
   const isActive = (href: string) => {
@@ -75,19 +111,17 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative inline-flex items-center px-1 text-sm font-medium transition-colors ${
-                  isActive(item.href)
-                    ? 'text-blue-600'
-                    : 'text-gray-700 hover:text-blue-600'
-                }`}
+                className={`group relative inline-flex items-center px-1 text-sm font-medium transition-colors ${isActive(item.href)
+                  ? 'text-blue-600'
+                  : 'text-gray-700 hover:text-blue-600'
+                  }`}
               >
                 <span>{item.label}</span>
                 <span
-                  className={`pointer-events-none absolute left-0 right-0 bottom-0 h-0.5 origin-left bg-blue-600 transition-all duration-300 ${
-                    isActive(item.href)
-                      ? 'opacity-100 scale-x-100'
-                      : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
-                  }`}
+                  className={`pointer-events-none absolute left-0 right-0 bottom-0 h-0.5 origin-left bg-blue-600 transition-all duration-300 ${isActive(item.href)
+                    ? 'opacity-100 scale-x-100'
+                    : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
+                    }`}
                   style={{ transformOrigin: 'left' }}
                 />
               </Link>
@@ -131,9 +165,8 @@ export default function Navigation() {
                           switchLocale(loc);
                           setLangMenuOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${
-                          locale === loc ? 'bg-blue-50 font-semibold' : ''
-                        }`}
+                        className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
+                          }`}
                       >
                         {loc === 'zh' ? '中文' : 'English'}
                       </button>
@@ -196,9 +229,8 @@ export default function Navigation() {
                           setLangMenuOpen(false);
                           setIsOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${
-                          locale === loc ? 'bg-blue-50 font-semibold' : ''
-                        }`}
+                        className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
+                          }`}
                       >
                         {loc === 'zh' ? '中文' : 'English'}
                       </button>
@@ -215,19 +247,17 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`group relative block px-4 py-2 text-sm font-medium transition-colors ${
-                    isActive(item.href)
-                      ? 'text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
+                  className={`group relative block px-4 py-2 text-sm font-medium transition-colors ${isActive(item.href)
+                    ? 'text-blue-600'
+                    : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                 >
                   <span>{item.label}</span>
                   <span
-                    className={`pointer-events-none absolute left-4 right-4 bottom-1 h-0.5 origin-left bg-blue-600 transition-all duration-300 ${
-                      isActive(item.href)
-                        ? 'opacity-100 scale-x-100'
-                        : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
-                    }`}
+                    className={`pointer-events-none absolute left-4 right-4 bottom-1 h-0.5 origin-left bg-blue-600 transition-all duration-300 ${isActive(item.href)
+                      ? 'opacity-100 scale-x-100'
+                      : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
+                      }`}
                     style={{ transformOrigin: 'left' }}
                   />
                 </Link>
