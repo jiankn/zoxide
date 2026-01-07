@@ -7,11 +7,10 @@ const GA_MEASUREMENT_ID = 'G-417HF3TV3L';
 
 export default function GoogleAnalytics() {
   const [hasConsent, setHasConsent] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+
 
   useEffect(() => {
-    setIsMounted(true);
-    
+
     // 检查 cookie 同意状态
     const checkConsent = () => {
       try {
@@ -31,7 +30,7 @@ export default function GoogleAnalytics() {
             return;
           }
         }
-        
+
         setHasConsent(false);
       } catch (error) {
         console.error('Error checking cookie consent:', error);
@@ -50,12 +49,12 @@ export default function GoogleAnalytics() {
     };
 
     window.addEventListener('storage', handleStorageChange);
-    
+
     // 监听自定义事件（同一窗口内的变化）
     const handleCustomEvent = () => {
       checkConsent();
     };
-    
+
     window.addEventListener('cookieConsentChanged', handleCustomEvent);
 
     return () => {
@@ -65,7 +64,7 @@ export default function GoogleAnalytics() {
   }, []);
 
   // 在客户端挂载前不渲染
-  if (!isMounted || !hasConsent) {
+  if (!hasConsent) {
     return null;
   }
 

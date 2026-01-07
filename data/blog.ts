@@ -1805,6 +1805,170 @@ Now, go edit that config file.`,
     tags: ['zoxide init', 'shell', 'configuration', 'bash', 'zsh', 'fish', 'powershell', 'nushell', 'setup'],
     readTime: 12,
   },
+  {
+    id: '16',
+    slug: 'zoxide-performance-en',
+    locales: ['en'],
+    alternateSlug: 'zoxide-performance-zh',
+    title: 'Why zoxide is Faster: A Deep Dive into the Rank Algorithm',
+    excerpt: 'Understanding the Frecent algorithm behind zoxide and how it predicts your next directory jump with high accuracy.',
+    content: `# Why zoxide is Faster: A Deep Dive into the Rank Algorithm
+    
+Have you ever wondered how \`z\` knows exactly where you want to go? It's not magic—it's **Frecency**.
+
+## Frequency + Recency = Frecency
+
+Zoxide uses a ranking algorithm that weighs two factors:
+1.  **Frequency**: How often you visit a directory.
+2.  **Recency**: How recently you visited it.
+
+By combining these, \`zoxide\` ensures that a directory you visited 100 times last year doesn't outrank a directory you visited 5 times today.
+
+## Best Practices for Performance
+
+To keep your database fast:
+-   **Exclude heavy directories** like node_modules. (See [Advanced Config](/en/tutorials/advanced-config/))
+-   **Use strict mode** if you want exact matches.
+
+Zoxide is built in **Rust** for blazing speed, ensuring that the lookup time is imperceptible even with a large database.`,
+    date: '2026-01-07',
+    author: 'zoxide.org',
+    category: 'Deep Dive',
+    tags: ['performance', 'algorithm', 'rust'],
+    readTime: 4,
+  },
+  {
+    id: '17',
+    slug: 'zoxide-performance-zh',
+    locales: ['zh'],
+    alternateSlug: 'zoxide-performance-en',
+    title: '为什么 zoxide 这么快：深入解析排名算法',
+    excerpt: '深入了解 zoxide 背后的"频率+最近使用"（Frecent）算法，以及它是如何精准预测你的下一次跳转的。',
+    content: `# 为什么 zoxide 这么快：深入解析排名算法
+    
+你有没有想过，为什么输入 \`z\` 就能准确跳到你想去的地方？这可不是魔法，而是 **Frecency（频率+时效）** 算法。
+
+## 频率 (Frequency) + 时效 (Recency)
+
+Zoxide 使用一套加权排名算法：
+1.  **频率**：你访问某个目录的次数。
+2.  **时效**：你最近一次访问它的时间。
+
+通过结合这两点，zoxide 确保了"如果一个目录你去年去了 100 次但最近没去"，它不会排在"今天去了 5 次"的活跃目录前面。
+
+## 性能优化最佳实践
+
+为了保持极速体验：
+-   **排除重型目录**：比如 node_modules。（参考 [高级配置](/zh/tutorials/advanced-config/)）
+-   **定期清理**：系统会自动处理，但你也可以手动管理数据库。
+
+Zoxide 使用 **Rust** 编写，确保即使在庞大的数据库中，查询时间也几乎可以忽略不计。`,
+    date: '2026-01-07',
+    author: 'zoxide.org',
+    category: '深度解析',
+    tags: ['性能', '算法', 'rust'],
+    readTime: 4,
+  },
+  {
+    id: '18',
+    slug: 'how-zoxide-works-en',
+    locales: ['en'],
+    alternateSlug: 'how-zoxide-works-zh',
+    title: 'How does zoxide change the directory? (The Internal Magic)',
+    excerpt: 'Deep dive into how zoxide interacts with your shell to change directories, despite being a separate binary process.',
+    content: `# How does zoxide change the directory?
+    
+If you've ever written a script in a language like Python or Rust, you might know a hard truth: **a child process cannot change the working directory of its parent process**.
+
+So, if \`zoxide\` is just a binary tool, how does typing \`z foo\` actually move your shell to another folder?
+
+## The Problem: Process Isolation
+
+When you run a command in your shell (like \`bash\` or \`zsh\`), that command runs in a new process.
+-   **Wrapper**: \`zoxide\` runs, finds the best match directory, and prints it.
+-   **Exit**: \`zoxide\` finishes and exits.
+-   **Result**: The parent shell stays exactly where it was.
+
+If \`zoxide\` tried to call \`chdir()\` internally, it would only change *its own* directory, not the shell's.
+
+## The Solution: Shell Integration
+
+This is why **initialization** is so critical. When you run \`eval "$(zoxide init <shell>)"\`, you aren't just configuring zoxide; you are defining a **shell function** (or alias) wrapper.
+
+Here is what logically happens when you type \`z foo\`:
+
+1.  **Capture**: The shell wrapper calls \`zoxide query foo\`.
+2.  **Output**: \`zoxide\` calculates the best match (e.g., \`/home/user/projects/foo\`) and prints it to standard output.
+3.  **Action**: The shell wrapper captures this string.
+4.  **Navigation**: The shell wrapper executes \`cd /home/user/projects/foo\`.
+
+Because the \`cd\` command is executed by the *shell wrapper* (which is part of the shell process), your working directory actually changes.
+
+## Why 'zoxide init' is Mandatory
+
+Many users install the binary and wonder why \`z\` doesn't work. Without the \`init\` line in your \`.bashrc\` or \`.zshrc\`, the \`z\` function doesn't exist, and the bridge between the tool and your shell is never built.
+
+To learn how to set this up correctly, check out our [Installation Guide](/en/tutorials/install-windows/).
+
+## Conclusion
+
+Zoxide relies on a clever handshake: the binary handles the brain (database, ranking, matching), and the shell function handles the body (moving the user). This separation allows zoxide to be incredibly fast and portable while still feeling native to your terminal.`,
+    date: '2026-01-08',
+    author: 'zoxide.org',
+    category: 'Deep Dive',
+    tags: ['shell', 'internals', 'bash', 'zsh'],
+    readTime: 5,
+  },
+  {
+    id: '19',
+    slug: 'how-zoxide-works-zh',
+    locales: ['zh'],
+    alternateSlug: 'how-zoxide-works-en',
+    title: 'zoxide 是如何切换目录的？（原理解析）',
+    excerpt: '深入解析 zoxide 作为独立二进制程序，是如何突破进程限制，控制你的 Shell 进行目录切换的。',
+    content: `# zoxide 是如何切换目录的？
+    
+如果你写过 Python 或 Rust 脚本，你可能知道一个铁律：**子进程无法改变父进程的工作目录**。
+
+那么，既然 \`zoxide\` 只是一个外部二进制工具，为什么输入 \`z foo\` 却能真的让你的终端跳转到别的文件夹呢？
+
+## 问题：进程隔离
+
+当你在 Shell（如 \`bash\` 或 \`zsh\`）中运行一个命令时，该命令是在一个新的子进程中运行的。
+-   **运行**：\`zoxide\` 启动，计算出最佳匹配目录，然后打印出来。
+-   **退出**：\`zoxide\` 任务结束，进程销毁。
+-   **结果**：父进程（Shell）依然停留在原地。
+
+如果 \`zoxide\` 在内部调用 \`chdir()\`，它只会改变*它自己*的当前目录，而不会影响你的 Shell。
+
+## 解决方案：Shell 集成
+
+这就是为什么 **初始化 (Initialization)** 如此重要。当你运行 \`eval "$(zoxide init <shell>)"\` 时，你不仅仅是在配置 zoxide，你实际上是在当前 Shell 中定义了一个 **函数 (Function)** 或别名。
+
+当你输入 \`z foo\` 时，后台发生的真实逻辑是这样的：
+
+1.  **捕获**：Shell 函数调用 \`zoxide query foo\`。
+2.  **输出**：\`zoxide\` 计算出最佳匹配（例如 \`/home/user/projects/foo\`）并将其打印到标准输出。
+3.  **行动**：Shell 函数捕获这个字符串。
+4.  **导航**：Shell 函数执行 \`cd /home/user/projects/foo\`。
+
+因为这个 \`cd\` 命令是由 *Shell 函数*（属于 Shell 进程本身）执行的，所以你的工作目录才真正发生了改变。
+
+## 为什么 'zoxide init' 必不可少
+
+很多用户安装完二进制文件后，疑惑为什么 \`z\` 没反应。原因就是没有在 \`.bashrc\` 或 \`.zshrc\` 中添加 \`init\` 命令行，导致那个能够"桥接"工具与 Shell 的 \`z\` 函数根本不存在。
+
+如果需要了解正确的配置方法，请查看我们的 [安装指南](/zh/tutorials/install-windows/)。
+
+## 总结
+
+Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（数据库、排名、匹配），而 Shell 函数负责"身体"（移动用户）。这种分离设计使得 zoxide 既能保持极高的性能和移植性，又能像原生命令一样无缝融入你的终端体验。`,
+    date: '2026-01-08',
+    author: 'zoxide.org',
+    category: '深度解析',
+    tags: ['shell', '原理解析', 'bash', 'zsh'],
+    readTime: 5,
+  }
 ];
 
 // 根据 slug 获取文章

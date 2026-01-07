@@ -12,6 +12,7 @@ export default function DisclaimerBanner() {
     // 只在客户端检查localStorage，避免hydration错误
     if (typeof window !== 'undefined') {
       const dismissed = window.localStorage.getItem('disclaimer-dismissed');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsVisible(!dismissed);
     }
   }, []);

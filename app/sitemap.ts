@@ -29,10 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 为每个语言生成静态页面
   staticRoutes.forEach((route) => {
     locales.forEach((locale) => {
-      // 确保 URL 格式一致：首页添加末尾斜杠，其他路径保持原样
+      // 确保 URL 格式一致：所有路径都必须以斜杠结尾
+      // next.config.ts 中配置了 trailingSlash: true
       const url = route.path === ''
         ? `${baseUrl}/${locale}/`
-        : `${baseUrl}/${locale}${route.path}`;
+        : `${baseUrl}/${locale}${route.path}/`;
       
       staticPages.push({
         url,
@@ -49,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   blogPosts.forEach((post) => {
     locales.forEach((locale) => {
       blogPages.push({
-        url: `${baseUrl}/${locale}/blog/${post.slug}`,
+        url: `${baseUrl}/${locale}/blog/${post.slug}/`,
         lastModified: post.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
@@ -63,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   tutorials.forEach((tutorial) => {
     locales.forEach((locale) => {
       tutorialPages.push({
-        url: `${baseUrl}/${locale}/tutorials/${tutorial.slug}`,
+        url: `${baseUrl}/${locale}/tutorials/${tutorial.slug}/`,
         lastModified: tutorial.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,

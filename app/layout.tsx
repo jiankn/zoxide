@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://zoxide.org'),
   title: "zoxide - 更智能的 cd 命令 | 让目录导航快 10 倍",
   description: "zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。",
   keywords: "zoxide, smart cd command, cd alternative, how to use zoxide, zoxide quick start",

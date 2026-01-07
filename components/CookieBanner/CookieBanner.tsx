@@ -25,17 +25,16 @@ export default function CookieBanner() {
   const [cookiePreferences, setCookiePreferences] = useState<CookiePreferences>(defaultPreferences);
   const [showSettings, setShowSettings] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   // 只在客户端挂载后检查 localStorage，避免 hydration 错误
   useEffect(() => {
-    setIsMounted(true);
-    
+
     // 获取存储的偏好设置
     const savedPreferences = window.localStorage.getItem('cookie-preferences');
     if (savedPreferences) {
       try {
         const parsed = JSON.parse(savedPreferences) as Partial<CookiePreferences>;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCookiePreferences({
           ...defaultPreferences,
           ...parsed,
@@ -91,7 +90,7 @@ export default function CookieBanner() {
   };
 
   // 在客户端挂载前不渲染任何内容，避免 hydration 错误
-  if (!isMounted || !isVisible) {
+  if (!isVisible) {
     return null;
   }
 
@@ -117,19 +116,19 @@ export default function CookieBanner() {
               </div>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
-                <button
-                  onClick={handleManage}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
-                >
-                  <Settings className="h-4 w-4 inline mr-2" />
-                  {tCommon('manage')}
-                </button>
-                <button
-                  onClick={handleAcceptAll}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  {tCommon('accept')}
-                </button>
+              <button
+                onClick={handleManage}
+                className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
+              >
+                <Settings className="h-4 w-4 inline mr-2" />
+                {tCommon('manage')}
+              </button>
+              <button
+                onClick={handleAcceptAll}
+                className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                {tCommon('accept')}
+              </button>
             </div>
           </div>
         ) : (
@@ -206,18 +205,18 @@ export default function CookieBanner() {
             </div>
 
             <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
-                <button
-                  onClick={handleAcceptAll}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
-                >
-                  {tCommon('acceptAll')}
-                </button>
-                <button
-                  onClick={handleAcceptSelected}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  {tCommon('savePreferences')}
-                </button>
+              <button
+                onClick={handleAcceptAll}
+                className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
+              >
+                {tCommon('acceptAll')}
+              </button>
+              <button
+                onClick={handleAcceptSelected}
+                className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                {tCommon('savePreferences')}
+              </button>
             </div>
           </div>
         )}
