@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations('seo');
   const tBlog = await getTranslations('blog');
-  
+
   return generateMultilingualMetadata(
     locale,
     '/blog',
@@ -24,7 +24,7 @@ export default async function BlogPage() {
   const locale = await getLocale();
   const t = await getTranslations('blog');
   const blogPosts = getAllPosts()
-    .filter((post) => !post.locales || post.locales.includes(locale as 'zh' | 'en'))
+    .filter((post) => !post.locales || post.locales.includes(locale as 'zh' | 'en' | 'ja'))
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -53,21 +53,20 @@ export default async function BlogPage() {
                   return undefined;
                 }
               })();
-              // 分类翻译
-              const categoryMap: Record<string, string> = {
-                '教程': locale === 'zh' ? '教程' : 'Tutorial',
-                '对比': locale === 'zh' ? '对比' : 'Comparison',
-                '技巧': locale === 'zh' ? '技巧' : 'Tips',
-                '故障排除': locale === 'zh' ? '故障排除' : 'Troubleshooting',
+              // 分类翻译映射表
+              const categoryTranslations: Record<string, Record<string, string>> = {
+                '教程': { zh: '教程', en: 'Tutorial', ja: 'チュートリアル' },
+                '对比': { zh: '对比', en: 'Comparison', ja: '比較' },
+                '技巧': { zh: '技巧', en: 'Tips', ja: 'ヒント' },
+                '故障排除': { zh: '故障排除', en: 'Troubleshooting', ja: 'トラブルシューティング' },
               };
-              const category = tData?.category || categoryMap[post.category] || post.category;
+              const category = tData?.category || categoryTranslations[post.category]?.[locale] || post.category;
               return (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] ${
-                    index !== blogPosts.length - 1 ? 'border-b border-[#E9E9E7] ' : ''
-                  }`}
+                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] ${index !== blogPosts.length - 1 ? 'border-b border-[#E9E9E7] ' : ''
+                    }`}
                 >
                   <h2 className="font-serif text-xl font-bold text-[#37352F] mb-2">
                     {tData?.title || post.title}

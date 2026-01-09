@@ -1,6 +1,6 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import CodeBlock from '@/components/CodeBlock/CodeBlock';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -95,7 +95,7 @@ export default async function DownloadPage() {
                   <h3 className="font-serif font-bold text-lg text-[#37352F] mb-2">
                     {installer.platform}
                   </h3>
-                  <CodeBlock 
+                  <CodeBlock
                     code={installer.command}
                     language="bash"
                     showPrompt={true}
@@ -120,16 +120,16 @@ export default async function DownloadPage() {
             <div className="space-y-4">
               {shellConfigs.map((config, index) => {
                 // 根据 Shell 类型确定语言和提示符
-                const language = config.name === 'PowerShell' ? 'powershell' : 
-                               config.name === 'fish' ? 'fish' : 'bash';
+                const language = config.name === 'PowerShell' ? 'powershell' :
+                  config.name === 'fish' ? 'fish' : 'bash';
                 const prompt = config.name === 'PowerShell' ? 'PS C:\\>' : 'user@dev:~$';
-                
+
                 return (
                   <div key={index} className="space-y-2">
                     <h3 className="font-serif font-bold text-lg text-[#37352F] mb-2">
-                        {config.name}
+                      {config.name}
                     </h3>
-                    <CodeBlock 
+                    <CodeBlock
                       code={config.command}
                       language={language}
                       showPrompt={true}

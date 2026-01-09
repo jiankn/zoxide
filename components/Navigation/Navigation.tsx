@@ -8,6 +8,13 @@ import Search from '@/components/Search/Search';
 import { routing } from '@/i18n/routing';
 import Logo from '@/components/Logo/Logo';
 
+// 语言名称映射表
+const localeNames: Record<string, string> = {
+  zh: '中文',
+  en: 'English',
+  ja: '日本語',
+};
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
@@ -157,8 +164,8 @@ export default function Navigation() {
                 </button>
                 {langMenuOpen && (
                   <div className="absolute right-0 top-full mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                    {/* 反转语言列表，让英文显示在中文上面 */}
-                    {[...routing.locales].reverse().map((loc) => (
+                    {/* 语言排序：英文 -> 日文 -> 中文 */}
+                    {['en', 'ja', 'zh'].map((loc) => (
                       <button
                         key={loc}
                         onClick={() => {
@@ -168,7 +175,7 @@ export default function Navigation() {
                         className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
                           }`}
                       >
-                        {loc === 'zh' ? '中文' : 'English'}
+                        {localeNames[loc] || loc}
                       </button>
                     ))}
                   </div>
@@ -217,11 +224,12 @@ export default function Navigation() {
                   aria-label="切换语言"
                 >
                   <Globe className="mr-2 h-4 w-4" />
-                  <span>{locale === 'zh' ? '中文' : 'English'}</span>
+                  <span>{localeNames[locale] || locale}</span>
                 </button>
                 {langMenuOpen && (
                   <div className="absolute right-0 top-full mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                    {[...routing.locales].reverse().map((loc) => (
+                    {/* 语言排序：英文 -> 日文 -> 中文 */}
+                    {['en', 'ja', 'zh'].map((loc) => (
                       <button
                         key={loc}
                         onClick={() => {
@@ -232,7 +240,7 @@ export default function Navigation() {
                         className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
                           }`}
                       >
-                        {loc === 'zh' ? '中文' : 'English'}
+                        {localeNames[loc] || loc}
                       </button>
                     ))}
                   </div>

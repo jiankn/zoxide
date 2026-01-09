@@ -2,6 +2,7 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import { getTranslations, getLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
+import jaMessages from '@/messages/ja.json';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type VersionChange = {
@@ -39,7 +40,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function ChangelogPage() {
   const t = await getTranslations('changelog');
   const locale = await getLocale();
-  const messages: ChangelogMessages = locale === 'zh' ? zhMessages : enMessages;
+  const messagesMap: Record<string, ChangelogMessages> = { zh: zhMessages, en: enMessages, ja: jaMessages };
+  const messages: ChangelogMessages = messagesMap[locale] || enMessages;
   const versions = messages.changelog?.versions ?? [];
 
   return (

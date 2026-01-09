@@ -3,9 +3,9 @@ export interface BlogPost {
   id: string;
   slug: string;
   // 可选：限定文章展示的语言（不填则在所有语言显示）
-  locales?: ('zh' | 'en')[];
-  // 可选：配对的另一语言版本的 slug（用于语言切换）
-  alternateSlug?: string;
+  locales?: ('zh' | 'en' | 'ja')[];
+  // 可选：配对的其他语言版本的 slug（用于语言切换）
+  alternateSlugs?: Partial<Record<'en' | 'zh' | 'ja', string>>;
   title: string;
   excerpt: string;
   content: string; // Markdown 格式
@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
     id: '15',
     slug: 'zoxide-linux-en',
     locales: ['en'],
-    alternateSlug: 'zoxide-linux-zh',
+    alternateSlugs: { zh: 'zoxide-linux-zh', ja: 'zoxide-linux-ja' },
     title: 'zoxide linux: Fast Directory Jumps on Linux',
     excerpt:
       'A practical “zoxide linux” guide: installation on Ubuntu/Arch, shell init, fzf integration, and troubleshooting so your Linux terminal navigation stays fast.',
@@ -361,7 +361,7 @@ After that, it's all ergonomics: fzf for interactive picking, multi-keyword jump
     id: '14',
     slug: 'zoxide-linux-zh',
     locales: ['zh'],
-    alternateSlug: 'zoxide-linux-en',
+    alternateSlugs: { en: 'zoxide-linux-en', ja: 'zoxide-linux-ja' },
     title: 'zoxide linux 安装与使用全攻略',
     excerpt:
       '面向关键词 “zoxide linux”：覆盖 Ubuntu/Arch 安装、Shell 初始化、fzf 集成、常见错误修复，让你的 Linux 终端跳转更快。',
@@ -674,6 +674,208 @@ rm -rf "\${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
     category: '教程',
     tags: ['zoxide linux', 'linux', '安装', 'fzf', '故障排除'],
     readTime: 9,
+  },
+  {
+    id: '16',
+    slug: 'zoxide-linux-ja',
+    locales: ['ja'],
+    alternateSlugs: { en: 'zoxide-linux-en', zh: 'zoxide-linux-zh' },
+    title: 'zoxide linux：Linuxでの高速ディレクトリジャンプ',
+    excerpt:
+      'zoxide linuxの実践ガイド：Ubuntu/Archへのインストール、シェル初期化、fzf連携、トラブルシューティングでLinuxターミナルナビゲーションを高速化。',
+    content: `# zoxide Linux ガイド：インストール、初期化、使い方、ヒント、アンインストール
+
+**「zoxide linux」**を検索しているなら、ターミナルナビゲーションを高速化したいのでしょう。\`zoxide\`バイナリをインストールして\`z\`と入力したら、**「command not found」**が表示されたか、何も起きなかったかもしれません。これは正常です：バイナリのインストールは最初のステップに過ぎません。魔法は**シェル統合**から生まれ、\`zoxide init\`で行います。
+
+---
+
+## 1) zoxideとは何か？
+
+\`zoxide\`はスマートなディレクトリジャンパーです。ディレクトリに入るたびにそのパスを記録し、**頻度**と**最新性**に基づいてスコアを調整します。後で短いキーワードでジャンプできます：
+
+- 従来：\`cd ~/dev/projects/company/infra/terraform/modules\`
+- zoxide：\`z terraform\`（または\`z infra terraform\`）で直接ジャンプ
+
+---
+
+## 2) Linuxへのインストール
+
+### オプションA — パッケージマネージャーを使用（推奨）
+
+\`\`\`bash
+# Debian / Ubuntu
+sudo apt update && sudo apt install -y zoxide
+
+# Fedora / RHEL
+sudo dnf install -y zoxide
+
+# Arch / Manjaro
+sudo pacman -S zoxide
+\`\`\`
+
+確認：
+
+\`\`\`bash
+zoxide --version
+which zoxide
+\`\`\`
+
+### オプションB — Cargo経由でインストール
+
+\`\`\`bash
+cargo install zoxide --locked
+\`\`\`
+
+\`~/.cargo/bin\`がPATHに含まれていることを確認してください。
+
+---
+
+## 3) 重要なステップ：\`zoxide init\`（シェル統合）
+
+\`\`\`bash
+zoxide init <shell>
+\`\`\`
+
+このコマンドはシェルスクリプトを出力します。これを評価する必要があります。
+
+---
+
+## 4) シェル設定
+
+### Bash
+
+\`~/.bashrc\`に追加：
+
+\`\`\`bash
+eval "$(zoxide init bash)"
+\`\`\`
+
+### Zsh
+
+\`~/.zshrc\`に追加：
+
+\`\`\`zsh
+eval "$(zoxide init zsh)"
+\`\`\`
+
+### Fish
+
+\`~/.config/fish/config.fish\`に追加：
+
+\`\`\`fish
+zoxide init fish | source
+\`\`\`
+
+### PowerShell
+
+\`\`\`powershell
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+\`\`\`
+
+---
+
+## 5) 日常的な使い方
+
+\`\`\`bash
+z foo        # 「foo」に最もマッチするディレクトリにジャンプ
+z foo bar    # 複数キーワードでより正確にマッチ
+z ..         # 親ディレクトリに移動
+z -          # 前のディレクトリに戻る
+zi foo       # インタラクティブ選択（fzfが必要）
+\`\`\`
+
+### fzfのインストール（推奨）
+
+\`\`\`bash
+# Debian/Ubuntu
+sudo apt install -y fzf
+
+# Fedora
+sudo dnf install -y fzf
+
+# Arch
+sudo pacman -S fzf
+\`\`\`
+
+---
+
+## 6) 上級ヒント：zoxideで\`cd\`を置き換える
+
+\`\`\`zsh
+eval "$(zoxide init zsh --cmd cd)"
+\`\`\`
+
+これで\`cd\`がzoxideのスマートロジックを使用します。
+
+---
+
+## 7) データベースの場所
+
+Linuxでは、zoxideは通常XDG規約に従います：
+
+- \`$XDG_DATA_HOME/zoxide\`または
+- \`~/.local/share/zoxide\`
+
+---
+
+## 8) トラブルシューティング
+
+### 「command not found: z」
+
+- initラインが正しいファイル（\`.bashrc\`、\`.zshrc\`など）にあることを確認
+- シェルを再読み込み（\`source ~/.zshrc\`）
+- \`zoxide\`がPATHにあることを確認（\`which zoxide\`）
+
+### \`zi\`がインタラクティブでない
+
+\`fzf\`をインストールし、シェルを再起動してください。
+
+---
+
+## 9) アンインストール
+
+### ステップ1 — initラインを削除
+
+設定ファイルから追加したラインを削除します。
+
+### ステップ2 — パッケージを削除
+
+\`\`\`bash
+# apt
+sudo apt remove -y zoxide
+
+# dnf
+sudo dnf remove -y zoxide
+
+# pacman
+sudo pacman -R zoxide
+
+# cargo
+cargo uninstall zoxide
+\`\`\`
+
+### ステップ3 — データベースを削除（オプション）
+
+\`\`\`bash
+rm -rf "\${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
+\`\`\`
+
+---
+
+## まとめ
+
+**「zoxide linux」**の体験は2つの要点に帰着します：
+
+1) 動作するzoxideバイナリをインストールする
+2) **適切に初期化する**ことで、シェルがディレクトリの変更を記録し、\`z/zi\`コマンドを提供できるようにする
+
+その後は、すべてが快適です：fzfでインタラクティブピッキング、複数キーワードジャンプで精度向上、オプションで\`cd\`を置き換えて統一されたマッスルメモリー。ターミナルで一日中作業するなら、zoxideは5分未満でできる最高のROIアップグレードの1つです。
+`,
+    date: '2025-12-22',
+    author: 'zoxide.org',
+    category: 'チュートリアル',
+    tags: ['zoxide linux', 'linux', 'インストール', 'fzf', 'トラブルシューティング'],
+    readTime: 8,
   },
   {
     id: '1',
@@ -1809,7 +2011,7 @@ Now, go edit that config file.`,
     id: '16',
     slug: 'zoxide-performance-en',
     locales: ['en'],
-    alternateSlug: 'zoxide-performance-zh',
+    alternateSlugs: { zh: 'zoxide-performance-zh', ja: 'zoxide-performance-ja' },
     title: 'Why zoxide is Faster: A Deep Dive into the Rank Algorithm',
     excerpt: 'Understanding the Frecent algorithm behind zoxide and how it predicts your next directory jump with high accuracy.',
     content: `# Why zoxide is Faster: A Deep Dive into the Rank Algorithm
@@ -1841,7 +2043,7 @@ Zoxide is built in **Rust** for blazing speed, ensuring that the lookup time is 
     id: '17',
     slug: 'zoxide-performance-zh',
     locales: ['zh'],
-    alternateSlug: 'zoxide-performance-en',
+    alternateSlugs: { en: 'zoxide-performance-en', ja: 'zoxide-performance-ja' },
     title: '为什么 zoxide 这么快：深入解析排名算法',
     excerpt: '深入了解 zoxide 背后的"频率+最近使用"（Frecent）算法，以及它是如何精准预测你的下一次跳转的。',
     content: `# 为什么 zoxide 这么快：深入解析排名算法
@@ -1873,7 +2075,7 @@ Zoxide 使用 **Rust** 编写，确保即使在庞大的数据库中，查询时
     id: '18',
     slug: 'how-zoxide-works-en',
     locales: ['en'],
-    alternateSlug: 'how-zoxide-works-zh',
+    alternateSlugs: { zh: 'how-zoxide-works-zh', ja: 'how-zoxide-works-ja' },
     title: 'How does zoxide change the directory? (The Internal Magic)',
     excerpt: 'Deep dive into how zoxide interacts with your shell to change directories, despite being a separate binary process.',
     content: `# How does zoxide change the directory?
@@ -1923,7 +2125,7 @@ Zoxide relies on a clever handshake: the binary handles the brain (database, ran
     id: '19',
     slug: 'how-zoxide-works-zh',
     locales: ['zh'],
-    alternateSlug: 'how-zoxide-works-en',
+    alternateSlugs: { en: 'how-zoxide-works-en', ja: 'how-zoxide-works-ja' },
     title: 'zoxide 是如何切换目录的？（原理解析）',
     excerpt: '深入解析 zoxide 作为独立二进制程序，是如何突破进程限制，控制你的 Shell 进行目录切换的。',
     content: `# zoxide 是如何切换目录的？
@@ -1969,6 +2171,36 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
     tags: ['shell', '原理解析', 'bash', 'zsh'],
     readTime: 5,
   }
+  ,
+
+  {
+    id: '20',
+    slug: 'zoxide-performance-ja',
+    locales: ['ja'],
+    alternateSlugs: { en: 'zoxide-performance-en' },
+    title: 'zoxideが速い理由：ランクアルゴリズムの詳細解説',
+    excerpt: 'zoxideの背後にあるFrecentアルゴリズムを理解し、次のディレクトリジャンプを高精度で予測する仕組み。',
+    content: '',
+    date: '2026-01-07',
+    author: 'zoxide.org',
+    category: '詳細解説',
+    tags: ['zoxide', 'パフォーマンス', 'アルゴリズム', 'rust'],
+    readTime: 6,
+  },
+  {
+    id: '21',
+    slug: 'how-zoxide-works-ja',
+    locales: ['ja'],
+    alternateSlugs: { en: 'how-zoxide-works-en' },
+    title: 'zoxideはどうやってディレクトリを変更するのか？（内部の魔法）',
+    excerpt: '別のバイナリプロセスであるにもかかわらず、zoxideがシェルとどのように連携してディレクトリを変更するのかを深掘り。',
+    content: '',
+    date: '2026-01-08',
+    author: 'zoxide.org',
+    category: '詳細解説',
+    tags: ['zoxide', '内部', 'シェル', 'フック'],
+    readTime: 7,
+  }
 ];
 
 // 根据 slug 获取文章
@@ -1987,14 +2219,19 @@ export function getAllPosts(): BlogPost[] {
 }
 
 // 获取相关文章（基于分类和标签）
-export function getRelatedPosts(currentPost: BlogPost, limit: number = 3): BlogPost[] {
+export function getRelatedPosts(currentPost: BlogPost, limit: number = 3, targetLocale?: string): BlogPost[] {
   return blogPosts
     .filter((post) => {
       // 排除当前文章
       if (post.id === currentPost.id) return false;
 
-      // 如果当前文章限定了语言，只推荐同语言的文章
-      if (currentPost.locales && !currentPost.locales.some((loc) => post.locales?.includes(loc))) {
+      // 如果提供了目标语言，且文章限定了语言，必须包含目标语言
+      if (targetLocale && post.locales && !post.locales.includes(targetLocale as 'zh' | 'en' | 'ja')) {
+        return false;
+      }
+
+      // 如果当前文章限定了语言，只推荐同语言的文章（保留原有逻辑作为回退）
+      if (!targetLocale && currentPost.locales && !currentPost.locales.some((loc) => post.locales?.includes(loc))) {
         return false;
       }
 
@@ -2012,7 +2249,7 @@ export function getRelatedPosts(currentPost: BlogPost, limit: number = 3): BlogP
 // 如果目标语言已支持该文章，返回相同 slug
 // 如果有配对文章，返回配对的 slug
 // 否则返回 null（表示目标语言无对应文章）
-export function getAlternateSlug(slug: string, targetLocale: 'zh' | 'en'): string | null {
+export function getAlternateSlug(slug: string, targetLocale: 'zh' | 'en' | 'ja'): string | null {
   const post = getPostBySlug(slug);
   if (!post) return null;
 
@@ -2023,6 +2260,6 @@ export function getAlternateSlug(slug: string, targetLocale: 'zh' | 'en'): strin
   if (post.locales.includes(targetLocale)) return slug;
 
   // 返回配对的 slug（如果存在）
-  return post.alternateSlug || null;
+  return post.alternateSlugs?.[targetLocale] || null;
 }
 

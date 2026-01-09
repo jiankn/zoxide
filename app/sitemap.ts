@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 生成多语言静态页面
   const staticPages: MetadataRoute.Sitemap = [];
-  
+
   const staticRoutes = [
     { path: '', priority: 1, changeFrequency: 'weekly' as const },
     { path: '/features', priority: 0.9, changeFrequency: 'monthly' as const },
@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const url = route.path === ''
         ? `${baseUrl}/${locale}/`
         : `${baseUrl}/${locale}${route.path}/`;
-      
+
       staticPages.push({
         url,
         lastModified: currentDate,
@@ -44,11 +44,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  // 博客文章页面（多语言）
   const blogPosts = getAllPosts();
   const blogPages: MetadataRoute.Sitemap = [];
   blogPosts.forEach((post) => {
     locales.forEach((locale) => {
+      // 如果文章有限定语言，只生成对应语言的页面
+      if (post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja')) {
+        return;
+      }
+
       blogPages.push({
         url: `${baseUrl}/${locale}/blog/${post.slug}/`,
         lastModified: post.date,

@@ -31,7 +31,7 @@ interface BlogPostPageProps {
 export async function generateStaticParams() {
   const { getAllPosts } = await import('@/data/blog');
   const posts = getAllPosts();
-  
+
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -40,19 +40,21 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
   const post = getPostBySlug(slug);
-  
+
   // 如果文章限定了语言且不包含当前 locale，返回 404 元数据
-  if (post && post.locales && !post.locales.includes(locale as 'zh' | 'en')) {
+  if (post && post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja')) {
+    const notFoundTitles: Record<string, string> = { zh: '文章未找到', en: 'Post Not Found', ja: '記事が見つかりません' };
     return {
-      title: locale === 'zh' ? '文章未找到' : 'Post Not Found',
+      title: notFoundTitles[locale] || notFoundTitles.en,
     };
   }
   const t = await getTranslations('blog');
-  
+
   if (!post) {
     const tNotFound = await getTranslations('blog');
+    const notFoundTitles: Record<string, string> = { zh: '文章未找到', en: 'Post Not Found', ja: '記事が見つかりません' };
     return {
-      title: tNotFound('notFound') || (locale === 'zh' ? '文章未找到' : 'Post Not Found'),
+      title: tNotFound('notFound') || notFoundTitles[locale] || notFoundTitles.en,
     };
   }
 
@@ -61,12 +63,12 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const excerpt = tData?.excerpt || post.excerpt;
   const author = tData?.author || post.author;
   const tSeo = await getTranslations('seo');
-  
+
   // 使用 SEO 标题模板，替换 {title} 占位符
   const seoTitle = tSeo('titles.blogPost', { title });
-  
+
   // 优化 description：确保长度在 150-160 字符之间，包含关键词
-  const optimizedDescription = excerpt.length > 160 
+  const optimizedDescription = excerpt.length > 160
     ? excerpt.substring(0, 157) + '...'
     : excerpt;
 
@@ -74,7 +76,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   // canonical URL 由 generateMultilingualMetadata 自动生成，确保格式一致
   const canonicalUrl = `https://zoxide.org/${locale}/blog/${slug}`;
   const imageUrl = `https://zoxide.org/icon.svg`;
-  
+
   const metadata = generateMultilingualMetadata(
     locale,
     `/blog/${slug}`,
@@ -96,7 +98,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
             alt: title,
           },
         ],
-        locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+        locale: ({ zh: 'zh_CN', en: 'en_US', ja: 'ja_JP' } as Record<string, string>)[locale] || 'en_US',
         type: 'article',
         publishedTime: post.date,
         authors: [author],
@@ -121,7 +123,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getPostBySlug(slug);
   const t = await getTranslations('blog.detail');
 
-  if (!post || (post.locales && !post.locales.includes(locale as 'zh' | 'en'))) {
+  if (!post || (post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja'))) {
     notFound();
   }
 
@@ -133,26 +135,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       return {};
     }
   })();
-  const relatedPosts = getRelatedPosts(post, 3);
-  
+  const relatedPosts = getRelatedPosts(post, 3, locale);
+
   // 获取翻译后的数据
   const title = tData?.title || post.title;
   const excerpt = tData?.excerpt || post.excerpt;
   const content = tData?.content || post.content;
-  // 分类翻译：如果数据文件中的分类是中文，需要翻译
-  const categoryMap: Record<string, string> = {
-    '教程': locale === 'zh' ? '教程' : 'Tutorial',
-    '对比': locale === 'zh' ? '对比' : 'Comparison',
-    '技巧': locale === 'zh' ? '技巧' : 'Tips',
+  // 分类翻译映射表
+  const categoryTranslations: Record<string, Record<string, string>> = {
+    '教程': { zh: '教程', en: 'Tutorial', ja: 'チュートリアル' },
+    '对比': { zh: '对比', en: 'Comparison', ja: '比較' },
+    '技巧': { zh: '技巧', en: 'Tips', ja: 'ヒント' },
   };
-  const category = tData?.category || categoryMap[post.category] || post.category;
+  const category = tData?.category || categoryTranslations[post.category]?.[locale] || post.category;
   const author = tData?.author || post.author;
   // 标签翻译
   const tags = tData?.tags || post.tags;
 
   // 使用与 canonical URL 一致的格式
   const articleUrl = `https://zoxide.org/${locale}/blog/${post.slug}`;
-  
+
   // 生成文章结构化数据
   const articleSchema = generateArticleSchema(
     title,
@@ -166,7 +168,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // 如果是教程类文章，添加 HowTo Schema
   const isTutorial = post.category === '教程' || post.category === 'Tutorial';
   let howToSchema = null;
-  
+
   if (isTutorial && slug === 'zoxide-init-guide') {
     // 为 zoxide init 文章生成 HowTo Schema
     const { generateHowToSchema } = await import('@/lib/seo/schema');
@@ -223,13 +225,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {
                 '@type': 'ListItem',
                 position: 1,
-                name: locale === 'zh' ? '首页' : 'Home',
+                name: ({ zh: '首页', en: 'Home', ja: 'ホーム' } as Record<string, string>)[locale] || 'Home',
                 item: `https://zoxide.org/${locale}/`,
               },
               {
                 '@type': 'ListItem',
                 position: 2,
-                name: locale === 'zh' ? '博客' : 'Blog',
+                name: ({ zh: '博客', en: 'Blog', ja: 'ブログ' } as Record<string, string>)[locale] || 'Blog',
                 item: `https://zoxide.org/${locale}/blog`,
               },
               {
@@ -248,13 +250,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <ol className="flex items-center space-x-2">
             <li>
               <Link href="/" className="hover:text-blue-600 transition-colors">
-                {locale === 'zh' ? '首页' : 'Home'}
+                {({ zh: '首页', en: 'Home', ja: 'ホーム' } as Record<string, string>)[locale] || 'Home'}
               </Link>
             </li>
             <li className="text-gray-400">/</li>
             <li>
               <Link href="/blog" className="hover:text-blue-600 transition-colors">
-                {locale === 'zh' ? '博客' : 'Blog'}
+                {({ zh: '博客', en: 'Blog', ja: 'ブログ' } as Record<string, string>)[locale] || 'Blog'}
               </Link>
             </li>
             <li className="text-gray-400">/</li>
@@ -269,7 +271,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <h1 className="text-4xl font-bold text-gray-900 mb-4">
                 {title}
               </h1>
-              
+
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />

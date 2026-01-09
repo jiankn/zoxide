@@ -1,5 +1,5 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations, getMessages, getLocale } from 'next-intl/server';
+import { getTranslations, getMessages } from 'next-intl/server';
 import { generateFAQPageSchema } from '@/lib/seo/schema';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 

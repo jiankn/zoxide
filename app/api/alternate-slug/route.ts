@@ -7,7 +7,7 @@ import { getAlternateSlug } from '@/data/blog';
  * 
  * 参数：
  * - slug: 当前文章的 slug
- * - locale: 目标语言 (zh | en)
+ * - locale: 目标语言 (zh | en | ja)
  * - type: 内容类型（目前只支持 blog，未来可扩展）
  * 
  * 返回：
@@ -15,7 +15,7 @@ import { getAlternateSlug } from '@/data/blog';
  */
 export async function GET(request: NextRequest) {
     const slug = request.nextUrl.searchParams.get('slug');
-    const locale = request.nextUrl.searchParams.get('locale') as 'zh' | 'en' | null;
+    const locale = request.nextUrl.searchParams.get('locale') as 'zh' | 'en' | 'ja' | null;
 
     if (!slug || !locale) {
         return NextResponse.json(
@@ -24,12 +24,13 @@ export async function GET(request: NextRequest) {
         );
     }
 
-    if (!['zh', 'en'].includes(locale)) {
+    if (!['zh', 'en', 'ja'].includes(locale)) {
         return NextResponse.json(
-            { error: 'Invalid locale, must be zh or en' },
+            { error: 'Invalid locale, must be zh, en, or ja' },
             { status: 400 }
         );
     }
+
 
     const alternateSlug = getAlternateSlug(slug, locale);
 

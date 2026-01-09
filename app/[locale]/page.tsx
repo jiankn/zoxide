@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero/Hero';
 import { Link } from '@/i18n/routing';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import AdSlot from '@/components/AdSlot/AdSlotClient';
@@ -8,12 +8,12 @@ import AdSlot from '@/components/AdSlot/AdSlotClient';
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations('seo');
-  
+
   // 根据语言设置不同的描述（优化长度：155-160字符）
-  const description = locale === 'en' 
+  const description = locale === 'en'
     ? 'zoxide is a smarter cd command for instant directory navigation. Get installation guides for Ubuntu, macOS, Windows, and tutorials for fzf and Neovim integration.'
     : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
-  
+
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
   // 直接从 params 获取 locale，确保 canonical URL 与 URL 路径一致
   return generateMultilingualMetadata(

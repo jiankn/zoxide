@@ -45,6 +45,9 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   // 博客文章 - 从数据文件动态获取
   const posts = getAllPosts();
   for (const post of posts) {
+    if (post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja')) {
+      continue;
+    }
     const tData = messages.blog?.data?.[post.slug];
     results.push({
       type: 'blog',
@@ -126,13 +129,13 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
 // 获取所有语言的可搜索内容（跨语言搜索）
 async function getAllSearchData(): Promise<SearchResult[]> {
   const allResults: SearchResult[] = [];
-  
+
   // 遍历所有支持的语言
   for (const locale of routing.locales) {
     const localeResults = await getSearchDataForLocale(locale);
     allResults.push(...localeResults);
   }
-  
+
   return allResults;
 }
 
@@ -151,8 +154,8 @@ export async function GET(request: NextRequest) {
     }
 
     // 根据参数决定是否跨语言搜索
-    const searchData = allLocales 
-      ? await getAllSearchData() 
+    const searchData = allLocales
+      ? await getAllSearchData()
       : await getSearchDataForLocale(locale);
 
     return NextResponse.json({ data: searchData });

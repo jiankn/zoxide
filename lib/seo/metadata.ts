@@ -64,7 +64,9 @@ export function generateMultilingualMetadata(
 
   // 确保 additionalMetadata 中的 alternates 不会覆盖我们的设置
   // 根据 Chrome 开发者文档：使用 hreflang 时，canonical 必须指向该语言版本的自己
-  const { alternates: _, ...restMetadata } = additionalMetadata || {};
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  const { alternates, ...restMetadata } = additionalMetadata || {};
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   return {
     ...restMetadata,

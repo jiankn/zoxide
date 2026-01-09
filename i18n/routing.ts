@@ -3,9 +3,10 @@ import { createNavigation } from 'next-intl/navigation';
 
 export const routing = defineRouting({
   // 支持的语言列表
-  locales: ['zh', 'en'],
+  locales: ['zh', 'en', 'ja'],
 
-  // 默认语言：根据浏览器语言判断，中文显示中文，其他都显示英文
+  // 默认语言：让next-intl根据浏览器语言自动检测
+  // 如果检测失败，则使用英文作为fallback
   defaultLocale: 'en',
 
   // URL 前缀策略

@@ -22,7 +22,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Heiti SC", Arial, Helvetica, sans-serif;
   /* 禁止整页横向滚动，移动端更稳定 */
   overflow-x: hidden;
 }

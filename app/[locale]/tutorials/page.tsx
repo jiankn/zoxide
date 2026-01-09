@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations('seo');
   const tTutorials = await getTranslations('tutorials');
-  
+
   return generateMultilingualMetadata(
     locale,
     '/tutorials',
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function TutorialsPage() {
   const locale = await getLocale();
   const t = await getTranslations('tutorials');
-  
+
   // 根据语言获取分类映射（数据文件中的分类名是中文）
   const categoryMap: Record<string, string> = locale === 'zh' ? {
     'beginner': '入门教程',
@@ -100,7 +100,7 @@ export default async function TutorialsPage() {
             level: translation?.level || tutorial.level,
           };
         }),
-        { title: t('faqLink'), href: '/faq', duration: locale === 'zh' ? '阅读' : 'Read', level: t('detail.all') },
+        { title: t('faqLink'), href: '/faq', duration: ({ zh: '阅读', en: 'Read', ja: '読む' } as Record<string, string>)[locale] || 'Read', level: t('detail.all') },
       ],
     },
     {

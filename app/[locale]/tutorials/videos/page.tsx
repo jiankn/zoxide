@@ -1,7 +1,7 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
 import Link from 'next/link';
 import { Play } from 'lucide-react';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {

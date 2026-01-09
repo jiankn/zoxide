@@ -2,6 +2,7 @@ import AdSlot from '@/components/AdSlot/AdSlot';
 import { getTranslations, getLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
+import jaMessages from '@/messages/ja.json';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type ComparisonFeatureSet = Record<string, string>;
@@ -36,7 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function ComparisonsPage() {
   const t = await getTranslations('comparisons');
   const locale = await getLocale();
-  const messages: ComparisonMessages = locale === 'zh' ? zhMessages : enMessages;
+  const messagesMap: Record<string, ComparisonMessages> = { zh: zhMessages, en: enMessages, ja: jaMessages };
+  const messages: ComparisonMessages = messagesMap[locale] || enMessages;
   const comparisons = messages.comparisons?.items ?? [];
 
   return (

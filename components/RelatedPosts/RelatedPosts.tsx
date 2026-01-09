@@ -13,10 +13,11 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
   const tBlog = useTranslations('blog');
   const locale = useLocale();
 
-  const categoryMap: Record<string, string> = {
-    '教程': locale === 'zh' ? '教程' : 'Tutorial',
-    '对比': locale === 'zh' ? '对比' : 'Comparison',
-    '技巧': locale === 'zh' ? '技巧' : 'Tips',
+  // 分类翻译映射表
+  const categoryTranslations: Record<string, Record<string, string>> = {
+    '教程': { zh: '教程', en: 'Tutorial', ja: 'チュートリアル' },
+    '对比': { zh: '对比', en: 'Comparison', ja: '比較' },
+    '技巧': { zh: '技巧', en: 'Tips', ja: 'ヒント' },
   };
 
   const translatedPosts = posts.map((post) => {
@@ -31,7 +32,7 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
       ...post,
       title: translation?.title || post.title,
       excerpt: translation?.excerpt || post.excerpt,
-      category: translation?.category || categoryMap[post.category] || post.category,
+      category: translation?.category || categoryTranslations[post.category]?.[locale] || post.category,
     };
   });
 

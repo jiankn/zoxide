@@ -1,5 +1,5 @@
 import AdSlot from '@/components/AdSlot/AdSlot';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Zap, Search, Brain, Users, Settings, Rocket } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 

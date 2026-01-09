@@ -5,7 +5,7 @@ import { getTutorialBySlug, getAllTutorials } from '@/data/tutorials';
 import AdSlot from '@/components/AdSlot/AdSlot';
 import { createMarkdownComponents } from '@/components/Markdown/markdownComponents';
 import { Link } from '@/i18n/routing';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Calendar, Clock, BookOpen } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
@@ -39,7 +39,7 @@ const fetchTutorialTranslation = (
 
 export async function generateStaticParams() {
   const tutorials = getAllTutorials();
-  
+
   return tutorials.map((tutorial) => ({
     slug: tutorial.slug,
   }));
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: TutorialPageProps) {
   const { slug, locale } = await params;
   const tutorial = getTutorialBySlug(slug);
   const t = await getTranslations('tutorials');
-  
+
   if (!tutorial) {
     const tNotFound = await getTranslations('tutorials');
     return {
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: TutorialPageProps) {
   const title = tData?.title || tutorial.title;
   const excerpt = tData?.excerpt || tutorial.excerpt;
   const tSeo = await getTranslations('seo');
-  
+
   // 使用 SEO 标题模板，替换 {title} 占位符
   const seoTitle = tSeo('titles.tutorial', { title });
 
@@ -92,8 +92,8 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   const title = translation?.title || tutorial.title;
   const content = translation?.content || tutorial.content;
   // 分类需要从翻译文件中获取，如果数据文件中的分类是中文，需要映射
-  const categoryKey = tutorial.category === '入门教程' ? 'beginner' : 
-                     tutorial.category === '进阶技巧' ? 'advanced' : 'video';
+  const categoryKey = tutorial.category === '入门教程' ? 'beginner' :
+    tutorial.category === '进阶技巧' ? 'advanced' : 'video';
   const category = tTutorials(`categories.${categoryKey}`);
   const level = translation?.level || tutorial.level;
   const duration = translation?.duration || tutorial.duration;
@@ -114,7 +114,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               {title}
             </h1>
-            
+
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
