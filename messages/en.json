@@ -424,6 +424,42 @@
     },
     "notFound": "Post Not Found",
     "data": {
+      "what-is-zoxide-smarter-cd": {
+        "title": "What Is Zoxide? A Smarter cd Command That Learns Your Habits",
+        "excerpt": "Discover how zoxide replaces the traditional cd command with a smarter, learning-based navigation tool. Learn about frecency, installation, and how to jump directories instantly.",
+        "category": "Tutorial",
+        "author": "zoxide.org",
+        "tags": [
+          "zoxide",
+          "tutorial",
+          "cd replacement",
+          "productivity"
+        ]
+      },
+      "install-zoxide-mac-shell-integration-completion": {
+        "title": "Install Zoxide on macOS: Shell Integration & Autocomplete Guide",
+        "excerpt": "A complete guide to installing zoxide on macOS using Homebrew or Cargo. Learn how to set up shell integration for zsh, bash, and fish, and enable powerful autocomplete features.",
+        "category": "Installation",
+        "author": "zoxide.org",
+        "tags": [
+          "macos",
+          "installation",
+          "shell",
+          "autocomplete"
+        ]
+      },
+      "zoxide-alternatives-comparison-open-source": {
+        "title": "Zoxide Best Alternatives: Comparison with Autojump, z, and fasd",
+        "excerpt": "Compare zoxide with popular alternatives like autojump, z, and fasd. See why zoxide's Rust-based performance and smart algorithm make it the top choice for modern terminals.",
+        "category": "Comparison",
+        "author": "zoxide.org",
+        "tags": [
+          "alternatives",
+          "comparison",
+          "autojump",
+          "fasd"
+        ]
+      },
       "zoxide-alias-autocomplete": {
         "title": "Boosting Terminal Efficiency: A Deep Dive into Zoxide Aliases and Autocomplete",
         "excerpt": "Learn how to use zoxide aliases and autocomplete together with fzf on Arch, NixOS, and other platforms to build a fast, memory-based navigation workflow.",

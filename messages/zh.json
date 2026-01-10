@@ -428,6 +428,42 @@
     },
     "notFound": "文章未找到",
     "data": {
+      "zoxide-shi-shenme-z-mingling-tidai-cd": {
+        "title": "Zoxide 是什么？能够替代 cd 的智能命令",
+        "excerpt": "了解 Zoxide 如何通过学习你的使用习惯来替代传统的 cd 命令。探索 Frecency 算法、安装步骤以及如何实现目录间的瞬间跳转。",
+        "category": "教程",
+        "author": "zoxide.org",
+        "tags": [
+          "zoxide",
+          "教程",
+          "cd替代",
+          "生产力"
+        ]
+      },
+      "mac-anzhuang-zoxide-init-autocomplete": {
+        "title": "在 macOS 上安装 Zoxide：Shell 集成与自动补全指南",
+        "excerpt": "在 macOS 上使用 Homebrew 或 Cargo 安装 Zoxide 的完整指南。学习如何为 zsh、bash 和 fish 配置 Shell 集成，并启用强大的自动补全功能。",
+        "category": "安装指南",
+        "author": "zoxide.org",
+        "tags": [
+          "macos",
+          "安装",
+          "shell",
+          "自动补全"
+        ]
+      },
+      "zoxide-tidai-autojump-z-fasd-zlua": {
+        "title": "Zoxide 最佳替代方案：与 Autojump、z 和 fasd 的深度对比",
+        "excerpt": "将 Zoxide 与 Autojump、z 和 fasd 等流行替代方案进行对比。了解为什么 Zoxide 基于 Rust 的高性能和智能算法使其成为现代终端的首选。",
+        "category": "对比",
+        "author": "zoxide.org",
+        "tags": [
+          "替代方案",
+          "对比",
+          "autojump",
+          "fasd"
+        ]
+      },
       "zoxide-alias-autocomplete": {
         "title": "提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能",
         "excerpt": "通过 zoxide alias 和 autocomplete（自动补全）深度优化终端导航体验，结合 fzf、Arch 与 NixOS 配置，构建高效、可重复的工作流。",

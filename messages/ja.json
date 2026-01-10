@@ -424,6 +424,42 @@
     },
     "notFound": "記事が見つかりません",
     "data": {
+      "zoxide-toha-cd-no-kawari": {
+        "title": "Zoxideとは？ cdコマンドに代わるスマートな自動学習ツール",
+        "excerpt": "従来のcdコマンドを、よりスマートな学習ベースのナビゲーションツールであるZoxideに置き換える方法を紹介します。Frecency（頻度と最近の使用）、インストール方法、そしてディレクトリ間を瞬時にジャンプする方法について学びましょう。",
+        "category": "チュートリアル",
+        "author": "zoxide.org",
+        "tags": [
+          "zoxide",
+          "チュートリアル",
+          "cd代替",
+          "生産性"
+        ]
+      },
+      "mac-ni-zoxide-install-init-completion": {
+        "title": "macOSにZoxideをインストール：シェル統合とオートコンプリート完全ガイド",
+        "excerpt": "HomebrewまたはCargoを使用してmacOSにZoxideをインストールするための完全ガイド。zsh、bash、fishのシェル統合を設定し、強力なオートコンプリート機能を有効にする方法を解説します。",
+        "category": "インストールガイド",
+        "author": "zoxide.org",
+        "tags": [
+          "macos",
+          "インストール",
+          "シェル",
+          "オートコンプリート"
+        ]
+      },
+      "zoxide-daitai-autojump-z-fasd-zlua": {
+        "title": "Zoxideの最適な代替案：Autojump、z、fasdとの徹底比較",
+        "excerpt": "Zoxideを、autojump、z、fasdなどの人気のある代替ツールと比較します。なぜRustベースのパフォーマンスとスマートなアルゴリズムを持つZoxideが、現代のターミナルにとって最高の選択なのかを確認しましょう。",
+        "category": "比較",
+        "author": "zoxide.org",
+        "tags": [
+          "代替ツール",
+          "比較",
+          "autojump",
+          "fasd"
+        ]
+      },
       "zoxide-alias-autocomplete": {
         "title": "ターミナル効率向上：Zoxideエイリアスとオートコンプリートの詳細ガイド",
         "excerpt": "zoxideのエイリアスとオートコンプリートをfzfと組み合わせて、Arch、NixOSなどのプラットフォームで高速なメモリベースのナビゲーションワークフローを構築する方法を学びます。",
