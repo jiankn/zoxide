@@ -67,6 +67,7 @@ export function generateOrganizationSchema(): OrganizationSchema {
     '@type': 'Organization',
     name: 'zoxide.org',
     url: 'https://zoxide.org',
+    logo: 'https://zoxide.org/icon.svg',
     description: 'zoxide 粉丝网站，提供 zoxide 使用教程、配置技巧和最新动态',
     sameAs: ['https://github.com/ajeetdsouza/zoxide'],
   };
@@ -95,6 +96,10 @@ export function generateArticleSchema(
     publisher: {
       '@type': 'Organization',
       name: 'zoxide.org',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://zoxide.org/icon.svg',
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
