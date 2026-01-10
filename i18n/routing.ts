@@ -10,7 +10,7 @@ export const routing = defineRouting({
   defaultLocale: 'en',
 
   // URL 前缀策略
-  localePrefix: 'always', // 所有语言都显示前缀
+  localePrefix: 'as-needed', // 默认语言不显示前缀，其他语言显示前缀
 });
 
 // 创建导航工具

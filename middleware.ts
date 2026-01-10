@@ -53,11 +53,12 @@ export default function middleware(request: NextRequest) {
   }
 
   // 4. 处理国际化路由（next-intl）
-  // 创建 next-intl 中间件实例，启用语言检测
+  // 创建 next-intl 中间件实例
+  // localeDetection: false - 禁用自动语言检测，让用户手动选择语言
+  // next-intl 会自动使用 NEXT_LOCALE Cookie 记住用户的语言偏好
   const intlMiddleware = createMiddleware({
     ...routing,
-    localeDetection: true,
-    localePrefix: 'always',
+    localeDetection: false,
   });
 
   // 执行 next-intl 中间件（这会处理语言检测和根路径重定向）

@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Globe, Github } from 'lucide-react';
@@ -13,6 +14,66 @@ const localeNames: Record<string, string> = {
   zh: '中文',
   en: 'English',
   ja: '日本語',
+};
+
+// 圆形国旗 SVG 组件
+const CircleFlagIcons: Record<string, React.JSX.Element> = {
+  en: (
+    <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+      {/* 美国国旗 - 圆形版本 */}
+      <defs>
+        <clipPath id="flagClipEn">
+          <circle cx="12" cy="12" r="11" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#flagClipEn)">
+        {/* 红白条纹 */}
+        <rect fill="#B31942" width="24" height="24" />
+        <rect fill="#FFFFFF" y="1.85" width="24" height="1.85" />
+        <rect fill="#FFFFFF" y="5.54" width="24" height="1.85" />
+        <rect fill="#FFFFFF" y="9.23" width="24" height="1.85" />
+        <rect fill="#FFFFFF" y="12.92" width="24" height="1.85" />
+        <rect fill="#FFFFFF" y="16.62" width="24" height="1.85" />
+        <rect fill="#FFFFFF" y="20.31" width="24" height="1.85" />
+        {/* 蓝色区域 */}
+        <rect fill="#3C3B6E" width="10" height="13" />
+      </g>
+      {/* 边框 */}
+      <circle cx="12" cy="12" r="11" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+    </svg>
+  ),
+  zh: (
+    <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+      {/* 中国国旗 - 圆形版本 */}
+      <defs>
+        <clipPath id="flagClipZh">
+          <circle cx="12" cy="12" r="11" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#flagClipZh)">
+        {/* 红色背景 */}
+        <rect fill="#DE2910" width="24" height="24" />
+        {/* 大五角星 */}
+        <polygon fill="#FFDE00" points="5,4 6.2,7.7 3,5.5 7,5.5 3.8,7.7" />
+        {/* 小五角星 */}
+        <polygon fill="#FFDE00" points="9,2 9.4,3.2 8.2,2.5 9.8,2.5 8.6,3.2" />
+        <polygon fill="#FFDE00" points="11,3.5 11.4,4.7 10.2,4 11.8,4 10.6,4.7" />
+        <polygon fill="#FFDE00" points="11,6 11.4,7.2 10.2,6.5 11.8,6.5 10.6,7.2" />
+        <polygon fill="#FFDE00" points="9,7.5 9.4,8.7 8.2,8 9.8,8 8.6,8.7" />
+      </g>
+      {/* 边框 */}
+      <circle cx="12" cy="12" r="11" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+    </svg>
+  ),
+  ja: (
+    <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+      {/* 日本国旗 - 圆形版本 */}
+      <circle cx="12" cy="12" r="11" fill="#FFFFFF" />
+      <circle cx="12" cy="12" r="5" fill="#BC002D" />
+      {/* 边框 */}
+      <circle cx="12" cy="12" r="11" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+    </svg>
+  ),
 };
 
 export default function Navigation() {
@@ -91,11 +152,21 @@ export default function Navigation() {
 
   const isActive = (href: string) => {
     const current = pathname || '';
-    const localePrefix = `/${locale}`;
     if (href === '/') {
-      return current === localePrefix || current === `${localePrefix}/`;
+      // 对于默认语言（英文），根路径是'/'
+      // 对于其他语言，根路径是'/{locale}/'
+      if (locale === routing.defaultLocale) {
+        return current === '/' || current === '';
+      } else {
+        return current === `/${locale}` || current === `/${locale}/`;
+      }
     }
-    return current.startsWith(`${localePrefix}${href}`);
+    // 其他页面的逻辑
+    if (locale === routing.defaultLocale) {
+      return current.startsWith(href);
+    } else {
+      return current.startsWith(`/${locale}${href}`);
+    }
   };
 
   return (
@@ -157,10 +228,19 @@ export default function Navigation() {
               <div className="relative" ref={langMenuRef}>
                 <button
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors border border-gray-200"
                   aria-label="切换语言"
                 >
-                  <Globe className="h-5 w-5" />
+                  {CircleFlagIcons[locale] || <Globe className="h-5 w-5" />}
+                  <span>{localeNames[locale] || locale}</span>
+                  <svg
+                    className={`h-4 w-4 transition-transform ${langMenuOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
                 </button>
                 {langMenuOpen && (
                   <div className="absolute right-0 top-full mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
@@ -172,10 +252,11 @@ export default function Navigation() {
                           switchLocale(loc);
                           setLangMenuOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
+                        className={`w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
                           }`}
                       >
-                        {localeNames[loc] || loc}
+                        {CircleFlagIcons[loc]}
+                        <span>{localeNames[loc] || loc}</span>
                       </button>
                     ))}
                   </div>
@@ -223,8 +304,8 @@ export default function Navigation() {
                   className="flex items-center rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
                   aria-label="切换语言"
                 >
-                  <Globe className="mr-2 h-4 w-4" />
-                  <span>{localeNames[locale] || locale}</span>
+                  {CircleFlagIcons[locale] || <Globe className="mr-2 h-4 w-4" />}
+                  <span className="ml-2">{localeNames[locale] || locale}</span>
                 </button>
                 {langMenuOpen && (
                   <div className="absolute right-0 top-full mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
@@ -237,10 +318,11 @@ export default function Navigation() {
                           setLangMenuOpen(false);
                           setIsOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
+                        className={`w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
                           }`}
                       >
-                        {localeNames[loc] || loc}
+                        {CircleFlagIcons[loc]}
+                        <span>{localeNames[loc] || loc}</span>
                       </button>
                     ))}
                   </div>
