@@ -27,13 +27,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 为每个语言生成静态页面
+  // 注意：routing.localePrefix 设置为 'as-needed'，默认语言（英文）不带前缀
   staticRoutes.forEach((route) => {
     locales.forEach((locale) => {
       // 确保 URL 格式一致：所有路径都必须以斜杠结尾
       // next.config.ts 中配置了 trailingSlash: true
+      // 默认语言（en）不带语言前缀，其他语言带前缀
+      const isDefaultLocale = locale === routing.defaultLocale;
       const url = route.path === ''
-        ? `${baseUrl}/${locale}/`
-        : `${baseUrl}/${locale}${route.path}/`;
+        ? (isDefaultLocale ? `${baseUrl}/` : `${baseUrl}/${locale}/`)
+        : (isDefaultLocale ? `${baseUrl}${route.path}/` : `${baseUrl}/${locale}${route.path}/`);
 
       staticPages.push({
         url,
@@ -53,8 +56,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         return;
       }
 
+      // 默认语言（en）不带语言前缀
+      const isDefaultLocale = locale === routing.defaultLocale;
+      const url = isDefaultLocale
+        ? `${baseUrl}/blog/${post.slug}/`
+        : `${baseUrl}/${locale}/blog/${post.slug}/`;
+
       blogPages.push({
-        url: `${baseUrl}/${locale}/blog/${post.slug}/`,
+        url,
         lastModified: post.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
@@ -67,8 +76,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const tutorialPages: MetadataRoute.Sitemap = [];
   tutorials.forEach((tutorial) => {
     locales.forEach((locale) => {
+      // 默认语言（en）不带语言前缀
+      const isDefaultLocale = locale === routing.defaultLocale;
+      const url = isDefaultLocale
+        ? `${baseUrl}/tutorials/${tutorial.slug}/`
+        : `${baseUrl}/${locale}/tutorials/${tutorial.slug}/`;
+
       tutorialPages.push({
-        url: `${baseUrl}/${locale}/tutorials/${tutorial.slug}/`,
+        url,
         lastModified: tutorial.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
