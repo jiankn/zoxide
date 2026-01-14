@@ -14,16 +14,6 @@ const nextConfig: NextConfig = {
     // 如果需要禁用开发环境的 source map，可以在这里配置
     // 但通常不需要，因为 Turbopack 会自动处理
   },
-  // Ezoic ads.txt 自动管理
-  // 重定向 /ads.txt 到 Ezoic 的 ads.txt 管理服务
-  async rewrites() {
-    return [
-      {
-        source: '/ads.txt',
-        destination: 'https://srv.adstxtmanager.com/19390/zoxide.org',
-      },
-    ];
-  },
 };
 
 export default withNextIntl(nextConfig);
