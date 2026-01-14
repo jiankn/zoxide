@@ -138,7 +138,7 @@ export class AdManager {
         return;
       }
 
-      // 创建 Ezoic 广告占位符
+      // 创建 Ezoic 广告占位符（按照官方文档格式）
       const ezoicDiv = document.createElement('div');
       ezoicDiv.id = `ezoic-pub-ad-placeholder-${placeholderId}`;
       adContainer.appendChild(ezoicDiv);
@@ -148,17 +148,13 @@ export class AdManager {
         this.ezoicPlaceholders.push(placeholderId);
       }
 
-      // 使用 Ezoic 命令队列
+      // 使用 Ezoic 命令队列调用 showAds（按照官方文档）
       if (window.ezstandalone?.cmd) {
         window.ezstandalone.cmd.push(() => {
-          if (window.ezstandalone?.define) {
-            window.ezstandalone.define(placeholderId);
-          }
-          if (window.ezstandalone?.enable) {
-            window.ezstandalone.enable();
-          }
-          if (window.ezstandalone?.display) {
-            window.ezstandalone.display();
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const ez = window.ezstandalone as any;
+          if (ez?.showAds) {
+            ez.showAds(placeholderId);
           }
         });
       }

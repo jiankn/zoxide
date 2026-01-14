@@ -34,6 +34,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 320, height: 50 },
     slotId: 'home-top',
     placeholderKey: 'ads.home.top',
+    ezoicPlaceholderId: 109, // under_first_paragraph
   },
   'home-middle': {
     desktop: { width: 336, height: 280 },
@@ -46,6 +47,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 600 },
     slotId: 'home-sidebar',
     placeholderKey: 'ads.home.sidebar',
+    ezoicPlaceholderId: 107, // sidebar_floating_1
   },
   'home-bottom': {
     desktop: { width: 728, height: 90 },
@@ -90,6 +92,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 600 },
     slotId: 'tutorials-sidebar',
     placeholderKey: 'ads.tutorials.sidebar',
+    ezoicPlaceholderId: 108, // sidebar_floating_2
   },
   'tutorials-middle': {
     desktop: { width: 336, height: 280 },
@@ -140,6 +143,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 600 },
     slotId: 'blog-list-sidebar',
     placeholderKey: 'ads.blog.list.sidebar',
+    ezoicPlaceholderId: 106, // sidebar_bottom
   },
   'blog-list-middle': {
     desktop: { width: 336, height: 280 },
@@ -159,6 +163,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 320, height: 50 },
     slotId: 'article-top',
     placeholderKey: 'ads.article.top',
+    ezoicPlaceholderId: 110, // under_second_paragraph
   },
   'article-sidebar': {
     desktop: { width: 300, height: 600 },
@@ -171,6 +176,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 250 },
     slotId: 'in-article',
     placeholderKey: 'ads.article.inArticle',
+    ezoicPlaceholderId: 111, // mid_content
   },
   'article-bottom': {
     desktop: { width: 728, height: 90 },
