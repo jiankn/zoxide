@@ -41,6 +41,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 250 },
     slotId: 'home-middle',
     placeholderKey: 'ads.home.middle',
+    ezoicPlaceholderId: 112, // long_content
   },
   'home-sidebar': {
     desktop: { width: 300, height: 600 },
@@ -54,6 +55,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 250 },
     slotId: 'home-bottom',
     placeholderKey: 'ads.home.bottom',
+    ezoicPlaceholderId: 103, // bottom_of_page
   },
   // Features 页面广告位
   'features-top': {
@@ -61,18 +63,21 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 320, height: 50 },
     slotId: 'features-top',
     placeholderKey: 'ads.features.top',
+    ezoicPlaceholderId: 101, // top_of_page
   },
   'features-sidebar': {
     desktop: { width: 300, height: 600 },
     mobile: { width: 300, height: 600 },
     slotId: 'features-sidebar',
     placeholderKey: 'ads.features.sidebar',
+    ezoicPlaceholderId: 104, // sidebar
   },
   'features-middle': {
     desktop: { width: 336, height: 280 },
     mobile: { width: 300, height: 250 },
     slotId: 'features-middle',
     placeholderKey: 'ads.features.middle',
+    ezoicPlaceholderId: 105, // sidebar_middle_1
   },
   'features-bottom': {
     desktop: { width: 728, height: 90 },
@@ -86,6 +91,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 320, height: 50 },
     slotId: 'tutorials-top',
     placeholderKey: 'ads.tutorials.top',
+    ezoicPlaceholderId: 102, // under_page_title
   },
   'tutorials-sidebar': {
     desktop: { width: 300, height: 600 },
@@ -99,6 +105,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 250 },
     slotId: 'tutorials-middle',
     placeholderKey: 'ads.tutorials.middle',
+    ezoicPlaceholderId: 113, // longer_content
   },
   'tutorials-bottom': {
     desktop: { width: 728, height: 90 },
@@ -112,12 +119,14 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 320, height: 50 },
     slotId: 'download-top',
     placeholderKey: 'ads.download.top',
+    ezoicPlaceholderId: 102, // under_page_title
   },
   'download-sidebar': {
     desktop: { width: 300, height: 600 },
     mobile: { width: 300, height: 600 },
     slotId: 'download-sidebar',
     placeholderKey: 'ads.download.sidebar',
+    ezoicPlaceholderId: 104, // sidebar
   },
   'download-middle': {
     desktop: { width: 336, height: 280 },
@@ -137,6 +146,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 320, height: 50 },
     slotId: 'blog-list-top',
     placeholderKey: 'ads.blog.list.top',
+    ezoicPlaceholderId: 101, // top_of_page
   },
   'blog-list-sidebar': {
     desktop: { width: 300, height: 600 },
@@ -150,12 +160,14 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 250 },
     slotId: 'blog-list-middle',
     placeholderKey: 'ads.blog.list.middle',
+    ezoicPlaceholderId: 114, // longest_content
   },
   'blog-list-bottom': {
     desktop: { width: 728, height: 90 },
     mobile: { width: 300, height: 250 },
     slotId: 'blog-list-bottom',
     placeholderKey: 'ads.blog.list.bottom',
+    ezoicPlaceholderId: 103, // bottom_of_page
   },
   // Blog 文章详情页广告位
   'article-top': {
@@ -170,6 +182,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 600 },
     slotId: 'article-sidebar',
     placeholderKey: 'ads.article.sidebar',
+    ezoicPlaceholderId: 107, // sidebar_floating_1
   },
   'in-article': {
     desktop: { width: 336, height: 280 },
@@ -183,6 +196,7 @@ export const AD_CONFIGS: Record<string, AdConfig> = {
     mobile: { width: 300, height: 250 },
     slotId: 'article-bottom',
     placeholderKey: 'ads.article.bottom',
+    ezoicPlaceholderId: 103, // bottom_of_page
   },
   // Changelog 页面广告位
   'changelog-top': {
