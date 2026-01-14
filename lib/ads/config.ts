@@ -1,6 +1,16 @@
 // 广告位配置
 export const ENABLE_ADS = process.env.NEXT_PUBLIC_ENABLE_ADS === 'true';
 
+// 广告提供商类型
+export type AdProvider = 'ezoic' | 'adsense' | 'none';
+
+// 当前广告提供商（从环境变量读取）
+export const AD_PROVIDER: AdProvider =
+  (process.env.NEXT_PUBLIC_AD_PROVIDER as AdProvider) || 'none';
+
+// Ezoic 站点 ID
+export const EZOIC_SITE_ID = process.env.NEXT_PUBLIC_EZOIC_SITE_ID || '';
+
 // 广告位尺寸配置
 export interface AdConfig {
   desktop: {
@@ -13,6 +23,7 @@ export interface AdConfig {
   };
   slotId: string;
   placeholderKey?: string; // 占位符提示文本的翻译键
+  ezoicPlaceholderId?: number; // Ezoic 广告位 ID
 }
 
 // 所有广告位配置

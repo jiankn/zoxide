@@ -1,10 +1,17 @@
 'use client';
 
-import { ENABLE_ADS } from './config';
+import { ENABLE_ADS, AD_PROVIDER } from './config';
 
 declare global {
   interface Window {
     adsbygoogle?: unknown[];
+    ezstandalone?: {
+      cmd?: Array<() => void>;
+      define?: (...args: number[]) => void;
+      enable?: () => void;
+      display?: () => void;
+      refresh?: () => void;
+    };
   }
 }
 
@@ -15,10 +22,16 @@ const ADSENSE_ID = process.env.NEXT_PUBLIC_ADSENSE_ID || '';
 export class AdManager {
   private static instance: AdManager;
   private adsenseLoaded = false;
+  private ezoicLoaded = false;
+  private ezoicPlaceholders: number[] = [];
 
   private constructor() {
     if (typeof window !== 'undefined' && ENABLE_ADS) {
-      this.loadAdSense();
+      if (AD_PROVIDER === 'adsense') {
+        this.loadAdSense();
+      } else if (AD_PROVIDER === 'ezoic') {
+        this.loadEzoic();
+      }
     }
   }
 
@@ -39,6 +52,34 @@ export class AdManager {
     script.crossOrigin = 'anonymous';
     document.head.appendChild(script);
     this.adsenseLoaded = true;
+  }
+
+  // 加载 Ezoic 脚本（按照官方文档顺序）
+  private loadEzoic(): void {
+    if (this.ezoicLoaded) return;
+
+    // 1. 加载 Privacy Scripts（隐私脚本）- 必须先加载
+    const privacyScript1 = document.createElement('script');
+    privacyScript1.src = 'https://cmp.gatekeeperconsent.com/min.js';
+    privacyScript1.setAttribute('data-cfasync', 'false');
+    document.head.appendChild(privacyScript1);
+
+    const privacyScript2 = document.createElement('script');
+    privacyScript2.src = 'https://the.gatekeeperconsent.com/cmp.min.js';
+    privacyScript2.setAttribute('data-cfasync', 'false');
+    document.head.appendChild(privacyScript2);
+
+    // 2. 加载 Header Script（头部脚本）
+    const headerScript = document.createElement('script');
+    headerScript.src = '//www.ezojs.com/ezoic/sa.min.js';
+    headerScript.async = true;
+    document.head.appendChild(headerScript);
+
+    // 3. 初始化 ezstandalone 对象
+    window.ezstandalone = window.ezstandalone || {};
+    window.ezstandalone.cmd = window.ezstandalone.cmd || [];
+
+    this.ezoicLoaded = true;
   }
 
   // 渲染 AdSense 广告
@@ -79,6 +120,50 @@ export class AdManager {
       }
     } catch (error) {
       console.error('AdSense 渲染错误:', error);
+    }
+  }
+
+  // 渲染 Ezoic 广告
+  public renderEzoic(slotId: string, placeholderId: number): void {
+    if (!ENABLE_ADS || !placeholderId) {
+      return;
+    }
+
+    try {
+      const adContainer = document.getElementById(`ad-${slotId}`);
+      if (!adContainer) return;
+
+      // 检查是否已经渲染过
+      if (adContainer.querySelector(`#ezoic-pub-ad-placeholder-${placeholderId}`)) {
+        return;
+      }
+
+      // 创建 Ezoic 广告占位符
+      const ezoicDiv = document.createElement('div');
+      ezoicDiv.id = `ezoic-pub-ad-placeholder-${placeholderId}`;
+      adContainer.appendChild(ezoicDiv);
+
+      // 记录占位符 ID
+      if (!this.ezoicPlaceholders.includes(placeholderId)) {
+        this.ezoicPlaceholders.push(placeholderId);
+      }
+
+      // 使用 Ezoic 命令队列
+      if (window.ezstandalone?.cmd) {
+        window.ezstandalone.cmd.push(() => {
+          if (window.ezstandalone?.define) {
+            window.ezstandalone.define(placeholderId);
+          }
+          if (window.ezstandalone?.enable) {
+            window.ezstandalone.enable();
+          }
+          if (window.ezstandalone?.display) {
+            window.ezstandalone.display();
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Ezoic 渲染错误:', error);
     }
   }
 

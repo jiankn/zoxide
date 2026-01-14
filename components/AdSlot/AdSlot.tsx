@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { getAdConfig, ENABLE_ADS } from '@/lib/ads/config';
+import { getAdConfig, ENABLE_ADS, AD_PROVIDER } from '@/lib/ads/config';
 import { AdManager } from '@/lib/ads/manager';
 
 interface AdSlotProps {
@@ -50,14 +50,16 @@ export default function AdSlot({ slotId, lazy = false, className = '' }: AdSlotP
 
     const manager = AdManager.getInstance();
     const timeoutId = setTimeout(() => {
-      if (ENABLE_ADS) {
-        // 使用桌面端尺寸（移动端通过 CSS 响应式处理）
+      if (ENABLE_ADS && AD_PROVIDER === 'adsense') {
+        // AdSense 渲染
         const isMobile = window.innerWidth < 768;
         const dimensions = isMobile ? config.mobile : config.desktop;
         manager.renderAdSense(slotId, dimensions);
+      } else if (ENABLE_ADS && AD_PROVIDER === 'ezoic' && config.ezoicPlaceholderId) {
+        // Ezoic 渲染
+        manager.renderEzoic(slotId, config.ezoicPlaceholderId);
       } else {
-        // 使用翻译的占位符文本
-        // 移除 'ads.' 前缀，因为 t 函数已经在 'ads' 命名空间下
+        // 占位符渲染
         const key = config.placeholderKey?.replace(/^ads\./, '') || 'default';
         const placeholder = t(key);
         manager.renderPlaceholder(slotId, placeholder);
