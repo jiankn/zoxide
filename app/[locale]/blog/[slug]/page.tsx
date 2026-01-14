@@ -73,8 +73,13 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     : excerpt;
 
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
-  // canonical URL 由 generateMultilingualMetadata 自动生成，确保格式一致
-  const canonicalUrl = `https://zoxide.org/${locale}/blog/${slug}`;
+  // canonical URL 必须与 sitemap 和 next.config 中的格式一致：
+  // 1. 默认语言（en）不带语言前缀
+  // 2. 所有 URL 必须有尾部斜杠（trailingSlash: true）
+  const isDefaultLocale = locale === 'en';
+  const canonicalUrl = isDefaultLocale
+    ? `https://zoxide.org/blog/${slug}/`
+    : `https://zoxide.org/${locale}/blog/${slug}/`;
   const imageUrl = `https://zoxide.org/icon.svg`;
 
   const metadata = generateMultilingualMetadata(
@@ -153,7 +158,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const tags = tData?.tags || post.tags;
 
   // 使用与 canonical URL 一致的格式
-  const articleUrl = `https://zoxide.org/${locale}/blog/${post.slug}`;
+  const isDefaultLocaleForSchema = locale === 'en';
+  const articleUrl = isDefaultLocaleForSchema
+    ? `https://zoxide.org/blog/${post.slug}/`
+    : `https://zoxide.org/${locale}/blog/${post.slug}/`;
 
   // 生成文章结构化数据
   const articleSchema = generateArticleSchema(
@@ -226,13 +234,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 '@type': 'ListItem',
                 position: 1,
                 name: ({ zh: '首页', en: 'Home', ja: 'ホーム' } as Record<string, string>)[locale] || 'Home',
-                item: `https://zoxide.org/${locale}/`,
+                item: locale === 'en' ? 'https://zoxide.org/' : `https://zoxide.org/${locale}/`,
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: ({ zh: '博客', en: 'Blog', ja: 'ブログ' } as Record<string, string>)[locale] || 'Blog',
-                item: `https://zoxide.org/${locale}/blog`,
+                item: locale === 'en' ? 'https://zoxide.org/blog/' : `https://zoxide.org/${locale}/blog/`,
               },
               {
                 '@type': 'ListItem',
