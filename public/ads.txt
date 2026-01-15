@@ -1,0 +1,13 @@
+#Ads.txt zoxide.org
+#Ads.txt managed by AdsTxtManager.com - the free ads.txt management tool for publishers
+ownerdomain=zoxide.org
+contact=directsales@ezoic.com
+managerdomain=ezoic.ai
+
+ezoic.ai, d951406ea725d247347d1ce8a8735ce3, DIRECT
+ezoic.ai, 4bc54545f742c00bebfc265be95d835b, DIRECT
+ezoic.co.uk, 4bc54545f742c00bebfc265be95d835b, DIRECT
+# 11201
+google.com, pub-3562784107542460, DIRECT, f08c47fec0942fa0
+
+

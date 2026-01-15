@@ -22,13 +22,9 @@ const nextConfig: NextConfig = {
   // Ezoic ads.txt 自动管理（重定向到 Ezoic 的 ads.txt 管理服务）
   // 使用 redirects() 返回 302（临时）以便 Ezoic 验证；验证通过后可改为 permanent: true（301）
   async redirects() {
-    return [
-      {
-        source: '/ads.txt',
-        destination: 'https://srv.adstxtmanager.com/82461/zoxide.org',
-        permanent: false, // 临时重定向 302（用于 Ezoic 验证）
-      },
-    ];
+    // 当前为了临时使用 public/ads.txt 做验证，暂时禁用 /ads.txt 的重定向。
+    // 验证通过后会恢复重定向。
+    return [];
   },
 };
 
