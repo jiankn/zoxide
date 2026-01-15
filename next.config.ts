@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
     // 如果需要禁用开发环境的 source map，可以在这里配置
     // 但通常不需要，因为 Turbopack 会自动处理
   },
+  // 图片优化配置
+  images: {
+    // 启用 AVIF 格式（比 WebP 更小 20-30%）
+    formats: ['image/avif', 'image/webp'],
+  },
   // Ezoic ads.txt 自动管理（重定向到 Ezoic 的 ads.txt 管理服务）
   async rewrites() {
     return [

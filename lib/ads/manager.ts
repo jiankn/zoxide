@@ -54,18 +54,20 @@ export class AdManager {
     this.adsenseLoaded = true;
   }
 
-  // 加载 Ezoic 脚本（按照官方文档顺序）
+  // 加载 Ezoic 脚本（按照官方文档顺序，全部异步加载防止渲染屏蔽）
   private loadEzoic(): void {
     if (this.ezoicLoaded) return;
 
-    // 1. 加载 Privacy Scripts（隐私脚本）- 必须先加载
+    // 1. 加载 Privacy Scripts（隐私脚本）- 必须先加载，但使用 async 防止阻塞
     const privacyScript1 = document.createElement('script');
     privacyScript1.src = 'https://cmp.gatekeeperconsent.com/min.js';
+    privacyScript1.async = true;
     privacyScript1.setAttribute('data-cfasync', 'false');
     document.head.appendChild(privacyScript1);
 
     const privacyScript2 = document.createElement('script');
     privacyScript2.src = 'https://the.gatekeeperconsent.com/cmp.min.js';
+    privacyScript2.async = true;
     privacyScript2.setAttribute('data-cfasync', 'false');
     document.head.appendChild(privacyScript2);
 
