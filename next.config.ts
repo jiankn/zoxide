@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
       {
         source: '/ads.txt',
         destination: 'https://srv.adstxtmanager.com/82461/zoxide.org',
-        permanent: false, // 临时重定向 302
+        permanent: true, // 永久重定向 301（验证通过后改为 true）
       },
     ];
   },
