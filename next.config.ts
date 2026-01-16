@@ -19,18 +19,6 @@ const nextConfig: NextConfig = {
     // 启用 AVIF 格式（比 WebP 更小 20-30%）
     formats: ['image/avif', 'image/webp'],
   },
-  // Ezoic ads.txt 自动管理（重定向到 Ezoic 的 ads.txt 管理服务）
-  // 使用 redirects() 返回 302（临时）以便 Ezoic 验证；验证通过后可改为 permanent: true（301）
-  async redirects() {
-    // 恢复 /ads.txt 的永久重定向，让 Ezoic 管理 ads.txt（canonical）
-    return [
-      {
-        source: '/ads.txt',
-        destination: 'https://srv.adstxtmanager.com/82461/zoxide.org',
-        permanent: true, // 永久重定向 301
-      },
-    ];
-  },
 };
 
 export default withNextIntl(nextConfig);
