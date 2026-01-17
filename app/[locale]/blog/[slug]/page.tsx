@@ -1,25 +1,30 @@
-import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import dynamic from 'next/dynamic';
-import { Link } from '@/i18n/routing';
-import { getPostBySlug, getRelatedPosts } from '@/data/blog';
-import RelatedPosts from '@/components/RelatedPosts/RelatedPosts';
-import { createMarkdownComponents } from '@/components/Markdown/markdownComponents';
-import { getTranslations, getLocale } from 'next-intl/server';
-import { Calendar, Clock, User } from 'lucide-react';
-import { generateArticleSchema } from '@/lib/seo/schema';
-import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import dynamic from "next/dynamic";
+import { Link } from "@/i18n/routing";
+import { getPostBySlug, getRelatedPosts } from "@/data/blog";
+import RelatedPosts from "@/components/RelatedPosts/RelatedPosts";
+import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
+import { getTranslations, getLocale } from "next-intl/server";
+import { Calendar, Clock, User } from "lucide-react";
+import { generateArticleSchema } from "@/lib/seo/schema";
+import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 
 // 客户端再加载的交互组件，减小首包体积
-const AdSlot = dynamic(() => import('@/components/AdSlot/AdSlotClient'), {
+const AdSlot = dynamic(() => import("@/components/AdSlot/AdSlotClient"), {
   loading: () => null,
 });
-const ShareButtons = dynamic(() => import('@/components/ShareButtons/ShareButtons'), {
-  loading: () => null,
-});
+const ShareButtons = dynamic(
+  () => import("@/components/ShareButtons/ShareButtons"),
+  {
+    loading: () => null,
+  },
+);
 
-const blogMarkdownComponents = createMarkdownComponents({ linkTarget: '_blank' });
+const blogMarkdownComponents = createMarkdownComponents({
+  linkTarget: "_blank",
+});
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -29,7 +34,7 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  const { getAllPosts } = await import('@/data/blog');
+  const { getAllPosts } = await import("@/data/blog");
   const posts = getAllPosts();
 
   return posts.map((post) => ({
@@ -42,82 +47,93 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const post = getPostBySlug(slug);
 
   // 如果文章限定了语言且不包含当前 locale，返回 404 元数据
-  if (post && post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja')) {
-    const notFoundTitles: Record<string, string> = { zh: '文章未找到', en: 'Post Not Found', ja: '記事が見つかりません' };
+  if (
+    post &&
+    post.locales &&
+    !post.locales.includes(locale as "zh" | "en" | "ja")
+  ) {
+    const notFoundTitles: Record<string, string> = {
+      zh: "文章未找到",
+      en: "Post Not Found",
+      ja: "記事が見つかりません",
+    };
     return {
       title: notFoundTitles[locale] || notFoundTitles.en,
     };
   }
-  const t = await getTranslations('blog');
+  const t = await getTranslations("blog");
 
   if (!post) {
-    const tNotFound = await getTranslations('blog');
-    const notFoundTitles: Record<string, string> = { zh: '文章未找到', en: 'Post Not Found', ja: '記事が見つかりません' };
+    const tNotFound = await getTranslations("blog");
+    const notFoundTitles: Record<string, string> = {
+      zh: "文章未找到",
+      en: "Post Not Found",
+      ja: "記事が見つかりません",
+    };
     return {
-      title: tNotFound('notFound') || notFoundTitles[locale] || notFoundTitles.en,
+      title:
+        tNotFound("notFound") || notFoundTitles[locale] || notFoundTitles.en,
     };
   }
 
-  const tData = t.raw(`data.${slug}`);
+  const tData = t.has(`data.${slug}`) ? t.raw(`data.${slug}`) : undefined;
   const title = tData?.title || post.title;
   const excerpt = tData?.excerpt || post.excerpt;
   const author = tData?.author || post.author;
-  const tSeo = await getTranslations('seo');
+  const tSeo = await getTranslations("seo");
 
   // 使用 SEO 标题模板，替换 {title} 占位符
-  const seoTitle = tSeo('titles.blogPost', { title });
+  const seoTitle = tSeo("titles.blogPost", { title });
 
   // 优化 description：确保长度在 150-160 字符之间，包含关键词
-  const optimizedDescription = excerpt.length > 160
-    ? excerpt.substring(0, 157) + '...'
-    : excerpt;
+  const optimizedDescription =
+    excerpt.length > 160 ? excerpt.substring(0, 157) + "..." : excerpt;
 
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
   // canonical URL 必须与 sitemap 和 next.config 中的格式一致：
   // 1. 默认语言（en）不带语言前缀
   // 2. 所有 URL 必须有尾部斜杠（trailingSlash: true）
-  const isDefaultLocale = locale === 'en';
+  const isDefaultLocale = locale === "en";
   const canonicalUrl = isDefaultLocale
     ? `https://zoxide.org/blog/${slug}/`
     : `https://zoxide.org/${locale}/blog/${slug}/`;
   const imageUrl = `https://zoxide.org/icon.svg`;
 
-  const metadata = generateMultilingualMetadata(
-    locale,
-    `/blog/${slug}`,
-    {
+  const metadata = generateMultilingualMetadata(locale, `/blog/${slug}`, {
+    title: seoTitle,
+    description: optimizedDescription,
+    keywords: post.tags.join(", "),
+    // Open Graph 元数据
+    openGraph: {
       title: seoTitle,
       description: optimizedDescription,
-      keywords: post.tags.join(', '),
-      // Open Graph 元数据
-      openGraph: {
-        title: seoTitle,
-        description: optimizedDescription,
-        url: canonicalUrl,
-        siteName: 'zoxide.org',
-        images: [
-          {
-            url: imageUrl,
-            width: 1200,
-            height: 630,
-            alt: title,
-          },
-        ],
-        locale: ({ zh: 'zh_CN', en: 'en_US', ja: 'ja_JP' } as Record<string, string>)[locale] || 'en_US',
-        type: 'article',
-        publishedTime: post.date,
-        authors: [author],
-        tags: post.tags,
-      },
-      // Twitter Card 元数据
-      twitter: {
-        card: 'summary_large_image',
-        title: seoTitle,
-        description: optimizedDescription,
-        images: [imageUrl],
-      },
-    }
-  );
+      url: canonicalUrl,
+      siteName: "zoxide.org",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      locale:
+        ({ zh: "zh_CN", en: "en_US", ja: "ja_JP" } as Record<string, string>)[
+          locale
+        ] || "en_US",
+      type: "article",
+      publishedTime: post.date,
+      authors: [author],
+      tags: post.tags,
+    },
+    // Twitter Card 元数据
+    twitter: {
+      card: "summary_large_image",
+      title: seoTitle,
+      description: optimizedDescription,
+      images: [imageUrl],
+    },
+  });
 
   return metadata;
 }
@@ -126,20 +142,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
   const locale = await getLocale();
   const post = getPostBySlug(slug);
-  const t = await getTranslations('blog.detail');
+  const t = await getTranslations("blog.detail");
 
-  if (!post || (post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja'))) {
+  if (
+    !post ||
+    (post.locales && !post.locales.includes(locale as "zh" | "en" | "ja"))
+  ) {
     notFound();
   }
 
-  const tBlog = await getTranslations('blog');
-  const tData = (() => {
-    try {
-      return tBlog.raw(`data.${slug}`);
-    } catch {
-      return {};
-    }
-  })();
+  const tBlog = await getTranslations("blog");
+  const tData = tBlog.has(`data.${slug}`) ? tBlog.raw(`data.${slug}`) : {};
   const relatedPosts = getRelatedPosts(post, 3, locale);
 
   // 获取翻译后的数据
@@ -148,17 +161,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const content = tData?.content || post.content;
   // 分类翻译映射表
   const categoryTranslations: Record<string, Record<string, string>> = {
-    '教程': { zh: '教程', en: 'Tutorial', ja: 'チュートリアル' },
-    '对比': { zh: '对比', en: 'Comparison', ja: '比較' },
-    '技巧': { zh: '技巧', en: 'Tips', ja: 'ヒント' },
+    教程: { zh: "教程", en: "Tutorial", ja: "チュートリアル" },
+    对比: { zh: "对比", en: "Comparison", ja: "比較" },
+    技巧: { zh: "技巧", en: "Tips", ja: "ヒント" },
   };
-  const category = tData?.category || categoryTranslations[post.category]?.[locale] || post.category;
+  const category =
+    tData?.category ||
+    categoryTranslations[post.category]?.[locale] ||
+    post.category;
   const author = tData?.author || post.author;
   // 标签翻译
   const tags = tData?.tags || post.tags;
 
   // 使用与 canonical URL 一致的格式
-  const isDefaultLocaleForSchema = locale === 'en';
+  const isDefaultLocaleForSchema = locale === "en";
   const articleUrl = isDefaultLocaleForSchema
     ? `https://zoxide.org/blog/${post.slug}/`
     : `https://zoxide.org/${locale}/blog/${post.slug}/`;
@@ -170,38 +186,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     author,
     post.date,
     articleUrl,
-    post.date // dateModified 使用发布日期（如果有更新日期可以单独设置）
+    post.date, // dateModified 使用发布日期（如果有更新日期可以单独设置）
   );
 
   // 如果是教程类文章，添加 HowTo Schema
-  const isTutorial = post.category === '教程' || post.category === 'Tutorial';
+  const isTutorial = post.category === "教程" || post.category === "Tutorial";
   let howToSchema = null;
 
-  if (isTutorial && slug === 'zoxide-init-guide') {
+  if (isTutorial && slug === "zoxide-init-guide") {
     // 为 zoxide init 文章生成 HowTo Schema
-    const { generateHowToSchema } = await import('@/lib/seo/schema');
-    howToSchema = generateHowToSchema(
-      title,
-      excerpt,
-      [
-        {
-          name: 'Install zoxide',
-          text: 'Install zoxide using a package manager like Homebrew, Scoop, or Apt.',
-        },
-        {
-          name: 'Initialize Shell',
-          text: 'Run zoxide init command for your shell (bash, zsh, fish, PowerShell, or nushell).',
-        },
-        {
-          name: 'Configure Shell',
-          text: 'Add the initialization command to your shell configuration file.',
-        },
-        {
-          name: 'Reload Shell',
-          text: 'Reload your shell or open a new terminal window to activate zoxide.',
-        },
-      ]
-    );
+    const { generateHowToSchema } = await import("@/lib/seo/schema");
+    howToSchema = generateHowToSchema(title, excerpt, [
+      {
+        name: "Install zoxide",
+        text: "Install zoxide using a package manager like Homebrew, Scoop, or Apt.",
+      },
+      {
+        name: "Initialize Shell",
+        text: "Run zoxide init command for your shell (bash, zsh, fish, PowerShell, or nushell).",
+      },
+      {
+        name: "Configure Shell",
+        text: "Add the initialization command to your shell configuration file.",
+      },
+      {
+        name: "Reload Shell",
+        text: "Reload your shell or open a new terminal window to activate zoxide.",
+      },
+    ]);
   }
 
   return (
@@ -227,23 +239,41 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
             itemListElement: [
               {
-                '@type': 'ListItem',
+                "@type": "ListItem",
                 position: 1,
-                name: ({ zh: '首页', en: 'Home', ja: 'ホーム' } as Record<string, string>)[locale] || 'Home',
-                item: locale === 'en' ? 'https://zoxide.org/' : `https://zoxide.org/${locale}/`,
+                name:
+                  (
+                    { zh: "首页", en: "Home", ja: "ホーム" } as Record<
+                      string,
+                      string
+                    >
+                  )[locale] || "Home",
+                item:
+                  locale === "en"
+                    ? "https://zoxide.org/"
+                    : `https://zoxide.org/${locale}/`,
               },
               {
-                '@type': 'ListItem',
+                "@type": "ListItem",
                 position: 2,
-                name: ({ zh: '博客', en: 'Blog', ja: 'ブログ' } as Record<string, string>)[locale] || 'Blog',
-                item: locale === 'en' ? 'https://zoxide.org/blog/' : `https://zoxide.org/${locale}/blog/`,
+                name:
+                  (
+                    { zh: "博客", en: "Blog", ja: "ブログ" } as Record<
+                      string,
+                      string
+                    >
+                  )[locale] || "Blog",
+                item:
+                  locale === "en"
+                    ? "https://zoxide.org/blog/"
+                    : `https://zoxide.org/${locale}/blog/`,
               },
               {
-                '@type': 'ListItem',
+                "@type": "ListItem",
                 position: 3,
                 name: title,
                 item: articleUrl,
@@ -258,13 +288,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <ol className="flex items-center space-x-2">
             <li>
               <Link href="/" className="hover:text-blue-600 transition-colors">
-                {({ zh: '首页', en: 'Home', ja: 'ホーム' } as Record<string, string>)[locale] || 'Home'}
+                {(
+                  { zh: "首页", en: "Home", ja: "ホーム" } as Record<
+                    string,
+                    string
+                  >
+                )[locale] || "Home"}
               </Link>
             </li>
             <li className="text-gray-400">/</li>
             <li>
-              <Link href="/blog" className="hover:text-blue-600 transition-colors">
-                {({ zh: '博客', en: 'Blog', ja: 'ブログ' } as Record<string, string>)[locale] || 'Blog'}
+              <Link
+                href="/blog"
+                className="hover:text-blue-600 transition-colors"
+              >
+                {(
+                  { zh: "博客", en: "Blog", ja: "ブログ" } as Record<
+                    string,
+                    string
+                  >
+                )[locale] || "Blog"}
               </Link>
             </li>
             <li className="text-gray-400">/</li>
@@ -276,9 +319,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <main className="lg:col-span-2 space-y-8">
             <header>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                {title}
-              </h1>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
 
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
                 <div className="flex items-center gap-2">
@@ -287,7 +328,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  <span>{post.readTime} {t('readTime')}</span>
+                  <span>
+                    {post.readTime} {t("readTime")}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
@@ -298,7 +341,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </span>
               </div>
 
-              <ShareButtons title={title} url={`/${locale}/blog/${post.slug}`} />
+              <ShareButtons
+                title={title}
+                url={`/${locale}/blog/${post.slug}`}
+              />
             </header>
 
             <AdSlot slotId="article-top" />

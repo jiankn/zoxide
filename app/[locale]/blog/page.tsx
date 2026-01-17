@@ -1,30 +1,33 @@
-import AdSlot from '@/components/AdSlot/AdSlot';
-import { Link } from '@/i18n/routing';
-import { getTranslations, getLocale } from 'next-intl/server';
-import { getAllPosts } from '@/data/blog';
-import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import AdSlot from "@/components/AdSlot/AdSlot";
+import { Link } from "@/i18n/routing";
+import { getTranslations, getLocale } from "next-intl/server";
+import { getAllPosts } from "@/data/blog";
+import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  const t = await getTranslations('seo');
-  const tBlog = await getTranslations('blog');
+  const t = await getTranslations("seo");
+  const tBlog = await getTranslations("blog");
 
-  return generateMultilingualMetadata(
-    locale,
-    '/blog',
-    {
-      title: t('titles.blog'),
-      description: tBlog('description'),
-      keywords: t('blog'),
-    }
-  );
+  return generateMultilingualMetadata(locale, "/blog", {
+    title: t("titles.blog"),
+    description: tBlog("description"),
+    keywords: t("blog"),
+  });
 }
 
 export default async function BlogPage() {
   const locale = await getLocale();
-  const t = await getTranslations('blog');
+  const t = await getTranslations("blog");
   const blogPosts = getAllPosts()
-    .filter((post) => !post.locales || post.locales.includes(locale as 'zh' | 'en' | 'ja'))
+    .filter(
+      (post) =>
+        !post.locales || post.locales.includes(locale as "zh" | "en" | "ja"),
+    )
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -34,11 +37,9 @@ export default async function BlogPage() {
         <main className="lg:col-span-2 space-y-12">
           <div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              {t('title')}
+              {t("title")}
             </h1>
-            <p className="text-lg text-gray-600">
-              {t('description')}
-            </p>
+            <p className="text-lg text-gray-600">{t("description")}</p>
           </div>
 
           <AdSlot slotId="blog-list-top" />
@@ -46,27 +47,36 @@ export default async function BlogPage() {
           <div className="flex flex-col gap-0 border border-[#E9E9E7] rounded-md overflow-hidden">
             {blogPosts.map((post, index) => {
               // 防御：当翻译中缺少对应 slug 时不抛错
-              const tData = (() => {
-                try {
-                  return t.raw(`data.${post.slug}`);
-                } catch {
-                  return undefined;
-                }
-              })();
+              const tData = t.has(`data.${post.slug}`)
+                ? t.raw(`data.${post.slug}`)
+                : undefined;
               // 分类翻译映射表
-              const categoryTranslations: Record<string, Record<string, string>> = {
-                '教程': { zh: '教程', en: 'Tutorial', ja: 'チュートリアル' },
-                '对比': { zh: '对比', en: 'Comparison', ja: '比較' },
-                '技巧': { zh: '技巧', en: 'Tips', ja: 'ヒント' },
-                '故障排除': { zh: '故障排除', en: 'Troubleshooting', ja: 'トラブルシューティング' },
+              const categoryTranslations: Record<
+                string,
+                Record<string, string>
+              > = {
+                教程: { zh: "教程", en: "Tutorial", ja: "チュートリアル" },
+                对比: { zh: "对比", en: "Comparison", ja: "比較" },
+                技巧: { zh: "技巧", en: "Tips", ja: "ヒント" },
+                故障排除: {
+                  zh: "故障排除",
+                  en: "Troubleshooting",
+                  ja: "トラブルシューティング",
+                },
               };
-              const category = tData?.category || categoryTranslations[post.category]?.[locale] || post.category;
+              const category =
+                tData?.category ||
+                categoryTranslations[post.category]?.[locale] ||
+                post.category;
               return (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] ${index !== blogPosts.length - 1 ? 'border-b border-[#E9E9E7] ' : ''
-                    }`}
+                  className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] ${
+                    index !== blogPosts.length - 1
+                      ? "border-b border-[#E9E9E7] "
+                      : ""
+                  }`}
                 >
                   <h2 className="font-serif text-xl font-bold text-[#37352F] mb-2">
                     {tData?.title || post.title}
@@ -79,7 +89,7 @@ export default async function BlogPage() {
                       {category}
                     </span>
                     <span className="text-xs font-sans text-[#6a6968] uppercase tracking-wide">
-                      {post.readTime} {t('readTime')}
+                      {post.readTime} {t("readTime")}
                     </span>
                   </div>
                   <p className="text-[#37352F] mt-2 line-clamp-2">
