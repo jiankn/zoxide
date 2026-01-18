@@ -8,6 +8,7 @@ import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { Calendar, Clock, BookOpen } from "lucide-react";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
+import { stripLeadingH1 } from '@/lib/markdown/normalize';
 
 const tutorialMarkdownComponents = createMarkdownComponents();
 
@@ -87,16 +88,8 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   // 获取翻译后的数据
   const title = translation?.title || tutorial.title;
   const content = translation?.content || tutorial.content;
-  // Remove leading H1 from markdown content to avoid duplicate title rendering
-  const normalizedContent = (() => {
-    if (!content) return content;
-    const removedAtx = content.replace(/^\s*#\s.+(\r?\n)+/, '');
-    const lines = removedAtx.split(/\r?\n/);
-    if (lines.length >= 2 && /^=+$/.test(lines[1].trim())) {
-      return lines.slice(2).join('\n');
-    }
-    return removedAtx;
-  })();
+  // 规范化 markdown 内容：去除开头的 H1（ATX / Setext），避免与模板重复
+  const normalizedContent = stripLeadingH1(content);
   // 分类需要从翻译文件中获取，如果数据文件中的分类是中文，需要映射
   const categoryKey =
     tutorial.category === "入门教程"

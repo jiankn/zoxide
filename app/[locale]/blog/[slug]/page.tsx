@@ -10,6 +10,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Calendar, Clock, User } from "lucide-react";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
+import { stripLeadingH1 } from '@/lib/markdown/normalize';
 
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
@@ -155,18 +156,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const title = tData?.title || post.title;
   const excerpt = tData?.excerpt || post.excerpt;
   const content = tData?.content || post.content;
-  // 如果 markdown 内容以一级标题开头（和页面模板中已经渲染的 title 重复），去掉首行的 H1
-  const normalizedContent = (() => {
-    if (!content) return content;
-    // 去掉以 "# " 开头的 ATX H1（包含后面的空行）
-    const removedAtx = content.replace(/^\s*#\s.+(\r?\n)+/, '');
-    // 如果仍然是 Setext 风格的 H1（标题下一行全等号），移除首两行
-    const lines = removedAtx.split(/\r?\n/);
-    if (lines.length >= 2 && /^=+$/.test(lines[1].trim())) {
-      return lines.slice(2).join('\n');
-    }
-    return removedAtx;
-  })();
+  // 规范化 markdown 内容：去除开头的 H1（ATX / Setext），避免与模板重复
+  const normalizedContent = stripLeadingH1(content);
   // 分类翻译映射表
   const categoryTranslations: Record<string, Record<string, string>> = {
     教程: { zh: "教程", en: "Tutorial", ja: "チュートリアル" },
