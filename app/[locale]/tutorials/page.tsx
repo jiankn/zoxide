@@ -1,4 +1,3 @@
-import AdSlot from '@/components/AdSlot/AdSlot';
 import { Link } from '@/i18n/routing';
 import { getTranslations, getLocale } from 'next-intl/server';
 import { BookOpen, Video } from 'lucide-react';
@@ -119,65 +118,53 @@ export default async function TutorialsPage() {
   ];
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-12">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <main className="lg:col-span-2 space-y-12">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              {t('title')}
-            </h1>
-            <p className="text-lg text-gray-600">
-              {t('description')}
-            </p>
-          </div>
+    <div className="container mx-auto max-w-5xl px-4 py-12">
+      <main className="space-y-12">
+        <div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {t('title')}
+          </h1>
+          <p className="text-lg text-gray-600">
+            {t('description')}
+          </p>
+        </div>
 
-          <AdSlot slotId="tutorials-top" />
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {tutorialCategories.map((category, categoryIndex) => {
-              const Icon = category.icon;
-              return (
-                <div key={categoryIndex} className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-6 w-6 text-blue-600" />
-                    <h2 className="text-xl font-bold text-gray-900">
-                      {category.title}
-                    </h2>
-                  </div>
-                  <div className="space-y-3">
-                    {category.tutorials.map((tutorial, index) => (
-                      <Link
-                        key={index}
-                        href={tutorial.href}
-                        className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
-                      >
-                        <h3 className="font-semibold text-gray-900 mb-2">
-                          {tutorial.title}
-                        </h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <span>{tutorial.duration}</span>
-                          <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">
-                            {tutorial.level}
-                          </span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {tutorialCategories.map((category, categoryIndex) => {
+            const Icon = category.icon;
+            return (
+              <div key={categoryIndex} className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Icon className="h-6 w-6 text-blue-600" />
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {category.title}
+                  </h2>
                 </div>
-              );
-            })}
-          </div>
-
-          <AdSlot slotId="tutorials-middle" />
-          <AdSlot slotId="tutorials-bottom" />
-        </main>
-
-        <aside className="hidden lg:block">
-          <div className="sticky top-20 self-start max-h-[calc(100vh-80px)]">
-            <AdSlot slotId="tutorials-sidebar" lazy={true} />
-          </div>
-        </aside>
-      </div>
+                <div className="space-y-3">
+                  {category.tutorials.map((tutorial, index) => (
+                    <Link
+                      key={index}
+                      href={tutorial.href}
+                      className="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
+                    >
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        {tutorial.title}
+                      </h3>
+                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <span>{tutorial.duration}</span>
+                        <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">
+                          {tutorial.level}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </main>
     </div>
   );
 }
+

@@ -16,19 +16,19 @@ const localeNames: Record<string, string> = {
   ja: '日本語',
 };
 
-// 圆形国旗 SVG 组件
-const CircleFlagIcons: Record<string, React.JSX.Element> = {
+// 正方形国旗 SVG 组件（带圆角，颜色鲜艳）
+const SquareFlagIcons: Record<string, React.JSX.Element> = {
   en: (
-    <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-      {/* 美国国旗 - 圆形版本 */}
+    <svg className="h-5 w-5 flex-shrink-0 rounded overflow-hidden" viewBox="0 0 24 24" aria-hidden="true">
+      {/* 美国国旗 - 正方形版本 */}
       <defs>
-        <clipPath id="flagClipEn">
-          <circle cx="12" cy="12" r="11" />
+        <clipPath id="flagSquareEn">
+          <rect x="0" y="0" width="24" height="24" rx="3" ry="3" />
         </clipPath>
       </defs>
-      <g clipPath="url(#flagClipEn)">
-        {/* 红白条纹 */}
-        <rect fill="#B31942" width="24" height="24" />
+      <g clipPath="url(#flagSquareEn)">
+        {/* 红白条纹背景 */}
+        <rect fill="#B22234" width="24" height="24" />
         <rect fill="#FFFFFF" y="1.85" width="24" height="1.85" />
         <rect fill="#FFFFFF" y="5.54" width="24" height="1.85" />
         <rect fill="#FFFFFF" y="9.23" width="24" height="1.85" />
@@ -39,42 +39,50 @@ const CircleFlagIcons: Record<string, React.JSX.Element> = {
         <rect fill="#3C3B6E" width="10" height="13" />
       </g>
       {/* 边框 */}
-      <circle cx="12" cy="12" r="11" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" ry="2.5" fill="none" stroke="#D1D5DB" strokeWidth="1" />
     </svg>
   ),
   zh: (
-    <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-      {/* 中国国旗 - 圆形版本 */}
+    <svg className="h-5 w-5 flex-shrink-0 rounded overflow-hidden" viewBox="0 0 24 24" aria-hidden="true">
+      {/* 中国国旗 - 正方形版本 */}
       <defs>
-        <clipPath id="flagClipZh">
-          <circle cx="12" cy="12" r="11" />
+        <clipPath id="flagSquareZh">
+          <rect x="0" y="0" width="24" height="24" rx="3" ry="3" />
         </clipPath>
       </defs>
-      <g clipPath="url(#flagClipZh)">
+      <g clipPath="url(#flagSquareZh)">
         {/* 红色背景 */}
-        <rect fill="#DE2910" width="24" height="24" />
+        <rect fill="#EE1C25" width="24" height="24" />
         {/* 大五角星 */}
-        <polygon fill="#FFDE00" points="5,4 6.2,7.7 3,5.5 7,5.5 3.8,7.7" />
+        <polygon fill="#FFFF00" points="5,4 6.2,7.7 3,5.5 7,5.5 3.8,7.7" />
         {/* 小五角星 */}
-        <polygon fill="#FFDE00" points="9,2 9.4,3.2 8.2,2.5 9.8,2.5 8.6,3.2" />
-        <polygon fill="#FFDE00" points="11,3.5 11.4,4.7 10.2,4 11.8,4 10.6,4.7" />
-        <polygon fill="#FFDE00" points="11,6 11.4,7.2 10.2,6.5 11.8,6.5 10.6,7.2" />
-        <polygon fill="#FFDE00" points="9,7.5 9.4,8.7 8.2,8 9.8,8 8.6,8.7" />
+        <polygon fill="#FFFF00" points="9,2 9.4,3.2 8.2,2.5 9.8,2.5 8.6,3.2" />
+        <polygon fill="#FFFF00" points="11,3.5 11.4,4.7 10.2,4 11.8,4 10.6,4.7" />
+        <polygon fill="#FFFF00" points="11,6 11.4,7.2 10.2,6.5 11.8,6.5 10.6,7.2" />
+        <polygon fill="#FFFF00" points="9,7.5 9.4,8.7 8.2,8 9.8,8 8.6,8.7" />
       </g>
       {/* 边框 */}
-      <circle cx="12" cy="12" r="11" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" ry="2.5" fill="none" stroke="#D1D5DB" strokeWidth="1" />
     </svg>
   ),
   ja: (
-    <svg className="h-5 w-5 flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-      {/* 日本国旗 - 圆形版本 */}
-      <circle cx="12" cy="12" r="11" fill="#FFFFFF" />
-      <circle cx="12" cy="12" r="5" fill="#BC002D" />
+    <svg className="h-5 w-5 flex-shrink-0 rounded overflow-hidden" viewBox="0 0 24 24" aria-hidden="true">
+      {/* 日本国旗 - 正方形版本 */}
+      <defs>
+        <clipPath id="flagSquareJa">
+          <rect x="0" y="0" width="24" height="24" rx="3" ry="3" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#flagSquareJa)">
+        <rect fill="#FFFFFF" width="24" height="24" />
+        <circle cx="12" cy="12" r="6" fill="#BC002D" />
+      </g>
       {/* 边框 */}
-      <circle cx="12" cy="12" r="11" fill="none" stroke="#E5E7EB" strokeWidth="1" />
+      <rect x="0.5" y="0.5" width="23" height="23" rx="2.5" ry="2.5" fill="none" stroke="#D1D5DB" strokeWidth="1" />
     </svg>
   ),
 };
+
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -231,7 +239,7 @@ export default function Navigation() {
                   className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors border border-gray-200"
                   aria-label="切换语言"
                 >
-                  {CircleFlagIcons[locale] || <Globe className="h-5 w-5" />}
+                  {SquareFlagIcons[locale] || <Globe className="h-5 w-5" />}
                   <span>{localeNames[locale] || locale}</span>
                   <svg
                     className={`h-4 w-4 transition-transform ${langMenuOpen ? 'rotate-180' : ''}`}
@@ -255,7 +263,7 @@ export default function Navigation() {
                         className={`w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
                           }`}
                       >
-                        {CircleFlagIcons[loc]}
+                        {SquareFlagIcons[loc]}
                         <span>{localeNames[loc] || loc}</span>
                       </button>
                     ))}
@@ -304,7 +312,7 @@ export default function Navigation() {
                   className="flex items-center rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
                   aria-label="切换语言"
                 >
-                  {CircleFlagIcons[locale] || <Globe className="mr-2 h-4 w-4" />}
+                  {SquareFlagIcons[locale] || <Globe className="mr-2 h-4 w-4" />}
                   <span className="ml-2">{localeNames[locale] || locale}</span>
                 </button>
                 {langMenuOpen && (
@@ -321,7 +329,7 @@ export default function Navigation() {
                         className={`w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 ${locale === loc ? 'bg-blue-50 font-semibold' : ''
                           }`}
                       >
-                        {CircleFlagIcons[loc]}
+                        {SquareFlagIcons[loc]}
                         <span>{localeNames[loc] || loc}</span>
                       </button>
                     ))}

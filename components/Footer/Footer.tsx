@@ -7,6 +7,11 @@ import Logo from '@/components/Logo/Logo';
 export default function Footer() {
   const t = useTranslations('footer');
 
+  // 动态年份范围：起始年-当前年，如果相同只显示起始年
+  const startYear = 2025;
+  const currentYear = new Date().getFullYear();
+  const yearRange = currentYear > startYear ? `${startYear}-${currentYear}` : `${startYear}`;
+
   const footerLinks = {
     product: [
       { href: '/features', label: t('links.features') },
@@ -119,7 +124,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="mt-4 text-center text-sm text-white/70">
-            {t('copyright')}
+            {t('copyright', { yearRange })}
           </p>
         </div>
       </div>

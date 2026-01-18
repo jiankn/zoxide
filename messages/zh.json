@@ -311,7 +311,13 @@
         "excerpt": "如果你常在终端中工作，还在频繁手动输入 `cd`、反复敲 Tab 补全路径，这篇文章会向你展示 Zoxide 如何用“智能跳转”彻底改变你的终端导航方式。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide", "命令未找到", "安装", "配置", "fzf"],
+        "tags": [
+          "zoxide",
+          "命令未找到",
+          "安装",
+          "配置",
+          "fzf"
+        ],
         "content": "# 别再只用 `cd` 了：Zoxide 如何彻底变革终端导航\n\n如果你常在终端（Terminal）中工作，`cd` 命令很可能是你使用频率最高的工具——但也可能是你最大的效率瓶颈。我们都有过这样的经历：为了跳出深层目录结构疯狂输入 `cd ../../../`，或者凭着模糊的记忆疯狂按 `Tab` 键来补全路径。这种方式既机械重复，又过时。\n\n是时候介绍 **Zoxide** 了。这是一款用 Rust 编写的智能 `cd` 命令，它能学习你的使用习惯。它不仅仅是导航路径，更是基于你的**意图**带你“瞬移”。在这篇指南中，我们将超越基础介绍，深入探讨如何安装、配置和精通 Zoxide，从而彻底改变你的命令行工作流。\n\n## 常见问题：遇到 \"Zoxide Command Not Found\"\n\n在深入了解其魔力之前，我们需要先解决许多用户面临的第一个障碍。你可能在下载工具后尝试直接运行，结果却收到了令人沮丧的 **`Zoxide command not found`** 错误。\n\n这通常由以下两个原因造成：\n\n1. **路径问题：** 二进制文件不在系统的 `$PATH` 中。\n2. **缺少 Shell 集成：** Zoxide 不仅仅是一个二进制文件；它需要挂载（Hook）到你的 Shell 中才能追踪你的路径跳转。\n\n要解决这个问题，首先需要正确安装它。由于 Zoxide 是用 Rust 编写的，速度极快，且在几乎所有的包管理器中都能找到：\n\n```bash\n# MacOS (Homebrew)\nbrew install zoxide\n\n# Ubuntu/Debian\nsudo apt install zoxide\n\n# Windows (Winget)\nwinget install zoxide\n```\n\n然而，安装只是第一步。如果你现在输入 `z`，你可能会看到 **`Zoxide z command not found`** 的错误。这是因为 `z` 实际上是一个包裹了 Zoxide 二进制文件的 Shell 函数（或别名）。要启用它，你必须在 Shell 配置中进行初始化。\n\n## 关键步骤：Zoxide Setup\n\n标准的 **`Zoxide setup`** 过程包括在你的 Shell 配置文件（如 `.bashrc`、`.zshrc` 或 `config.fish`）中添加一行代码。这行代码告诉 Shell 每次打开终端窗口时都要初始化 Zoxide。\n\n对于 Bash，请将此添加到 `~/.bashrc`：\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\n对于 Zsh，请将此添加到 `~/.zshrc`：\n\n```bash\neval \"$(zoxide init zsh)\"\n```\n\n添加后，重启终端或 `source` 该文件。这个初始化脚本做了两件事：定义了 `z` 命令，并设置了一个“钩子（Hook）”来记录你访问的每个目录。这种记录能力正是 Zoxide 智能化的秘诀。\n\n## 使用指南：How to Use Zoxide 与意图算法\n\n设置完成后，让我们来看看 **`How to use zoxide`** 才能发挥最大效用。\n\nZoxide 的核心是使用一种“Frecency”算法。它不仅仅记住你去了*哪里*；它会根据 **Frequency**（频率，你去的次数）和 **Recency**（新鲜度，你最近去的时间）计算出一个评分。\n\n以前你需要输入：\n`cd ~/projects/development/backend/src`\n\n现在你只需要输入：\n`z src`\n\nZoxide 会扫描它的数据库。它知道你每天都访问 `backend/src` 文件夹，而好几个月没碰过 `frontend/src` 了。因此，它会自动跳转到排名最高的那个匹配项。\n\n### 常用命令：\n\n * `z foo`: 跳转到匹配 \"foo\" 且排名最高的目录。\n * `z foo bar`: 跳转到同时匹配 \"foo\" 和 \"bar\" 的目录。\n * `z ..`: 向上一级（工作原理与 `cd` 完全相同）。\n * `z -`: 返回上一个目录。\n\n## 强强联手：Zoxide + FZF\n\n有时候，你的记忆可能是模糊的。你知道文件夹里包含 \"app\"，但你的系统里散布着十个不同的 \"app\" 文件夹。这就是交互模式大显身手的时候。\n\n通过集成 **`Zoxide fzf`**，你可以解锁 `zi` 命令。FZF (Fuzzy Finder) 是一个通用的命令行模糊查找工具，而 Zoxide 开箱即支持它。\n\n当你输入 `zi app` 时，Zoxide 不会只猜测一个最佳匹配。相反，它会打开一个交互式列表，列出*所有*匹配 \"app\" 的目录，并按 Frecency 分数排序。你可以使用方向键选择正确的一个，然后按 Enter 跳转。\n\n*注意：你的系统必须安装了 `fzf` 才能使用此功能。*\n\n## 脚本与自动化：Zoxide Query\n\nZoxide 不仅限于交互式使用。它通过 **`Zoxide query`** 命令将其内部逻辑暴露出来。这对于编写 Shell 脚本或创建自定义别名非常有用。\n\n例如，如果你想查看 Zoxide 即将跳转的原始路径，但不进行实际跳转，可以运行：\n\n```bash\nzoxide query foo\n# 输出: /home/user/projects/foo\n```\n\n你还可以列出所有匹配项来清理数据库：\n\n```bash\nzoxide query --list\n```\n\n这个命令体现了 Zoxide 的透明度。它证明了这里没有魔法——只有一个高度优化的目录使用情况数据库。\n\n## 高级调优：Zoxide Config\n\n虽然 Zoxide 在默认设置下已经运行完美，但高级用户通常希望调整其行为。**`Zoxide config`** 主要通过环境变量来处理，你可以在 Shell 配置文件中设置这些变量。\n\n以下是几个值得考虑的重要配置：\n\n1. **`_ZO_ECHO=1`**: 默认情况下，Zoxide 跳转是静默的。如果你希望它打印出跳转的目标目录（以确保你到了正确的地方），请将此变量设置为 1。\n2. **`_ZO_RESOLVE_SYMLINKS=1`**: 如果你大量使用符号链接，你可能更喜欢 Zoxide 将它们解析为物理路径。\n3. **`_ZO_MAXAGE`**: 这控制了条目在数据库中保留的时间。Zoxide 会自然地清除旧条目以保持数据库快速，但如果你想要更长的历史记录，可以调整此项。\n\n## 为什么开源很重要\n\nZoxide 之所以能超越 `autojump` 或 `fasd` 等前辈，原因之一在于其背后的社区。**`Zoxide github`** 仓库非常活跃，维护良好，并且是用 Rust 编写的，这保证了内存安全和极快的速度。\n\n因为它是开源的，你可以审计代码，确切地看到它如何处理你的目录历史记录。GitHub 仓库也是查找最新安装说明、报告 Bug 或为项目做贡献的最佳场所。\n\n## 总结\n\nZoxide 不仅仅是一个便利工具；它是一次工作流的升级。通过结合 Rust 的速度、Frecency 算法的智能以及 FZF 的交互性，它将文件系统导航从一种苦差事变成了一种无意识的条件反射。\n\n如果你还在手动输入 `cd`，是时候升级了。今天就安装 Zoxide，给它几天时间来学习你的习惯，你很快就会惊讶：没有它的时候自己是怎么干活的。"
       },
       "quick-start": {
@@ -427,51 +433,91 @@
         "excerpt": "了解 Zoxide 如何通过学习你的使用习惯来替代传统的 cd 命令。探索 Frecency 算法、安装步骤以及如何实现目录间的瞬间跳转。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide", "教程", "cd替代", "生产力"]
+        "tags": [
+          "zoxide",
+          "教程",
+          "cd替代",
+          "生产力"
+        ]
       },
       "mac-anzhuang-zoxide-init-autocomplete": {
         "title": "在 macOS 上安装 Zoxide：Shell 集成与自动补全指南",
         "excerpt": "在 macOS 上使用 Homebrew 或 Cargo 安装 Zoxide 的完整指南。学习如何为 zsh、bash 和 fish 配置 Shell 集成，并启用强大的自动补全功能。",
         "category": "安装指南",
         "author": "zoxide.org",
-        "tags": ["macos", "安装", "shell", "自动补全"]
+        "tags": [
+          "macos",
+          "安装",
+          "shell",
+          "自动补全"
+        ]
       },
       "zoxide-tidai-autojump-z-fasd-zlua": {
         "title": "Zoxide 最佳替代方案：与 Autojump、z 和 fasd 的深度对比",
         "excerpt": "将 Zoxide 与 Autojump、z 和 fasd 等流行替代方案进行对比。了解为什么 Zoxide 基于 Rust 的高性能和智能算法使其成为现代终端的首选。",
         "category": "对比",
         "author": "zoxide.org",
-        "tags": ["替代方案", "对比", "autojump", "fasd"]
+        "tags": [
+          "替代方案",
+          "对比",
+          "autojump",
+          "fasd"
+        ]
       },
       "zoxide-alias-autocomplete": {
         "title": "提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能",
         "excerpt": "通过 zoxide alias 和 autocomplete（自动补全）深度优化终端导航体验，结合 fzf、Arch 与 NixOS 配置，构建高效、可重复的工作流。",
         "category": "技巧",
         "author": "zoxide.org",
-        "tags": ["alias", "autocomplete", "fzf", "arch", "nixos"],
-        "content": "# 提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能\\n\\n对于开发人员和系统管理员来说，命令行就像是第二个家。然而，使用传统的 `cd` 命令在复杂的目录结构中导航既枯燥又容易出错。这就是像 Zoxide 这样现代工具发挥作用的地方。Zoxide 是一个更智能的 `cd` 命令，它能学习你的习惯，让你用最少的按键跳转到常用目录。要真正掌握这个工具，必须了解如何利用 **zoxide alias** 功能及其与 Shell 补全的强大集成。\\n\\n### 配置 Zoxide Alias\\n\\nZoxide 的核心魔力在于其排名算法。但仅仅安装它是不够的；你需要在 Shell 中初始化它。许多高级用户会在他们的 Shell 配置文件（如 `.bashrc` 或 `.zshrc`）中手动配置一个 **zoxide alias**，完全用 `z` 替换 `cd`。\\n\\n以下是在初始化期间设置别名的典型方法，用于通过 zoxide 的智能导航替换默认的 `cd` 命令：\\n\\n```bash\\n# 在你的 .zshrc 或 .bashrc 文件中\\n# 这将初始化 zoxide 并自动设置 'cd' 别名\\neval \\\"$(zoxide init zsh --cmd cd)\\\"\\n```\\n\\n通过添加 `--cmd cd` 标志，你可以确保每一次目录更改都被记录下来，从而建立一个强大的导航历史数据库。如果没有这个特定的 **zoxide alias**，你可能会错过该工具的学习功能。这通常会导致当你试图跳转到一个文件夹时遇到 **zoxide no match found** 的错误，因为数据库是空的。\\n\\n### 掌握 Autocomplete（自动补全）\\n\\n生产力最关键的功能之一是 **zoxide autocomplete**。配置正确时，Zoxide 可以与 `fzf`（命令行模糊查找器）集成，提供交互式选择菜单。\\n\\n要启用此功能，你需要确保安装了 `fzf`，然后使用交互式选项。例如，在 **zoxide arch** 设置中，你可能会配置一个像 `zi` 这样的别名来触发交互式选择：\\n\\n```bash\\n# 使用 fzf 进行交互式选择的别名\\nalias zi='__zoxide_zi'\\n```\\n\\n现在，如果你输入 `zi` 并按回车键，**zoxide autocomplete** 就会启动，根据你的历史记录显示匹配的目录列表。这比标准的 Tab 补全要优越得多，因为它优先考虑你实际使用的文件夹。\\n\\n### 平台特性：NixOS 和 Arch\\n\\n不同发行版的用户面临着独特的设置挑战。**zoxide arch** 社区经常在 Reddit 上讨论集成这些自动补全功能的最佳脚本。与此同时，设置 **zoxide nixos** 配置需要使用声明式方法。你不能只是编辑一个文本文件；你必须配置环境模块，以确保 **zoxide alias** 在重启后依然存在。\\n\\n### 故障排除常见错误\\n\\n新用户面临的一个常见障碍是 **zoxide no match found** 消息。这通常发生在数据库尚未学习该路径时。\\n\\n```text\\n$ z my-new-project\\nzoxide: no match found\\n```\\n\\n要解决这个问题，你只需使用完整路径手动导航到该目录一次：\\n\\n```bash\\n# 通过访问一次来教 zoxide 识别该路径\\ncd /home/user/development/my-new-project\\n# 现在你可以从任何地方跳转到它\\nz my-new-project\\n```\\n\\n无论你是为 **zoxide nixos** 环境配置 flake，还是在 Arch 上调整 Shell，掌握这些 alias 和 autocomplete 功能都是释放这个工具真正潜力的关键。\\n"
+        "tags": [
+          "alias",
+          "autocomplete",
+          "fzf",
+          "arch",
+          "nixos"
+        ],
+        "content": "# 提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能\n\n对于开发人员和系统管理员来说，命令行就像是第二个家。然而，使用传统的 `cd` 命令在复杂的目录结构中导航既枯燥又容易出错。这就是像 Zoxide 这样现代工具发挥作用的地方。Zoxide 是一个更智能的 `cd` 命令，它能学习你的习惯，让你用最少的按键跳转到常用目录。要真正掌握这个工具，必须了解如何利用 **zoxide alias** 功能及其与 Shell 补全的强大集成。\n\n### 配置 Zoxide Alias\n\nZoxide 的核心魔力在于其排名算法。但仅仅安装它是不够的；你需要在 Shell 中初始化它。许多高级用户会在他们的 Shell 配置文件（如 `.bashrc` 或 `.zshrc`）中手动配置一个 **zoxide alias**，完全用 `z` 替换 `cd`。\n\n以下是在初始化期间设置别名的典型方法，用于通过 zoxide 的智能导航替换默认的 `cd` 命令：\n\n```bash\n# 在你的 .zshrc 或 .bashrc 文件中\n# 这将初始化 zoxide 并自动设置 'cd' 别名\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n通过添加 `--cmd cd` 标志，你可以确保每一次目录更改都被记录下来，从而建立一个强大的导航历史数据库。如果没有这个特定的 **zoxide alias**，你可能会错过该工具的学习功能。这通常会导致当你试图跳转到一个文件夹时遇到 **zoxide no match found** 的错误，因为数据库是空的。\n\n### 掌握 Autocomplete（自动补全）\n\n生产力最关键的功能之一是 **zoxide autocomplete**。配置正确时，Zoxide 可以与 `fzf`（命令行模糊查找器）集成，提供交互式选择菜单。\n\n要启用此功能，你需要确保安装了 `fzf`，然后使用交互式选项。例如，在 **zoxide arch** 设置中，你可能会配置一个像 `zi` 这样的别名来触发交互式选择：\n\n```bash\n# 使用 fzf 进行交互式选择的别名\nalias zi='__zoxide_zi'\n```\n\n现在，如果你输入 `zi` 并按回车键，**zoxide autocomplete** 就会启动，根据你的历史记录显示匹配的目录列表。这比标准的 Tab 补全要优越得多，因为它优先考虑你实际使用的文件夹。\n\n### 平台特性：NixOS 和 Arch\n\n不同发行版的用户面临着独特的设置挑战。**zoxide arch** 社区经常在 Reddit 上讨论集成这些自动补全功能的最佳脚本。与此同时，设置 **zoxide nixos** 配置需要使用声明式方法。你不能只是编辑一个文本文件；你必须配置环境模块，以确保 **zoxide alias** 在重启后依然存在。\n\n### 故障排除常见错误\n\n新用户面临的一个常见障碍是 **zoxide no match found** 消息。这通常发生在数据库尚未学习该路径时。\n\n```text\n$ z my-new-project\nzoxide: no match found\n```\n\n要解决这个问题，你只需使用完整路径手动导航到该目录一次：\n\n```bash\n# 通过访问一次来教 zoxide 识别该路径\ncd /home/user/development/my-new-project\n# 现在你可以从任何地方跳转到它\nz my-new-project\n```\n\n无论你是为 **zoxide nixos** 环境配置 flake，还是在 Arch 上调整 Shell，掌握这些 alias 和 autocomplete 功能都是释放这个工具真正潜力的关键。\n"
       },
       "zoxide-fzf-interactive-guide-zh": {
         "title": "超级终端：zoxide 与 fzf 交互式目录跳转终极教程",
         "excerpt": "通过结合 zoxide 和 fzf，解锁快如闪电的终端导航。本教程将展示如何配置和使用 zoxide 与 fzf，获得改变你命令行习惯的交互式模糊搜索体验。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide", "fzf", "教程", "交互式", "模糊搜索", "命令行神器"],
-        "content": "# 超级终端：zoxide 与 fzf 交互式目录跳转终极教程\\n\\n你是否厌倦了反复输入 `cd ../../..`，或者为了切换目录而按无数次 `Tab` 键？我们都经历过这种痛苦。命令行功能强大，但文件系统导航却常常显得笨拙和重复。如果只需输入部分名称，就能在几秒钟内跳转到任何常用目录，那会怎么样？\\n\\n现在，让我们隆重介绍终端效率工具中的“王炸组合”：**zoxide 和 fzf**。Zoxide 是一个“智能”目录跳转工具，能记住你的使用习惯；而 fzf 则是一个快如闪电的模糊搜索器。将它们结合，你将得到一个堪称魔法的交互式模糊搜索导航系统。本篇 **zoxide fzf 教程**将向你展示如何配置并精通这套工作流，让它成为你的命令行神器。\\n\\n## 什么是 zoxide？(为什么它比 `cd` 更出色)\\n\\n**zoxide** 的核心是一个速度极快的 `cd` 命令替代品。你无需手动输入完整路径，只需向 `zoxide` 传递你目标目录名称的几个字符即可。\\n\\n它的工作原理是什么？Zoxide 在后台运行，默默记录你最常访问的目录。它通过一个名为“frecency”的智能算法——即 **fre**quency（频率）和 **recency**（近时性）的结合——来为你的目录排名。当你输入 `z my-project`，它会立即跳转到与 `my-project` 匹配的、最“frecent”的目录。随着你的使用，它会不断学习，变得越来越智能和精准。\\n\\n由于它是用 Rust 编写的，因此极其轻量，绝不会拖慢你的 shell 启动速度。\\n\\n## 什么是 fzf？命令行的模糊搜索英雄\\n\\n**fzf** 是一个通用的命令行模糊查找器。如果你从未使用过模糊搜索，那么准备好大开眼界吧。它允许你通过输入寥寥数个字符，就能从海量列表（如文件、命令历史、git 提交记录等）中筛选出目标。\\n\\n与严格搜索不同，fzf 的“模糊”匹配不要求你输入连续的字符。例如，要查找名为 `authentication_controller.rb` 的文件，你只需输入 `authconrb`，fzf 就能立即找到它。对于任何长时间使用终端的人来说，它都是一个不可或缺的工具。\\n\\n## 魔法组合：配置 zoxide 的交互式搜索\\n\\n这才是真正释放其威力的地方。默认情况下，如果 `zoxide` 为你的查询找到多个匹配项，它只会跳转到排名最高的那一个。但是，当你将它与 fzf 集成后，zoxide 会打开一个**交互式菜单**，让你精确选择你想要的目录。\\n\\n以下是配置步骤。\\n\\n**第一步：安装 zoxide 和 fzf**\\n\\n安装这两个工具最简单的方法是使用包管理器。\\n\\n*   **macOS (Homebrew):**\\n    ```bash\\n    brew install zoxide fzf\\n    ```\\n\\n*   **Windows (Scoop or Winget):**\\n    ```powershell\\n    # 使用 Scoop\\n    scoop install zoxide fzf\\n\\n    # 或使用 Winget\\n    winget install ajeetdsouza.zoxide fzf\\n    ```\\n\\n*   **Linux (使用你的发行版包管理器):**\\n    请查阅 zoxide 和 fzf 的官方安装指南，因为包名可能有所不同。例如，在 Arch Linux 上：\\n    ```bash\\n    pacman -S zoxide fzf\\n    ```\\n\\n**第二步：配置你的 Shell**\\n\\n现在，只需在你的 shell 配置文件中添加一行，即可初始化 zoxide 并自动启用 fzf 的交互式集成。\\n\\n*   **对于 Bash 或 Zsh (`~/.bashrc` 或 `~/.zshrc`):**\\n    ```bash\\n    eval \\\"$(zoxide init bash)\\\"\\n    ```\\n    *(注意: 对于 Zsh, 你也可以使用 `eval \\\"$(zoxide init zsh)\\\"`)*\\n\\n*   **对于 Fish (`~/.config/fish/config.fish`):**\\n    ```fish\\n    zoxide init fish | source\\n    ```\\n\\n*   **对于 PowerShell (`$PROFILE`):**\\n    ```powershell\\n    Invoke-Expression (& { (zoxide init powershell | Out-String) })\\n    ```\\n\\n保存文件后，重启你的 shell 或重新加载配置文件 (例如, `source ~/.zshrc`)。就这样！只要 fzf 已安装，zoxide 就会自动调用它进行交互式选择。\\n\\n## 如何使用你的新超能力：`zi` 命令\\n\\n配置完成后，你现在可以使用 `zi` 这个强大的**交互式命令**了。\\n\\n只需在终端中输入 `zi` 并按回车。\\n\\n一个由 fzf 驱动的菜单会立即弹出，按“frecency”顺序列出 zoxide 知道的所有目录。\\n\\n现在你可以：\\n1.  **开始输入**: 输入你目标目录的几个字符，列表将实时筛选。\\n2.  **使用方向键**: 上下移动以选择正确的目录。\\n3.  **按下回车**: 你将瞬间被传送到你选择的目标位置。\\n\\n这个**终端目录跳转**工作流非常快速和直观。它将一个多步骤的导航过程变成了一个无缝的、两秒钟内即可完成的动作。\\n\\n## 提升命令行效率的专业技巧\\n\\n为了让体验更加顺滑，可以考虑在你的 shell 配置文件中添加以下别名：\\n\\n```bash\\n# 对于 Bash/Zsh\\nalias j=\\\"z\\\"\\nalias jj=\\\"zi\\\"\\n```\\n\\n```fish\\n# 对于 Fish\\nalias j \\\"z\\\"\\nalias jj \\\"zi\\\"\\n```\\n\\n现在你可以使用 `j project` 进行快速跳转，使用 `jj` 进行交互式搜索。这个简单的别名方案是一个流行的约定，能为你节省宝贵的击键次数。\\n\\n如果你想清理数据库，可以使用 `zoxide remove /path/to/directory` 来让 zoxide 忘记某个特定条目。\\n\\n## 结论：告别输入完整路径的时代\\n\\n结合 zoxide 和 fzf 不仅仅是对工作流的一个小调整；它更是对你命令行体验的一次根本性升级。它减少了记忆路径的认知负担，最小化了击键次数，并最终为你节省了时间和免去了挫败感。\\n\\n通过利用 zoxide 的智能历史和 fzf 的**交互式模糊搜索**，你可以以思想的速度在文件系统中导航。如果你正在寻找一个能极大地提升你**命令行效率**的改变，那么 **zoxide fzf** 这个组合就是答案。试试看吧——你的 `cd` 键会感谢你的。"
+        "tags": [
+          "zoxide",
+          "fzf",
+          "教程",
+          "交互式",
+          "模糊搜索",
+          "命令行神器"
+        ],
+        "content": "# 超级终端：zoxide 与 fzf 交互式目录跳转终极教程\n\n你是否厌倦了反复输入 `cd ../../..`，或者为了切换目录而按无数次 `Tab` 键？我们都经历过这种痛苦。命令行功能强大，但文件系统导航却常常显得笨拙和重复。如果只需输入部分名称，就能在几秒钟内跳转到任何常用目录，那会怎么样？\n\n现在，让我们隆重介绍终端效率工具中的“王炸组合”：**zoxide 和 fzf**。Zoxide 是一个“智能”目录跳转工具，能记住你的使用习惯；而 fzf 则是一个快如闪电的模糊搜索器。将它们结合，你将得到一个堪称魔法的交互式模糊搜索导航系统。本篇 **zoxide fzf 教程**将向你展示如何配置并精通这套工作流，让它成为你的命令行神器。\n\n## 什么是 zoxide？(为什么它比 `cd` 更出色)\n\n**zoxide** 的核心是一个速度极快的 `cd` 命令替代品。你无需手动输入完整路径，只需向 `zoxide` 传递你目标目录名称的几个字符即可。\n\n它的工作原理是什么？Zoxide 在后台运行，默默记录你最常访问的目录。它通过一个名为“frecency”的智能算法——即 **fre**quency（频率）和 **recency**（近时性）的结合——来为你的目录排名。当你输入 `z my-project`，它会立即跳转到与 `my-project` 匹配的、最“frecent”的目录。随着你的使用，它会不断学习，变得越来越智能和精准。\n\n由于它是用 Rust 编写的，因此极其轻量，绝不会拖慢你的 shell 启动速度。\n\n## 什么是 fzf？命令行的模糊搜索英雄\n\n**fzf** 是一个通用的命令行模糊查找器。如果你从未使用过模糊搜索，那么准备好大开眼界吧。它允许你通过输入寥寥数个字符，就能从海量列表（如文件、命令历史、git 提交记录等）中筛选出目标。\n\n与严格搜索不同，fzf 的“模糊”匹配不要求你输入连续的字符。例如，要查找名为 `authentication_controller.rb` 的文件，你只需输入 `authconrb`，fzf 就能立即找到它。对于任何长时间使用终端的人来说，它都是一个不可或缺的工具。\n\n## 魔法组合：配置 zoxide 的交互式搜索\n\n这才是真正释放其威力的地方。默认情况下，如果 `zoxide` 为你的查询找到多个匹配项，它只会跳转到排名最高的那一个。但是，当你将它与 fzf 集成后，zoxide 会打开一个**交互式菜单**，让你精确选择你想要的目录。\n\n以下是配置步骤。\n\n**第一步：安装 zoxide 和 fzf**\n\n安装这两个工具最简单的方法是使用包管理器。\n\n*   **macOS (Homebrew):**\n    ```bash\n    brew install zoxide fzf\n    ```\n\n*   **Windows (Scoop or Winget):**\n    ```powershell\n    # 使用 Scoop\n    scoop install zoxide fzf\n\n    # 或使用 Winget\n    winget install ajeetdsouza.zoxide fzf\n    ```\n\n*   **Linux (使用你的发行版包管理器):**\n    请查阅 zoxide 和 fzf 的官方安装指南，因为包名可能有所不同。例如，在 Arch Linux 上：\n    ```bash\n    pacman -S zoxide fzf\n    ```\n\n**第二步：配置你的 Shell**\n\n现在，只需在你的 shell 配置文件中添加一行，即可初始化 zoxide 并自动启用 fzf 的交互式集成。\n\n*   **对于 Bash 或 Zsh (`~/.bashrc` 或 `~/.zshrc`):**\n    ```bash\n    eval \"$(zoxide init bash)\"\n    ```\n    *(注意: 对于 Zsh, 你也可以使用 `eval \"$(zoxide init zsh)\"`)*\n\n*   **对于 Fish (`~/.config/fish/config.fish`):**\n    ```fish\n    zoxide init fish | source\n    ```\n\n*   **对于 PowerShell (`$PROFILE`):**\n    ```powershell\n    Invoke-Expression (& { (zoxide init powershell | Out-String) })\n    ```\n\n保存文件后，重启你的 shell 或重新加载配置文件 (例如, `source ~/.zshrc`)。就这样！只要 fzf 已安装，zoxide 就会自动调用它进行交互式选择。\n\n## 如何使用你的新超能力：`zi` 命令\n\n配置完成后，你现在可以使用 `zi` 这个强大的**交互式命令**了。\n\n只需在终端中输入 `zi` 并按回车。\n\n一个由 fzf 驱动的菜单会立即弹出，按“frecency”顺序列出 zoxide 知道的所有目录。\n\n现在你可以：\n1.  **开始输入**: 输入你目标目录的几个字符，列表将实时筛选。\n2.  **使用方向键**: 上下移动以选择正确的目录。\n3.  **按下回车**: 你将瞬间被传送到你选择的目标位置。\n\n这个**终端目录跳转**工作流非常快速和直观。它将一个多步骤的导航过程变成了一个无缝的、两秒钟内即可完成的动作。\n\n## 提升命令行效率的专业技巧\n\n为了让体验更加顺滑，可以考虑在你的 shell 配置文件中添加以下别名：\n\n```bash\n# 对于 Bash/Zsh\nalias j=\"z\"\nalias jj=\"zi\"\n```\n\n```fish\n# 对于 Fish\nalias j \"z\"\nalias jj \"zi\"\n```\n\n现在你可以使用 `j project` 进行快速跳转，使用 `jj` 进行交互式搜索。这个简单的别名方案是一个流行的约定，能为你节省宝贵的击键次数。\n\n如果你想清理数据库，可以使用 `zoxide remove /path/to/directory` 来让 zoxide 忘记某个特定条目。\n\n## 结论：告别输入完整路径的时代\n\n结合 zoxide 和 fzf 不仅仅是对工作流的一个小调整；它更是对你命令行体验的一次根本性升级。它减少了记忆路径的认知负担，最小化了击键次数，并最终为你节省了时间和免去了挫败感。\n\n通过利用 zoxide 的智能历史和 fzf 的**交互式模糊搜索**，你可以以思想的速度在文件系统中导航。如果你正在寻找一个能极大地提升你**命令行效率**的改变，那么 **zoxide fzf** 这个组合就是答案。试试看吧——你的 `cd` 键会感谢你的。"
       },
       "zoxide-linux-zh": {
         "title": "zoxide linux 安装与使用全攻略",
         "excerpt": "面向关键词 “zoxide linux”：覆盖 Ubuntu/Arch 安装、Shell 初始化、fzf 集成、常见错误修复，让你的 Linux 终端跳转更快。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide linux", "linux", "安装", "fzf", "故障排除"]
+        "tags": [
+          "zoxide linux",
+          "linux",
+          "安装",
+          "fzf",
+          "故障排除"
+        ]
       },
       "troubleshooting-zoxide-no-match-found": {
         "title": "Zoxide 故障排除：修复 \"No Match Found\" 和数据库错误",
         "excerpt": "Zoxide 通常是一个\"安装后即忘\"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。本指南涵盖了如何调试和修复 \"No Match Found\" 错误以及数据库相关问题。",
         "category": "故障排除",
         "author": "zoxide.org",
-        "tags": ["故障排除", "数据库", "no match found", "arch", "nixos"],
+        "tags": [
+          "故障排除",
+          "数据库",
+          "no match found",
+          "arch",
+          "nixos"
+        ],
         "content": "# Zoxide 故障排除：修复 \"No Match Found\" 和数据库错误\n\nZoxide 通常是一个\"安装后即忘\"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。用户最常见的挫折是 **zoxide no match found** 错误。虽然这通常只意味着\"我还没去过那里\"，但有时它可能表明数据库损坏或 Shell 配置错误。本指南涵盖了如何在各种系统（包括 **zoxide arch** 和 **zoxide nixos** 设置）上调试这些问题。\n\n### 理解 \"No Match Found\"\n\n当你输入 `z foo` 并收到 **zoxide no match found** 响应时，这意味着排名算法（frecency）产生的结果为零。发生这种情况有两个原因：\n\n1. **新路径：** 你以前从未访问过该目录。\n2. **已删除路径：** 目录已被删除，但 Zoxide 试图跳转到该目录并失败，随后将其从数据库中删除（自我修复）。\n\n要解决第一个问题，请确保你的 **zoxide alias** 正确挂钩到你的 Shell 以记录移动。运行以下命令以检查 Zoxide 是否正在跟踪你的命令：\n\n```bash\n# 检查 'z' 函数或别名是否存在\ntype z\n\n# 手动将路径添加到数据库以进行测试\nzoxide add /path/to/your/directory\n```\n\n### 清理 \"幽灵\" 条目\n\n有时 **zoxide autocomplete** 可能会建议不再存在的目录，从而使你的工作流变得混乱。虽然 Zoxide 试图自我清理，但你可以强制进行清理。\n\n在像 **zoxide arch** 这样的滚动发行版上，你可能会频繁移动大型项目文件夹，幽灵条目很常见。你可以手动移除特定路径：\n\n```bash\n# 从数据库中移除特定路径\nzoxide remove /path/to/deleted/project\n\n# 或者交互式移除路径（需要 fzf）\nzoxide remove -i\n```\n\n这确保了你的 **zoxide autocomplete** 列表保持相关且快速。\n\n### 平台特定的调试\n\n对于 **zoxide nixos** 用户，问题通常源于 Nix 存储的只读性质或环境变量冲突。如果 Zoxide 在重启后忘记了你的历史记录，请检查 `_ZO_DATA_DIR` 指向的位置。在 NixOS `home-manager` 设置中，确保你的状态版本是兼容的。\n\n```nix\n# 在 home.nix 中，确保启用了集成以挂钩到 Shell 历史记录\nprograms.zoxide = {\n enable = true;\n # 这确保了别名被创建\n enableZshIntegration = true; \n};\n```\n\n如果你在访问目录后仍然遇到 **zoxide no match found** 错误，请检查你的排除列表。Zoxide 默认会忽略某些临时目录。正确配置环境可确保 **zoxide alias** 捕获你真正关心的路径。\n"
       },
       "advanced-zoxide-techniques": {
@@ -479,7 +525,13 @@
         "excerpt": "深入理解 frecency 排名、数据库备份与同步以及脚本化工作流，让你的 zoxide 在 Arch/NixOS 上始终高效。",
         "category": "技巧",
         "author": "zoxide.org",
-        "tags": ["frecency", "workflow", "backup", "arch", "nixos"],
+        "tags": [
+          "frecency",
+          "workflow",
+          "backup",
+          "arch",
+          "nixos"
+        ],
         "content": "# Zoxide 高级技巧：掌握 Frecency 和自定义工作流\n\n一旦你掌握了基础知识，Zoxide 能做的不仅仅是跳转文件夹。了解底层数据库机制可以让你操作排名、备份历史记录以及编写自定义工作流脚本。这对于想要完全控制其环境的 **zoxide arch** 和 **zoxide nixos** 系统的高级用户来说至关重要。\n\n### 操作 Frecency 分数\n\nZoxide 根据频率（Frequency）和新近度（Recency）对目录进行排名。有时，你可能想要手动检查目录的分数，以了解为什么 **zoxide autocomplete** 会优先显示它。\n\n你可以查询原始数据库：\n\n```bash\n# 列出所有匹配项及其分数\nzoxide query --list --score\n```\n\n如果目录的分数很低，你在使用简短缩写时可能会遇到 **zoxide no match found** 错误。你可以通过重复访问该路径或多次使用 `zoxide add` 来手动提高路径的分数。\n\n### 备份和同步\n\n你的导航历史记录很有价值。如果你更换机器或重装操作系统，你不会想从头开始。\n\n * **Linux/Arch:** 数据通常位于 `~/.local/share/zoxide/db.zo`。\n * **macOS:** 通常位于 `~/Library/Application Support/zoxide`。\n\n对于 **zoxide nixos** 用户，持久化此文件至关重要，因为根文件系统可能是临时的（启动时擦除）。确保你的持久化配置包含 Zoxide 数据目录，以便你的 **zoxide alias** 历史记录在重启后依然存在。\n\n```nix\n# NixOS 持久化配置片段示例\nenvironment.persistence.\"/persist\".directories = [\n \".local/share/zoxide\"\n];\n```\n\n### 使用 Zoxide 编写脚本\n\n你可以在自己的脚本中使用 Zoxide。由于 `z` 是一个 Shell 函数（别名），脚本应使用二进制文件 `zoxide query` 来查找路径，而无需更改目录。\n\n```bash\n# 一个在编辑器中打开\"最常用\"项目的脚本\nPROJECT_DIR=$(zoxide query my-project)\nif [ -z \"$PROJECT_DIR\" ]; then\n echo \"Error: zoxide no match found\"\nelse\n nvim \"$PROJECT_DIR\"\nfi\n```\n\n### 高级 Aliases (别名)\n\n除了标准的 `z` 之外，你还可以创建自定义 **zoxide alias** 函数。例如，一个跳转到目录并立即列出其内容的命令：\n\n```bash\n# 将此添加到 .bashrc 或 .zshrc\nza() {\n z \"$@\" && ls -F\n}\n```\n\n这有效地结合了导航和检查。无论你是在微调 **zoxide arch** 设置，还是在 **zoxide nixos** 中定义声明式模块，这些高级技巧都能将一个简单的工具变成生产力利器。"
       },
       "mastering-terminal-navigation-zoxide-guide": {
@@ -487,7 +539,14 @@
         "excerpt": "如果你每天在命令行界面花费大量时间，你一定体会过使用标准 `cd` 命令在深层目录结构中导航的痛苦。这篇综合指南将深入探讨如何使用 Zoxide，涵盖从 Ubuntu 安装到高级 `fzf` 集成以及常见错误排查的所有内容。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide", "how to use", "教程", "ubuntu", "fzf", "query"],
+        "tags": [
+          "zoxide",
+          "how to use",
+          "教程",
+          "ubuntu",
+          "fzf",
+          "query"
+        ],
         "content": "# 终端导航大师 —— Zoxide 使用终极指南 (How to Use Zoxide)\n\n如果你每天在命令行界面花费大量时间，你一定体会过使用标准 `cd` 命令在深层目录结构中导航的痛苦。它不仅重复、缓慢，而且容易出错。这就是 **Zoxide** 登场的时候了，它是一个受 `z` 和 `autojump` 启发的智能 `cd` 命令。它能记住你最常使用的目录，让你只需敲击几次键盘就能\"跳转\"到目的地。\n\n在这篇综合指南中，我们将深入探讨 **how to use Zoxide (如何使用 Zoxide)**，涵盖从 Ubuntu 安装到高级 `fzf` 集成以及常见错误排查的所有内容。\n\n## 什么是 Zoxide？(关于 `z vs zoxide` 的讨论)\n\n在深入\"操作方法\"之前，有必要了解 Zoxide 的独特之处。许多用户经常询问 **z vs zoxide** 的区别。\n\n最初的 `z` 是一个 Shell 脚本。虽然在当时是革命性的，但在旧硬件或处理海量数据库时可能会变慢。相比之下，**Zoxide** 是 `z` 的 Rust 重写版本。这意味着它速度极快、内存安全且跨平台。它作为一个更智能的导航工具，跟踪你的\"Frecency\"（频率 Frequency + 新近度 Recency 的结合）。如果你正在寻找 **zoxide alternative (Zoxide 替代品)**，你可能会找到像 `autojump` 或 `fasd` 这样的工具，但由于其速度和 Rust 基础，Zoxide 通常被认为是现代标准。\n\n## 第一部分：如何安装 Zoxide (How to Install Zoxide)\n\n旅程的第一步是安装。具体方法取决于你的操作系统，但 **zoxide github** 仓库提供了最新的二进制文件和源代码。\n\n### 1.1 在 Ubuntu/Debian 上安装\n\n对于 Linux 用户，特别是那些想知道如何 **install zoxide ubuntu** 的用户，过程非常顺畅。虽然你在较新版本的 Ubuntu 上可以使用 `apt`，但通常建议使用官方安装脚本以获取最新版本：\n\n```bash\ncurl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash\n```\n\n或者，如果你更喜欢使用包管理器（在 Ubuntu 21.04+ 上）：\n\n```bash\nsudo apt install zoxide\n```\n\n### 1.2 macOS 和 Windows\n\n * **macOS:** 通过 Homebrew 使用 `brew install zoxide`。\n * **Windows:** 使用 `winget install zoxide` 或 `scoop install zoxide`。\n\n## 第二部分：Zoxide Config 配置与 Shell 集成\n\n仅仅安装二进制文件是不够的。你需要将 Zoxide 挂载到你的 Shell 中，以便它可以跟踪你的目录更改。这通常通过 **zoxide config** 逻辑（由 `init` 命令处理）来完成。\n\n### 2.1 添加到 `.bashrc` 或 `.zshrc`\n\n要启用 Zoxide，你需要将初始化行添加到 Shell 配置文件中。\n\n * **Bash:** 将 `eval \"$(zoxide init bash)\"` 添加到 `~/.bashrc`。\n * **Zsh:** 将 `eval \"$(zoxide init zsh)\"` 添加到 `~/.zshrc`。\n * **Fish:** 将 `zoxide init fish | source` 添加到 `~/.config/fish/config.fish`。\n\n### 2.2 使用 Oh My Zsh\n\n如果你是 Zsh 的高级用户，你可能已经在使用插件了。对于 **oh my zsh zoxide** 集成，Zoxide 通常作为标准库中的插件提供，或者你可以简单地使用上述的手动 `eval` 方法，这种方法通常更快且更精简。\n\n## 第三部分：如何使用 Zoxide (核心指令)\n\n一旦安装并初始化，使用 Zoxide 就非常直观了。该工具取代了输入完整路径的需要。\n\n### 3.1 `z` 命令\n\n你将使用的主要命令是 `z`。\n\n * **跳转到目录:** `z project` 可能会带你进入 `/home/user/code/python/project`。\n * **返回:** `z -` 会带你回到上一个目录（就像 `cd -`）。\n\n### 3.2 理解 Zoxide Query\n\n有时你想看看 Zoxide 在想什么，而不是实际跳转。这就是 **zoxide query** 发挥作用的地方。\n\n * `zoxide query foo`: 返回 `z foo` 将跳转到的具体路径。\n * `zoxide query --list`: 列出数据库中所有匹配的目录。\n * `zoxide query --score`: 显示目录的\"Frecency\"分数，帮助你理解为什么一个目录的排名高于另一个。\n\n## 第四部分：使用 Zoxide FZF 增强功能\n\n最强大的功能之一是与 `fzf`（命令行模糊查找器）的集成。**zoxide fzf** 的组合允许进行交互式目录选择。\n\n默认情况下，如果你安装了 `fzf`，Zoxide 会启用一个专门的交互式命令（通常别名为 `zi`）。\n\n * 输入 `zi` 并按 Enter。\n * 会出现一个模糊搜索窗口，显示你访问最多的目录。\n * 输入几个字母进行筛选，选择目录，然后按 Enter 跳转。\n\n要自定义此功能，你可以在配置文件中设置环境变量：\n\n```bash\nexport _ZO_FZF_OPTS=\"--height 40% --layout=reverse --border\"\n```\n\n## 第五部分：常见故障排除\n\n即使是再强大的工具，也可能会出现问题。\n\n### 5.1 错误：\"zoxide command not found\"\n\n如果你输入 `z` 或 `zoxide` 并看到 **zoxide command not found**，通常意味着以下两件事之一：\n\n1. **PATH 问题:** 安装目录（例如 `~/.local/bin`）不在系统的 `$PATH` 中。请检查你的 Shell 配置文件。\n2. **缺少 Init:** 你忘记将 `eval \"$(zoxide init ...)\"` 行添加到 Shell 配置文件中。Zoxide 必须被初始化才能定义 `z` 别名/函数。\n\n### 5.2 数据库清理\n\n随着时间的推移，你的数据库可能会堆积不再存在的目录。Zoxide 处理得很好，但你可以强制进行清理：\n\n```bash\nzoxide remove /path/to/deleted/directory\n```\n\n## 结论\n\n学习 **how to use Zoxide** 是你可以为终端工作流做的最高 ROI（投资回报率）升级之一。无论你是从 `autojump` 迁移，正在权衡 **z vs zoxide**，还是刚刚使用 **install zoxide ubuntu** 命令设置新机器，这个工具都是必不可少的。\n\n通过掌握 **zoxide query** 命令并设置 **zoxide fzf** 集成，你将不再与文件系统作斗争，而是顺畅地在其中穿梭。立即访问 **zoxide github** 页面查看最新更新并为该项目点星！\n"
       },
       "stop-using-cd": {
@@ -495,7 +554,13 @@
         "excerpt": "如果你常在终端中工作，还在频繁手动输入 `cd`、反复敲 Tab 补全路径，这篇文章会向你展示 Zoxide 如何用“智能跳转”彻底改变你的终端导航方式。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide", "命令未找到", "安装", "配置", "fzf"],
+        "tags": [
+          "zoxide",
+          "命令未找到",
+          "安装",
+          "配置",
+          "fzf"
+        ],
         "content": "# 别再只用 `cd` 了：Zoxide 如何彻底变革终端导航\n\n如果你常在终端（Terminal）中工作，`cd` 命令很可能是你使用频率最高的工具——但也可能是你最大的效率瓶颈。我们都有过这样的经历：为了跳出深层目录结构疯狂输入 `cd ../../../`，或者凭着模糊的记忆疯狂按 `Tab` 键来补全路径。这种方式既机械重复，又过时。\n\n是时候介绍 **Zoxide** 了。这是一款用 Rust 编写的智能 `cd` 命令，它能学习你的使用习惯。它不仅仅是导航路径，更是基于你的**意图**带你“瞬移”。在这篇指南中，我们将超越基础介绍，深入探讨如何安装、配置和精通 Zoxide，从而彻底改变你的命令行工作流。\n\n## 常见问题：遇到 \"Zoxide Command Not Found\"\n\n在深入了解其魔力之前，我们需要先解决许多用户面临的第一个障碍。你可能在下载工具后尝试直接运行，结果却收到了令人沮丧的 **`Zoxide command not found`** 错误。\n\n这通常由以下两个原因造成：\n\n1. **路径问题：** 二进制文件不在系统的 `$PATH` 中。\n2. **缺少 Shell 集成：** Zoxide 不仅仅是一个二进制文件；它需要挂载（Hook）到你的 Shell 中才能追踪你的路径跳转。\n\n要解决这个问题，首先需要正确安装它。由于 Zoxide 是用 Rust 编写的，速度极快，且在几乎所有的包管理器中都能找到：\n\n```bash\n# MacOS (Homebrew)\nbrew install zoxide\n\n# Ubuntu/Debian\nsudo apt install zoxide\n\n# Windows (Winget)\nwinget install zoxide\n```\n\n然而，安装只是第一步。如果你现在输入 `z`，你可能会看到 **`Zoxide z command not found`** 的错误。这是因为 `z` 实际上是一个包裹了 Zoxide 二进制文件的 Shell 函数（或别名）。要启用它，你必须在 Shell 配置中进行初始化。\n\n## 关键步骤：Zoxide Setup\n\n标准的 **`Zoxide setup`** 过程包括在你的 Shell 配置文件（如 `.bashrc`、`.zshrc` 或 `config.fish`）中添加一行代码。这行代码告诉 Shell 每次打开终端窗口时都要初始化 Zoxide。\n\n对于 Bash，请将此添加到 `~/.bashrc`：\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\n对于 Zsh，请将此添加到 `~/.zshrc`：\n\n```bash\neval \"$(zoxide init zsh)\"\n```\n\n添加后，重启终端或 `source` 该文件。这个初始化脚本做了两件事：定义了 `z` 命令，并设置了一个“钩子（Hook）”来记录你访问的每个目录。这种记录能力正是 Zoxide 智能化的秘诀。\n\n## 使用指南：How to Use Zoxide 与意图算法\n\n设置完成后，让我们来看看 **`How to use zoxide`** 才能发挥最大效用。\n\nZoxide 的核心是使用一种“Frecency”算法。它不仅仅记住你去了*哪里*；它会根据 **Frequency**（频率，你去的次数）和 **Recency**（新鲜度，你最近去的时间）计算出一个评分。\n\n以前你需要输入：\n`cd ~/projects/development/backend/src`\n\n现在你只需要输入：\n`z src`\n\nZoxide 会扫描它的数据库。它知道你每天都访问 `backend/src` 文件夹，而好几个月没碰过 `frontend/src` 了。因此，它会自动跳转到排名最高的那个匹配项。\n\n### 常用命令：\n\n * `z foo`: 跳转到匹配 \"foo\" 且排名最高的目录。\n * `z foo bar`: 跳转到同时匹配 \"foo\" 和 \"bar\" 的目录。\n * `z ..`: 向上一级（工作原理与 `cd` 完全相同）。\n * `z -`: 返回上一个目录。\n\n## 强强联手：Zoxide + FZF\n\n有时候，你的记忆可能是模糊的。你知道文件夹里包含 \"app\"，但你的系统里散布着十个不同的 \"app\" 文件夹。这就是交互模式大显身手的时候。\n\n通过集成 **`Zoxide fzf`**，你可以解锁 `zi` 命令。FZF (Fuzzy Finder) 是一个通用的命令行模糊查找工具，而 Zoxide 开箱即支持它。\n\n当你输入 `zi app` 时，Zoxide 不会只猜测一个最佳匹配。相反，它会打开一个交互式列表，列出*所有*匹配 \"app\" 的目录，并按 Frecency 分数排序。你可以使用方向键选择正确的一个，然后按 Enter 跳转。\n\n*注意：你的系统必须安装了 `fzf` 才能使用此功能。*\n\n## 脚本与自动化：Zoxide Query\n\nZoxide 不仅限于交互式使用。它通过 **`Zoxide query`** 命令将其内部逻辑暴露出来。这对于编写 Shell 脚本或创建自定义别名非常有用。\n\n例如，如果你想查看 Zoxide 即将跳转的原始路径，但不进行实际跳转，可以运行：\n\n```bash\nzoxide query foo\n# 输出: /home/user/projects/foo\n```\n\n你还可以列出所有匹配项来清理数据库：\n\n```bash\nzoxide query --list\n```\n\n这个命令体现了 Zoxide 的透明度。它证明了这里没有魔法——只有一个高度优化的目录使用情况数据库。\n\n## 高级调优：Zoxide Config\n\n虽然 Zoxide 在默认设置下已经运行完美，但高级用户通常希望调整其行为。**`Zoxide config`** 主要通过环境变量来处理，你可以在 Shell 配置文件中设置这些变量。\n\n以下是几个值得考虑的重要配置：\n\n1. **`_ZO_ECHO=1`**: 默认情况下，Zoxide 跳转是静默的。如果你希望它打印出跳转的目标目录（以确保你到了正确的地方），请将此变量设置为 1。\n2. **`_ZO_RESOLVE_SYMLINKS=1`**: 如果你大量使用符号链接，你可能更喜欢 Zoxide 将它们解析为物理路径。\n3. **`_ZO_MAXAGE`**: 这控制了条目在数据库中保留的时间。Zoxide 会自然地清除旧条目以保持数据库快速，但如果你想要更长的历史记录，可以调整此项。\n\n## 为什么开源很重要\n\nZoxide 之所以能超越 `autojump` 或 `fasd` 等前辈，原因之一在于其背后的社区。**`Zoxide github`** 仓库非常活跃，维护良好，并且是用 Rust 编写的，这保证了内存安全和极快的速度。\n\n因为它是开源的，你可以审计代码，确切地看到它如何处理你的目录历史记录。GitHub 仓库也是查找最新安装说明、报告 Bug 或为项目做贡献的最佳场所。\n\n## 总结\n\nZoxide 不仅仅是一个便利工具；它是一次工作流的升级。通过结合 Rust 的速度、Frecency 算法的智能以及 FZF 的交互性，它将文件系统导航从一种苦差事变成了一种无意识的条件反射。\n\n如果你还在手动输入 `cd`，是时候升级了。今天就安装 Zoxide，给它几天时间来学习你的习惯，你很快就会惊讶：没有它的时候自己是怎么干活的。"
       },
       "quick-start": {
@@ -503,7 +568,11 @@
         "excerpt": "5 分钟快速上手 zoxide，学习基本命令和配置方法。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["快速开始", "安装", "配置"],
+        "tags": [
+          "快速开始",
+          "安装",
+          "配置"
+        ],
         "content": "# zoxide 快速开始指南\n\nzoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。本指南将帮助你在 5 分钟内快速上手。\n\n## 安装 zoxide\n\n### macOS\n\\`\\`\\`bash\nbrew install zoxide\n\\`\\`\\`\n\n### Windows\n\\`\\`\\`bash\nscoop install zoxide\n\\`\\`\\`\n\n### Linux / 所有平台\n\\`\\`\\`bash\ncargo install zoxide\n\\`\\`\\`\n\n## Shell 配置\n\n安装完成后，需要在 Shell 配置文件中添加初始化命令。\n\n### zsh\n在 \\`~/.zshrc\\` 中添加：\n\\`\\`\\`bash\neval \"$(zoxide init zsh)\"\n\\`\\`\\`\n\n### bash\n在 \\`~/.bashrc\\` 中添加：\n\\`\\`\\`bash\neval \"$(zoxide init bash)\"\n\\`\\`\\`\n\n### fish\n在 \\`~/.config/fish/config.fish\\` 中添加：\n\\`\\`\\`fish\nzoxide init fish | source\n\\`\\`\\`\n\n## 基本使用\n\n配置完成后，重新加载 Shell 或打开新终端窗口，就可以开始使用 zoxide 了。\n\n### 基本命令\n\n- \\`z <目录名>\\` - 跳转到匹配的目录\n- \\`zi <目录名>\\` - 交互式选择目录（支持模糊搜索）\n- \\`z -\\` - 返回上一个目录\n- \\`z -l\\` - 列出所有匹配的目录\n\n### 示例\n\n\\`\\`\\`bash\n# 跳转到包含 \"project\" 的目录\nz project\n\n# 交互式选择目录\nzi pro\n\n# 返回上一个目录\nz -\n\\`\\`\\`\n\n## 高级技巧\n\n### 排除目录\n\n使用环境变量 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var\"\n\\`\\`\\`\n\n### 自定义数据库位置\n\n默认数据库存储在 \\`~/.zo\\`，可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n## 总结\n\nzoxide 让目录导航变得简单高效。通过智能学习和模糊搜索，你可以快速跳转到任何目录，无需输入完整路径。\n\n更多高级用法，请查看[高级配置教程](/tutorials/advanced-config)。"
       },
       "advanced-config": {
@@ -511,7 +580,11 @@
         "excerpt": "学习如何配置 zoxide 以提升工作效率，包括别名设置、目录排除等。",
         "category": "技巧",
         "author": "zoxide.org",
-        "tags": ["配置", "高级", "优化"],
+        "tags": [
+          "配置",
+          "高级",
+          "优化"
+        ],
         "content": "# zoxide 高级配置技巧\n\nzoxide 提供了丰富的配置选项，让你可以根据个人需求定制使用体验。\n\n## 环境变量配置\n\n### 排除目录\n\n使用 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录，提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n\\`\\`\\`\n\n多个目录用冒号分隔。\n\n### 自定义数据库位置\n\n默认数据库存储在用户主目录下的 \\`.zo\\` 文件中。可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n### 最大历史记录数\n\n使用 \\`_ZO_MAXAGE\\` 设置最大历史记录天数（默认 10000）：\n\n\\`\\`\\`bash\nexport _ZO_MAXAGE=5000\n\\`\\`\\`\n\n## 别名设置\n\nzoxide 支持自定义别名，让常用命令更简短：\n\n\\`\\`\\`bash\n# 在 Shell 配置文件中添加\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n\\`\\`\\`\n\n## 与 fzf 集成\n\n结合 fzf 可以实现更强大的目录搜索和选择：\n\n\\`\\`\\`bash\n# 在 ~/.zshrc 中添加\nzi() {\n local dir\n dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n\\`\\`\\`\n\n## 性能优化\n\n### 减少索引范围\n\n只索引常用目录，可以显著提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\\`\\`\\`\n\n### 定期清理数据库\n\n如果数据库过大，可以手动清理：\n\n\\`\\`\\`bash\n# 查看数据库大小\nls -lh ~/.zo\n\n# 删除数据库重新开始（谨慎操作）\nrm ~/.zo\n\\`\\`\\`\n\n## 团队协作\n\nzoxide 支持共享数据库，团队成员可以共享常用目录：\n\n\\`\\`\\`bash\n# 使用共享数据库位置\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n\\`\\`\\`\n\n## 总结\n\n通过合理配置，zoxide 可以更好地适应你的工作流程。建议从排除不需要的目录开始，逐步优化配置。\n\n更多配置选项，请查看[官方文档](https://github.com/ajeetdsouza/zoxide)。"
       },
       "zoxide-vs-autojump": {
@@ -519,7 +592,11 @@
         "excerpt": "详细对比 zoxide 和 autojump 的性能差异和使用体验。",
         "category": "对比",
         "author": "zoxide.org",
-        "tags": ["对比", "性能", "autojump"],
+        "tags": [
+          "对比",
+          "性能",
+          "autojump"
+        ],
         "content": "# zoxide vs autojump 性能对比\n\nzoxide 和 autojump 都是智能目录跳转工具，但它们在性能、功能和易用性方面有显著差异。\n\n## 性能对比\n\n### 启动速度\n\nzoxide 使用 Rust 编写，启动速度极快：\n\n- **zoxide**: ~5ms 启动时间\n- **autojump**: ~50ms 启动时间\n\nzoxide 比 autojump 快 **10 倍**。\n\n### 查询速度\n\n在大型项目目录中，zoxide 的查询速度也明显更快：\n\n- **zoxide**: 模糊搜索 < 10ms\n- **autojump**: 查询时间 20-50ms\n\n## 功能对比\n\n### 模糊搜索\n\n- **zoxide**: ✅ 支持模糊搜索，无需完整路径\n- **autojump**: ❌ 不支持模糊搜索\n\n### 交互式选择\n\n- **zoxide**: ✅ 支持 \\`zi\\` 命令交互式选择\n- **autojump**: ❌ 不支持\n\n### 学习算法\n\n- **zoxide**: ✅ 智能学习算法，越用越准确\n- **autojump**: ✅ 基础频率统计\n\n## 易用性对比\n\n### 命令简洁性\n\nzoxide 的命令更简洁：\n\n\\`\\`\\`bash\n# zoxide\nz project\n\n# autojump\nj project\n\\`\\`\\`\n\n### 配置复杂度\n\n- **zoxide**: 配置简单，只需一行初始化命令\n- **autojump**: 需要额外配置 Shell 集成\n\n## 跨平台支持\n\n- **zoxide**: ✅ 支持 macOS、Linux、Windows\n- **autojump**: ✅ 支持 macOS、Linux（Windows 支持有限）\n\n## 维护状态\n\n- **zoxide**: 非常活跃，持续更新\n- **autojump**: 更新较慢\n\n## 总结\n\n| 特性 | zoxide | autojump |\n|------|--------|----------|\n| 性能 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |\n| 模糊搜索 | ✅ | ❌ |\n| 交互式选择 | ✅ | ❌ |\n| 跨平台 | ✅ | ✅ |\n| 维护状态 | 活跃 | 较慢 |\n\n**结论**：如果你追求性能和现代化体验，zoxide 是更好的选择。如果你已经习惯使用 autojump，迁移到 zoxide 也很简单。\n\n查看[完整对比](/comparisons)了解更多细节。"
       },
       "zoxide-command-not-found": {
@@ -527,7 +604,12 @@
         "excerpt": "排查 \"zoxide command not found\" 错误，修复 PATH 和安装问题。",
         "category": "故障排除",
         "author": "zoxide.org",
-        "tags": ["故障排除", "安装", "错误", "命令未找到"],
+        "tags": [
+          "故障排除",
+          "安装",
+          "错误",
+          "命令未找到"
+        ],
         "content": "# zoxide 命令未找到 - 解决方法\n\n安装完成后提示 \"zoxide command not found\"，可以按以下步骤排查并修复。\n\n## 常见原因\n\n1. **zoxide 没有在 PATH 中**\n2. **Shell 配置没有加载**\n3. **安装未成功完成**\n4. **安装路径或方式与系统不匹配**\n\n## 方案 1：确认是否安装成功\n\n先检查是否真的安装了 zoxide：\n\n```bash\n# 检查 zoxide 是否存在\nwhich zoxide\n\n# 或者尝试搜索\nfind /usr -name zoxide 2>/dev/null\nfind ~ -name zoxide 2>/dev/null\n```\n\n如果未找到，请根据平台重新安装（参考 [安装指南](/tutorials/install-ubuntu)）。\n\n## 方案 2：把 zoxide 加入 PATH\n\n### Linux / macOS\n\n**Cargo 安装：**\n```bash\n# 写入 ~/.bashrc 或 ~/.zshrc\nexport PATH=\"$HOME/.cargo/bin:$PATH\"\n\n# 重新加载配置\nsource ~/.bashrc # 或 source ~/.zshrc\n```\n\n**手动安装：**\n```bash\n# 如果安装在 /usr/local/bin\nexport PATH=\"/usr/local/bin:$PATH\"\n\n# 如果安装在 ~/.local/bin\nexport PATH=\"$HOME/.local/bin:$PATH\"\n```\n\n### Windows\n\n**Cargo 安装：**\n```powershell\n# 写入 PATH\n[Environment]::SetEnvironmentVariable(\"Path\", $env:Path + \";$env:USERPROFILE\\.cargo\\bin\", [EnvironmentVariableTarget]::User)\n```\n\n**手动安装：**\n```powershell\n# 把安装目录加入 PATH\n[Environment]::SetEnvironmentVariable(\"Path\", $env:Path + \";C:\\\\path\\\\to\\\\zoxide\", [EnvironmentVariableTarget]::User)\n```\n\n修改 PATH 后请重启终端窗口。\n\n## 方案 3：确认 Shell 初始化\n\n确保在 Shell 配置文件中初始化了 zoxide：\n\n**Bash (~/.bashrc)：**\n```bash\neval \"$(zoxide init bash)\"\n```\n\n**Zsh (~/.zshrc)：**\n```bash\neval \"$(zoxide init zsh)\"\n```\n\n**Fish (~/.config/fish/config.fish)：**\n```fish\nzoxide init fish | source\n```\n\n**PowerShell ($PROFILE)：**\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n添加后重新加载配置：Bash/Zsh 使用 `source`，Fish 使用 `source ~/.config/fish/config.fish`，PowerShell 使用 `. $PROFILE`。\n\n## 方案 4：检查安装方式\n\n### Homebrew（macOS）\n\n```bash\nbrew --prefix\necho 'eval \"$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zshrc\nsource ~/.zshrc\n```\n\n### Scoop（Windows）\n\n```powershell\nscoop which zoxide\nscoop uninstall zoxide\nscoop install zoxide\n```\n\n### Cargo\n\n```bash\ncargo --version\nwhich cargo\n```\n\n若找不到 cargo，先安装 Rust：`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` 并 `source $HOME/.cargo/env`。\n\n## 方案 5：在新终端测试\n\n有时 PATH 变更在当前窗口未生效：\n1. 关闭当前终端\n2. 打开新终端\n3. 再次运行 `zoxide --version`\n\n## 快速诊断命令\n\n```bash\nwhich zoxide || echo \"zoxide not in PATH\"\necho $PATH\ncat ~/.bashrc | grep zoxide # 或 ~/.zshrc\n```\n\n## 仍然无法解决？\n\n1. 按官方推荐方式重装 zoxide\n2. 查看系统日志/安装输出是否有错误\n3. 确认所用 Shell 受支持（bash、zsh、fish、PowerShell）\n4. 检查权限，确保二进制可执行：\n ```bash\n chmod +x $(which zoxide)\n ```\n\n## 预防\n\n1. 优先使用包管理器（Homebrew、Scoop）安装\n2. 安装后立即把目录加入 PATH\n3. 完成安装后立刻测试\n4. 保持 Shell 配置整洁可维护\n\n## 相关问题\n\n- [zoxide not working](/blog/zoxide-not-working)\n- [Ubuntu 安装指南](/tutorials/install-ubuntu)\n- [macOS 安装指南](/tutorials/install-macos)\n- [Windows 安装指南](/tutorials/install-windows)\n"
       },
       "zoxide-not-working": {
@@ -535,7 +617,12 @@
         "excerpt": "当 zoxide 无法正常工作时的完整排查指南，修复常见问题。",
         "category": "故障排除",
         "author": "zoxide.org",
-        "tags": ["故障排除", "错误", "修复", "无法工作"],
+        "tags": [
+          "故障排除",
+          "错误",
+          "修复",
+          "无法工作"
+        ],
         "content": "# zoxide 无法正常工作 - 故障排除指南\n\n如果 zoxide 已安装但表现异常，本指南可以帮助你诊断并修复问题。\n\n## 常见问题\n\n### 问题 1：zoxide 命令无法识别\n\n**症状：**\n- `z` 命令 not found\n- `zi` 命令 not found\n- 终端提示 “command not found”\n\n**解决方案：**\n\n1. **确认初始化写入配置文件：**\n ```bash\n grep zoxide ~/.bashrc # 或 ~/.zshrc\n ```\n2. **重新加载配置：**\n ```bash\n source ~/.bashrc # 或 source ~/.zshrc\n ```\n3. **检查二进制是否存在：**\n ```bash\n which zoxide\n zoxide --version\n ```\n\n### 问题 2：zoxide 不会学习目录\n\n**症状：**\n- `z` 一直找不到目录\n- 访问历史没有增加\n\n**解决方案：**\n\n1. **检查数据库位置：**\n ```bash\n ls -la ~/.zo\n touch ~/.zo\n ```\n2. **确认权限：**\n ```bash\n ls -l ~/.zo\n ```\n3. **查看环境变量：**\n ```bash\n echo $ZO_DATA_DIR\n echo $ZO_EXCLUDE_DIRS\n ```\n4. **手动添加目录测试：**\n ```bash\n zoxide add ~/Documents\n zoxide query Documents\n ```\n\n### 问题 3：性能很慢\n\n**症状：**\n- `z` 命令响应慢\n- CPU 占用高\n\n**解决方案：**\n\n1. **排除大型目录：**\n ```bash\n export _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n ```\n2. **检查数据库大小：**\n ```bash\n ls -lh ~/.zo\n ```\n3. **清理旧记录：**\n ```bash\n cp ~/.zo ~/.zo.backup\n # zoxide 会在使用时自动重建\n ```\n4. **缩短最大年龄：**\n ```bash\n export _ZO_MAXAGE=5000\n ```\n\n### 问题 4：跳转到错误目录\n\n**症状：**\n- `z project` 去了错误目录\n- 多个匹配但选中了错误的\n\n**解决方案：**\n\n1. **使用交互模式：**\n ```bash\n zi project\n ```\n2. **先列出匹配：**\n ```bash\n z -l project\n ```\n3. **更具体的关键词：**\n ```bash\n z project/src\n ```\n4. **提高频率：** 经常使用目标目录，zoxide 会按频率排序。\n\n### 问题 5：Shell 集成未生效\n\n**症状：**\n- `z` 能运行但不会切目录\n- 没有自动记录目录\n\n**解决方案：**\n\n1. **确认初始化正确：**\n ```bash\n eval \"$(zoxide init bash)\"\n ```\n2. **确认 Shell 受支持：** bash、zsh、fish、PowerShell\n3. **手动检查 hook：**\n ```bash\n type z\n ```\n\n## 诊断步骤\n\n运行这些命令快速定位问题：\n\n```bash\nzoxide --version\n\ntype z\ntype zi\n\nls -la ~/.zo\n\nzoxide add ~\nzoxide query ~\n\nenv | grep ZO\n\nenv -i bash -c 'eval \"$(zoxide init bash)\" && z --help'\n```\n\n## 平台相关问题\n\n### Linux：权限不足\n```bash\nchmod +x $(which zoxide)\nsudo chown $USER:$USER ~/.zo\n```\n\n### macOS：Homebrew 路径未添加\n```bash\necho 'eval \"$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zshrc\nsource ~/.zshrc\n```\n\n### Windows：PowerShell 执行策略\n```powershell\nSet-ExecutionPolicy RemoteSigned -Scope CurrentUser\n```\n\n## 重置 zoxide\n\n```bash\ncp ~/.zo ~/.zo.backup\nrm ~/.zo\n# 暂时移除配置后再重新添加初始化命令\n```\n\n## 获取帮助\n\n1. 查看 [官方文档](https://github.com/ajeetdsouza/zoxide)\n2. 搜索 GitHub issues\n3. 确认版本是最新的\n4. 检查系统兼容性\n\n## 预防提示\n\n1. **保持更新：**\n ```bash\n brew upgrade zoxide\n cargo install --force zoxide\n ```\n2. **定期维护：** 检查数据库大小，排除不必要的目录。\n3. **改动后立刻测试：** 新终端验证 `z` 和 `zi`。\n\n## 相关文章\n\n- [zoxide command not found](/blog/zoxide-command-not-found)\n- [安装指南](/tutorials)\n- [高级配置](/tutorials/advanced-config)\n"
       },
       "zoxide-commands": {
@@ -543,7 +630,13 @@
         "excerpt": "掌握从初始化到数据库管理的全套 zoxide 命令。学习如何调试导航、清理历史、脚本化工作流以及迁移数据，包含实用示例。",
         "category": "教程",
         "author": "zoxide.org",
-        "tags": ["zoxide commands", "命令", "教程", "指南", "导航"],
+        "tags": [
+          "zoxide commands",
+          "命令",
+          "教程",
+          "指南",
+          "导航"
+        ],
         "content": "\n# Zoxide Commands 终极指南：光速导航你的终端\n\n如果你是一名长期生活在命令行的开发者，你会知道 `cd` 命令既是你的朋友，也是你效率的瓶颈。输入冗长的绝对路径、处理拼写错误、记忆复杂的目录树，这些认知负担每天都在消耗你的精力。**Zoxide** 是一个受 `z` 和 `autojump` 启发的智能工具，它能学习你的习惯，追踪你最常访问的目录，让你只需敲击几次键盘即可跳转到任何地方。\n\n然而，许多用户仅仅止步于安装它并使用基础的 `z` 别名。要真正解锁这个基于 Rust 的工具的生产力潜力，你需要掌握全套的 **zoxide commands**（Zoxide 指令）。本指南将带你深入 Zoxide 的命令行界面，探索从数据库管理到高级查询技术的方方面面。\n\n## 为什么要掌握 Zoxide Commands？\n\nZoxide 基于\"Frecency\"（频率 + 新近度）算法运行。虽然它开箱即用，但理解具体的 **zoxide commands** 能让你做到：\n\n1.  **调试导航问题：** 为什么 `z foo` 跳转到了 `foobar` 而不是 `foo-project`？\n2.  **清理历史记录：** 从数据库中移除不存在或敏感的目录。\n3.  **脚本化工作流：** 在 Bash 或 Python 脚本中使用 Zoxide 的查询引擎。\n4.  **数据迁移：** 导入其他工具的历史记录，无需从头开始。\n\n让我们拆解这些核心指令。\n\n-----\n\n## 1. 初始化指令：基础\n\n在你开始跳转之前，必须将 Zoxide 集成到你的 Shell 中。这是由 `init` 命令处理的，它会生成必要的 Shell 脚本来挂钩你的提示符。\n\n### 基础 Init\n\n结构为 `zoxide init <shell>`。\n\n```bash\n# Bash 用户\neval \"$(zoxide init bash)\"\n\n# Zsh 用户\neval \"$(zoxide init zsh)\"\n\n# Fish 用户\nzoxide init fish | source\n```\n\n这会设置 `z` 别名和 `zi` 交互式命令。\n\n### `--cmd` 标志（大招）\n\n默认情况下，Zoxide 使用 `z`。但肌肉记忆很难改变。初始化 **zoxide commands** 中最强大的一招是完全替换 `cd`。\n\n```bash\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n当你使用 `--cmd cd` 时：\n\n  * **空格键兼容性：** 如果你输入有效路径，它的行为仍像普通 `cd`。\n  * **智能跳转：** 如果本地路径不存在，它会查询数据库。\n  * **记录一切：** 这确保了*每一次*导航事件都被记录，使得数据库随着时间的推移变得极其精准。\n\n-----\n\n## 2. 核心导航指令\n\n这些是你每天会执行数百次的 **zoxide commands**。\n\n### 跳转：`z`\n\n这是最基础的操作。你不需要输入目录的全名。\n\n```bash\nz work        # 跳转到 /home/user/work\nz pro py      # 跳转到 /home/user/projects/python (匹配多个参数)\n```\n\nZoxide 足够智能，可以处理模糊匹配。如果你有 `work-personal` 和 `work-business`，输入 `z bus` 通常足以消除歧义。\n\n### 交互式跳转：`zi`\n\n有时算法还不够，或者你有五个名为 \"src\" 的目录。`zi` 命令利用 `fzf`（模糊查找器）提供一个可选列表。\n\n```bash\nzi\n```\n\n这会打开一个交互式界面，显示排名靠前的目录。你可以输入字符过滤列表并按回车跳转。这经常被认为是探索旧项目最有用的 **zoxide commands** 之一。\n\n-----\n\n## 3. 数据库管理指令 (`add` 与 `remove`)\n\nZoxide 维护一个数据库文件（通常在 `~/.local/share/zoxide/db.zo`）。虽然它具有自愈功能（在进入失败时移除不存在的目录），但有时需要手动管理。\n\n### `zoxide add`\n\n你可以手动训练算法。这对于你尚未访问过但计划频繁使用的新项目非常有用。\n\n```bash\nzoxide add /path/to/new/project\n```\n\n使用 `add` 确保该目录立即可用于跳转，即使你还没有技术性地 `cd` 进去过。\n\n### `zoxide remove`\n\n如果你有一个想要 Zoxide \"忘记\"的目录——也许是一个秘密项目或会在自动补全中产生干扰的临时构建文件夹——你可以使用移除命令。\n\n```bash\nzoxide remove /path/to/dir\n```\n\n**专家提示：** 保持数据库清洁能让模糊匹配更准确。\n\n-----\n\n## 4. 核心大脑：`zoxide query`\n\n对于脚本编写者和高级用户来说，`zoxide query` 是最重要的命令。它暴露了工具的原始逻辑，而不会实际改变你的目录。\n\n### 基础查询\n\n```bash\nzoxide query foo\n```\n\n这会输出 `z foo` *将会*跳转到的绝对路径。它不会移动你；它只是打印字符串。\n\n### 列出匹配项 (`--list` / `-l`)\n\n如果你想查看某个关键字的所有潜在候选者：\n\n```bash\nzoxide query --list foo\n```\n\n这会返回所有匹配 \"foo\" 的目录列表，按排名排序。\n\n### 评分 (`--score` / `-s`)\n\n这对于调试至关重要。如果你想知道为什么 Zoxide 偏爱一个目录而不是另一个，请使用分数标志。\n\n```bash\nzoxide query --list --score\n```\n\n**输出示例：**\n\n```text\n9000.0  /home/user/current-project\n250.0   /home/user/old-project\n```\n\n数字代表 \"frecency\" 分数。你可以看到算法如何权衡你的习惯。如果你想提升 `old-project`，你可以简单地多次 `zoxide add` 它来人为地提高其分数。\n\n### 验证 (`--all` / `-a`)\n\n默认情况下，`zoxide query` 只返回当前存在于文件系统上的目录。如果你正在审计数据库以查看*所有内容*（包括尚未清除的已删除文件夹），请使用 `--all` 标志。\n\n```bash\nzoxide query --list --all\n```\n\n-----\n\n## 5. 迁移指令：`import`\n\n如果你是从 `autojump` 或原始的 `z` 迁移过来的，你不需要丢失数年的导航历史。Zoxide 包含特定的命令来平滑处理这种转换。\n\n```bash\nzoxide import --from z path/to/z/database\nzoxide import --from autojump path/to/autojump/db.txt\n```\n\n运行一次即可将你现有的习惯填充到 `db.zo` 文件中。\n\n-----\n\n## 6. 在脚本中使用 Zoxide Commands\n\nZoxide 优于 Shell 别名的一个主要优点是其二进制特性，这使得在 Shell 脚本中使用它既安全又容易。\n\n**场景：** 你想要一个脚本在编辑器中打开你最新的项目。\n你可以利用 **zoxide commands** 而不是硬编码路径：\n\n```bash\n#!/bin/bash\n\n# 询问 zoxide 关于 'react' 的最佳匹配\nTARGET_DIR=$(zoxide query react)\n\nif [ -d \"$TARGET_DIR\" ]; then\n    echo \"Opening $TARGET_DIR in VS Code...\"\n    code \"$TARGET_DIR\"\nelse\n    echo \"Project not found.\"\nfi\n```\n\n这使得你的脚本具有动态性。如果你将 React 项目移动到新驱动器，只要 Zoxide 知道新位置，脚本仍然有效。\n\n-----\n\n## 结语\n\n虽然人们很容易将 Zoxide 仅仅视为\"神奇的 cd\"，但花时间学习具体的 **zoxide commands**——特别是 `query`、`add` 和 `remove`——能将它从一个实用程序转变为一个生产力平台。\n\n通过掌握初始化标志来替换 `cd`，使用 `zi` 进行视觉导航，并理解如何阅读 `score` 输出，你将确保你的终端行为完全符合你的预期。命令行的强大在于其精确性；而 Zoxide 为这种精确性增添了智慧。\n"
       },
       "zoxide-download-guide": {

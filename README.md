@@ -37,19 +37,7 @@ npm run build
 npm start
 ```
 
-## 环境变量配置
 
-在项目根目录创建 `.env.local` 文件：
-
-```env
-# 广告位控制开关
-# true = 打开真实广告（AdSense）
-# false = 关闭广告，显示占位符（Tips）
-NEXT_PUBLIC_ENABLE_ADS=false
-
-# AdSense Publisher ID（审核通过后填写）
-# NEXT_PUBLIC_ADSENSE_ID=ca-pub-xxxxxxxxxxxxxxxx
-```
 
 ## 项目结构
 
@@ -67,12 +55,11 @@ web/
 │ ├── layout.tsx # 根布局
 │ └── providers.tsx # 全局 Provider
 ├── components/ # React 组件
-│ ├── AdSlot/ # 广告位组件
 │ ├── Navigation/ # 导航栏
 │ ├── Footer/ # 页脚
 │ └── Hero/ # Hero 区域
 ├── lib/ # 工具函数
-│ └── ads/ # 广告管理
+│ └── seo/ # SEO 相关
 └── public/ # 静态资源
 ```
 
@@ -80,9 +67,9 @@ web/
 
 - ✅ 响应式设计（移动端/桌面端）
 - ✅ 统一亮色主题体验
-- ✅ 广告位系统（支持占位符和 AdSense 切换）
 - ✅ SEO 优化（Metadata、关键词）
-- ✅ 双栏布局 + 侧边栏 Sticky 广告
+- ✅ 多语言支持（中文/英文/日文）
+- ✅ 简洁单栏布局
 
 ## 待办事项
 
