@@ -242,7 +242,7 @@
     "about": "About Us",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
-    "copyright": "© 2025 zoxide.org. Zoxide is open-source software distributed under the MIT License. All product names, logos, and brands are property of their respective owners.",
+    "copyright": "© {yearRange} zoxide.org. Zoxide is open-source software distributed under the MIT License. All product names, logos, and brands are property of their respective owners.",
     "disclaimer": "This website is informational only, not affiliated with ajeetdsouza or Ajeet D'Souza.",
     "links": {
       "features": "Features",

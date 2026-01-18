@@ -119,7 +119,12 @@ export default function Footer() {
             </Link>
           </div>
           <p className="mt-4 text-center text-sm text-white/70">
-            {t('copyright')}
+            {(() => {
+              const startYear = 2025;
+              const currentYear = new Date().getFullYear();
+              const yearRange = startYear === currentYear ? `${currentYear}` : `${startYear}–${currentYear}`;
+              return t('copyright', { yearRange });
+            })()}
           </p>
         </div>
       </div>

@@ -242,7 +242,7 @@
     "about": "关于我们",
     "privacyPolicy": "隐私政策",
     "termsOfService": "服务条款",
-    "copyright": "© 2025 zoxide.org. Zoxide 是基于 MIT 协议分发的开源软件。所有产品名称、Logo 和品牌均为其各自所有者的财产。",
+    "copyright": "© {yearRange} zoxide.org. Zoxide 是基于 MIT 协议分发的开源软件。所有产品名称、Logo 和品牌均为其各自所有者的财产。",
     "disclaimer": "本网站为信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无关联。",
     "links": {
       "features": "功能特性",
