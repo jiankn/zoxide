@@ -11,10 +11,6 @@ import { Calendar, Clock, User } from "lucide-react";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 
-// 客户端再加载的交互组件，减小首包体积
-const AdSlot = dynamic(() => import("@/components/AdSlot/AdSlotClient"), {
-  loading: () => null,
-});
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
   {
@@ -159,6 +155,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const title = tData?.title || post.title;
   const excerpt = tData?.excerpt || post.excerpt;
   const content = tData?.content || post.content;
+  // 如果 markdown 内容以一级标题开头（和页面模板中已经渲染的 title 重复），去掉首行的 H1
+  const normalizedContent = (() => {
+    if (!content) return content;
+    // 去掉以 "# " 开头的 ATX H1（包含后面的空行）
+    const removedAtx = content.replace(/^\s*#\s.+(\r?\n)+/, '');
+    // 如果仍然是 Setext 风格的 H1（标题下一行全等号），移除首两行
+    const lines = removedAtx.split(/\r?\n/);
+    if (lines.length >= 2 && /^=+$/.test(lines[1].trim())) {
+      return lines.slice(2).join('\n');
+    }
+    return removedAtx;
+  })();
   // 分类翻译映射表
   const categoryTranslations: Record<string, Record<string, string>> = {
     教程: { zh: "教程", en: "Tutorial", ja: "チュートリアル" },
@@ -317,7 +325,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </ol>
         </nav>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <main className="lg:col-span-2 space-y-8">
+          <main className="lg:col-span-3 space-y-8">
             <header>
               <h1 className="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
 
@@ -343,24 +351,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
               <ShareButtons
                 title={title}
-                url={`/${locale}/blog/${post.slug}`}
+                url={
+                  locale === "en"
+                    ? `/blog/${post.slug}`
+                    : `/${locale}/blog/${post.slug}`
+                }
               />
             </header>
-
-            <AdSlot slotId="article-top" />
 
             <article className="markdown-content max-w-3xl mx-auto">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={blogMarkdownComponents}
               >
-                {content}
+                {normalizedContent}
               </ReactMarkdown>
             </article>
-
-            <div className="my-8">
-              <AdSlot slotId="in-article" />
-            </div>
 
             <div className="flex flex-wrap gap-2">
               {tags.map((tag: string) => (
@@ -373,15 +379,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ))}
             </div>
 
-            <AdSlot slotId="article-bottom" />
             <RelatedPosts posts={relatedPosts} />
           </main>
-
-          <aside className="hidden lg:block">
-            <div className="sticky top-20 self-start max-h-[calc(100vh-80px)]">
-              <AdSlot slotId="article-sidebar" lazy={true} />
-            </div>
-          </aside>
         </div>
       </div>
     </>
