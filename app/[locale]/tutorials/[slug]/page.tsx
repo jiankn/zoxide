@@ -5,7 +5,7 @@ import { getTutorialBySlug, getAllTutorials } from "@/data/tutorials";
 
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
 import { Link } from "@/i18n/routing";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, BookOpen } from "lucide-react";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { stripLeadingH1 } from '@/lib/markdown/normalize';
@@ -74,7 +74,9 @@ export async function generateMetadata({ params }: TutorialPageProps) {
 }
 
 export default async function TutorialPage({ params }: TutorialPageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
   const tutorial = getTutorialBySlug(slug);
   const t = await getTranslations("tutorials.detail");
 

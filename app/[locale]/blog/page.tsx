@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/routing";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllPosts } from "@/data/blog";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 
@@ -19,8 +19,10 @@ export async function generateMetadata({
   });
 }
 
-export default async function BlogPage() {
-  const locale = await getLocale();
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
   const t = await getTranslations("blog");
   const blogPosts = getAllPosts()
     .filter(
@@ -69,8 +71,8 @@ export default async function BlogPage() {
                 key={post.id}
                 href={`/blog/${post.slug}`}
                 className={`group py-6 px-6 transition-colors hover:bg-[#F7F6F3] ${index !== blogPosts.length - 1
-                    ? "border-b border-[#E9E9E7] "
-                    : ""
+                  ? "border-b border-[#E9E9E7] "
+                  : ""
                   }`}
               >
                 <h2 className="font-serif text-xl font-bold text-[#37352F] mb-2">

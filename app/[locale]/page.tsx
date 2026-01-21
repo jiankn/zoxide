@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero/Hero';
 import { Link } from '@/i18n/routing';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
@@ -26,7 +26,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
+
   const t = await getTranslations('home');
 
   return (

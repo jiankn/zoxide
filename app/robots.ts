@@ -27,6 +27,19 @@ export default function robots(): MetadataRoute.Robots {
           '/favicon.ico', // 禁止抓取 favicon，避免出现在"已抓取 - 尚未编入索引"报告中
         ],
       },
+      // 拦截已知的 AI 爬虫和高频采集工具（减少服务器负载）
+      {
+        userAgent: [
+          'Bytespider', // 字节跳动爬虫
+          'GPTBot',     // OpenAI 爬虫
+          'ClaudeBot',  // Anthropic 爬虫
+          'MJ12bot',    // 即使是 SEO 爬虫，如果过于频繁也先拦截
+          'AhrefsBot',
+          'SemrushBot',
+          'DotBot',
+        ],
+        disallow: ['/'],
+      },
       // 为 Googlebot 添加明确的允许规则（确保字体文件可访问）
       {
         userAgent: 'Googlebot',

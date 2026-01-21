@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/routing';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookOpen, Video } from 'lucide-react';
 import { getTutorialsByCategory } from '@/data/tutorials';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
@@ -37,8 +37,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function TutorialsPage() {
-  const locale = await getLocale();
+export default async function TutorialsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
   const t = await getTranslations('tutorials');
 
   // 根据语言获取分类映射（数据文件中的分类名是中文）

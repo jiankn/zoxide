@@ -6,7 +6,7 @@ import { Link } from "@/i18n/routing";
 import { getPostBySlug, getRelatedPosts } from "@/data/blog";
 import RelatedPosts from "@/components/RelatedPosts/RelatedPosts";
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, User } from "lucide-react";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
@@ -116,7 +116,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       ],
       locale:
         ({ zh: "zh_CN", en: "en_US", ja: "ja_JP" } as Record<string, string>)[
-          locale
+        locale
         ] || "en_US",
       type: "article",
       publishedTime: post.date,
@@ -136,8 +136,9 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
-  const locale = await getLocale();
+  const { slug, locale } = await params;
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
   const post = getPostBySlug(slug);
   const t = await getTranslations("blog.detail");
 

@@ -1,4 +1,4 @@
-import { getTranslations, getMessages } from 'next-intl/server';
+import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
 import { generateFAQPageSchema } from '@/lib/seo/schema';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
@@ -17,7 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function FAQPage() {
+export default async function FAQPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
+
   const t = await getTranslations('faq');
   const messages = await getMessages();
   const faqs = messages.faq.items as Array<{ question: string; answer: string }>;

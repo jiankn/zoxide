@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Providers } from "../providers";
@@ -46,6 +46,9 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  // 启用静态渲染 (SSG)
+  setRequestLocale(locale);
 
   // 验证 locale
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
