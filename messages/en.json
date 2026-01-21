@@ -436,6 +436,18 @@
           "productivity"
         ]
       },
+      "zoxide-fzf-interactive-guide-en": {
+        "title": "zoxide + fzf: The Ultimate Guide to Interactive Navigation",
+        "excerpt": "Learn how to combine zoxide with fzf for a powerful interactive directory selection workflow. Master fuzzy searching, previews, and custom aliases.",
+        "category": "Tutorial",
+        "author": "zoxide.org",
+        "tags": [
+          "zoxide",
+          "fzf",
+          "interactive",
+          "guide"
+        ]
+      },
       "install-zoxide-mac-shell-integration-completion": {
         "title": "Install Zoxide on macOS: Shell Integration & Autocomplete Guide",
         "excerpt": "A complete guide to installing zoxide on macOS using Homebrew or Cargo. Learn how to set up shell integration for zsh, bash, and fish, and enable powerful autocomplete features.",
