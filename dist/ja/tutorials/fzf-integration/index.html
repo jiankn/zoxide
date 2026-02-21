@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="ja" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- SEO 核心标签 --><title>zoxideとfzfの統合 | zoxide</title><meta name="description" content="zoxideとfzfを組み合わせて、より強力なディレクトリ検索と選択を実現する方法を学びます。"><link rel="canonical" href="https://zoxide.org/ja/tutorials/fzf-integration/"><!-- Hreflang 标签 --><link rel="alternate" hreflang="en" href="https://zoxide.org/tutorials/fzf-integration/"><link rel="alternate" hreflang="zh" href="https://zoxide.org/zh/tutorials/fzf-integration/"><link rel="alternate" hreflang="ja" href="https://zoxide.org/ja/tutorials/fzf-integration/"><link rel="alternate" hreflang="x-default" href="https://zoxide.org/tutorials/fzf-integration/"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:title" content="zoxideとfzfの統合 | zoxide"><meta property="og:description" content="zoxideとfzfを組み合わせて、より強力なディレクトリ検索と選択を実現する方法を学びます。"><meta property="og:url" content="https://zoxide.org/ja/tutorials/fzf-integration/"><meta property="og:image" content="https://zoxide.org/tutorial.webp"><meta property="og:site_name" content="zoxide.org"><meta property="og:locale" content="ja_JP"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="zoxideとfzfの統合 | zoxide"><meta name="twitter:description" content="zoxideとfzfを組み合わせて、より強力なディレクトリ検索と選択を実現する方法を学びます。"><meta name="twitter:image" content="https://zoxide.org/tutorial.webp"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/icon.svg"><link rel="icon" type="image/x-icon" href="/favicon.ico"><!-- DNS 预解析（第三方服务） --><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="dns-prefetch" href="https://www.google-analytics.com"><!-- Google Fonts: Inter（预加载优化） --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript><!-- Organization JSON-LD（每个页面都有） --><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"zoxide.org","url":"https://zoxide.org","logo":"https://zoxide.org/icon.svg","description":"zoxide 粉丝网站，提供 zoxide 使用教程、配置技巧和最新动态","sameAs":["https://github.com/ajeetdsouza/zoxide"]}</script><!-- 页面级 JSON-LD（可选） --><!-- 暗色模式初始化脚本（防止闪烁） --><script>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script><!-- 额外 head 内容插槽 --><!-- View Transitions（页面间平滑过渡） --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_assets/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><link rel="stylesheet" href="/_assets/about.BYUSEl8e.css">
+<style>.prose-custom[data-astro-cid-ffqpnbh7] .code-block{background-color:#0f172a;border-radius:.75rem;padding:1.25rem;overflow-x:auto;margin:1rem 0;font-size:.875rem;line-height:1.7}.prose-custom[data-astro-cid-ffqpnbh7] .code-block code{color:#e2e8f0;font-family:JetBrains Mono,Fira Code,ui-monospace,monospace}.prose-custom[data-astro-cid-ffqpnbh7] .inline-code{background-color:#f1f5f9;padding:.125rem .375rem;border-radius:.25rem;font-size:.875em;font-family:JetBrains Mono,Fira Code,ui-monospace,monospace}.dark .prose-custom[data-astro-cid-ffqpnbh7] .inline-code{background-color:#1e293b;color:#e2e8f0}.prose-custom[data-astro-cid-ffqpnbh7] img{border-radius:.75rem;margin:1.5rem 0}
+</style></head> <body class="antialiased bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300"> <header class="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md"> <div class="max-w-screen-xl mx-auto px-5">  <nav class="flex items-center justify-between h-16" aria-label="Main navigation"> <!-- Logo --> <a href="/ja/" class="flex items-center gap-2 font-bold text-lg text-slate-900 dark:text-white"> <img src="/icon.svg" alt="zoxide" class="w-6 h-6" width="24" height="24"> <span>zoxide.org</span> </a> <!-- 桌面端导航 --> <div class="hidden lg:flex items-center gap-1"> <a href="/ja/features/" class="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> 機能 </a><a href="/ja/download/" class="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> ダウンロード </a><a href="/ja/blog/" class="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> ブログ </a><a href="/ja/tutorials/" class="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> チュートリアル </a><a href="/ja/faq/" class="px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> よくある質問 </a> <!-- 更多下拉 --> <div class="relative" id="more-menu"> <button type="button" class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> <span>その他</span> <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path> </svg> </button> <div class="absolute left-0 mt-1 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 hidden z-50" id="more-dropdown"> <a href="/ja/changelog/" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"> 更新履歴 </a><a href="/ja/comparisons/" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"> 比較 </a><a href="/ja/about/" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"> 私たちについて </a> </div> </div> </div> <!-- 右侧工具栏 --> <div class="hidden lg:flex items-center gap-1"> <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> <!-- 太阳图标（暗色模式下显示） --> <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path> </svg> <!-- 月亮图标（亮色模式下显示） --> <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <script>
+  function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    // 克隆替换，避免事件监听器堆积
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode?.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  }
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
+</script> <div class="relative" id="lang-switcher"> <button type="button" aria-label="Switch language" aria-expanded="false" class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path> </svg> <span>日本語</span> <svg class="w-3 h-3 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path> </svg> </button> <!-- 下拉菜单 --> <div class="absolute right-0 mt-1 w-36 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 hidden z-50" id="lang-dropdown"> <a href="/tutorials/fzf-integration/" class="block px-4 py-2 text-sm transition-colors text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"> English </a><a href="/zh/tutorials/fzf-integration/" class="block px-4 py-2 text-sm transition-colors text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"> 中文 </a><a href="/ja/tutorials/fzf-integration/" class="block px-4 py-2 text-sm transition-colors text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 font-medium"> 日本語 </a> </div> </div> <script>
+  // 初始化语言切换器（兼容 View Transitions）
+  function initLangSwitcher() {
+    const switcher = document.getElementById('lang-switcher');
+    const dropdown = document.getElementById('lang-dropdown');
+    const button = switcher?.querySelector('button');
+    if (!button) return;
+
+    // 移除旧监听器：克隆替换按钮节点
+    const newButton = button.cloneNode(true);
+    button.parentNode?.replaceChild(newButton, button);
+
+    newButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !dropdown?.classList.contains('hidden');
+      dropdown?.classList.toggle('hidden');
+      newButton.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  // 点击外部关闭（只绑定一次）
+  if (!document.__langSwitcherOutsideClick) {
+    document.__langSwitcherOutsideClick = true;
+    document.addEventListener('click', (e) => {
+      const switcher = document.getElementById('lang-switcher');
+      const dropdown = document.getElementById('lang-dropdown');
+      const button = switcher?.querySelector('button');
+      if (!switcher?.contains(e.target)) {
+        dropdown?.classList.add('hidden');
+        button?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // 首次加载
+  initLangSwitcher();
+  // View Transitions 页面切换后重新初始化
+  document.addEventListener('astro:page-load', initLangSwitcher);
+</script> </div> <!-- 移动端汉堡菜单按钮 --> <button type="button" id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Open menu" aria-expanded="false"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" id="menu-icon-open"></path> </svg> </button> </nav>  </div> <!-- 移动端菜单面板 --> <div id="mobile-menu" class="lg:hidden hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950"> <div class="max-w-screen-xl mx-auto px-5">  <div class="py-4 space-y-1"> <a href="/ja/features/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> 機能 </a><a href="/ja/download/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> ダウンロード </a><a href="/ja/blog/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> ブログ </a><a href="/ja/tutorials/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> チュートリアル </a><a href="/ja/faq/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> よくある質問 </a> <a href="/ja/changelog/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> 更新履歴 </a><a href="/ja/comparisons/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> 比較 </a><a href="/ja/about/" class="block px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> 私たちについて </a> <div class="flex items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-800"> <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> <!-- 太阳图标（暗色模式下显示） --> <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path> </svg> <!-- 月亮图标（亮色模式下显示） --> <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <script>
+  function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    // 克隆替换，避免事件监听器堆积
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode?.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  }
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
+</script> <div class="relative" id="lang-switcher"> <button type="button" aria-label="Switch language" aria-expanded="false" class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"> <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path> </svg> <span>日本語</span> <svg class="w-3 h-3 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path> </svg> </button> <!-- 下拉菜单 --> <div class="absolute right-0 mt-1 w-36 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 hidden z-50" id="lang-dropdown"> <a href="/tutorials/fzf-integration/" class="block px-4 py-2 text-sm transition-colors text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"> English </a><a href="/zh/tutorials/fzf-integration/" class="block px-4 py-2 text-sm transition-colors text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"> 中文 </a><a href="/ja/tutorials/fzf-integration/" class="block px-4 py-2 text-sm transition-colors text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 font-medium"> 日本語 </a> </div> </div> <script>
+  // 初始化语言切换器（兼容 View Transitions）
+  function initLangSwitcher() {
+    const switcher = document.getElementById('lang-switcher');
+    const dropdown = document.getElementById('lang-dropdown');
+    const button = switcher?.querySelector('button');
+    if (!button) return;
+
+    // 移除旧监听器：克隆替换按钮节点
+    const newButton = button.cloneNode(true);
+    button.parentNode?.replaceChild(newButton, button);
+
+    newButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !dropdown?.classList.contains('hidden');
+      dropdown?.classList.toggle('hidden');
+      newButton.setAttribute('aria-expanded', String(!isOpen));
+    });
+  }
+
+  // 点击外部关闭（只绑定一次）
+  if (!document.__langSwitcherOutsideClick) {
+    document.__langSwitcherOutsideClick = true;
+    document.addEventListener('click', (e) => {
+      const switcher = document.getElementById('lang-switcher');
+      const dropdown = document.getElementById('lang-dropdown');
+      const button = switcher?.querySelector('button');
+      if (!switcher?.contains(e.target)) {
+        dropdown?.classList.add('hidden');
+        button?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // 首次加载
+  initLangSwitcher();
+  // View Transitions 页面切换后重新初始化
+  document.addEventListener('astro:page-load', initLangSwitcher);
+</script> </div> </div>  </div> </div> </header> <script>
+  // 初始化导航栏交互（兼容 View Transitions）
+  function initNavbar() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn) {
+      const newMenuBtn = menuBtn.cloneNode(true);
+      menuBtn.parentNode?.replaceChild(newMenuBtn, menuBtn);
+      newMenuBtn.addEventListener('click', () => {
+        const isOpen = !mobileMenu?.classList.contains('hidden');
+        mobileMenu?.classList.toggle('hidden');
+        newMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    }
+
+    // 更多下拉菜单
+    const moreMenu = document.getElementById('more-menu');
+    const moreDropdown = document.getElementById('more-dropdown');
+    const moreBtn = moreMenu?.querySelector('button');
+    if (moreBtn) {
+      const newMoreBtn = moreBtn.cloneNode(true);
+      moreBtn.parentNode?.replaceChild(newMoreBtn, moreBtn);
+      newMoreBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        moreDropdown?.classList.toggle('hidden');
+      });
+    }
+  }
+
+  // 点击外部关闭（只绑定一次）
+  if (!document.__navbarOutsideClick) {
+    document.__navbarOutsideClick = true;
+    document.addEventListener('click', (e) => {
+      const moreMenu = document.getElementById('more-menu');
+      const moreDropdown = document.getElementById('more-dropdown');
+      if (!moreMenu?.contains(e.target)) {
+        moreDropdown?.classList.add('hidden');
+      }
+    });
+  }
+
+  // 首次加载
+  initNavbar();
+  // View Transitions 页面切换后重新初始化
+  document.addEventListener('astro:page-load', initNavbar);
+</script> <main>  <article class="py-16 md:py-24"> <div class="max-w-screen-xl mx-auto px-5">   <a href="/ja/tutorials/" class="inline-flex items-center gap-1.5 text-sm text-indigo-600 dark:text-indigo-400 hover:underline mb-8"> <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path> </svg> ← チュートリアル一覧に戻る </a>  <header class="max-w-3xl"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400"> 上級 </span> <span class="text-sm text-slate-500 dark:text-slate-400">⏱ 25 分</span> </div> <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white"> zoxideとfzfの統合 </h1> <p class="mt-3 text-lg text-slate-600 dark:text-slate-400"> zoxideとfzfを組み合わせて、より強力なディレクトリ検索と選択を実現する方法を学びます。 </p> </header>  <div class="mt-10 grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-12"> <div class="min-w-0"> <div class="prose-custom" data-astro-cid-ffqpnbh7>
+<h1 class="text-3xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">zoxide and fzf Integration</h1>
+
+<p class="my-3 text-slate-700 dark:text-slate-300 leading-relaxed">Combine zoxide with fzf for powerful fuzzy selection of directories.</p>
+
+<h2 id="what-is-fzf-" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">What is fzf-</h2>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300">Fuzzy search for files and directories</li>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300">Interactive selection with preview</li>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300">Highly customizable</li>
+
+<h2 id="installing-fzf" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Installing fzf</h2>
+
+<h3 id="macos" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">macOS</h3>
+<pre class="code-block"><code class="language-bash">brew install fzf</code></pre>
+
+<h3 id="linux" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Linux</h3>
+<pre class="code-block"><code class="language-bash"># Ubuntu/Debian
+sudo apt install fzf
+
+# Arch Linux
+sudo pacman -S fzf</code></pre>
+
+<h3 id="manual-install" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Manual install</h3>
+<pre class="code-block"><code class="language-bash">git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install</code></pre>
+
+<h2 id="basic-integration" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Basic Integration</h2>
+
+<h3 id="use-fzf-to-pick-a-zoxide-result" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Use fzf to pick a zoxide result</h3>
+<pre class="code-block"><code class="language-bash"># zsh/bash
+zi() {
+ local dir
+ dir=$(zoxide query -l | fzf) && z "$dir"
+}</code></pre>
+
+<h3 id="fish-version" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">fish version</h3>
+<pre class="code-block"><code class="language-fish">function zi
+ set dir (zoxide query -l | fzf)
+ if test -n "$dir"
+ z "$dir"
+ end
+end</code></pre>
+
+<h2 id="advanced-integration" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Advanced Integration</h2>
+
+<h3 id="add-preview" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Add preview</h3>
+<pre class="code-block"><code class="language-bash">zi() {
+ local dir
+ dir=$(zoxide query -l | fzf --preview 'ls -la {}') && z "$dir"
+}</code></pre>
+
+<h3 id="multi-select" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Multi-select</h3>
+<pre class="code-block"><code class="language-bash">zi() {
+ local dirs
+ dirs=$(zoxide query -l | fzf -m)
+ if [ -n "$dirs" ]; then
+ echo "$dirs" | while read dir; do
+ echo "Selected: $dir"
+ done
+ fi
+}</code></pre>
+
+<h2 id="practical-functions" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Practical functions</h2>
+
+<h3 id="jump-with-preview" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Jump with preview</h3>
+<pre class="code-block"><code class="language-bash">zfp() {
+ local dir
+ dir=$(zoxide query -l | fzf --preview 'tree -L 2 {}')
+ [ -n "$dir" ] && z "$dir" && ls -la
+}</code></pre>
+
+<h3 id="search-and-open-editor" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Search and open editor</h3>
+<pre class="code-block"><code class="language-bash">zcode() {
+ local dir
+ dir=$(zoxide query -l | fzf)
+ [ -n "$dir" ] && z "$dir" && code .
+}</code></pre>
+
+<h3 id="search-then-run-a-command" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Search then run a command</h3>
+<pre class="code-block"><code class="language-bash">zexec() {
+ local dir cmd
+ dir=$(zoxide query -l | fzf)
+ if [ -n "$dir" ]; then
+ z "$dir"
+ read -p "Enter command: " cmd
+ eval "$cmd"
+ fi
+}</code></pre>
+
+<h2 id="fzf-configuration" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">fzf Configuration</h2>
+
+<h3 id="custom-theme" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Custom theme</h3>
+<pre class="code-block"><code class="language-bash">export FZF_DEFAULT_OPTS='
+ --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
+ --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
+ --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
+ --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4
+'</code></pre>
+
+<h3 id="custom-preview-command" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Custom preview command</h3>
+<pre class="code-block"><code class="language-bash">export FZF_DEFAULT_OPTS="--preview 'tree -C {} | head -20'"</code></pre>
+
+<h2 id="real-world-use" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Real-World Use</h2>
+
+<h3 id="quick-project-switching" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Quick project switching</h3>
+<pre class="code-block"><code class="language-bash">zp() {
+ local dir
+ dir=$(zoxide query -l | grep -i project | fzf)
+ [ -n "$dir" ] && z "$dir"
+}</code></pre>
+
+<h3 id="recent-directories" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Recent directories</h3>
+<pre class="code-block"><code class="language-bash">zr() {
+ local dir
+ dir=$(zoxide query -l | sort -k2 -rn | fzf)
+ [ -n "$dir" ] && z "$dir"
+}</code></pre>
+
+<h3 id="filter-by-type-git-repos" class="text-xl font-bold mt-8 mb-3 text-slate-900 dark:text-white">Filter by type (git repos)</h3>
+<pre class="code-block"><code class="language-bash">zgit() {
+ local dir
+ dir=$(zoxide query -l | xargs -I {} sh -c 'test -d {}/.git && echo {}' | fzf)
+ [ -n "$dir" ] && z "$dir"
+}</code></pre>
+
+<h2 id="performance-tips" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Performance Tips</h2>
+
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300">Limit results: <code class="inline-code">head -50</code></li>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300">Use lighter previews when data is large</li>
+
+<pre class="code-block"><code class="language-bash">zi() {
+ local dir
+ dir=$(zoxide query -l | head -50 | fzf)
+ [ -n "$dir" ] && z "$dir"
+}</code></pre>
+
+<pre class="code-block"><code class="language-bash">zi() {
+ local dir
+ dir=$(zoxide query -l | fzf --bind 'change:reload:zoxide query -l {q}') && z "$dir"
+}</code></pre>
+
+<h2 id="troubleshooting" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Troubleshooting</h2>
+
+<p class="my-3 text-slate-700 dark:text-slate-300 leading-relaxed">If you see <code class="inline-code">fzf: command not found</code>:</p>
+<li class="ml-4 list-decimal text-slate-700 dark:text-slate-300">Verify installation</li>
+<li class="ml-4 list-decimal text-slate-700 dark:text-slate-300">Ensure <code class="inline-code">fzf</code> is in PATH</li>
+<li class="ml-4 list-decimal text-slate-700 dark:text-slate-300">Reload your shell config</li>
+
+<h2 id="best-practices" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Best Practices</h2>
+<li class="ml-4 list-decimal text-slate-700 dark:text-slate-300">Use previews when helpful, not always</li>
+<li class="ml-4 list-decimal text-slate-700 dark:text-slate-300">Limit result count for large datasets</li>
+<li class="ml-4 list-decimal text-slate-700 dark:text-slate-300">Make aliases for your common workflows</li>
+
+<h2 id="next-steps" class="text-2xl font-bold mt-10 mb-4 text-slate-900 dark:text-white">Next Steps</h2>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300"><a href="/tutorials/troubleshooting" class="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Troubleshooting</a></li>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300"><a href="/tutorials/performance" class="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Performance Optimization</a></li>
+<li class="ml-4 list-disc text-slate-700 dark:text-slate-300"><a href="/tutorials/advanced-config" class="text-indigo-600 dark:text-indigo-400 hover:underline" target="_blank" rel="noopener noreferrer">Advanced Configuration Tips</a></li>
+</div>  <nav class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4"> <a href="/ja/tutorials/performance/" class="group flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors"> <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path> </svg> <div class="min-w-0"> <span class="text-xs text-slate-500 dark:text-slate-400">Previous</span> <p class="text-sm font-medium text-slate-900 dark:text-white truncate">zoxideパフォーマンス最適化</p> </div> </a> <a href="/ja/tutorials/troubleshooting/" class="group flex items-center justify-end gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors text-right"> <div class="min-w-0"> <span class="text-xs text-slate-500 dark:text-slate-400">Next</span> <p class="text-sm font-medium text-slate-900 dark:text-white truncate">zoxideトラブルシューティング</p> </div> <svg class="w-5 h-5 text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path> </svg> </a> </nav> </div> <aside class="hidden lg:block"> <nav class="sticky top-24" aria-label="Table of contents"><h4 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
+Contents
+</h4><ul class="space-y-1.5 text-sm border-l-2 border-slate-200 dark:border-slate-700"><li><a href="#what-is-fzf-" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">What is fzf-</a></li><li><a href="#installing-fzf" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Installing fzf</a></li><li><a href="#macos" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">macOS</a></li><li><a href="#linux" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Linux</a></li><li><a href="#manual-install" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Manual install</a></li><li><a href="#basic-integration" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Basic Integration</a></li><li><a href="#use-fzf-to-pick-a-zoxide-result" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Use fzf to pick a zoxide result</a></li><li><a href="#fish-version" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">fish version</a></li><li><a href="#advanced-integration" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Advanced Integration</a></li><li><a href="#add-preview" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Add preview</a></li><li><a href="#multi-select" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Multi-select</a></li><li><a href="#practical-functions" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Practical functions</a></li><li><a href="#jump-with-preview" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Jump with preview</a></li><li><a href="#search-and-open-editor" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Search and open editor</a></li><li><a href="#search-then-run-a-command" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Search then run a command</a></li><li><a href="#fzf-configuration" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">fzf Configuration</a></li><li><a href="#custom-theme" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Custom theme</a></li><li><a href="#custom-preview-command" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Custom preview command</a></li><li><a href="#real-world-use" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Real-World Use</a></li><li><a href="#quick-project-switching" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Quick project switching</a></li><li><a href="#recent-directories" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Recent directories</a></li><li><a href="#filter-by-type-git-repos" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-8 border-transparent">Filter by type (git repos)</a></li><li><a href="#performance-tips" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Performance Tips</a></li><li><a href="#troubleshooting" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Troubleshooting</a></li><li><a href="#best-practices" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Best Practices</a></li><li><a href="#next-steps" class="block py-1 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors border-l-2 -ml-[2px] pl-4 border-transparent">Next Steps</a></li></ul></nav> </aside> </div>  </div> </article>  </main> <footer class="bg-slate-900 text-slate-400 mt-auto"> <div class="max-w-screen-xl mx-auto px-5">  <div class="py-12 md:py-16"> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"> <!-- Logo 和简介 --> <div> <a href="/ja/" class="flex items-center gap-2 font-bold text-lg text-white mb-3"> <img src="/icon.svg" alt="zoxide" class="w-6 h-6" width="24" height="24"> <span>zoxide.org</span> </a> <p class="text-sm leading-relaxed"> よりスマートなcdコマンド代替ツール。ディレクトリナビゲーションをより高速かつ効率的にします。 </p> <!-- GitHub 链接 --> <a href="https://github.com/ajeetdsouza/zoxide" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-4 text-sm text-slate-400 hover:text-white transition-colors"> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg> <span>GitHub</span> </a> </div> <!-- 链接分组 --> <div> <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4"> 製品 </h3> <ul class="space-y-2"> <li> <a href="/ja/features/" class="text-sm hover:text-white transition-colors"> 機能 </a> </li><li> <a href="/ja/download/" class="text-sm hover:text-white transition-colors"> ダウンロード </a> </li><li> <a href="/ja/faq/" class="text-sm hover:text-white transition-colors"> よくある質問 </a> </li><li> <a href="/ja/comparisons/" class="text-sm hover:text-white transition-colors"> 比較 </a> </li> </ul> </div><div> <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4"> リソース </h3> <ul class="space-y-2"> <li> <a href="/ja/blog/" class="text-sm hover:text-white transition-colors"> ブログ </a> </li><li> <a href="/ja/tutorials/" class="text-sm hover:text-white transition-colors"> チュートリアル </a> </li><li> <a href="/ja/changelog/" class="text-sm hover:text-white transition-colors"> 更新履歴 </a> </li><li> <a href="/ja/about/" class="text-sm hover:text-white transition-colors"> 私たちについて </a> </li> </ul> </div><div> <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4"> Legal </h3> <ul class="space-y-2"> <li> <a href="/ja/privacy-policy/" class="text-sm hover:text-white transition-colors"> プライバシーポリシー </a> </li><li> <a href="/ja/terms-of-service/" class="text-sm hover:text-white transition-colors"> 利用規約 </a> </li> </ul> </div> </div> <!-- 底部版权 --> <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4"> <p class="text-sm">
+&copy; 2026 zoxide.org. All rights reserved. </p> <p class="text-xs text-slate-500">
+Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">Astro</a>
+&amp; <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">Tailwind CSS</a> </p> </div> </div>  </div> </footer> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var l=(n,t)=>{let i=async()=>{await(await n())()},e=typeof t.value=="object"?t.value:void 0,s={timeout:e==null?void 0:e.timeout};"requestIdleCallback"in window?window.requestIdleCallback(i,s):setTimeout(i,s.timeout||200)};(self.Astro||(self.Astro={})).idle=l;window.dispatchEvent(new Event("astro:idle"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="2bSoxU" prefix="r1" component-url="/_assets/CookieBanner.BXNSOYBY.js" component-export="default" renderer-url="/_assets/client.Dc9Vh3na.js" props="{&quot;lang&quot;:[0,&quot;ja&quot;]}" ssr client="idle" opts="{&quot;name&quot;:&quot;CookieBanner&quot;,&quot;value&quot;:true}"></astro-island> <script>(function(){const gaId = "G-417HF3TV3L";
+
+  // 检查用户是否同意分析 Cookie
+  function loadGA() {
+    try {
+      const consent = JSON.parse(localStorage.getItem('cookie-consent') || '{}');
+      if (!consent.analytics) return;
+    } catch {
+      return;
+    }
+
+    // 加载 GA 脚本
+    const script = document.createElement('script');
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', gaId);
+  }
+
+  // 页面加载后检查
+  if (document.readyState === 'complete') {
+    loadGA();
+  } else {
+    window.addEventListener('load', loadGA);
+  }
+
+  // 监听 Cookie 同意变化
+  window.addEventListener('cookie-consent-update', loadGA);
+})();</script> </body></html>

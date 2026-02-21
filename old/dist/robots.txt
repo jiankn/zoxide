@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# 代码示例路径
+Disallow: /home/
+Disallow: /tmp/
+Disallow: /var/
+Disallow: /persist
+Disallow: /shared/
+Disallow: /node_modules
+Disallow: /.git
+
+# AI 爬虫
+User-agent: Bytespider
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+Sitemap: https://zoxide.org/sitemap-index.xml

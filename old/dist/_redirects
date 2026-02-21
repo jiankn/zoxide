@@ -1,0 +1,17 @@
+# www 到非 www 重定向
+https://www.zoxide.org/* https://zoxide.org/:splat 301
+
+# sitemap 兼容重定向
+/sitemap.xml /sitemap-index.xml 301
+
+# 代码示例路径拦截
+/home/* /404.html 404
+/tmp/* /404.html 404
+/var/* /404.html 404
+/persist /404.html 404
+/persist/* /404.html 404
+/shared/* /404.html 404
+/node_modules /404.html 404
+/node_modules/* /404.html 404
+/.git /404.html 404
+/.git/* /404.html 404
