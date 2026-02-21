@@ -1,4 +1,4 @@
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations, getLocale, setRequestLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
 import jaMessages from '@/messages/ja.json';
@@ -33,9 +33,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function ComparisonsPage() {
+export default async function ComparisonsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('comparisons');
-  const locale = await getLocale();
   const messagesMap: Record<string, ComparisonMessages> = { zh: zhMessages, en: enMessages, ja: jaMessages };
   const messages: ComparisonMessages = messagesMap[locale] || enMessages;
   const comparisons = messages.comparisons?.items ?? [];

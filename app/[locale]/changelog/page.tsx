@@ -1,4 +1,4 @@
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getTranslations, getLocale, setRequestLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
 import jaMessages from '@/messages/ja.json';
@@ -36,9 +36,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function ChangelogPage() {
+export default async function ChangelogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('changelog');
-  const locale = await getLocale();
   const messagesMap: Record<string, ChangelogMessages> = { zh: zhMessages, en: enMessages, ja: jaMessages };
   const messages: ChangelogMessages = messagesMap[locale] || enMessages;
   const versions = messages.changelog?.versions ?? [];

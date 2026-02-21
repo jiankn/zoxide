@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
 type LegalSection = {
@@ -23,7 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('privacyPolicy');
   const sections = t.raw('sections') as LegalSectionMap;
   const sectionEntries = Object.entries(sections);

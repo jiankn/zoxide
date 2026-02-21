@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Zap, Search, Brain, Users, Settings, Rocket } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 
@@ -17,7 +17,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   );
 }
 
-export default async function FeaturesPage() {
+export default async function FeaturesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('features');
 
   const featureGroups = [
