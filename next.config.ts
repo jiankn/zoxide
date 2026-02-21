@@ -14,10 +14,16 @@ const nextConfig: NextConfig = {
     // 如果需要禁用开发环境的 source map，可以在这里配置
     // 但通常不需要，因为 Turbopack 会自动处理
   },
-  // 图片优化配置
+  // Cloudflare Workers 不支持 native Node.js 二进制文件（.node）
+  // next-intl 依赖的 @swc/core 使用了 native binding，需要排除
+  serverExternalPackages: ['@swc/core', '@swc/wasm'],
+  outputFileTracingExcludes: {
+    '*': ['@swc/core*', '@swc/wasm*', '@swc/core-win32-x64-msvc*', '@parcel/watcher*'],
+  },
+  // 图片优化配置 - Cloudflare Pages 不支持 Vercel 的图片优化 API
+  // Hero 图片已是 WebP 格式，Logo 是 SVG，禁用优化影响极小
   images: {
-    // 启用 AVIF 格式（比 WebP 更小 20-30%）
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
   },
 };
 

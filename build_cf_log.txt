@@ -1,0 +1,160 @@
+
+> web@0.1.0 build:cf
+> node scripts/stub-swc.js && opennextjs-cloudflare build
+
+鉁?Stubbed @swc/core/binding.js
+鉁?Stubbed @swc/core/index.js
+
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?OpenNext 鈥?Cloudflare build 鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+WARN OpenNext is not fully compatible with Windows.
+WARN For optimal performance, it is recommended to use Windows Subsystem for Linux (WSL).
+WARN While OpenNext may function on Windows, it could encounter unpredictable failures during runtime.
+App directory: C:\zoxide
+Next.js version : 16.1.0
+@opennextjs/cloudflare version: 1.16.5
+@opennextjs/aws version: 3.9.16
+
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?OpenNext 鈥?Building Next.js app 鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+
+> web@0.1.0 build
+> next build
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+鈻?Next.js 16.1.0 (Turbopack)
+
+鈿?The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+鉁?Compiled successfully in 9.0s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+  Generating static pages using 7 workers (0/180) ...
+Error: MISSING_MESSAGE: blog.data.zoxide-fzf-interactive-guide-ja (ja)
+    at <unknown> (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4178)
+    at Array.map (<anonymous>)
+    at f (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4156) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'blog.data.zoxide-fzf-interactive-guide-ja (ja)'
+}
+Error: MISSING_MESSAGE: blog.data.zoxide-fzf-interactive-guide-ja (ja)
+    at <unknown> (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4178)
+    at Array.map (<anonymous>)
+    at f (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4156) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'blog.data.zoxide-fzf-interactive-guide-ja (ja)'
+}
+Error: MISSING_MESSAGE: blog.data.zoxide-fzf-interactive-guide-ja (ja)
+    at <unknown> (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4178)
+    at Array.map (<anonymous>)
+    at f (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4156) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'blog.data.zoxide-fzf-interactive-guide-ja (ja)'
+}
+  Generating static pages using 7 workers (45/180) 
+Error: MISSING_MESSAGE: blog.data.zoxide-fzf-interactive-guide-ja (ja)
+    at <unknown> (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4178)
+    at Array.map (<anonymous>)
+    at f (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4156) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'blog.data.zoxide-fzf-interactive-guide-ja (ja)'
+}
+  Generating static pages using 7 workers (90/180) 
+  Generating static pages using 7 workers (135/180) 
+Error: MISSING_MESSAGE: blog.data.zoxide-fzf-interactive-guide-ja (ja)
+    at <unknown> (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4178)
+    at Array.map (<anonymous>)
+    at f (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4156) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'blog.data.zoxide-fzf-interactive-guide-ja (ja)'
+}
+Error: MISSING_MESSAGE: blog.data.zoxide-fzf-interactive-guide-ja (ja)
+    at <unknown> (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4178)
+    at Array.map (<anonymous>)
+    at f (C:\zoxide\.next\server\chunks\ssr\_910b8507._.js:1:4156) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'blog.data.zoxide-fzf-interactive-guide-ja (ja)'
+}
+鉁?Generating static pages using 7 workers (180/180) in 5.1s
+  Finalizing page optimization ...
+
+Route (app)
+鈹?茠 /
+鈹?鈼?/_not-found
+鈹?鈼?/[locale]
+鈹?鈹?/zh
+鈹?鈹?/en
+鈹?鈹?/ja
+鈹?茠 /[locale]/about
+鈹?鈼?/[locale]/blog
+鈹?鈹?/zh/blog
+鈹?鈹?/en/blog
+鈹?鈹?/ja/blog
+鈹?鈼?/[locale]/blog/[slug]
+鈹?鈹?/zh/blog/zoxide-fzf-interactive-guide-en
+鈹?鈹?/zh/blog/zoxide-fzf-interactive-guide-zh
+鈹?鈹?/zh/blog/zoxide-fzf-interactive-guide-ja
+鈹?鈹?[+99 more paths]
+鈹?茠 /[locale]/changelog
+鈹?茠 /[locale]/comparisons
+鈹?茠 /[locale]/download
+鈹?鈼?/[locale]/faq
+鈹?鈹?/zh/faq
+鈹?鈹?/en/faq
+鈹?鈹?/ja/faq
+鈹?茠 /[locale]/features
+鈹?茠 /[locale]/privacy-policy
+鈹?茠 /[locale]/terms-of-service
+鈹?鈼?/[locale]/tutorials
+鈹?鈹?/zh/tutorials
+鈹?鈹?/en/tutorials
+鈹?鈹?/ja/tutorials
+鈹?鈼?/[locale]/tutorials/[slug]
+鈹?鈹?/zh/tutorials/quick-start
+鈹?鈹?/zh/tutorials/basic-commands
+鈹?鈹?/zh/tutorials/shell-setup
+鈹?鈹?[+33 more paths]
+鈹?鈼?/[locale]/tutorials/videos
+鈹?鈹?/zh/tutorials/videos
+鈹?鈹?/en/tutorials/videos
+鈹?鈹?/ja/tutorials/videos
+鈹?茠 /api/alternate-slug
+鈹?茠 /api/search
+鈹?鈼?/icon.svg
+鈹?鈼?/robots.txt
+鈹?鈼?/sitemap.xml
+
+
+茠 Proxy (Middleware)
+
+鈼? (Static)   prerendered as static content
+鈼? (SSG)      prerendered as static HTML (uses generateStaticParams)
+茠  (Dynamic)  server-rendered on demand
+
+
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?OpenNext 鈥?Generating bundle 鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?
+node:internal/modules/esm/load:195
+    throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);
+          ^
+
+Error [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'
+    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:195:11)
+    at defaultLoadSync (node:internal/modules/esm/load:142:3)
+    at #loadAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:795:12)
+    at #loadSync (node:internal/modules/esm/loader:815:49)
+    at ModuleLoader.load (node:internal/modules/esm/loader:780:26)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:526:31)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:571:36)
+    at afterResolve (node:internal/modules/esm/loader:624:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:630:12)
+    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:649:32) {
+  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'
+}
+
+Node.js v24.12.0

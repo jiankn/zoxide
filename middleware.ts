@@ -3,29 +3,11 @@ import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 
 export default function middleware(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  const hostname = request.headers.get('host') || '';
-  // Vercel 会在 x-forwarded-proto header 中提供协议信息
-  const protocol = request.headers.get('x-forwarded-proto') || (url.protocol === 'https:' ? 'https' : 'http');
-  const pathname = url.pathname;
+  const pathname = request.nextUrl.pathname;
 
-  // 1. HTTP 到 HTTPS 重定向（301 永久重定向）
-  // 注意：Vercel 通常会自动处理，但这里作为备用
-  if (protocol !== 'https' && process.env.NODE_ENV === 'production') {
-    url.protocol = 'https:';
-    return NextResponse.redirect(url, { status: 301 });
-  }
+  // 注意：HTTP→HTTPS 和 www→非www 重定向由 Cloudflare 自动处理，无需在此实现
 
-  // 2. www 到非 www 重定向（301 永久重定向）
-  // 统一使用非 www 版本：zoxide.org（而不是 www.zoxide.org）
-  if (hostname.startsWith('www.')) {
-    url.hostname = hostname.replace(/^www\./, '');
-    return NextResponse.redirect(url, { status: 301 });
-  }
-
-
-
-  // 3. 阻止代码示例中的路径被访问（返回 404）
+  // 1. 阻止代码示例中的路径被访问（返回 404）
   // 这些路径通常出现在代码示例中，不应该被当作真实 URL
   // 匹配模式：
   // - /home/user/... (代码示例中的用户目录)

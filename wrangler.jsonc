@@ -1,0 +1,23 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "main": ".open-next/worker.js",
+    "name": "zoxide",
+    "compatibility_date": "2024-12-30",
+    "compatibility_flags": [
+        // 启用 Node.js API 兼容
+        "nodejs_compat",
+        // 允许应用内 fetch URL
+        "global_fetch_strictly_public"
+    ],
+    "assets": {
+        "directory": ".open-next/assets",
+        "binding": "ASSETS"
+    },
+    "services": [
+        {
+            "binding": "WORKER_SELF_REFERENCE",
+            // service 名称需要与上面的 "name" 一致
+            "service": "zoxide"
+        }
+    ]
+}
