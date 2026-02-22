@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { ArrowRight, Download } from 'lucide-react';
@@ -7,12 +8,30 @@ import Image from 'next/image';
 
 export default function Hero() {
   const t = useTranslations('home');
+  const [animationLoaded, setAnimationLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // 移动端：先显示静态 poster，空闲时加载动画 webp
+  useEffect(() => {
+    // 仅移动端延迟加载动画
+    if (window.innerWidth >= 1024) return;
+
+    const loadAnimation = () => {
+      const img = new window.Image();
+      img.src = '/tutorial-mobile.webp';
+      img.onload = () => setAnimationLoaded(true);
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadAnimation);
+    } else {
+      setTimeout(loadAnimation, 200);
+    }
+  }, []);
 
   return (
     <section className="relative w-full bg-white py-20 md:py-32 overflow-hidden">
-      {/* 添加明确的容器宽度限制，确保在所有浏览器下一致 */}
       <div className="container mx-auto max-w-7xl px-6 md:px-8 relative z-10">
-        {/* Grid 布局添加明确的宽度限制和居中对齐 */}
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20 items-center max-w-full">
           {/* 左侧：文字内容 */}
           <div className="text-center lg:text-left relative w-full max-w-full">
@@ -43,20 +62,30 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* 右侧：图片 - 修复 flexbox 布局，避免内容分散到边缘 */}
+          {/* 右侧：图片 */}
           <div className="relative flex items-center justify-center order-first lg:order-last w-full max-w-full">
             <div className="relative w-full max-w-lg mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200/50 bg-white p-3 transition-transform hover:scale-[1.01]">
               <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
+                {/* 桌面端：直接用原图 */}
                 <Image
                   src="/tutorial.webp"
                   alt="zoxide 教程演示 - 智能目录导航工具"
                   fill
-                  className="object-cover"
+                  className="object-cover hidden lg:block"
                   priority
                   fetchPriority="high"
                   quality={60}
-                  // 更保守的首屏图片尺寸，减小移动端 LCP 体积
-                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 75vw, 45vw"
+                  sizes="45vw"
+                  unoptimized
+                />
+                {/* 移动端：先 poster 后动画 */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  ref={imgRef}
+                  src={animationLoaded ? '/tutorial-mobile.webp' : '/tutorial-poster.webp'}
+                  alt="zoxide 教程演示 - 智能目录导航工具"
+                  className="absolute inset-0 w-full h-full object-cover lg:hidden"
+                  fetchPriority="high"
                 />
               </div>
             </div>
@@ -66,3 +95,5 @@ export default function Hero() {
     </section>
   );
 }
+
+
