@@ -134,7 +134,7 @@ export default function TerminalDemo() {
         </div>
 
         {/* 终端内容 */}
-        <div className="p-4 min-h-[180px] font-mono text-sm leading-relaxed">
+        <div className="p-4 min-h-[180px] lg:min-h-[270px] font-mono text-sm leading-relaxed">
           {lines.map((line, i) => (
             <div key={`${phase}-${i}`} className="whitespace-nowrap">
               {/* 提示符 */}
