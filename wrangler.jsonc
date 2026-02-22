@@ -2,7 +2,7 @@
     "$schema": "node_modules/wrangler/config-schema.json",
     "main": ".open-next/worker.js",
     "name": "zoxide",
-    "compatibility_date": "2024-12-30",
+    "compatibility_date": "2025-05-05",
     "compatibility_flags": [
         // 启用 Node.js API 兼容
         "nodejs_compat",
@@ -19,5 +19,9 @@
             // service 名称需要与上面的 "name" 一致
             "service": "zoxide"
         }
-    ]
+    ],
+    // Smart Placement: 自动将 Worker 放在最优位置执行
+    "placement": {
+        "mode": "smart"
+    }
 }

@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "node scripts/patch-opennext-windows.js && node scripts/stub-vercel-og-wasm.js",
-    "build:cf": "node scripts/stub-swc.js && opennextjs-cloudflare build && node scripts/patch-vercel-og.js",
-    "preview": "node scripts/stub-swc.js && opennextjs-cloudflare build && node scripts/patch-vercel-og.js && opennextjs-cloudflare preview",
-    "deploy": "node scripts/stub-swc.js && opennextjs-cloudflare build && node scripts/patch-vercel-og.js && opennextjs-cloudflare deploy"
+    "build:cf": "node scripts/stub-swc.js && opennextjs-cloudflare build && node scripts/patch-vercel-og.js && node scripts/fix-windows-paths.js",
+    "preview": "node scripts/stub-swc.js && opennextjs-cloudflare build && node scripts/patch-vercel-og.js && node scripts/fix-windows-paths.js && opennextjs-cloudflare preview",
+    "deploy": "node scripts/stub-swc.js && opennextjs-cloudflare build && node scripts/patch-vercel-og.js && node scripts/fix-windows-paths.js && opennextjs-cloudflare deploy"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.0",
