@@ -115,7 +115,7 @@
   },
   "features": {
     "title": "zoxideの機能",
-    "description": "zoxideのコア機能：超高速パフォーマンス、スマート検索、学習パターン、チームコラボレーションなど。",
+    "description": "zoxideの機能：Rust製の超高速パフォーマンス、frecencyベースのスマートランキング、ファジーディレクトリ検索、Bash/Zsh/Fish/PowerShell対応。10万人以上の開発者が選ぶ理由をご覧ください。",
     "core": {
       "title": "コア機能",
       "fast": {
@@ -187,7 +187,7 @@
   },
   "faq": {
     "title": "zoxide よくある質問 - FAQ",
-    "description": "zoxideの使用に関するよくある質問と解決策。インストール、設定、トラブルシューティングなど。",
+    "description": "zoxideのよくある質問：'command not found'の修正、シェル統合の設定、データベース管理、マッチング問題のトラブルシューティング。すぐに解決しましょう。",
     "items": [
       {
         "question": "zoxideはどのシェルに対応していますか？",
@@ -286,7 +286,7 @@
   },
   "tutorials": {
     "title": "zoxideチュートリアル",
-    "description": "クイックスタートから高度な設定まで、完全なzoxide使用チュートリアル。初心者も上級者も適したコンテンツが見つかります。",
+    "description": "zoxideステップバイステップチュートリアル：Ubuntu/macOS/Windowsへのインストール、Bash/Zsh/Fishの設定、fzf連携、高度なナビゲーションワークフロー。5分で始められます。",
     "videos": {
       "description": "動画でzoxideの使い方を学びましょう。インストール、設定、高度なヒントを含みます。"
     },
@@ -413,7 +413,7 @@
   },
   "blog": {
     "title": "zoxideブログ",
-    "description": "zoxide関連記事：使い方チュートリアル、設定ヒント、パフォーマンス最適化、バージョンアップデートなど。",
+    "description": "zoxideブログ：実践的なチュートリアル、シェル設定のヒント、パフォーマンスベンチマーク、トラブルシューティングガイド。ターミナルナビゲーションを今日からレベルアップ。",
     "readTime": "分で読める",
     "readMore": "もっと読む",
     "detail": {
@@ -707,7 +707,7 @@
   },
   "changelog": {
     "title": "zoxide更新履歴",
-    "description": "zoxideのバージョン更新履歴を確認し、新機能、修正、パフォーマンス最適化について学びましょう。",
+    "description": "zoxide更新履歴：最新リリース、新機能、バグ修正、破壊的変更。zoxideのバージョン履歴を確認して、安心してアップグレードしましょう。",
     "versions": [
       {
         "version": "0.9.4",
@@ -819,7 +819,7 @@
   },
   "comparisons": {
     "title": "zoxide vs 他ツール",
-    "description": "zoxideと他のディレクトリナビゲーションツールの違いを比較し、なぜzoxideを選ぶのかを理解しましょう。",
+    "description": "zoxide vs autojump vs z vs fasd vs z.lua：速度、機能、シェル対応を徹底比較。あなたのワークフローに最適なcd代替ツールを見つけましょう。",
     "vs": "zoxide vs {tool}",
     "table": {
       "feature": "機能"

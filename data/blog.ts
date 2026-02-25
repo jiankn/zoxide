@@ -12,6 +12,8 @@ export interface BlogPost {
   date: string;
   author: string;
   category: string;
+  // SEO 主关键词：每篇文章的核心搜索词，优先用于 meta keywords 第一位
+  primaryKeyword?: string;
   tags: string[];
   readTime: number; // 阅读时长（分钟）
 }
@@ -36,21 +38,21 @@ Tired of typing \`cd ../../..\` or hitting \`Tab\` a dozen times to navigate you
 
 Enter the power couple of terminal productivity: **zoxide and fzf**. Zoxide is a "smart" directory jumper that remembers your habits, and fzf is a lightning-fast fuzzy finder. When you combine them, you get an interactive, fuzzy-search-powered navigation system that feels like magic. This guide will show you exactly how to set up and master the zoxide fzf workflow.
 
-## What is zoxide? (And Why It's Better Than \`cd\`)
+## What is zoxide? A Smarter cd Alternative
 
-At its core, **zoxide** is a blazing-fast replacement for the \`cd\` command. Instead of manually typing out paths, you simply pass \`zoxide\` a few characters from the directory name you're thinking of.
+At its core, **zoxide** is a blazing-fast replacement for the \`cd\` command. Instead of manually typing out paths, you simply pass \`zoxide\` a few characters from the directory name you're thinking of. New to zoxide? Read our [introduction to what zoxide is and how it works](/blog/what-is-zoxide-smarter-cd/).
 
 How does it work? Zoxide runs in the background, tracking the directories you visit most often. It uses a clever algorithm called "frecency"—a combination of **fre**quency and **recency**—to rank your directories. When you type \`z my-project\`, it instantly jumps to the most "frecent" directory matching \`my-project\`. It learns as you work, getting smarter and more accurate over time.
 
 Written in Rust, it’s incredibly lightweight and won’t slow down your shell’s startup time.
 
-## What is fzf? The Command-Line's Fuzzy Search Hero
+## What is fzf? Fuzzy Finder for the Command Line
 
 **fzf** is a general-purpose command-line fuzzy finder. If you've never used a fuzzy finder, prepare to be amazed. It allows you to filter through long lists of items (files, command history, git commits, and more) by typing just a few characters.
 
 Unlike a strict search, fzf’s "fuzzy" matching doesn't require you to type consecutive characters. For example, to find a file named \`authentication_controller.rb\`, you could simply type \`authconrb\` and fzf would find it instantly. It's an indispensable tool for anyone who spends significant time in the terminal.
 
-## The Magic Combo: Setting Up zoxide with fzf
+## How to Set Up zoxide with fzf: Step-by-Step
 
 This is where the real power is unleashed. By default, if \`zoxide\` finds multiple matches for your query, it will just jump to the highest-ranked one. But when you integrate it with fzf, zoxide will instead open an interactive menu, allowing you to choose the exact directory you want.
 
@@ -100,9 +102,9 @@ Now, add one line to your shell's configuration file to initialize zoxide and en
     Invoke-Expression (& { (zoxide init powershell | Out-String) })
     \`\`\`
 
-After saving the file, restart your shell or source the config file (e.g., \`source ~/.zshrc\`). That's it! If fzf is installed, zoxide will automatically use it for interactive selection.
+After saving the file, restart your shell or source the config file (e.g., \`source ~/.zshrc\`). That's it! If fzf is installed, zoxide will automatically use it for interactive selection. For a deeper look at shell configuration options, see our [comprehensive zoxide init guide](/blog/zoxide-init-guide/).
 
-## How to Use Your New Superpower: The \`zi\` Command
+## How to Use \`zi\`: Interactive Directory Jumping with fzf
 
 With the setup complete, you now have access to the interactive \`zi\` command.
 
@@ -117,7 +119,7 @@ Now you can:
 
 This workflow is incredibly fast and intuitive. It turns a multi-step navigation process into a seamless, two-second action.
 
-## Pro-Tips for Maximum Productivity
+## zoxide fzf Tips: Aliases, Exclusions and Workflows
 
 To make the experience even smoother, consider adding these aliases to your shell configuration file:
 
@@ -145,8 +147,9 @@ By leveraging the intelligent history of zoxide and the interactive fuzzy search
     date: "2026-01-17",
     author: "zoxide.org",
     category: "Tutorial",
+    primaryKeyword: "zoxide fzf",
     tags: [
-      "zoxide",
+      "zoxide fzf",
       "fzf",
       "tutorial",
       "interactive",
@@ -172,7 +175,7 @@ By leveraging the intelligent history of zoxide and the interactive fuzzy search
 
 现在，让我们隆重介绍终端效率工具中的“王炸组合”：**zoxide 和 fzf**。Zoxide 是一个“智能”目录跳转工具，能记住你的使用习惯；而 fzf 则是一个快如闪电的模糊搜索器。将它们结合，你将得到一个堪称魔法的交互式模糊搜索导航系统。本篇 **zoxide fzf 教程**将向你展示如何配置并精通这套工作流，让它成为你的命令行神器。
 
-## 什么是 zoxide？(为什么它比 \`cd\` 更出色)
+## 什么是 zoxide？比 cd 更智能的目录跳转工具
 
 **zoxide** 的核心是一个速度极快的 \`cd\` 命令替代品。你无需手动输入完整路径，只需向 \`zoxide\` 传递你目标目录名称的几个字符即可。
 
@@ -180,13 +183,13 @@ By leveraging the intelligent history of zoxide and the interactive fuzzy search
 
 由于它是用 Rust 编写的，因此极其轻量，绝不会拖慢你的 shell 启动速度。
 
-## 什么是 fzf？命令行的模糊搜索英雄
+## 什么是 fzf？命令行模糊搜索神器
 
 **fzf** 是一个通用的命令行模糊查找器。如果你从未使用过模糊搜索，那么准备好大开眼界吧。它允许你通过输入寥寥数个字符，就能从海量列表（如文件、命令历史、git 提交记录等）中筛选出目标。
 
 与严格搜索不同，fzf 的“模糊”匹配不要求你输入连续的字符。例如，要查找名为 \`authentication_controller.rb\` 的文件，你只需输入 \`authconrb\`，fzf 就能立即找到它。对于任何长时间使用终端的人来说，它都是一个不可或缺的工具。
 
-## 魔法组合：配置 zoxide 的交互式搜索
+## 如何配置 zoxide 与 fzf 交互式搜索：分步教程
 
 这才是真正释放其威力的地方。默认情况下，如果 \`zoxide\` 为你的查询找到多个匹配项，它只会跳转到排名最高的那一个。但是，当你将它与 fzf 集成后，zoxide 会打开一个**交互式菜单**，让你精确选择你想要的目录。
 
@@ -238,7 +241,7 @@ By leveraging the intelligent history of zoxide and the interactive fuzzy search
 
 保存文件后，重启你的 shell 或重新加载配置文件 (例如, \`source ~/.zshrc\`)。就这样！只要 fzf 已安装，zoxide 就会自动调用它进行交互式选择。
 
-## 如何使用你的新超能力：\`zi\` 命令
+## 如何使用 zi 命令：fzf 交互式目录跳转
 
 配置完成后，你现在可以使用 \`zi\` 这个强大的**交互式命令**了。
 
@@ -253,7 +256,7 @@ By leveraging the intelligent history of zoxide and the interactive fuzzy search
 
 这个**终端目录跳转**工作流非常快速和直观。它将一个多步骤的导航过程变成了一个无缝的、两秒钟内即可完成的动作。
 
-## 提升命令行效率的专业技巧
+## zoxide fzf 技巧：别名、排除目录与工作流优化
 
 为了让体验更加顺滑，可以考虑在你的 shell 配置文件中添加以下别名：
 
@@ -281,7 +284,8 @@ alias jj "zi"
     date: "2026-01-17",
     author: "zoxide.org",
     category: "教程",
-    tags: ["zoxide", "fzf", "教程", "交互式", "模糊搜索", "命令行神器"],
+    primaryKeyword: "zoxide fzf 教程",
+    tags: ["zoxide fzf", "fzf", "教程", "交互式", "模糊搜索", "命令行神器"],
     readTime: 7,
   },
   {
@@ -302,7 +306,7 @@ alias jj "zi"
 
 ターミナルの生産性を向上させる強力なコンビ、**zoxide と fzf** の登場です。Zoxideはあなたの癖を記憶する「スマート」なディレクトリジャンパーで、fzfは超高速のあいまい検索（ファジーファインダー）です。この2つを連携させることで、まるで魔法のようなインタラクティブなあいまい検索ナビゲーションシステムが手に入ります。このガイドでは、**zoxide fzf 連携** のセットアップ方法と使い方を詳しく解説し、あなたのコマンドライン作業を効率化します。
 
-## zoxideとは？(なぜ \`cd\` より優れているのか)
+## zoxideとは？cdに代わるスマートな選択肢
 
 **zoxide** の核心は、\`cd\` コマンドの超高速な代替品であることです。パスを手動で入力する代わりに、目的のディレクトリ名の数文字を \`zoxide\` に渡すだけです。
 
@@ -310,13 +314,13 @@ alias jj "zi"
 
 Rustで書かれているため、信じられないほど軽量で、シェルの起動時間を遅くすることもありません。
 
-## fzfとは？コマンドラインのあいまい検索ヒーロー
+## fzfとは？コマンドラインのファジーファインダー
 
 **fzf** は、汎用のコマンドラインあいまい検索ツールです。ファジーファインダーを使ったことがないなら、驚く準備をしてください。ほんの数文字を入力するだけで、長いリスト（ファイル、コマンド履歴、gitコミットなど）をフィルタリングできます。
 
 厳密な検索とは異なり、fzfの「あいまい」検索では、連続した文字を入力する必要はありません。例えば、\`authentication_controller.rb\` という名前のファイルを見つけるには、\`authconrb\` と入力するだけで、fzfは即座にそれを見つけ出します。ターミナルで多くの時間を過ごす人にとっては、不可欠なツールです。
 
-## 魔法の連携：zoxide と fzf のセットアップ
+## zoxide と fzf のセットアップ方法：ステップバイステップ
 
 ここからが本領発揮です。デフォルトでは、\`zoxide\` がクエリに複数のマッチを見つけた場合、最高ランクのものにジャンプするだけです。しかし、fzfと連携させると、zoxideは代わりに**インタラクティブなメニュー**を開き、目的のディレクトリを正確に選択させてくれます。
 
@@ -368,7 +372,7 @@ Rustで書かれているため、信じられないほど軽量で、シェル�
 
 ファイルを保存した後、シェルを再起動するか、設定ファイルを再読み込みします (例: \`source ~/.zshrc\`)。これだけです！fzfがインストールされていれば、zoxideは自動的にインタラクティブ選択にfzfを使用します。
 
-## 新しいスーパーパワーの使い方：\`zi\` コマンド
+## zi コマンドの使い方：fzf でインタラクティブにディレクトリ移動
 
 セットアップが完了したら、強力な**インタラクティブコマンド** \`zi\` が使えるようになります。
 
@@ -383,7 +387,7 @@ fzfによるメニューがポップアップし、zoxideが知っているす�
 
 このワークフローは、**ディレクトリ移動を高速化**し、信じられないほど速く直感的です。多段階のナビゲーションプロセスを、シームレスな2秒のアクションに変えてくれます。
 
-## コマンドライン効率化のためのプロのヒント
+## zoxide fzf ヒント：エイリアス、除外設定、ワークフロー
 
 さらにスムーズな体験のために、以下のエイリアスをシェルの設定ファイルに追加することをお勧めします。
 
@@ -411,7 +415,8 @@ zoxideのインテリジェントな履歴とfzfの**インタラクティブな
     date: "2026-01-17",
     author: "zoxide.org",
     category: "チュートリアル",
-    tags: ["zoxide", "fzf", "連携", "使い方", "インタラクティブ", "効率化"],
+    primaryKeyword: "zoxide fzf 連携",
+    tags: ["zoxide fzf", "fzf", "連携", "使い方", "インタラクティブ", "効率化"],
     readTime: 7,
   },
   {
@@ -447,7 +452,7 @@ The core philosophy: **you shouldn't have to remember full paths**. You should b
 
 ---
 
-## 2) Install zoxide on Linux: choose the right method
+## 2) How to Install zoxide on Linux: Ubuntu, Arch, Fedora
 
 ### Option A — Use your distro package manager (recommended)
 
@@ -504,7 +509,7 @@ echo "$PATH" | tr ':' '\\n' | head
 
 ---
 
-## 3) The "missing step": \`zoxide init\` (shell integration)
+## 3) The Missing Step: \`zoxide init\` for Linux Shell Integration
 
 Running:
 
@@ -572,7 +577,7 @@ source ~/.zoxide.nu
 
 ---
 
-## 5) Everyday usage (what you'll actually type)
+## 5) How to Use zoxide on Linux: Essential Commands
 
 Once initialized, these cover most workflows:
 
@@ -610,7 +615,7 @@ You should get a searchable directory picker.
 
 ---
 
-## 6) Power tip: make zoxide your default \`cd\` (unify muscle memory)
+## 6) Replace cd with zoxide on Linux (--cmd Flag)
 
 If you don't want to think "cd vs z", you can let zoxide take over the command name via \`--cmd\`. Example for Zsh:
 
@@ -680,7 +685,7 @@ tmux panes are shells. If your shell config initializes zoxide, it works consist
 
 ---
 
-## 9) Troubleshooting (Linux pitfalls)
+## 9) Troubleshooting zoxide on Linux
 
 ### "command not found: z"
 
@@ -698,7 +703,7 @@ Install \`fzf\`, restart your shell, and ensure \`fzf\` is in PATH (\`which fzf\
 
 ---
 
-## 10) Uninstall zoxide on Linux (and optionally remove history)
+## 10) How to Uninstall zoxide on Linux
 
 ### Step 1 — Remove init lines
 
@@ -750,6 +755,7 @@ After that, it's all ergonomics: fzf for interactive picking, multi-keyword jump
     date: "2025-12-22",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide linux",
     tags: ["zoxide linux", "linux", "installation", "fzf", "troubleshooting"],
     readTime: 8,
   },
@@ -1068,6 +1074,7 @@ rm -rf "\${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
     date: "2025-12-22",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide linux 安装",
     tags: ["zoxide linux", "linux", "安装", "fzf", "故障排除"],
     readTime: 9,
   },
@@ -1270,6 +1277,7 @@ rm -rf "\${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
     date: "2025-12-22",
     author: "zoxide.org",
     category: "チュートリアル",
+    primaryKeyword: "zoxide linux インストール",
     tags: [
       "zoxide linux",
       "linux",
@@ -1373,11 +1381,12 @@ export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
 
 zoxide 让目录导航变得简单高效。通过智能学习和模糊搜索，你可以快速跳转到任何目录，无需输入完整路径。
 
-更多高级用法，请查看[高级配置教程](/tutorials/advanced-config)。`,
+更多高级用法，请查看[高级配置教程](/blog/advanced-config/)。`,
     date: "2025-11-30",
     author: "zoxide.org",
     category: "教程",
-    tags: ["快速开始", "安装", "配置"],
+    primaryKeyword: "zoxide 快速开始",
+    tags: ["zoxide 快速开始", "安装", "配置"],
     readTime: 5,
   },
   {
@@ -1480,7 +1489,8 @@ export _ZO_DATA_DIR="/shared/path/zoxide"
     date: "2025-11-30",
     author: "zoxide.org",
     category: "技巧",
-    tags: ["配置", "高级", "优化"],
+    primaryKeyword: "zoxide 高级配置",
+    tags: ["zoxide 高级配置", "配置", "高级", "优化"],
     readTime: 10,
   },
   {
@@ -1568,11 +1578,12 @@ j project
 
 **结论**：如果你追求性能和现代化体验，zoxide 是更好的选择。如果你已经习惯使用 autojump，迁移到 zoxide 也很简单。
 
-查看[完整对比](/comparisons)了解更多细节。`,
+查看[完整对比](/blog/zoxide-alternatives-comparison-open-source/)了解更多细节。`,
     date: "2025-11-30",
     author: "zoxide.org",
     category: "对比",
-    tags: ["对比", "性能", "autojump"],
+    primaryKeyword: "zoxide vs autojump",
+    tags: ["zoxide vs autojump", "对比", "性能", "autojump"],
     readTime: 8,
   },
   {
@@ -1607,7 +1618,7 @@ find /usr -name zoxide 2>/dev/null
 find ~ -name zoxide 2>/dev/null
 \`\`\`
 
-If zoxide is not found, you need to reinstall it. See the [installation guide](/tutorials/install-ubuntu) for your platform.
+If zoxide is not found, you need to reinstall it. See our [zoxide download guide](/blog/zoxide-download-guide/) for your platform.
 
 ## Solution 2: Add to PATH
 
@@ -1651,7 +1662,7 @@ Restart your terminal after modifying PATH.
 
 ## Solution 3: Verify Shell Configuration
 
-Make sure zoxide is initialized in your shell configuration file:
+Make sure zoxide is initialized in your shell configuration file. For detailed setup instructions, read our [zoxide init shell integration guide](/blog/zoxide-init-guide/):
 
 **Bash (~/.bashrc):**
 \`\`\`bash
@@ -1768,14 +1779,14 @@ To avoid this issue in the future:
 
 ## Related Issues
 
-- [zoxide not working](/blog/zoxide-not-working)
-- [Installation guide for Ubuntu](/tutorials/install-ubuntu)
-- [Installation guide for macOS](/tutorials/install-macos)
-- [Installation guide for Windows](/tutorials/install-windows)`,
+- [zoxide not working troubleshooting guide](/blog/zoxide-not-working/)
+- [zoxide init shell integration guide](/blog/zoxide-init-guide/)
+- [zoxide download guide](/blog/zoxide-download-guide/)`,
     date: "2025-12-01",
     author: "zoxide.org",
     category: "故障排除",
-    tags: ["troubleshooting", "installation", "error", "command not found"],
+    primaryKeyword: "zoxide command not found",
+    tags: ["zoxide command not found", "troubleshooting", "installation", "error"],
     readTime: 5,
   },
   {
@@ -2042,13 +2053,14 @@ If you're still experiencing issues:
 
 ## Related Articles
 
-- [zoxide command not found](/blog/zoxide-command-not-found)
-- [Installation guides](/tutorials)
-- [Advanced configuration](/tutorials/advanced-config)`,
+- [Fix "zoxide command not found" error](/blog/zoxide-command-not-found/)
+- [zoxide init shell integration guide](/blog/zoxide-init-guide/)
+- [Fix "no match found" and database errors](/blog/troubleshooting-zoxide-no-match-found/)`,
     date: "2025-12-01",
     author: "zoxide.org",
     category: "故障排除",
-    tags: ["troubleshooting", "error", "fix", "not working"],
+    primaryKeyword: "zoxide not working",
+    tags: ["zoxide not working", "troubleshooting", "error", "fix"],
     readTime: 8,
   },
   {
@@ -2062,7 +2074,8 @@ If you're still experiencing issues:
     date: "2025-12-02",
     author: "zoxide.org",
     category: "教程",
-    tags: ["zoxide", "command not found", "setup", "fzf", "config"],
+    primaryKeyword: "zoxide cd alternative",
+    tags: ["zoxide cd alternative", "zoxide", "command not found", "setup", "fzf", "config"],
     readTime: 10,
   },
   {
@@ -2077,7 +2090,8 @@ If you're still experiencing issues:
     date: "2025-12-03",
     author: "zoxide.org",
     category: "技巧",
-    tags: ["alias", "autocomplete", "fzf", "arch", "nixos"],
+    primaryKeyword: "zoxide alias autocomplete",
+    tags: ["zoxide alias autocomplete", "alias", "autocomplete", "fzf", "arch", "nixos"],
     readTime: 8,
   },
   {
@@ -2092,7 +2106,8 @@ If you're still experiencing issues:
     date: "2025-12-04",
     author: "zoxide.org",
     category: "故障排除",
-    tags: ["troubleshooting", "database", "no match found", "arch", "nixos"],
+    primaryKeyword: "zoxide no match found",
+    tags: ["zoxide no match found", "troubleshooting", "database", "arch", "nixos"],
     readTime: 10,
   },
   {
@@ -2107,7 +2122,8 @@ If you're still experiencing issues:
     date: "2025-12-04",
     author: "zoxide.org",
     category: "教程",
-    tags: ["zoxide", "how to use", "tutorial", "ubuntu", "fzf", "query"],
+    primaryKeyword: "how to use zoxide",
+    tags: ["how to use zoxide", "zoxide", "tutorial", "ubuntu", "fzf", "query"],
     readTime: 12,
   },
   {
@@ -2119,7 +2135,7 @@ If you're still experiencing issues:
       "Unlock frecency scoring, database backups, and scripted workflows so your zoxide setup on Arch or NixOS stays fast, portable, and automation-ready.",
     content: `# Advanced Zoxide Techniques: Mastering Frecency and Custom Workflows
 
-Once you have the basics down, Zoxide can do much more than just jump folders. Understanding the underlying database mechanics allows you to manipulate rankings, backup your history, and script custom workflows. This is essential for power users on **zoxide arch** and **zoxide nixos** systems who want total control over their environment.
+Once you have the basics down, Zoxide can do much more than just jump folders. If you're still getting started, check out our [zoxide commands reference](/blog/zoxide-commands/) first. Understanding the underlying database mechanics allows you to manipulate rankings, backup your history, and script custom workflows. This is essential for power users on **zoxide arch** and **zoxide nixos** systems who want total control over their environment.
 
 ### Manipulating the Frecency Score
 
@@ -2175,14 +2191,15 @@ za() {
 }
 \`\`\`
 
-This effectively combines navigation and inspection. Whether you are fine-tuning a **zoxide arch** setup or defining declarative modules in **zoxide nixos**, these advanced techniques turn a simple tool into a productivity powerhouse.
+This effectively combines navigation and inspection. Whether you are fine-tuning a **zoxide arch** setup or defining declarative modules in **zoxide nixos**, these advanced techniques turn a simple tool into a productivity powerhouse. Want to understand the algorithm behind it all? Read our deep dive into [how zoxide works under the hood](/blog/how-zoxide-works-en/).
 
 -----
 `,
     date: "2025-12-05",
     author: "zoxide.org",
     category: "技巧",
-    tags: ["frecency", "workflow", "backup", "arch", "nixos"],
+    primaryKeyword: "zoxide advanced techniques",
+    tags: ["zoxide advanced techniques", "frecency", "workflow", "backup", "arch", "nixos"],
     readTime: 9,
   },
   {
@@ -2196,6 +2213,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
     date: "2025-12-06",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide commands",
     tags: ["zoxide commands", "commands", "tutorial", "guide", "navigation"],
     readTime: 12,
   },
@@ -2211,6 +2229,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
     date: "2025-12-11",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide download",
     tags: [
       "zoxide download",
       "install",
@@ -2231,7 +2250,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
 
 So, you've installed **zoxide** using a package manager like Homebrew, Scoop, or Apt. You type \`z\` in your terminal, expecting magic, but all you get is **\`command not found\`** or a cursor that does nothing.
 
-Don't worry — this is the most common stumbling block for new users.
+Don't worry — this is the most common stumbling block for new users. If you haven't installed zoxide yet, check out our [zoxide download guide](/blog/zoxide-download-guide/) first.
 
 Installing the binary is only step one. Step two is **initialization**.
 
@@ -2239,7 +2258,7 @@ This guide focuses entirely on the \`zoxide init\` command — the bridge that c
 
 ---
 
-## What Does \`zoxide init\` Actually Do?
+## What Does \`zoxide init\` Do? How Shell Integration Works
 
 Before we paste code into config files, it helps to understand what's happening.
 
@@ -2261,7 +2280,7 @@ This is why simply running \`zoxide\` does nothing. You need to **evaluate** (ru
 
 ---
 
-## Configuration by Shell
+## How to Configure zoxide init for Bash, Zsh, Fish and PowerShell
 
 Below are the correct \`zoxide init\` setups for the most popular shells.
 
@@ -2333,7 +2352,7 @@ source ~/.zoxide.nu
 
 ---
 
-## Advanced: Replacing \`cd\` with zoxide
+## Replace cd with zoxide: Using the --cmd Flag
 
 Many users (myself included) prefer not to think about whether to use \`cd\` or \`z\`. We want \`cd\` to just be smarter.
 
@@ -2358,7 +2377,7 @@ eval "$(zoxide init zsh --cmd cd)"
 
 ---
 
-## Performance Tuning: Lazy Loading
+## zoxide init Performance: Lazy Loading for Faster Shell Startup
 
 If you are obsessive about shell startup time (milliseconds matter!), running:
 
@@ -2384,7 +2403,7 @@ z() {
 
 ---
 
-## Troubleshooting Common init Errors
+## Fix "command not found: z" and Other zoxide init Errors
 
 ### "command not found: z"
 
@@ -2394,6 +2413,8 @@ z() {
   - Run \`which zoxide\`. If it returns nothing, check your installation method.
 - Did you use the wrong shell syntax?
   - Putting the Bash \`eval\` command into \`config.fish\` will fail.
+
+For a deeper dive into this error, see our [zoxide command not found troubleshooting guide](/blog/zoxide-command-not-found/).
 
 ---
 
@@ -2417,12 +2438,13 @@ zoxide --version
 
 The \`zoxide init\` command is a "set it and forget it" step, but understanding it gives you control over your terminal environment.
 
-Whether you stick to the standard \`z\` command or alias \`cd\` entirely, proper initialization is the key to unlocking that 10× navigation speed.
+Whether you stick to the standard \`z\` command or alias \`cd\` entirely, proper initialization is the key to unlocking that 10× navigation speed. Once you're set up, explore the [full list of zoxide commands](/blog/zoxide-commands/) to get the most out of it.
 
 Now, go edit that config file.`,
     date: "2025-12-20",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide init",
     tags: [
       "zoxide init",
       "shell",
@@ -2469,7 +2491,8 @@ Zoxide is built in **Rust** for blazing speed, ensuring that the lookup time is 
     date: "2026-01-07",
     author: "zoxide.org",
     category: "Deep Dive",
-    tags: ["performance", "algorithm", "rust"],
+    primaryKeyword: "zoxide performance",
+    tags: ["zoxide performance", "performance", "algorithm", "rust"],
     readTime: 4,
   },
   {
@@ -2505,7 +2528,8 @@ Zoxide 使用 **Rust** 编写，确保即使在庞大的数据库中，查询时
     date: "2026-01-07",
     author: "zoxide.org",
     category: "深度解析",
-    tags: ["性能", "算法", "rust"],
+    primaryKeyword: "zoxide 性能",
+    tags: ["zoxide 性能", "性能", "算法", "rust"],
     readTime: 4,
   },
   {
@@ -2556,7 +2580,8 @@ Zoxide relies on a clever handshake: the binary handles the brain (database, ran
     date: "2026-01-08",
     author: "zoxide.org",
     category: "Deep Dive",
-    tags: ["shell", "internals", "bash", "zsh"],
+    primaryKeyword: "how zoxide works",
+    tags: ["how zoxide works", "shell", "internals", "bash", "zsh"],
     readTime: 5,
   },
   {
@@ -2607,7 +2632,8 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
     date: "2026-01-08",
     author: "zoxide.org",
     category: "深度解析",
-    tags: ["shell", "原理解析", "bash", "zsh"],
+    primaryKeyword: "zoxide 工作原理",
+    tags: ["zoxide 工作原理", "shell", "原理解析", "bash", "zsh"],
     readTime: 5,
   },
 
@@ -2623,7 +2649,8 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
     date: "2026-01-07",
     author: "zoxide.org",
     category: "詳細解説",
-    tags: ["zoxide", "パフォーマンス", "アルゴリズム", "rust"],
+    primaryKeyword: "zoxide パフォーマンス",
+    tags: ["zoxide パフォーマンス", "zoxide", "アルゴリズム", "rust"],
     readTime: 6,
   },
   {
@@ -2638,7 +2665,8 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
     date: "2026-01-08",
     author: "zoxide.org",
     category: "詳細解説",
-    tags: ["zoxide", "内部", "シェル", "フック"],
+    primaryKeyword: "zoxide 仕組み",
+    tags: ["zoxide 仕組み", "zoxide", "内部", "シェル", "フック"],
     readTime: 7,
   },
   {
@@ -2662,7 +2690,7 @@ This post answers the questions people commonly ask when searching **“what is 
 
 ---
 
-## What problems does zoxide solve?
+## What Problems Does zoxide Solve? Why Replace cd?
 
 On paper, \`cd\` is simple. In real life, it becomes friction:
 
@@ -2675,7 +2703,7 @@ zoxide solves this by building a personal “directory memory” so the terminal
 
 ---
 
-## How does zoxide change the directory?
+## How Does zoxide Change Directories? Shell Integration Explained
 
 This part surprises new users: **zoxide is a binary, but directory changes happen inside the shell**.
 
@@ -2695,7 +2723,7 @@ That command prints shell code to standard output. You then “evaluate” it on
 
 ---
 
-## What is the \`z\` command instead of \`cd\`?
+## The z Command: How to Use zoxide Instead of cd
 
 The \`z\` command is the user-facing shortcut. After you’ve visited a directory a few times, zoxide remembers it and assigns it a score. Then you jump by keywords:
 
@@ -2748,7 +2776,7 @@ If you’re new to zoxide, a simple plan is:
 
 ---
 
-## FAQ: open source, shells, tab completion
+## FAQ: Is zoxide Open Source? Shell Support and Tab Completion
 
 ### Is zoxide open source?
 
@@ -2771,11 +2799,12 @@ If you’re evaluating **“z command instead of cd”**, the best way to think 
 - \`cd\` navigates by **exact paths**.
 - \`z\` navigates by **your habits**.
 
-Once zoxide is initialized, it becomes one of those tools that quietly saves time all day. In the next post, we’ll cover **how to install zoxide on Mac**, how to configure it across shells, and how to get completions working smoothly.
+Once zoxide is initialized, it becomes one of those tools that quietly saves time all day. Ready to get started? Check out our [quick start guide](/blog/quick-start/), or see how zoxide compares to other tools in our [zoxide vs autojump comparison](/blog/zoxide-vs-autojump/). For interactive fuzzy search, read our [zoxide and fzf integration guide](/blog/zoxide-fzf-interactive-guide-en/).
 `,
     date: "2026-01-10",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "what is zoxide",
     tags: [
       "what is zoxide",
       "zoxide change directory",
@@ -2910,6 +2939,7 @@ zoxide 支持补全，也经常与 fzf 搭配实现交互式选择。补全是�
     date: "2026-01-10",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide 是什么",
     tags: [
       "zoxide 是什么",
       "zoxide 目录跳转",
@@ -3032,6 +3062,7 @@ Bash / Zsh / Fish など主要シェルに対応し、PowerShellやNushellなど
     date: "2026-01-10",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide とは",
     tags: [
       "zoxide とは",
       "cd の代わり zoxide",
@@ -3223,6 +3254,7 @@ Once it’s configured, directory navigation becomes one of those “why didn’
     date: "2026-01-10",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "how to install zoxide on Mac",
     tags: [
       "how to install zoxide in Mac",
       "zoxide init",
@@ -3411,6 +3443,7 @@ mac 上把 zoxide 用起来，本质就两件事：
     date: "2026-01-10",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "mac 安装 zoxide",
     tags: [
       "mac 安装 zoxide",
       "zoxide 安装 mac",
@@ -3585,6 +3618,7 @@ macOS で zoxide を快適に使うポイントはシンプルです。
     date: "2026-01-10",
     author: "zoxide.org",
     category: "教程",
+    primaryKeyword: "zoxide mac インストール",
     tags: [
       "zoxide mac インストール",
       "Macにzoxideをインストール",
@@ -3751,6 +3785,7 @@ If you’re on the fence, install it, enable \`zoxide init\`, and try it for a w
     date: "2026-01-10",
     author: "zoxide.org",
     category: "对比",
+    primaryKeyword: "zoxide alternatives",
     tags: [
       "what are the alternatives to zoxide",
       "autojump vs zoxide",
@@ -3907,6 +3942,7 @@ zoxide 支持主流 Shell；常见如 Bash、Zsh、Fish，也能在 PowerShell�
     date: "2026-01-10",
     author: "zoxide.org",
     category: "对比",
+    primaryKeyword: "zoxide 替代品",
     tags: [
       "zoxide 替代品",
       "zoxide 类似工具",
@@ -4036,6 +4072,7 @@ zoxide の代替は複数ありますが、zoxide が選ばれやすいのは、
     date: "2026-01-10",
     author: "zoxide.org",
     category: "对比",
+    primaryKeyword: "zoxide 代替",
     tags: [
       "zoxide 代替",
       "zoxide 類似 ツール",

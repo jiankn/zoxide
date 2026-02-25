@@ -115,7 +115,7 @@
   },
   "features": {
     "title": "zoxide 功能特性",
-    "description": "了解 zoxide 的核心功能：极速性能、智能搜索、学习习惯、团队协作等。",
+    "description": "zoxide 核心功能：Rust 极速性能、frecency 智能排序、模糊目录搜索，支持 Bash/Zsh/Fish/PowerShell。了解 10 万+ 开发者选择 zoxide 的原因。",
     "core": {
       "title": "核心能力",
       "fast": {
@@ -187,7 +187,7 @@
   },
   "faq": {
     "title": "zoxide FAQ - 常见问题解答",
-    "description": "zoxide 使用中的常见问题和解决方案，包括安装、配置、故障排除等。",
+    "description": "zoxide 常见问题速查：修复 'command not found'、配置 Shell 集成、管理数据库、排查匹配问题，快速解决你的 zoxide 疑问。",
     "items": [
       {
         "question": "zoxide 支持哪些 Shell？",
@@ -286,7 +286,7 @@
   },
   "tutorials": {
     "title": "zoxide 教程",
-    "description": "从快速开始到高级配置，这里有完整的 zoxide 使用教程。无论你是初学者还是高级用户，都能找到适合的内容。",
+    "description": "zoxide 分步教程：Ubuntu/macOS/Windows 安装、Bash/Zsh/Fish 配置、fzf 集成、高级导航工作流。5 分钟快速上手。",
     "videos": {
       "description": "通过视频学习 zoxide 的使用方法，包括安装、配置和高级技巧。"
     },
@@ -417,7 +417,7 @@
   },
   "blog": {
     "title": "zoxide 博客",
-    "description": "阅读 zoxide 相关文章：使用教程、配置技巧、性能优化、版本更新等。",
+    "description": "zoxide 博客：实用教程、Shell 配置技巧、性能基准测试、故障排除指南。提升你的终端导航效率。",
     "readTime": "分钟阅读",
     "readMore": "了解更多",
     "detail": {
@@ -711,7 +711,7 @@
   },
   "changelog": {
     "title": "zoxide 更新日志",
-    "description": "查看 zoxide 的版本更新历史，了解新功能、修复和性能优化。",
+    "description": "zoxide 更新日志：最新版本、新功能、Bug 修复与破坏性变更。掌握 zoxide 版本动态，放心升级。",
     "versions": [
       {
         "version": "0.9.4",
@@ -823,7 +823,7 @@
   },
   "comparisons": {
     "title": "zoxide vs 其他工具",
-    "description": "对比 zoxide 与其他目录导航工具的差异，了解为什么选择 zoxide。",
+    "description": "zoxide vs autojump vs z vs fasd vs z.lua：速度、功能、Shell 支持全面对比。阅读我们的横评，找到最适合你的 cd 替代工具。",
     "vs": "zoxide vs {tool}",
     "table": {
       "feature": "特性"

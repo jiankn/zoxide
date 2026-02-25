@@ -115,7 +115,7 @@
   },
   "features": {
     "title": "zoxide Features",
-    "description": "Learn about zoxide's core features: blazing performance, smart search, learning patterns, team collaboration, and more.",
+    "description": "zoxide features: blazing Rust performance, frecency-based smart ranking, fuzzy directory search, and shell integration for Bash, Zsh, Fish & PowerShell. See why 100K+ developers switched.",
     "core": {
       "title": "Core Capabilities",
       "fast": {
@@ -187,7 +187,7 @@
   },
   "faq": {
     "title": "zoxide FAQ - Frequently Asked Questions",
-    "description": "Common questions and solutions about zoxide usage, including installation, configuration, troubleshooting, etc.",
+    "description": "Answers to common zoxide questions: fix 'command not found', configure shell integration, manage the database, and troubleshoot matching issues. Get unstuck fast.",
     "items": [
       {
         "question": "Which shells does zoxide support?",
@@ -286,7 +286,7 @@
   },
   "tutorials": {
     "title": "zoxide Tutorials",
-    "description": "From quick start to advanced configuration, here are complete zoxide usage tutorials. Whether you're a beginner or advanced user, you can find suitable content.",
+    "description": "Step-by-step zoxide tutorials: install on Ubuntu/macOS/Windows, configure Bash/Zsh/Fish, integrate fzf, and master advanced navigation workflows. Start in 5 minutes.",
     "videos": {
       "description": "Learn zoxide usage through videos, including installation, configuration, and advanced tips."
     },
@@ -413,7 +413,7 @@
   },
   "blog": {
     "title": "zoxide Blog",
-    "description": "Read zoxide-related articles: usage tutorials, configuration tips, performance optimization, version updates, etc.",
+    "description": "zoxide blog: practical tutorials, shell configuration tips, performance benchmarks, and troubleshooting guides. Level up your terminal navigation today.",
     "readTime": "min read",
     "readMore": "Read More",
     "detail": {
@@ -704,7 +704,7 @@
   },
   "changelog": {
     "title": "zoxide Changelog",
-    "description": "View zoxide's version update history, learn about new features, fixes, and performance optimizations.",
+    "description": "zoxide changelog: latest releases, new features, bug fixes, and breaking changes. Stay updated with zoxide's version history and upgrade confidently.",
     "versions": [
       {
         "version": "0.9.4",
@@ -816,7 +816,7 @@
   },
   "comparisons": {
     "title": "zoxide vs Other Tools",
-    "description": "Compare the differences between zoxide and other directory navigation tools to understand why choose zoxide.",
+    "description": "zoxide vs autojump vs z vs fasd vs z.lua: side-by-side comparison of speed, features, and shell support. Read our comparison to find the best cd replacement for your workflow.",
     "vs": "zoxide vs {tool}",
     "table": {
       "feature": "Feature"

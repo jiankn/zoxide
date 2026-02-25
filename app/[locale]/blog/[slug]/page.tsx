@@ -96,10 +96,15 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     : `https://zoxide.org/${locale}/blog/${slug}/`;
   const imageUrl = `https://zoxide.org/icon.svg`;
 
+  // 生成 keywords：优先使用 primaryKeyword，确保主关键词在第一位
+  const keywordsList = post.primaryKeyword
+    ? [post.primaryKeyword, ...post.tags.filter(t => t !== post.primaryKeyword)]
+    : post.tags;
+
   const metadata = generateMultilingualMetadata(locale, `/blog/${slug}`, {
     title: seoTitle,
     description: optimizedDescription,
-    keywords: post.tags.join(", "),
+    keywords: keywordsList.join(", "),
     // Open Graph 元数据
     openGraph: {
       title: seoTitle,
@@ -121,7 +126,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       type: "article",
       publishedTime: post.date,
       authors: [author],
-      tags: post.tags,
+      tags: keywordsList,
     },
     // Twitter Card 元数据
     twitter: {
