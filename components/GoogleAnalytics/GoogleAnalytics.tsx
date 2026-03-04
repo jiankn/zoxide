@@ -6,35 +6,31 @@ import { useEffect, useState } from 'react';
 const GA_MEASUREMENT_ID = 'G-417HF3TV3L';
 
 export default function GoogleAnalytics() {
-  const [hasConsent, setHasConsent] = useState(false);
+  // 默认加载 GA，只有用户明确拒绝 analytics 时才不追踪
+  const [hasConsent, setHasConsent] = useState(true);
 
 
   useEffect(() => {
 
-    // 检查 cookie 同意状态
+    // 检查用户是否明确拒绝了 analytics cookies
     const checkConsent = () => {
       try {
-        const consent = window.localStorage.getItem('cookie-consent');
-        if (!consent) {
-          // 如果没有同意记录，不加载
-          setHasConsent(false);
-          return;
-        }
-
         const preferences = window.localStorage.getItem('cookie-preferences');
         if (preferences) {
           const parsed = JSON.parse(preferences);
-          // 检查用户是否同意了 analytics cookies
-          if (parsed.analytics === true) {
-            setHasConsent(true);
+          // 只有明确设置 analytics 为 false 时才不加载
+          if (parsed.analytics === false) {
+            setHasConsent(false);
             return;
           }
         }
 
-        setHasConsent(false);
+        // 没有偏好记录或未明确拒绝，默认加载
+        setHasConsent(true);
       } catch (error) {
         console.error('Error checking cookie consent:', error);
-        setHasConsent(false);
+        // 出错时默认加载
+        setHasConsent(true);
       }
     };
 
