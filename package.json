@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.0",
+    "@swc/helpers": "^0.5.21",
     "@tailwindcss/typography": "^0.5.19",
     "fuse.js": "^7.1.0",
     "lucide-react": "^0.555.0",
