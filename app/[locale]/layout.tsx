@@ -8,7 +8,7 @@ import Footer from "@/components/Footer/Footer";
 import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
 import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
-import { generateOrganizationSchema } from "@/lib/seo/schema";
+import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
 import { Geist, Geist_Mono } from "next/font/google"; // Moved from root layout
 import { Metadata } from 'next'; // Moved from root layout
 import "@/app/globals.css"; // Moved from root layout
@@ -59,15 +59,23 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   const organizationSchema = generateOrganizationSchema();
+  const webSiteSchema = generateWebSiteSchema();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* 结构化数据 - 放在 head 中 */}
+        {/* 结构化数据 - Organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        {/* 结构化数据 - WebSite */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webSiteSchema),
           }}
         />
       </head>

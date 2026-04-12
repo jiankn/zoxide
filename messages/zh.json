@@ -40,7 +40,7 @@
   },
   "home": {
     "title": "zoxide - 更智能的 cd 命令",
-    "subtitle": "让目录导航快 10 倍",
+    "subtitle": "安装即用，目录导航快 10 倍",
     "description": "zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。",
     "getStarted": "快速开始",
     "viewDocs": "查看文档",
@@ -149,7 +149,7 @@
   },
   "about": {
     "title": "关于我们",
-    "description": "了解 zoxide.org - zoxide 粉丝网站，提供教程、技巧和最新动态。",
+    "description": "关于 zoxide.org — 独立的社区驱动文档站点，提供 zoxide 安装教程、Shell 集成指南、使用技巧和开发者博客。",
     "mission": {
       "title": "我们的使命",
       "description": "zoxide.org 是一个致力于推广和帮助用户使用 zoxide 的粉丝网站。我们提供详细的教程、使用技巧、常见问题解答等内容，帮助开发者更好地使用这个强大的工具。"
@@ -282,7 +282,8 @@
       "about": "关于我们 - zoxide.org粉丝网站 | zoxide社区",
       "privacyPolicy": "隐私政策 - zoxide.org | 数据保护",
       "termsOfService": "服务条款 - zoxide.org | 使用协议",
-      "videos": "zoxide视频教程 - YouTube视频学习 | 视频指南"
+      "videos": "zoxide视频教程 - YouTube视频学习 | 视频指南",
+      "contact": "联系我们 - zoxide.org | 问题反馈"
     }
   },
   "tutorials": {
@@ -685,7 +686,7 @@
   },
   "download": {
     "title": "下载 zoxide",
-    "description": "在 macOS、Linux、Windows 上安装 zoxide。安装后记得初始化 Shell 配置，让 zoxide 生效。更多安装选项和详细文档，请查看",
+    "description": "下载并安装 zoxide：macOS（Homebrew）、Windows（Scoop/Winget）、Linux（apt/dnf/pacman）一条命令搞定。包含 Shell 初始化配置和常见问题解决，2 分钟内即可上手。",
     "githubLink": "官方 GitHub 仓库",
     "installMethods": {
       "title": "选择安装方式"
@@ -1048,6 +1049,46 @@
       "top": "📋 服务条款 - \"了解使用本网站的条件和规则\"",
       "sidebar": "📋 服务条款 - \"了解使用本网站的条件和规则\"",
       "bottom": "📚 了解更多 - \"查看完整的服务条款\""
+    }
+  },
+  "contactPage": {
+    "title": "联系我们",
+    "subtitle": "有关于 zoxide 或本网站的问题？我们很乐意听取您的反馈。",
+    "description": "联系 zoxide.org 团队，咨询问题、提交反馈、报告 Bug 或进行合作。通过邮箱或 GitHub 联系我们。",
+    "email": {
+      "title": "电子邮件",
+      "description": "用于一般咨询、反馈或 Bug 报告。"
+    },
+    "github": {
+      "title": "GitHub",
+      "description": "提交 Issue、贡献代码或浏览源码。"
+    },
+    "website": {
+      "title": "网站",
+      "description": "浏览教程、文档和资源。"
+    },
+    "responseTime": {
+      "title": "响应时间",
+      "description": "我们通常在 1-2 个工作日内回复。紧急问题请提交 GitHub Issue。"
+    },
+    "faqSection": {
+      "title": "常见问题",
+      "q1": {
+        "question": "这是 zoxide 官方网站吗？",
+        "answer": "不是。zoxide.org 是一个独立的、社区驱动的文档项目，与 Ajeet D'Souza 或 zoxide 官方项目没有任何关联。"
+      },
+      "q2": {
+        "question": "如何报告 zoxide 工具本身的 Bug？",
+        "answer": "对于 zoxide 工具本身的 Bug，请在官方 GitHub 仓库 github.com/ajeetdsouza/zoxide/issues 提交 Issue。"
+      },
+      "q3": {
+        "question": "我可以为本网站贡献内容吗？",
+        "answer": "当然可以！我们欢迎教程、翻译和博客文章等贡献。请通过邮箱或 GitHub 联系我们。"
+      }
+    },
+    "disclaimer": {
+      "label": "免责声明：",
+      "message": "zoxide.org 是一个独立的、社区驱动的文档项目，与 Ajeet D'Souza 或 Zoxide 官方项目没有任何关联、认可或从属关系。"
     }
   }
 }

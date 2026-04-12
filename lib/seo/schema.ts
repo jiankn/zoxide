@@ -8,6 +8,26 @@ export interface OrganizationSchema {
   logo?: string;
   description?: string;
   sameAs?: string[];
+  contactPoint?: {
+    '@type': string;
+    email: string;
+    contactType: string;
+    availableLanguage: string[];
+  };
+}
+
+export interface WebSiteSchema {
+  '@context': string;
+  '@type': string;
+  name: string;
+  url: string;
+  description: string;
+  inLanguage: string[];
+  potentialAction?: {
+    '@type': string;
+    target: string;
+    'query-input': string;
+  };
 }
 
 export interface ArticleSchema {
@@ -68,8 +88,28 @@ export function generateOrganizationSchema(): OrganizationSchema {
     name: 'zoxide.org',
     url: 'https://zoxide.org',
     logo: 'https://zoxide.org/icon.svg',
-    description: 'zoxide 粉丝网站，提供 zoxide 使用教程、配置技巧和最新动态',
-    sameAs: ['https://github.com/ajeetdsouza/zoxide'],
+    description: 'Community-driven documentation and tutorials for zoxide, the smarter cd command written in Rust. Guides, tips, and resources for terminal navigation.',
+    sameAs: [
+      'https://github.com/ajeetdsouza/zoxide',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'support@zoxide.org',
+      contactType: 'customer support',
+      availableLanguage: ['English', 'Chinese', 'Japanese'],
+    },
+  };
+}
+
+// 生成网站结构化数据
+export function generateWebSiteSchema(): WebSiteSchema {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'zoxide.org',
+    url: 'https://zoxide.org',
+    description: 'Community-driven documentation, tutorials, and resources for zoxide — a smarter cd command written in Rust.',
+    inLanguage: ['en', 'zh', 'ja'],
   };
 }
 
@@ -144,4 +184,3 @@ export function generateHowToSchema(
     })),
   };
 }
-

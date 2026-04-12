@@ -122,12 +122,12 @@ export default function Footer() {
             >
               {t('termsOfService')}
             </Link>
-            <a
-              href="mailto:support@zoxide.org"
+            <Link
+              href="/contact"
               className="text-white/80 hover:text-white"
             >
               {t('contact')}
-            </a>
+            </Link>
           </div>
           <p className="mt-4 text-center text-sm text-white/70">
             {t('copyright', { yearRange })}

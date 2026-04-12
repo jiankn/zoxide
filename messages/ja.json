@@ -40,7 +40,7 @@
   },
   "home": {
     "title": "zoxide - よりスマートなcdコマンド",
-    "subtitle": "ディレクトリ移動を10倍高速化",
+    "subtitle": "インストールしてディレクトリ移動を10倍高速化",
     "description": "zoxideは、ディレクトリ間を瞬時にジャンプできるスマートなcdコマンドです。Ubuntu、macOS、Windowsへのインストールガイド、「zoxide command not found」エラーの解決方法、fzfやNeovimとの連携方法を紹介します。",
     "getStarted": "始める",
     "viewDocs": "ドキュメントを見る",
@@ -149,7 +149,7 @@
   },
   "about": {
     "title": "私たちについて",
-    "description": "zoxide.org について - チュートリアル、ヒント、最新情報を提供するzoxideファンサイト。",
+    "description": "zoxide.org について — 独立したコミュニティ主導のドキュメントサイト。zoxideインストールガイド、シェル統合ヒント、使い方のティップス、開発者向けブログを提供。",
     "mission": {
       "title": "私たちのミッション",
       "description": "zoxide.org は、zoxideの普及とユーザーサポートに特化したファンサイトです。詳細なチュートリアル、使い方のヒント、よくある質問などを提供し、開発者がこの強力なツールをより良く活用できるようサポートします。"
@@ -282,7 +282,8 @@
       "about": "私たちについて - zoxide.org ファンサイト | zoxideコミュニティ",
       "privacyPolicy": "プライバシーポリシー - zoxide.org | データ保護",
       "termsOfService": "利用規約 - zoxide.org | 使用契約",
-      "videos": "zoxideビデオチュートリアル - YouTube動画学習 | 動画ガイド"
+      "videos": "zoxideビデオチュートリアル - YouTube動画学習 | 動画ガイド",
+      "contact": "お問い合わせ - zoxide.org | フィードバック"
     }
   },
   "tutorials": {
@@ -681,7 +682,7 @@
   },
   "download": {
     "title": "zoxideをダウンロード",
-    "description": "macOS、Linux、Windowsにzoxideをインストール。インストール後、zoxideを動作させるためにシェル設定を初期化することを忘れないでください。その他のインストールオプションと詳細なドキュメントについては、",
+    "description": "zoxideをダウンロード＆インストール：macOS（Homebrew）、Windows（Scoop/Winget）、Linux（apt/dnf/pacman）ワンコマンドで完了。シェル初期化設定とトラブルシューティング付き、2分で始められます。",
     "githubLink": "公式GitHubリポジトリ",
     "installMethods": {
       "title": "インストール方法を選択"
@@ -1146,6 +1147,46 @@
         "title": "11. お問い合わせ",
         "content": "本利用規約に関するご質問は、ウェブサイト<a href=\"https://zoxide.org\">zoxide.org</a>を通じてお問い合わせください。"
       }
+    }
+  },
+  "contactPage": {
+    "title": "お問い合わせ",
+    "subtitle": "zoxide または本ウェブサイトについてご質問がありますか？お気軽にお問い合わせください。",
+    "description": "zoxide.org チームへのお問い合わせ、フィードバック、バグ報告、コラボレーション。メールまたは GitHub でご連絡ください。",
+    "email": {
+      "title": "メール",
+      "description": "一般的なお問い合わせ、フィードバック、バグ報告にご利用ください。"
+    },
+    "github": {
+      "title": "GitHub",
+      "description": "Issueの報告、コードの貢献、ソースの閲覧。"
+    },
+    "website": {
+      "title": "ウェブサイト",
+      "description": "チュートリアル、ドキュメント、リソースをご覧ください。"
+    },
+    "responseTime": {
+      "title": "応答時間",
+      "description": "通常 1～2 営業日以内に返信いたします。緊急の場合は GitHub Issue をご提出ください。"
+    },
+    "faqSection": {
+      "title": "よくある質問",
+      "q1": {
+        "question": "これは zoxide の公式ウェブサイトですか？",
+        "answer": "いいえ。zoxide.org は独立したコミュニティ主導のドキュメントプロジェクトであり、Ajeet D'Souza 氏や zoxide 公式プロジェクトとは提携・承認されていません。"
+      },
+      "q2": {
+        "question": "zoxide ツール自体のバグを報告するには？",
+        "answer": "zoxide ツール自体のバグについては、公式 GitHub リポジトリ github.com/ajeetdsouza/zoxide/issues で Issue を提出してください。"
+      },
+      "q3": {
+        "question": "本ウェブサイトにコンテンツを貢献できますか？",
+        "answer": "はい！チュートリアル、翻訳、ブログ記事などの貢献を歓迎します。メールまたは GitHub でお問い合わせください。"
+      }
+    },
+    "disclaimer": {
+      "label": "免責事項：",
+      "message": "zoxide.org は独立したコミュニティ主導のドキュメントプロジェクトであり、Ajeet D'Souza 氏や Zoxide 公式プロジェクトとは提携・承認・関連していません。"
     }
   }
 }

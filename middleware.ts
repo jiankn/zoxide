@@ -5,7 +5,17 @@ import { NextRequest, NextResponse } from 'next/server';
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // 注意：HTTP→HTTPS 和 www→非www 重定向由 Cloudflare 自动处理，无需在此实现
+  // 0. HTTP→HTTPS 保底重定向（301 永久重定向）
+  // 主要由 Cloudflare 的 "Always Use HTTPS" 处理，此处作为安全保底
+  // 防止 HTTP 版本被搜索引擎索引，避免重复内容问题
+  const proto = request.headers.get('x-forwarded-proto');
+  if (proto === 'http') {
+    const httpsUrl = new URL(request.url);
+    httpsUrl.protocol = 'https:';
+    return NextResponse.redirect(httpsUrl, { status: 301 });
+  }
+
+  // 注意：www→非www 重定向由 Cloudflare 自动处理，无需在此实现
 
   // 1. 阻止代码示例中的路径被访问（返回 404）
   // 这些路径通常出现在代码示例中，不应该被当作真实 URL
