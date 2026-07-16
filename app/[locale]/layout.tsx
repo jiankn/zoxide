@@ -64,6 +64,12 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3562784107542460"
+          crossOrigin="anonymous"
+        />
         {/* 结构化数据 - Organization */}
         <script
           type="application/ld+json"
