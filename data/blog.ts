@@ -2223,7 +2223,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
     title:
       "Zoxide Download Guide: Safe, Fast Install for macOS, Windows, and Linux",
     excerpt:
-      "A practical, SEO-focused guide for the keyword “zoxide download”: where to get the official binaries, how to install on macOS, Windows, and Linux, plus verification, troubleshooting, and upgrade tips.",
+      "A practical zoxide download guide: where to get the official binaries, how to install on macOS, Windows, and Linux, plus verification, troubleshooting, and upgrade tips.",
     // 内容由多语言文案文件提供，这里只做占位
     content: "# Zoxide Download Guide",
     date: "2025-12-11",

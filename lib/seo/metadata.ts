@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 
 const baseUrl = 'https://zoxide.org';
+type AlternatePaths = Partial<Record<(typeof routing.locales)[number], string | null>>;
 
 /**
  * 生成多语言页面的 SEO 元数据
@@ -21,7 +22,8 @@ export function generateMultilingualMetadata(
     keywords?: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
-  }
+  },
+  alternatePaths?: AlternatePaths,
 ): Metadata {
   // 验证 locale 是否有效
   if (!locale || !routing.locales.includes(locale as (typeof routing.locales)[number])) {
@@ -48,11 +50,18 @@ export function generateMultilingualMetadata(
 
   // 首先添加所有语言版本
   routing.locales.forEach((loc) => {
+    const alternatePath = alternatePaths ? alternatePaths[loc] : normalizedPath;
+    if (alternatePath == null) return;
+
+    const normalizedAlternatePath = alternatePath === ''
+      ? ''
+      : (alternatePath.startsWith('/') ? alternatePath : `/${alternatePath}`);
+
     // 确保每个语言版本都有对应的 hreflang URL
     // 对于默认语言，不添加语言前缀
-    languages[loc] = normalizedPath === ''
+    languages[loc] = normalizedAlternatePath === ''
       ? (loc === routing.defaultLocale ? `${baseUrl}/` : `${baseUrl}/${loc}/`)
-      : (loc === routing.defaultLocale ? `${baseUrl}${normalizedPath}/` : `${baseUrl}/${loc}${normalizedPath}/`);
+      : (loc === routing.defaultLocale ? `${baseUrl}${normalizedAlternatePath}/` : `${baseUrl}/${loc}${normalizedAlternatePath}/`);
   });
 
   // 确保当前语言版本在 hreflang 中（自引用），并且指向 canonical URL
@@ -60,9 +69,18 @@ export function generateMultilingualMetadata(
   languages[locale] = canonicalUrl;
 
   // 添加 x-default，指向默认语言版本（不带前缀）
-  languages['x-default'] = normalizedPath === ''
-    ? `${baseUrl}/`
-    : `${baseUrl}${normalizedPath}/`;
+  const defaultAlternatePath = alternatePaths?.[routing.defaultLocale];
+  if (alternatePaths && defaultAlternatePath == null) {
+    languages['x-default'] = canonicalUrl;
+  } else {
+    const xDefaultPath = defaultAlternatePath ?? normalizedPath;
+    const normalizedDefaultPath = xDefaultPath === ''
+      ? ''
+      : (xDefaultPath.startsWith('/') ? xDefaultPath : `/${xDefaultPath}`);
+    languages['x-default'] = normalizedDefaultPath === ''
+      ? `${baseUrl}/`
+      : `${baseUrl}${normalizedDefaultPath}/`;
+  }
 
   // 确保 additionalMetadata 中的 alternates 不会覆盖我们的设置
   // 根据 Chrome 开发者文档：使用 hreflang 时，canonical 必须指向该语言版本的自己

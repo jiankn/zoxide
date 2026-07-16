@@ -101,6 +101,27 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     ? [post.primaryKeyword, ...post.tags.filter(t => t !== post.primaryKeyword)]
     : post.tags;
 
+  const supportedLocales = ["en", "zh", "ja"] as const;
+  const alternatePaths = post.locales
+    ? Object.fromEntries(
+      supportedLocales.map((targetLocale) => {
+        const alternateSlug = post.locales?.includes(targetLocale)
+          ? slug
+          : post.alternateSlugs?.[targetLocale];
+        const alternatePost = alternateSlug
+          ? getPostBySlug(alternateSlug)
+          : undefined;
+        const isAvailable = alternatePost
+          && (!alternatePost.locales || alternatePost.locales.includes(targetLocale));
+
+        return [
+          targetLocale,
+          isAvailable ? `/blog/${alternateSlug}` : null,
+        ];
+      }),
+    )
+    : undefined;
+
   const metadata = generateMultilingualMetadata(locale, `/blog/${slug}`, {
     title: seoTitle,
     description: optimizedDescription,
@@ -135,7 +156,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       description: optimizedDescription,
       images: [imageUrl],
     },
-  });
+  }, alternatePaths);
 
   return metadata;
 }
