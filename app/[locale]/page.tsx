@@ -37,6 +37,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     <div className="flex flex-col">
       {/* Hero 区域 */}
       <Hero />
+      <p className="container mx-auto max-w-6xl px-4 pt-6 text-sm text-gray-500">
+        {locale === 'zh'
+          ? '性能会因设备、Shell 配置和数据库规模而异；“10 倍”并非 zoxide 官方提供的通用基准。'
+          : locale === 'ja'
+            ? '性能は端末、シェル設定、データベース規模によって異なり、「10倍」はzoxide公式の普遍的なベンチマークではありません。'
+            : 'Performance varies by device, shell configuration, and database size; “10x” is not an official universal zoxide benchmark.'}
+      </p>
 
       {/* 主内容区域 */}
       <div className="container mx-auto max-w-6xl px-4 py-12">

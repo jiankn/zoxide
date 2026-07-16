@@ -6,31 +6,33 @@ import { useEffect, useState } from 'react';
 const GA_MEASUREMENT_ID = 'G-417HF3TV3L';
 
 export default function GoogleAnalytics() {
-  // 默认加载 GA，只有用户明确拒绝 analytics 时才不追踪
-  const [hasConsent, setHasConsent] = useState(true);
-
+  // 未取得明确同意前不加载分析脚本。
+  const [hasConsent, setHasConsent] = useState<boolean | null>(null);
 
   useEffect(() => {
-
-    // 检查用户是否明确拒绝了 analytics cookies
     const checkConsent = () => {
       try {
+        const consentSaved = window.localStorage.getItem('cookie-consent');
         const preferences = window.localStorage.getItem('cookie-preferences');
-        if (preferences) {
-          const parsed = JSON.parse(preferences);
-          // 只有明确设置 analytics 为 false 时才不加载
-          if (parsed.analytics === false) {
-            setHasConsent(false);
-            return;
-          }
-        }
+        const parsed = preferences ? JSON.parse(preferences) : {};
+        const analyticsGranted = Boolean(consentSaved && parsed.analytics === true);
 
-        // 没有偏好记录或未明确拒绝，默认加载
-        setHasConsent(true);
+        setHasConsent(analyticsGranted);
+
+        if (!analyticsGranted) {
+          const consentWindow = window as Window & {
+            gtag?: (...args: unknown[]) => void;
+          };
+          consentWindow.gtag?.('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+          });
+        }
       } catch (error) {
         console.error('Error checking cookie consent:', error);
-        // 出错时默认加载
-        setHasConsent(true);
+        setHasConsent(false);
       }
     };
 
@@ -59,13 +61,25 @@ export default function GoogleAnalytics() {
     };
   }, []);
 
-  // 在客户端挂载前不渲染
-  if (!hasConsent) {
+  if (hasConsent !== true) {
     return null;
   }
 
   return (
     <>
+      <Script id="google-consent" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = window.gtag || gtag;
+          gtag('consent', 'update', {
+            analytics_storage: 'granted',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+        `}
+      </Script>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
@@ -74,8 +88,9 @@ export default function GoogleAnalytics() {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          window.gtag = window.gtag || gtag;
           gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}');
+          gtag('config', '${GA_MEASUREMENT_ID}', { anonymize_ip: true });
         `}
       </Script>
     </>

@@ -88,10 +88,7 @@ export function generateOrganizationSchema(): OrganizationSchema {
     name: 'zoxide.org',
     url: 'https://zoxide.org',
     logo: 'https://zoxide.org/icon.svg',
-    description: 'Community-driven documentation and tutorials for zoxide, the smarter cd command written in Rust. Guides, tips, and resources for terminal navigation.',
-    sameAs: [
-      'https://github.com/ajeetdsouza/zoxide',
-    ],
+    description: 'Independent community documentation and tutorials for zoxide, the smarter cd command written in Rust. This website is not the official zoxide project.',
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'support@zoxide.org',
@@ -108,7 +105,7 @@ export function generateWebSiteSchema(): WebSiteSchema {
     '@type': 'WebSite',
     name: 'zoxide.org',
     url: 'https://zoxide.org',
-    description: 'Community-driven documentation, tutorials, and resources for zoxide — a smarter cd command written in Rust.',
+    description: 'Independent community documentation, tutorials, and resources for zoxide — a smarter cd command written in Rust.',
     inLanguage: ['en', 'zh', 'ja'],
   };
 }

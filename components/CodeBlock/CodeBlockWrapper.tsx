@@ -1,11 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { ReactNode, useMemo, isValidElement } from 'react';
 import { useTranslations } from 'next-intl';
-
-// 动态导入 CodeBlock 以避免 SSR 问题
-const CodeBlock = dynamic(() => import('./CodeBlock'), { ssr: false });
+import CodeBlock from './CodeBlock';
 
 interface CodeBlockWrapperProps {
   children: ReactNode;

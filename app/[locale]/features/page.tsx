@@ -21,6 +21,11 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('features');
+  const factualIntroduction = locale === 'zh'
+    ? '了解 zoxide 的 Rust 实现、frecency 智能排序、模糊目录搜索，以及 Bash、Zsh、Fish 和 PowerShell 的 Shell 集成。'
+    : locale === 'ja'
+      ? 'zoxideのRust実装、frecencyランキング、ファジーディレクトリ検索、Bash・Zsh・Fish・PowerShellとのシェル統合を紹介します。'
+      : 'Explore zoxide’s Rust implementation, frecency ranking, fuzzy directory search, and shell integration for Bash, Zsh, Fish, and PowerShell.';
 
   const featureGroups = [
     {
@@ -73,7 +78,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
             {t('title')}
           </h1>
           <p className="text-lg text-gray-600">
-            {t('description')}
+            {factualIntroduction}
           </p>
         </div>
 

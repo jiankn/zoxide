@@ -1,4 +1,4 @@
-import { getTranslations, getLocale, setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
 import jaMessages from '@/messages/ja.json';
@@ -53,6 +53,21 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
           </h1>
           <p className="text-lg text-gray-600">
             {t('description')}
+          </p>
+          <p className="mt-3 text-sm text-gray-500">
+            {locale === 'zh'
+              ? '版本信息核对自 zoxide 官方 GitHub Releases；本页为独立社区整理。'
+              : locale === 'ja'
+                ? 'バージョン情報は zoxide 公式 GitHub Releases と照合しています。このページは独立したコミュニティ編集です。'
+                : 'Version details are checked against the official zoxide GitHub Releases. This page is independently maintained.'}{' '}
+            <a
+              href="https://github.com/ajeetdsouza/zoxide/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              GitHub Releases
+            </a>
           </p>
         </div>
 

@@ -41,6 +41,9 @@ export function createMarkdownComponents(
   };
 
   return {
+    pre({ children }) {
+      return <>{children}</>;
+    },
     code: Code,
     a({ children, ...props }) {
       const target = linkTarget ?? props.target;

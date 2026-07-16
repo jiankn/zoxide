@@ -10,7 +10,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, User } from "lucide-react";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
-import { stripLeadingH1 } from '@/lib/markdown/normalize';
+import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
@@ -163,7 +163,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const excerpt = tData?.excerpt || post.excerpt;
   const content = tData?.content || post.content;
   // 规范化 markdown 内容：去除开头的 H1（ATX / Setext），避免与模板重复
-  const normalizedContent = stripLeadingH1(content);
+  const normalizedContent = stripLeadingH1(normalizeZoxideFacts(content));
   // 分类翻译映射表
   const categoryTranslations: Record<string, Record<string, string>> = {
     教程: { zh: "教程", en: "Tutorial", ja: "チュートリアル" },
@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     howToSchema = generateHowToSchema(title, excerpt, [
       {
         name: "Install zoxide",
-        text: "Install zoxide using a package manager like Homebrew, Scoop, or Apt.",
+        text: "Install zoxide using the official install script or a supported package manager such as Homebrew or Scoop.",
       },
       {
         name: "Initialize Shell",
@@ -364,6 +364,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {normalizedContent}
               </ReactMarkdown>
             </article>
+
+            <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
+              {locale === "zh"
+                ? "独立核验说明：文中的命令与版本说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；用于自动化前请再次查看最新发行说明。"
+                : locale === "ja"
+                  ? "独立検証メモ：コマンドとバージョン情報は2026年7月16日にzoxide公式リポジトリと照合しました。自動化に利用する前に最新リリースノートを再確認してください。"
+                  : "Independent verification note: commands and version references were checked against the official zoxide repository on July 16, 2026. Recheck the latest release notes before using them in automation."}{" "}
+              <a
+                href="https://github.com/ajeetdsouza/zoxide"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-700 underline hover:text-blue-900"
+              >
+                GitHub
+              </a>
+            </aside>
 
             <div className="flex flex-wrap gap-2">
               {tags.map((tag: string) => (

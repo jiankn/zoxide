@@ -24,6 +24,8 @@
     "manage": "管理",
     "savePreferences": "保存偏好",
     "acceptAll": "接受全部",
+    "rejectAll": "拒绝可选 Cookie",
+    "cookieSettings": "Cookie 设置",
     "close": "关闭",
     "github": "GitHub",
     "share": "分享",
@@ -52,7 +54,7 @@
       },
       "fast": {
         "title": "极速性能",
-        "description": "使用 Rust 编写，比传统 cd 命令快 10 倍以上"
+        "description": "使用 Rust 编写，目录匹配速度快，并尽量减少 Shell 启动开销"
       },
       "fuzzy": {
         "title": "模糊搜索",
@@ -68,7 +70,7 @@
       "windows": "如何在 Windows 上安装 Zoxide",
       "windowsDesc": "Windows 安装分步指南",
       "ubuntu": "Ubuntu/Debian",
-      "ubuntuCommand": "sudo apt install zoxide"
+      "ubuntuCommand": "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh"
     },
     "quickLinks": {
       "title": "常见问题与快速链接",
@@ -107,7 +109,7 @@
       "shellIntegrationDesc": "配置 zsh、bash、fish 等 Shell 环境。"
     },
     "cta": {
-      "title": "加入 10 万+ 开发者",
+      "title": "加入 zoxide 社区",
       "description": "立即体验 zoxide，让终端导航变得轻松高效",
       "install": "立即安装",
       "github": "查看 GitHub"
@@ -120,7 +122,7 @@
       "title": "核心能力",
       "fast": {
         "title": "极速性能",
-        "description": "使用 Rust 编写，启动速度极快，比传统 cd 命令快 10 倍以上。"
+        "description": "使用 Rust 编写，专注于快速匹配，并尽量减少 Shell 启动开销。"
       },
       "fuzzy": {
         "title": "智能搜索",
@@ -139,7 +141,7 @@
       },
       "team": {
         "title": "团队协作",
-        "description": "支持共享数据库，团队成员可以共享常用目录，提升团队效率。"
+        "description": "团队可以共享可复现的 Shell 配置和入门说明，但每位用户应维护独立的 zoxide 数据库。"
       },
       "performance": {
         "title": "性能优化",
@@ -199,7 +201,7 @@
       },
       {
         "question": "zoxide 比 cd 快多少？",
-        "answer": "zoxide 使用 Rust 编写，启动速度比传统 cd 命令快 10 倍以上。"
+        "answer": "目前没有官方、通用的“比 Shell 内置 cd 快 10 倍”基准。zoxide 的实际优势是快速匹配，并用更少按键到达常用目录。"
       },
       {
         "question": "如何配置 zoxide？",
@@ -213,7 +215,7 @@
   },
   "cookie": {
     "title": "Cookie 偏好设置",
-    "message": "我们使用 Cookie 来改善您的浏览体验、分析网站流量并个性化内容。继续使用本网站即表示您同意我们的",
+    "message": "除非您主动启用，否则分析和营销 Cookie 会保持关闭。详情请查看我们的",
     "privacyPolicy": "隐私政策",
     "necessary": {
       "title": "必要 Cookie",
@@ -226,7 +228,7 @@
     },
     "marketing": {
       "title": "营销 Cookie",
-      "description": "用于展示个性化广告和跟踪广告效果。"
+      "description": "仅在您明确启用此类别后，才可能用于广告展示和效果衡量。"
     }
   },
   "disclaimer": {
@@ -716,108 +718,100 @@
     "description": "zoxide 更新日志：最新版本、新功能、Bug 修复与破坏性变更。掌握 zoxide 版本动态，放心升级。",
     "versions": [
       {
+        "version": "0.10.0",
+        "date": "2026-07-04",
+        "changes": [
+          {
+            "type": "新功能",
+            "content": "新增 atuin 导入支持，并可自动识别受支持的数据库文件"
+          },
+          {
+            "type": "改进",
+            "content": "新增 CDPATH、Fish 补全、POSIX Windows 与 RISC-V 支持"
+          },
+          {
+            "type": "破坏性变更",
+            "content": "import 改为子命令；升级自动化脚本前请核对官方发行说明"
+          }
+        ]
+      },
+      {
+        "version": "0.9.9",
+        "date": "2026-01-31",
+        "changes": [
+          {
+            "type": "平台支持",
+            "content": "新增 Android ARMv7 支持"
+          },
+          {
+            "type": "修复",
+            "content": "改进 Fish 4.1+ 兼容性，并修复多项 Shell 集成问题"
+          }
+        ]
+      },
+      {
+        "version": "0.9.8",
+        "date": "2025-05-27",
+        "changes": [
+          {
+            "type": "新功能",
+            "content": "新增 Tcsh、query --score、POSIX doctor 与 Nushell 补全支持"
+          },
+          {
+            "type": "修复",
+            "content": "包含多项 Shell、安装器、补全和平台兼容性修复"
+          }
+        ]
+      },
+      {
+        "version": "0.9.7",
+        "date": "2025-02-10",
+        "changes": [
+          {
+            "type": "兼容性",
+            "content": "新增 Nushell 0.102 支持"
+          },
+          {
+            "type": "改进",
+            "content": "为 Bash 与 Zsh 新增 doctor 诊断"
+          }
+        ]
+      },
+      {
+        "version": "0.9.6",
+        "date": "2024-09-19",
+        "changes": [
+          {
+            "type": "修复",
+            "content": "修复旧版 Fish 中的缩写配置"
+          },
+          {
+            "type": "修复",
+            "content": "修复未配置命令别名时的 Zsh 初始化"
+          }
+        ]
+      },
+      {
+        "version": "0.9.5",
+        "date": "2024-09-13",
+        "changes": [
+          {
+            "type": "改进",
+            "content": "改进 Shell 补全，并延迟处理排除目录"
+          },
+          {
+            "type": "平台支持",
+            "content": "扩展安装器参数与 Ksh 支持，并修复其他 Shell 问题"
+          }
+        ]
+      },
+      {
         "version": "0.9.4",
-        "date": "2024-10-28",
+        "date": "2024-02-21",
         "changes": [
           {
-            "type": "修复",
-            "content": "修复 Windows 平台路径处理问题"
-          },
-          {
             "type": "改进",
-            "content": "改进错误处理机制"
-          }
-        ]
-      },
-      {
-        "version": "0.9.3",
-        "date": "2024-09-15",
-        "changes": [
-          {
-            "type": "新功能",
-            "content": "新增交互式目录选择功能（zi 命令）"
-          },
-          {
-            "type": "性能优化",
-            "content": "优化数据库查询性能，提升 20%"
-          },
-          {
-            "type": "改进",
-            "content": "改进模糊搜索算法，提升匹配准确性"
-          }
-        ]
-      },
-      {
-        "version": "0.9.2",
-        "date": "2024-07-20",
-        "changes": [
-          {
-            "type": "修复",
-            "content": "修复某些 Shell 环境下的初始化问题"
-          },
-          {
-            "type": "改进",
-            "content": "优化内存使用"
-          }
-        ]
-      },
-      {
-        "version": "0.9.1",
-        "date": "2024-05-10",
-        "changes": [
-          {
-            "type": "新功能",
-            "content": "支持 PowerShell 集成"
-          },
-          {
-            "type": "改进",
-            "content": "改进跨平台兼容性"
-          }
-        ]
-      },
-      {
-        "version": "0.9.0",
-        "date": "2024-03-15",
-        "changes": [
-          {
-            "type": "新功能",
-            "content": "新增目录排除配置选项（_ZO_EXCLUDE_DIRS）"
-          },
-          {
-            "type": "性能优化",
-            "content": "优化启动速度，减少初始化时间"
-          },
-          {
-            "type": "改进",
-            "content": "改进数据库存储格式"
-          }
-        ]
-      },
-      {
-        "version": "0.8.5",
-        "date": "2023-12-20",
-        "changes": [
-          {
-            "type": "修复",
-            "content": "修复路径包含特殊字符时的处理问题"
-          },
-          {
-            "type": "改进",
-            "content": "改进错误消息提示"
-          }
-        ]
-      },
-      {
-        "version": "0.8.4",
-        "date": "2023-11-05",
-        "changes": [
-          {
-            "type": "新功能",
-            "content": "支持自定义数据库位置（_ZO_DATA_DIR）"
-          },
-          {
-            "type": "改进",
-            "content": "改进学习算法，提升匹配准确性"
+            "content": "改进 Zsh 的 Space-Tab 补全体验"
           }
         ]
       }
@@ -877,53 +871,58 @@
   "privacyPolicy": {
     "title": "隐私政策",
     "description": "zoxide.org 隐私政策，说明我们如何收集、使用和保护您的个人信息。",
-    "lastUpdated": "最后更新：2025年11月30日",
+    "lastUpdated": "最后更新：2026年7月16日",
     "sections": {
       "collection": {
-        "title": "1. 信息收集",
+        "title": "1. 我们收集的信息",
         "content": [
-          "<strong>自动收集的信息</strong>：当您访问我们的网站时，我们可能会自动收集某些信息，包括您的 IP 地址、浏览器类型、访问时间和访问的页面。",
-          "<strong>Cookie 和类似技术</strong>：我们使用 Cookie 来改善您的浏览体验、分析网站流量并个性化内容。",
-          "<strong>第三方服务</strong>：我们使用第三方广告服务（例如广告网络）来展示广告；这些服务可能会收集您的信息用于广告个性化。"
+          "<strong>基础服务器与安全数据</strong>：托管和安全服务商可能会处理 IP 地址、请求时间、请求 URL、User-Agent 和诊断数据，以提供并保护网站。",
+          "<strong>分析数据</strong>：只有在您启用分析 Cookie 后才会加载 Google Analytics。它可能收集设备、浏览器、大致位置、页面访问、来源和互动数据。",
+          "<strong>您主动提供的信息</strong>：如果您联系我们，我们会处理消息中包含的信息，以便回复。"
         ]
       },
       "usage": {
         "title": "2. 信息使用",
-        "content": "我们使用收集的信息用于以下目的：提供和维护我们的服务、改善用户体验、分析网站使用情况以及展示相关广告。"
+        "content": "我们使用信息来运行和保护 zoxide.org、记住 Cookie 选择、在获得同意后了解汇总的网站使用情况、回复咨询、排查技术问题以及履行法律义务。"
       },
       "cookies": {
-        "title": "3. Cookie 使用",
-        "content": "我们使用 Cookie 来：记住您的偏好设置、分析网站流量以及提供个性化广告。您可以通过浏览器设置管理 Cookie 偏好。请注意，禁用 Cookie 可能会影响网站的某些功能。"
+        "title": "3. Cookie 与同意",
+        "content": "必要存储用于记住您的 Cookie 偏好。分析和营销类别默认关闭，只有在您选择后才会启用。您可以在横幅中拒绝可选 Cookie，也可以随时通过页脚的“Cookie 设置”重新修改决定。"
       },
       "thirdParty": {
-        "title": "4. 第三方服务",
+        "title": "4. Google 服务与广告",
         "content": [
-          "<strong>第三方广告服务</strong>：用于展示广告。Google 可能会使用 Cookie 根据您的兴趣展示个性化广告。您可以访问 <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google 隐私政策</a> 了解更多信息。",
-          "<strong>Google Analytics</strong>（如使用）：用于分析网站流量。"
+          "<strong>Google Analytics</strong>：仅在您同意分析 Cookie 后使用。Google 会根据其自身的<a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">隐私政策</a>处理数据。",
+          "<strong>Google AdSense</strong>：如果启用广告，Google 及其合作伙伴可能使用 Cookie 或类似技术，根据您此前访问本网站或其他网站的情况来投放、限制、个性化和衡量广告。Google 广告 Cookie 可能用于这些目的。",
+          "<strong>广告选择</strong>：您可以通过 <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google 广告设置</a>管理广告个性化。在法律要求的地区，广告只会在通过 Google 认证的同意管理平台取得同意后请求。"
         ]
       },
-      "security": {
-        "title": "5. 数据安全",
-        "content": "我们采取合理的安全措施来保护您的个人信息，但我们无法保证绝对安全。我们建议您采取适当措施来保护您的个人信息。"
+      "choices": {
+        "title": "5. 您的选择与权利",
+        "content": "您可以随时使用页脚入口撤回或更改可选 Cookie 同意。根据您所在地区，您还可能享有访问、更正、删除、限制处理或反对处理个人数据的权利。您可以联系我们提出请求。"
+      },
+      "retention": {
+        "title": "6. 数据保留与安全",
+        "content": "我们仅在实现上述目的或法律要求所需的合理期限内保留数据。我们采用合理的技术和组织措施，但任何互联网传输或存储方式都无法保证绝对安全。"
       },
       "children": {
-        "title": "6. 儿童隐私",
-        "content": "我们的服务不面向 13 岁以下的儿童。我们不会故意收集儿童的个人信息。"
+        "title": "7. 儿童隐私",
+        "content": "zoxide.org 是面向一般用户的技术信息网站，不以 13 岁以下儿童为对象。我们不会故意收集儿童的个人信息。"
       },
       "changes": {
-        "title": "7. 隐私政策变更",
-        "content": "我们可能会不时更新此隐私政策。我们将在本页面上发布更新后的隐私政策，并更新\"最后更新\"日期。"
+        "title": "8. 政策变更",
+        "content": "当服务或法律义务发生变化时，我们可能更新本政策。当前版本及“最后更新”日期会发布在本页面。"
       },
       "contact": {
-        "title": "8. 联系我们",
-        "content": "如果您对此隐私政策有任何疑问，请通过以下方式联系我们：网站：<a href=\"https://zoxide.org\">zoxide.org</a>"
+        "title": "9. 联系我们",
+        "content": "如有隐私问题或权利请求，请发送邮件至 <a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>。zoxide.org 是独立的社区文档网站，并非 zoxide 官方项目。"
       }
     }
   },
   "termsOfService": {
     "title": "服务条款",
     "description": "zoxide.org 服务条款，说明使用本网站的条件和规则。",
-    "lastUpdated": "最后更新：2025年11月30日",
+    "lastUpdated": "最后更新：2026年7月16日",
     "sections": {
       "accept": {
         "title": "1. 接受条款",
@@ -931,7 +930,7 @@
       },
       "nature": {
         "title": "2. 网站性质",
-        "content": "<strong>重要声明</strong>：本网站是信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无任何关联。我们不托管文件，仅链接到 SourceForge 发布版本。所有内容均为原创。"
+        "content": "<strong>重要声明</strong>：本独立信息网站与 Ajeet D'Souza 或 zoxide 官方项目没有隶属、认可或合作关系。本站不托管 zoxide 二进制文件；下载链接指向官方 GitHub 项目或成熟的软件包管理器。本站制作编辑性说明，第三方名称、代码、引文和媒体仍归各自权利人所有，并在使用时标明来源。"
       },
       "license": {
         "title": "3. 使用许可",
@@ -948,7 +947,7 @@
       },
       "ip": {
         "title": "5. 知识产权",
-        "content": "本网站的所有内容，包括但不限于文本、图形、徽标、图标和软件，均为我们的财产或我们授权使用的财产，受版权和其他知识产权法保护。"
+        "content": "本站原创编辑文字和网站设计受适用的知识产权法律保护。zoxide 源代码、项目名称、商标、引文、嵌入视频及其他第三方材料，仍受各自权利人的许可和权利约束。"
       },
       "disclaimer": {
         "title": "6. 免责声明",
@@ -972,7 +971,7 @@
       },
       "contact": {
         "title": "11. 联系我们",
-        "content": "如果您对本服务条款有任何疑问，请通过以下方式联系我们：网站：<a href=\"https://zoxide.org\">zoxide.org</a>"
+        "content": "如对本条款有疑问，请发送邮件至 <a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>。"
       }
     }
   },

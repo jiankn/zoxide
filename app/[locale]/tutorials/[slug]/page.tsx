@@ -8,7 +8,8 @@ import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, BookOpen } from "lucide-react";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
-import { stripLeadingH1 } from '@/lib/markdown/normalize';
+import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
+import { getTutorialContentOverride } from "@/data/tutorial-content-overrides";
 
 const tutorialMarkdownComponents = createMarkdownComponents();
 
@@ -89,9 +90,9 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
 
   // 获取翻译后的数据
   const title = translation?.title || tutorial.title;
-  const content = translation?.content || tutorial.content;
+  const content = getTutorialContentOverride(locale, slug) || translation?.content || tutorial.content;
   // 规范化 markdown 内容：去除开头的 H1（ATX / Setext），避免与模板重复
-  const normalizedContent = stripLeadingH1(content);
+  const normalizedContent = stripLeadingH1(normalizeZoxideFacts(content));
   // 分类需要从翻译文件中获取，如果数据文件中的分类是中文，需要映射
   const categoryKey =
     tutorial.category === "入门教程"
@@ -145,6 +146,22 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
               {normalizedContent}
             </ReactMarkdown>
           </article>
+
+          <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
+            {locale === "zh"
+              ? "独立核验说明：本教程的命令与配置说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；不同版本可能存在差异。"
+              : locale === "ja"
+                ? "独立検証メモ：このチュートリアルのコマンドと設定は2026年7月16日にzoxide公式リポジトリと照合しました。バージョンによる差異に注意してください。"
+                : "Independent verification note: commands and configuration guidance were checked against the official zoxide repository on July 16, 2026. Behavior can differ by version."}{" "}
+            <a
+              href="https://github.com/ajeetdsouza/zoxide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 underline hover:text-blue-900"
+            >
+              GitHub
+            </a>
+          </aside>
         </main>
       </div>
     </div>

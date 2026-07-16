@@ -1473,101 +1473,37 @@ zsh -c "eval \\"\\$(zoxide init zsh)\\"; z --help"
     date: '2025-11-30',
     content: `# zoxide 视频教程
 
-本页面收集了 zoxide 相关的视频教程，帮助你通过视频学习 zoxide 的使用方法。
+本页面收集了由独立创作者发布的 zoxide 视频，并补充本站的内容说明。视频版权归各自创作者所有，标题和来源均按 YouTube 页面标注。
 
 ## 推荐视频
 
-### 1. zoxide 快速入门
+### 1. zoxide has forever improved the way I navigate in the terminal.
 
-**来源**：YouTube
+- **创作者**：[Dreams of Autonomy](https://www.youtube.com/@dreamsofautonomy)
+- **视频链接**：[在 YouTube 观看](https://www.youtube.com/watch?v=aghxkpyRVDY)
+- **适合了解**：安装、Shell 初始化和日常目录跳转。
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-  title="zoxide 快速入门"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  className="w-full aspect-video rounded-lg"
-></iframe>
+### 2. zoxide — better \`cd\` command
 
-**内容**：
-- zoxide 简介
-- 安装方法
-- 基本使用
+- **创作者**：[Coding in Public](https://www.youtube.com/@CodinginPublic)
+- **视频链接**：[在 YouTube 观看](https://www.youtube.com/watch?v=_tFuiIIADzg)
+- **适合了解**：基本命令、匹配方式和 Shell 集成。
 
-### 2. zoxide 高级配置
+### 3. Mastering zoxide to Boost Your Terminal Productivity - Navigate Like a Wizard
 
-**来源**：YouTube
+- **创作者**：[Marco Peluso](https://www.youtube.com/@MarcoPeluso)
+- **视频链接**：[在 YouTube 观看](https://www.youtube.com/watch?v=-2Nz8rn05bk)
+- **适合了解**：交互式选择和终端工作流。
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-  title="zoxide 高级配置"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  className="w-full aspect-video rounded-lg"
-</iframe>
+## 学习建议
 
-**内容**：
-- 环境变量配置
-- 性能优化
-- 自定义别名
-
-### 3. zoxide 与 fzf 集成
-
-**来源**：YouTube
-
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-  title="zoxide 与 fzf 集成"
-  frameBorder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  className="w-full aspect-video rounded-lg"
-</iframe>
-
-**内容**：
-- fzf 安装
-- 集成方法
-- 实用技巧
-
-## 视频资源
-
-### YouTube 频道
-
-- [zoxide 官方频道](https://www.youtube.com)（如果有）
-- [开发者频道](https://www.youtube.com)
-
-### 其他资源
-
-- GitHub 上的演示视频
-- 社区分享的视频教程
-
-## 学习路径
-
-建议按照以下顺序观看视频：
-
-1. **入门**：快速入门视频
-2. **进阶**：高级配置视频
-3. **高级**：集成和优化视频
+视频能帮助快速建立直观认识，但安装命令和参数可能随版本变化。执行命令前，请同时核对 [zoxide 官方 GitHub 仓库](https://github.com/ajeetdsouza/zoxide) 和本站对应教程。
 
 ## 相关资源
 
 - [快速开始教程](/tutorials/quick-start)
 - [基本命令详解](/tutorials/basic-commands)
-- [高级配置技巧](/tutorials/advanced-config)
-
-## 贡献视频
-
-如果你有 zoxide 相关的视频教程，欢迎分享！
-
-**注意**：当前视频为占位符，实际部署时需要替换为真实的 YouTube 视频 ID。`,
+- [高级配置技巧](/tutorials/advanced-config)`,
   },
   {
     slug: 'install-ubuntu',

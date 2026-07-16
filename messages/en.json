@@ -24,6 +24,8 @@
     "manage": "Manage",
     "savePreferences": "Save Preferences",
     "acceptAll": "Accept All",
+    "rejectAll": "Reject Optional",
+    "cookieSettings": "Cookie Settings",
     "close": "Close",
     "github": "GitHub",
     "share": "Share",
@@ -52,7 +54,7 @@
       },
       "fast": {
         "title": "Blazing Fast",
-        "description": "Written in Rust, 10x faster than traditional cd command"
+        "description": "Written in Rust and optimized for fast directory lookup with minimal shell overhead"
       },
       "fuzzy": {
         "title": "Fuzzy Search",
@@ -68,7 +70,7 @@
       "windows": "How to install Zoxide on Windows",
       "windowsDesc": "Step-by-step guide for Windows installation",
       "ubuntu": "Ubuntu/Debian",
-      "ubuntuCommand": "sudo apt install zoxide"
+      "ubuntuCommand": "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh"
     },
     "quickLinks": {
       "title": "Common Questions & Quick Links",
@@ -107,7 +109,7 @@
       "shellIntegrationDesc": "Configure zsh, bash, fish and other shell environments."
     },
     "cta": {
-      "title": "Join 100K+ Developers",
+      "title": "Join the zoxide Community",
       "description": "Experience zoxide now and make terminal navigation effortless and efficient",
       "install": "Install Now",
       "github": "View GitHub"
@@ -120,7 +122,7 @@
       "title": "Core Capabilities",
       "fast": {
         "title": "Blazing Fast",
-        "description": "Written in Rust, extremely fast startup speed, 10x faster than traditional cd command."
+        "description": "Written in Rust and designed for fast matching with minimal shell startup overhead."
       },
       "fuzzy": {
         "title": "Smart Search",
@@ -139,7 +141,7 @@
       },
       "team": {
         "title": "Team Collaboration",
-        "description": "Supports shared database, team members can share common directories to improve team efficiency."
+        "description": "Teams can share reproducible shell configuration and onboarding guidance; each user should keep a separate zoxide database."
       },
       "performance": {
         "title": "Performance Optimization",
@@ -199,7 +201,7 @@
       },
       {
         "question": "How much faster is zoxide than cd?",
-        "answer": "zoxide is written in Rust and starts up 10x faster than traditional cd command."
+        "answer": "There is no official universal 10x benchmark against the shell built-in cd command. zoxide's practical benefit is fast matching and reaching frequently used directories with fewer keystrokes."
       },
       {
         "question": "How to configure zoxide?",
@@ -213,7 +215,7 @@
   },
   "cookie": {
     "title": "Cookie Preferences",
-    "message": "We use cookies to improve your browsing experience, analyze website traffic, and personalize content. By continuing to use this website, you agree to our",
+    "message": "Optional analytics and marketing cookies remain off unless you choose to enable them. See our",
     "privacyPolicy": "Privacy Policy",
     "necessary": {
       "title": "Necessary Cookies",
@@ -226,7 +228,7 @@
     },
     "marketing": {
       "title": "Marketing Cookies",
-      "description": "Used to display personalized ads and track ad performance."
+        "description": "May be used for advertising only after you explicitly enable this category."
     }
   },
   "disclaimer": {
@@ -709,108 +711,100 @@
     "description": "zoxide changelog: latest releases, new features, bug fixes, and breaking changes. Stay updated with zoxide's version history and upgrade confidently.",
     "versions": [
       {
+        "version": "0.10.0",
+        "date": "2026-07-04",
+        "changes": [
+          {
+            "type": "New Feature",
+            "content": "Added import support for atuin and automatic detection of supported database files"
+          },
+          {
+            "type": "Improvement",
+            "content": "Added CDPATH support, Fish completions, POSIX Windows support, and RISC-V builds"
+          },
+          {
+            "type": "Breaking Change",
+            "content": "Changed import into a subcommand; review the official release notes before updating scripts"
+          }
+        ]
+      },
+      {
+        "version": "0.9.9",
+        "date": "2026-01-31",
+        "changes": [
+          {
+            "type": "Platform",
+            "content": "Added Android ARMv7 support"
+          },
+          {
+            "type": "Fix",
+            "content": "Improved compatibility with Fish 4.1+ and fixed several shell integration issues"
+          }
+        ]
+      },
+      {
+        "version": "0.9.8",
+        "date": "2025-05-27",
+        "changes": [
+          {
+            "type": "New Feature",
+            "content": "Added Tcsh support, query --score, POSIX doctor support, and Nushell completions"
+          },
+          {
+            "type": "Fix",
+            "content": "Included a broad set of shell, installer, completion, and platform fixes"
+          }
+        ]
+      },
+      {
+        "version": "0.9.7",
+        "date": "2025-02-10",
+        "changes": [
+          {
+            "type": "Compatibility",
+            "content": "Added support for Nushell 0.102"
+          },
+          {
+            "type": "Improvement",
+            "content": "Added doctor diagnostics for Bash and Zsh"
+          }
+        ]
+      },
+      {
+        "version": "0.9.6",
+        "date": "2024-09-19",
+        "changes": [
+          {
+            "type": "Fix",
+            "content": "Fixed Fish abbreviations on older Fish versions"
+          },
+          {
+            "type": "Fix",
+            "content": "Fixed Zsh initialization when no command alias is configured"
+          }
+        ]
+      },
+      {
+        "version": "0.9.5",
+        "date": "2024-09-13",
+        "changes": [
+          {
+            "type": "Improvement",
+            "content": "Improved shell completions and lazy handling of excluded directories"
+          },
+          {
+            "type": "Platform",
+            "content": "Expanded installer flags and Ksh support, with additional shell fixes"
+          }
+        ]
+      },
+      {
         "version": "0.9.4",
-        "date": "2024-10-28",
+        "date": "2024-02-21",
         "changes": [
           {
-            "type": "Fix",
-            "content": "Fixed path handling issues on Windows platform"
-          },
-          {
             "type": "Improvement",
-            "content": "Improved error handling mechanism"
-          }
-        ]
-      },
-      {
-        "version": "0.9.3",
-        "date": "2024-09-15",
-        "changes": [
-          {
-            "type": "New Feature",
-            "content": "Added interactive directory selection feature (zi command)"
-          },
-          {
-            "type": "Performance",
-            "content": "Optimized database query performance, improved by 20%"
-          },
-          {
-            "type": "Improvement",
-            "content": "Improved fuzzy search algorithm, enhanced matching accuracy"
-          }
-        ]
-      },
-      {
-        "version": "0.9.2",
-        "date": "2024-07-20",
-        "changes": [
-          {
-            "type": "Fix",
-            "content": "Fixed initialization issues in some Shell environments"
-          },
-          {
-            "type": "Improvement",
-            "content": "Optimized memory usage"
-          }
-        ]
-      },
-      {
-        "version": "0.9.1",
-        "date": "2024-05-10",
-        "changes": [
-          {
-            "type": "New Feature",
-            "content": "Added PowerShell integration support"
-          },
-          {
-            "type": "Improvement",
-            "content": "Improved cross-platform compatibility"
-          }
-        ]
-      },
-      {
-        "version": "0.9.0",
-        "date": "2024-03-15",
-        "changes": [
-          {
-            "type": "New Feature",
-            "content": "Added directory exclusion configuration option (_ZO_EXCLUDE_DIRS)"
-          },
-          {
-            "type": "Performance",
-            "content": "Optimized startup speed, reduced initialization time"
-          },
-          {
-            "type": "Improvement",
-            "content": "Improved database storage format"
-          }
-        ]
-      },
-      {
-        "version": "0.8.5",
-        "date": "2023-12-20",
-        "changes": [
-          {
-            "type": "Fix",
-            "content": "Fixed path handling issues when paths contain special characters"
-          },
-          {
-            "type": "Improvement",
-            "content": "Improved error message prompts"
-          }
-        ]
-      },
-      {
-        "version": "0.8.4",
-        "date": "2023-11-05",
-        "changes": [
-          {
-            "type": "New Feature",
-            "content": "Added support for custom database location (_ZO_DATA_DIR)"
-          },
-          {
-            "type": "Improvement",
-            "content": "Improved learning algorithm, enhanced matching accuracy"
+            "content": "Improved Space-Tab completions for Zsh"
           }
         ]
       }
@@ -870,53 +864,58 @@
   "privacyPolicy": {
     "title": "Privacy Policy",
     "description": "zoxide.org privacy policy explaining how we collect, use, and protect your personal information.",
-    "lastUpdated": "Last Updated: November 30, 2025",
+    "lastUpdated": "Last Updated: July 16, 2026",
     "sections": {
       "collection": {
-        "title": "1. Information Collection",
+        "title": "1. Information We Collect",
         "content": [
-          "<strong>Automatically Collected Information</strong>: When you visit our website, we may automatically collect certain information, including your IP address, browser type, access time, and pages visited.",
-          "<strong>Cookies and Similar Technologies</strong>: We use cookies to improve your browsing experience, analyze website traffic, and personalize content.",
-          "<strong>Third-Party Services</strong>: We use third-party ad services (e.g., ad networks) to display ads; these services may collect your information for ad personalization."
+          "<strong>Basic server and security data</strong>: Our hosting and security providers may process IP address, request time, requested URL, user agent, and diagnostic data to deliver and protect the website.",
+          "<strong>Analytics data</strong>: Google Analytics is loaded only after you enable analytics cookies. It may collect device, browser, approximate location, page-view, referral, and interaction data.",
+          "<strong>Information you send us</strong>: If you contact us, we process the information included in your message so we can respond."
         ]
       },
       "usage": {
         "title": "2. Information Use",
-        "content": "We use the collected information for the following purposes: providing and maintaining our services, improving user experience, analyzing website usage, and displaying relevant ads."
+        "content": "We use information to operate and secure zoxide.org, remember cookie choices, understand aggregate site usage when consent is given, answer inquiries, diagnose technical problems, and meet legal obligations."
       },
       "cookies": {
-        "title": "3. Cookie Use",
-        "content": "We use cookies to: remember your preferences, analyze website traffic, and provide personalized ads. You can manage cookie preferences through your browser settings. Please note that disabling cookies may affect some website features."
+        "title": "3. Cookies and Consent",
+        "content": "Necessary storage is used to remember your cookie preferences. Analytics and marketing categories are disabled by default and are activated only after your choice. You can reject optional cookies on the banner or change your decision at any time through the \"Cookie Settings\" control in the footer."
       },
       "thirdParty": {
-        "title": "4. Third-Party Services",
+        "title": "4. Google Services and Advertising",
         "content": [
-          "<strong>Third-Party Ad Services</strong>: Used to display ads. Google may use cookies to display personalized ads based on your interests. You can visit <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Google Privacy Policy</a> for more information.",
-          "<strong>Google Analytics</strong> (if used): Used to analyze website traffic."
+          "<strong>Google Analytics</strong>: We use Google Analytics only when analytics consent is granted. Google processes data under its own <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy Policy</a>.",
+          "<strong>Google AdSense</strong>: If advertising is enabled, Google and its partners may use cookies or similar technologies to serve, limit, personalize, and measure ads based on prior visits to this or other websites. Google advertising cookies may be used for these purposes.",
+          "<strong>Your advertising choices</strong>: You can manage Google ad personalization through <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google Ads Settings</a>. Where required, advertising will be requested only after consent through a Google-certified consent management platform."
         ]
       },
-      "security": {
-        "title": "5. Data Security",
-        "content": "We take reasonable security measures to protect your personal information, but we cannot guarantee absolute security. We recommend that you take appropriate measures to protect your personal information."
+      "choices": {
+        "title": "5. Your Choices and Rights",
+        "content": "You may withdraw or change optional cookie consent at any time using the footer control. Depending on your location, you may also have rights to access, correct, delete, restrict, or object to processing of personal data. Contact us to make a request."
+      },
+      "retention": {
+        "title": "6. Data Retention and Security",
+        "content": "We retain data only as long as reasonably needed for the purposes described above or as required by law. We use reasonable technical and organizational safeguards, but no internet transmission or storage method is completely secure."
       },
       "children": {
-        "title": "6. Children's Privacy",
-        "content": "Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children."
+        "title": "7. Children's Privacy",
+        "content": "zoxide.org is a general technical information site and is not directed to children under 13. We do not knowingly collect personal information from children."
       },
       "changes": {
-        "title": "7. Privacy Policy Changes",
-        "content": "We may update this privacy policy from time to time. We will post the updated privacy policy on this page and update the \"Last Updated\" date."
+        "title": "8. Policy Changes",
+        "content": "We may update this policy when our services or legal obligations change. The current version and its \"Last Updated\" date will be posted on this page."
       },
       "contact": {
-        "title": "8. Contact Us",
-        "content": "If you have any questions about this privacy policy, please contact us through: Website: <a href=\"https://zoxide.org\">zoxide.org</a>"
+        "title": "9. Contact Us",
+        "content": "For privacy questions or requests, email <a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>. zoxide.org is an independent community documentation website and is not the official zoxide project."
       }
     }
   },
   "termsOfService": {
     "title": "Terms of Service",
     "description": "zoxide.org terms of service outlining the conditions and rules for using this website.",
-    "lastUpdated": "Last Updated: November 30, 2025",
+    "lastUpdated": "Last Updated: July 16, 2026",
     "sections": {
       "accept": {
         "title": "1. Acceptance of Terms",
@@ -924,7 +923,7 @@
       },
       "nature": {
         "title": "2. Website Nature",
-        "content": "<strong>Important Notice</strong>: This website is informational only and is not affiliated with ajeetdsouza or Ajeet D'Souza. We do not host files, only link to SourceForge releases. All content is original."
+        "content": "<strong>Important Notice</strong>: This independent information website is not affiliated with or endorsed by Ajeet D'Souza or the official zoxide project. We do not host zoxide binaries; download links point to the official GitHub project or established package managers. Editorial explanations are produced for this site, while third-party names, code, quotations, and media remain the property of their respective owners and are attributed where used."
       },
       "license": {
         "title": "3. Use License",
@@ -941,7 +940,7 @@
       },
       "ip": {
         "title": "5. Intellectual Property",
-        "content": "All content on this website, including but not limited to text, graphics, logos, icons, and software, is our property or property we are authorized to use, protected by copyright and other intellectual property laws."
+        "content": "Original editorial text and site design are protected by applicable intellectual property law. zoxide source code, project names, trademarks, quotations, embedded videos, and other third-party materials remain subject to their respective owners' licenses and rights."
       },
       "disclaimer": {
         "title": "6. Disclaimer",
@@ -965,7 +964,7 @@
       },
       "contact": {
         "title": "11. Contact Us",
-        "content": "If you have any questions about these Terms of Service, please contact us through: Website: <a href=\"https://zoxide.org\">zoxide.org</a>"
+        "content": "Questions about these terms can be sent to <a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>."
       }
     }
   },

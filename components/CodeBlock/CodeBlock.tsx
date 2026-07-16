@@ -18,7 +18,7 @@ export default function CodeBlock({
   code, 
   language = 'bash',
   showPrompt = true,
-  prompt = 'user@dev:~$',
+  prompt = 'user@dev:~',
   className = '',
   showOutput = false,
   output = [],
@@ -57,7 +57,7 @@ export default function CodeBlock({
   const promptParts = parsePrompt(prompt);
 
   return (
-    <div className={`relative group my-6 ${className}`} data-nofollow="true" data-noindex="true">
+    <div className={`relative group my-6 ${className}`}>
       <div className="bg-[#1E1E1E] rounded-lg overflow-hidden border border-[#2F2F2F] shadow-lg">
         {/* 终端头部 */}
         <div className="flex items-center justify-between px-4 py-2.5 bg-[#2D2D2D] border-b border-[#3F3F3F]">
@@ -87,8 +87,8 @@ export default function CodeBlock({
 
         {/* 代码内容 */}
         <div className="p-4 overflow-x-auto bg-[#1E1E1E]">
-          <pre className="text-sm font-mono leading-relaxed whitespace-pre m-0" data-nofollow="true" data-noindex="true">
-            <code className="text-gray-200" data-nofollow="true" data-noindex="true">
+          <pre className="text-sm font-mono leading-relaxed whitespace-pre m-0">
+            <code className="text-gray-200">
               {/* 命令部分 */}
               {codeLines.map((line, index) => (
                 <span key={index}>

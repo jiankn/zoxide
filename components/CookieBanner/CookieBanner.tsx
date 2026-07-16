@@ -28,7 +28,6 @@ export default function CookieBanner() {
 
   // 只在客户端挂载后检查 localStorage，避免 hydration 错误
   useEffect(() => {
-
     // 获取存储的偏好设置
     const savedPreferences = window.localStorage.getItem('cookie-preferences');
     if (savedPreferences) {
@@ -46,12 +45,22 @@ export default function CookieBanner() {
 
     // 检查是否应该显示 banner
     const hasConsent = window.localStorage.getItem('cookie-consent');
-    setIsVisible(!hasConsent || showSettings);
-  }, [showSettings]);
+    setIsVisible(!hasConsent);
+
+    const handleOpenSettings = () => {
+      setShowSettings(true);
+      setIsVisible(true);
+    };
+
+    window.addEventListener('openCookieSettings', handleOpenSettings);
+    return () => {
+      window.removeEventListener('openCookieSettings', handleOpenSettings);
+    };
+  }, []);
 
   const persistPreferences = (preferences: CookiePreferences) => {
     if (typeof window === 'undefined') return;
-    window.localStorage.setItem('cookie-consent', 'accepted');
+    window.localStorage.setItem('cookie-consent', 'saved');
     window.localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
     setIsVisible(false);
     // 触发自定义事件，通知 GoogleAnalytics 组件更新
@@ -69,17 +78,30 @@ export default function CookieBanner() {
     setShowSettings(false);
   };
 
+  const handleRejectAll = () => {
+    const preferences = {
+      necessary: true,
+      analytics: false,
+      marketing: false,
+    };
+    setCookiePreferences(preferences);
+    persistPreferences(preferences);
+    setShowSettings(false);
+  };
+
   const handleAcceptSelected = () => {
     persistPreferences(cookiePreferences);
     setShowSettings(false);
   };
 
   const handleManage = () => {
-    setShowSettings(!showSettings);
-    // 当打开设置时，确保 banner 可见
-    if (!showSettings) {
-      setIsVisible(true);
-    }
+    setShowSettings(true);
+    setIsVisible(true);
+  };
+
+  const handleCloseSettings = () => {
+    setShowSettings(false);
+    setIsVisible(!window.localStorage.getItem('cookie-consent'));
   };
 
   const togglePreference = (type: PreferenceKey) => {
@@ -115,13 +137,19 @@ export default function CookieBanner() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
               <button
                 onClick={handleManage}
                 className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
               >
                 <Settings className="h-4 w-4 inline mr-2" />
                 {tCommon('manage')}
+              </button>
+              <button
+                onClick={handleRejectAll}
+                className="px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                {tCommon('rejectAll')}
               </button>
               <button
                 onClick={handleAcceptAll}
@@ -139,7 +167,7 @@ export default function CookieBanner() {
                 {t('title')}
               </h3>
               <button
-                onClick={() => setShowSettings(false)}
+                onClick={handleCloseSettings}
                 className="p-1 text-gray-500 hover:text-gray-700"
                 aria-label={tCommon('close')}
               >
@@ -204,7 +232,13 @@ export default function CookieBanner() {
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
+            <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-gray-200">
+              <button
+                onClick={handleRejectAll}
+                className="px-4 py-2 border border-gray-300 bg-white text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                {tCommon('rejectAll')}
+              </button>
               <button
                 onClick={handleAcceptAll}
                 className="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-300 transition-colors"
