@@ -1,6 +1,8 @@
-# zoxide.org - zoxide 粉丝网站
+# [zoxide.org](https://zoxide.org/) - zoxide 独立社区指南
 
-这是一个使用 Next.js 16 + TypeScript + Tailwind CSS 构建的 zoxide 粉丝网站项目。
+这是一个使用 Next.js 16 + TypeScript + Tailwind CSS 构建的 zoxide 独立社区指南，提供 Linux、macOS、Windows 安装说明、Shell 集成教程和常见问题排查。本站不是 zoxide 官方项目，也不隶属于其作者。
+
+在线访问：[zoxide 安装与使用指南](https://zoxide.org/)
 
 ## 技术栈
 
