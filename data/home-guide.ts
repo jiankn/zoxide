@@ -267,6 +267,7 @@ const homeGuides: Record<string, HomeGuideContent> = {
       links: [
         { href: "/tutorials/install-ubuntu", title: "Install on Ubuntu 24.04", description: "Choose apt or the upstream installer, then verify PATH and shell setup." },
         { href: "/blog/zoxide-command-not-found", title: "Fix command not found", description: "A step-by-step diagnostic path for every major shell." },
+        { href: "/tools/zoxide-doctor", title: "Run zoxide-doctor", description: "Check PATH, shell initialization, profile setup, and optional fzf support with one local command." },
         { href: "/tutorials/fzf-integration", title: "Add fzf selection", description: "Set up interactive directory picking after z works." },
         { href: "/blog/zoxide-vs-autojump", title: "Compare with autojump", description: "Choose a tool and plan a low-risk migration." },
       ],
@@ -385,6 +386,7 @@ const homeGuides: Record<string, HomeGuideContent> = {
       links: [
         { href: "/tutorials/install-ubuntu", title: "Ubuntu 24.04 安装", description: "选择 apt 或上游脚本，再检查 PATH 和 Shell 配置。" },
         { href: "/blog/zoxide-command-not-found", title: "修复 command not found", description: "覆盖主要 Shell 的逐步诊断流程。" },
+        { href: "/tools/zoxide-doctor", title: "运行 zoxide-doctor", description: "用一条本地命令检查 PATH、Shell 初始化、配置文件和可选 fzf。" },
         { href: "/tutorials/fzf-integration", title: "添加 fzf 交互选择", description: "确认 z 可用后再配置目录选择器。" },
         { href: "/blog/zoxide-vs-autojump", title: "与 autojump 比较", description: "选择工具并规划低风险迁移。" },
       ],
@@ -499,6 +501,7 @@ const homeGuides: Record<string, HomeGuideContent> = {
       links: [
         { href: "/tutorials/install-ubuntu", title: "Ubuntu 24.04 への導入", description: "apt と上流スクリプトを選び、PATH とシェル設定を確認。" },
         { href: "/blog/zoxide-command-not-found", title: "command not found を直す", description: "主要シェル向けの段階的な診断。" },
+        { href: "/tools/zoxide-doctor", title: "zoxide-doctor を実行", description: "PATH、シェル初期化、プロファイル、任意の fzf を1つのローカルコマンドで確認。" },
         { href: "/tutorials/fzf-integration", title: "fzf 選択を追加", description: "z の動作確認後に対話選択を設定。" },
         { href: "/blog/zoxide-vs-autojump", title: "autojump と比較", description: "ツール選択と安全な移行を検討。" },
       ],
