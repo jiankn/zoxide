@@ -8,10 +8,10 @@ Campaign date: 2026-08-06
 - Linkable tool target: https://zoxide.org/tools/zoxide-doctor/
 - Source repositories / configuration assets: 2 (`jiankn/zoxide`, `jiankn/zoxide-doctor`)
 - Completed external public listings: 0; two directory contributions are awaiting maintainer review
-- Published source surfaces: 2 GitHub repository pages
+- Published source surfaces: 3 GitHub repository / release pages
 - Unique published referring root domains: 1 (`github.com`, source surfaces only)
 - Follow + indexable external listings: 0 completed; 2 expected after review
-- Nofollow / UGC listings: 2 repository pages on one root domain
+- Nofollow / UGC listings: 3 source pages on one root domain
 - Noindex listings: 0
 - Pending: 2 external directory contributions
 - Blocked: 2 platforms pending npm authentication / package publication
@@ -25,6 +25,7 @@ Source repositories are tracked for evidence but are not counted as completed ex
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | GitHub project repository | github.com | https://github.com/jiankn/zoxide | Main repository | zoxide guide | zoxide.org / zoxide installation guide | https://zoxide.org/ | Repository homepage and README | `nofollow`; metadata link also `noopener noreferrer` | HTTP 200; no `noindex` | Published source surface | Homepage corrected from the old Vercel URL; audited 2026-08-06 |
 | GitHub tool repository | github.com | https://github.com/jiankn/zoxide-doctor | zoxide-doctor repository | zoxide diagnostics | zoxide-doctor documentation | https://zoxide.org/tools/zoxide-doctor/ | Repository homepage and README | `nofollow`; metadata link also `noopener noreferrer` | HTTP 200; no `noindex` | Published source surface | Public MIT repository with cross-platform tests; audited 2026-08-06 |
+| GitHub tool release | github.com | https://github.com/jiankn/zoxide-doctor/releases/tag/v0.1.0 | zoxide-doctor release | zoxide diagnostic CLI | Documentation URL | https://zoxide.org/tools/zoxide-doctor/ | Release notes | `nofollow` | HTTP 200; no `noindex` | Published source surface | Stable `v0.1.0` release published and audited 2026-08-06 |
 | OpenCLI | opencli.co | https://github.com/gvkhosla/open-cli/pull/3 | zoxide-doctor repository | CLI tool directory / shell diagnostics | Website and Docs | https://zoxide.org/tools/zoxide-doctor/ | Proposed CLI detail page | Expected followable; existing detail-page links use `noreferrer` only | Existing detail pages are HTTP 200 with no `noindex` | Pending maintainer review | PR is mergeable; data validation, ESLint, production build, and CodeRabbit review passed. Vercel preview requires maintainer authorization |
 | Tiny Tool Town | tinytooltown.com | https://github.com/shanselman/TinyToolTown/pull/726 | zoxide-doctor repository | tiny developer tool / CLI diagnostics | Website | https://zoxide.org/tools/zoxide-doctor/ | Proposed tool detail page | Expected followable | Existing site is HTTP 200 and indexable | Pending maintainer review | PR is mergeable; 51 tests and production build passed. First-time contributor CI needs maintainer approval |
 | npm | npmjs.com | https://www.npmjs.com/package/zoxide-doctor | zoxide-doctor package | zoxide diagnostic CLI | Homepage | https://zoxide.org/tools/zoxide-doctor/ | Package metadata | Not yet verifiable | Not yet verifiable | Blocked | Package name is available, but the local npm client is not authenticated. Publish only after `npm login` or an `NPM_TOKEN` is supplied |
@@ -44,7 +45,7 @@ The production guide is live in English, Chinese, and Japanese, has a self-refer
 
 ## Verification notes
 
-- Both published GitHub links return HTTP 200 and are indexable by page directives, but GitHub adds `nofollow`; they are not reported as follow links.
+- All three published GitHub source links return HTTP 200 and are indexable by page directives, but GitHub adds `nofollow`; they are not reported as follow links.
 - OpenCLI and Tiny Tool Town are reported as pending until their maintainers merge and deploy the contributions. Expected URLs and rel behavior must be audited again after deployment.
 - The zoxide-doctor package passed syntax checks, seven unit tests, package dry-run, installed-tarball smoke testing, and successful jobs across Linux, macOS, and Windows. Some matrix jobs were delayed at `Set up job` during GitHub's 2026-08-06 Actions incident rather than failing project steps.
 - Do not count npm or Terminal Trove until the package is genuinely published and the public pages are verified.
