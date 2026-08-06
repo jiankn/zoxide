@@ -1507,9 +1507,9 @@ zsh -c "eval \\"\\$(zoxide init zsh)\\"; z --help"
   },
   {
     slug: 'install-ubuntu',
-    title: 'zoxide install Ubuntu',
-    excerpt: 'Complete guide to installing zoxide on Ubuntu and other Debian-based Linux distributions.',
-    duration: '5 min',
+    title: 'How to Install zoxide on Ubuntu 24.04',
+    excerpt: 'Install zoxide on Ubuntu 24.04 with apt or the upstream installer, configure your shell, verify PATH, and fix common setup errors.',
+    duration: '12 min',
     level: 'Beginner',
     category: '安装指南',
     date: '2025-12-01',

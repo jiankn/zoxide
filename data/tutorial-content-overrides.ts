@@ -1,3 +1,229 @@
+const englishTutorialContent: Record<string, string> = {
+  'install-ubuntu': String.raw`# How to install zoxide on Ubuntu 24.04
+
+On a clean Ubuntu 24.04 system, there are two sensible installation paths. Use Ubuntu's apt package when you value distribution-managed updates and a minimal setup. Use the upstream install script when you want the current zoxide release. Either path still requires shell initialization before the z command exists.
+
+By the end of this guide, zoxide --version will find the binary, type z will find the shell function, and z zoxide-demo will reach a test directory. The most common failed setup completes only the first of those checks, so this tutorial tests them separately.
+
+This page was verified on August 6, 2026. Ubuntu's package catalog listed zoxide 0.9.3 for Ubuntu 24.04 LTS, while the current upstream release was 0.10.0. Always use apt-cache policy zoxide and the [upstream releases page](https://github.com/ajeetdsouza/zoxide/releases) to see what is available when you install.
+
+## Choose the installation method first
+
+| Method | Best for | Trade-off |
+| --- | --- | --- |
+| Ubuntu apt | Managed workstations, servers, and predictable OS updates | Ubuntu 24.04 ships an older upstream version |
+| Official install script | Current zoxide features on a personal Linux or WSL account | You manage upgrades outside apt |
+| Cargo | Developers who already maintain a Rust toolchain | More build time and another PATH location |
+
+The [zoxide installation documentation](https://github.com/ajeetdsouza/zoxide#installation) currently recommends its install script for Linux and WSL. It also marks the Ubuntu package entry as slow-moving. That does not make apt unsafe or unusable. It means you should choose it knowingly rather than assume it matches the latest GitHub release.
+
+## Prerequisites
+
+You need an Ubuntu 24.04 terminal, internet access, and permission to install packages or write to your own home directory. Check the system and current shell before changing anything.
+
+~~~bash
+lsb_release -ds
+ps -p $$ -o comm=
+~~~
+
+The second command usually prints bash on a default Ubuntu installation. If it prints zsh or fish, use the matching configuration section below. WSL users run the same Linux commands inside the Ubuntu shell and edit files in the Linux home directory.
+
+## Method A: install the Ubuntu package with apt
+
+First ask apt which version and repository it will use.
+
+~~~bash
+sudo apt update
+apt-cache policy zoxide
+~~~
+
+On Ubuntu 24.04, zoxide is published in the universe component. If apt reports a candidate, install it and check the binary.
+
+~~~bash
+sudo apt install zoxide
+command -v zoxide
+zoxide --version
+~~~
+
+The expected command path is normally /usr/bin/zoxide. The exact version shown by your machine may be newer than the original 0.9.3 package if Ubuntu has published an update or you enabled another repository.
+
+If apt says Unable to locate package or shows Candidate: (none), enable universe and refresh the package index.
+
+~~~bash
+sudo add-apt-repository universe
+sudo apt update
+apt-cache policy zoxide
+sudo apt install zoxide
+~~~
+
+Stop here if zoxide --version still fails. Shell initialization cannot fix a missing binary.
+
+## Method B: install the current upstream release
+
+The upstream one-line installer downloads the matching release for the detected Linux architecture and installs the binary under ~/.local/bin by default.
+
+~~~bash
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+~~~
+
+Do not add sudo to this command for a normal per-user installation. If your environment requires reviewing scripts before execution, download and inspect the same official file first.
+
+~~~bash
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh -o /tmp/zoxide-install.sh
+less /tmp/zoxide-install.sh
+sh /tmp/zoxide-install.sh
+~~~
+
+The [installer source](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh) defines ~/.local/bin as its default binary directory and warns when that directory is absent from PATH. Check both conditions after it finishes.
+
+~~~bash
+ls -l "$HOME/.local/bin/zoxide"
+command -v zoxide
+zoxide --version
+~~~
+
+If the file exists but command -v returns nothing, add ~/.local/bin before the zoxide initialization line in your shell profile.
+
+~~~bash
+export PATH="$HOME/.local/bin:$PATH"
+~~~
+
+For Bash, save that line in ~/.bashrc. For Zsh, save it in ~/.zshrc. Then reload the file or open a new terminal.
+
+## Method C: use Cargo when Rust is already installed
+
+Cargo is a good alternative when the machine already has a maintained Rust toolchain. There is little reason to install the whole toolchain solely for zoxide when the upstream script provides a prebuilt binary.
+
+~~~bash
+cargo install zoxide --locked
+export PATH="$HOME/.cargo/bin:$PATH"
+zoxide --version
+~~~
+
+Persist the PATH line in the relevant shell profile. The --locked flag uses the dependency versions recorded by the project for a reproducible build.
+
+## Initialize zoxide in the active shell
+
+Installing the binary does not create z. The z command is a shell function generated by zoxide init, and the initialization line belongs at the end of the shell configuration file so that later aliases or plugins do not overwrite it.
+
+### Bash on the default Ubuntu terminal
+
+Add this to the end of ~/.bashrc.
+
+~~~bash
+eval "$(zoxide init bash)"
+~~~
+
+Reload Bash and verify the generated function.
+
+~~~bash
+source ~/.bashrc
+type z
+~~~
+
+### Zsh
+
+Add the following line to the end of ~/.zshrc.
+
+~~~bash
+eval "$(zoxide init zsh)"
+~~~
+
+Then reload and verify.
+
+~~~bash
+source ~/.zshrc
+type z
+~~~
+
+### Fish
+
+Add this line to ~/.config/fish/config.fish.
+
+~~~fish
+zoxide init fish | source
+~~~
+
+Open a new Fish session and run type z. If zoxide --version works but type z does not, the problem is this initialization step, not the installation method.
+
+## Run an end-to-end test
+
+Create a harmless test directory, add it to the local zoxide database, and jump to it. Run these commands in the interactive shell you just configured.
+
+~~~bash
+mkdir -p "$HOME/projects/zoxide-demo"
+zoxide add "$HOME/projects/zoxide-demo"
+cd "$HOME"
+z zoxide-demo
+pwd
+~~~
+
+The final output should end in /projects/zoxide-demo. You can inspect what zoxide learned without changing directories.
+
+~~~bash
+zoxide query zoxide-demo
+zoxide query --list
+~~~
+
+From here, visit real project directories normally. The ranking becomes useful as zoxide observes repeated and recent visits. The [basic commands guide](/tutorials/basic-commands) covers querying, manual additions, and removing stale entries.
+
+## Ubuntu 24.04's fzf version needs attention
+
+fzf is optional. Plain z works without it, while zi uses fzf for interactive selection. The current zoxide documentation requires fzf 0.51.0 or newer. Ubuntu 24.04's package catalog currently provides fzf 0.44.1, so sudo apt install fzf does not satisfy that upstream minimum.
+
+Check before installing another copy.
+
+~~~bash
+fzf --version
+~~~
+
+If the version is below 0.51.0 and you want zi, use a current method from the [fzf upstream installation guide](https://github.com/junegunn/fzf#installation). Its documented Git installation is:
+
+~~~bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+~~~
+
+Open a new terminal, confirm fzf --version, then try zi. The separate [zoxide and fzf guide](/tutorials/fzf-integration) explains the interactive workflow and version checks in more detail.
+
+## Troubleshooting by symptom
+
+### zoxide: command not found
+
+Run command -v zoxide. For the official installer, check ~/.local/bin; for Cargo, check ~/.cargo/bin. Make sure the corresponding export PATH line appears before zoxide init in the shell profile. type -a zoxide can also reveal an older binary that appears earlier in PATH.
+
+### z: command not found
+
+The binary is installed but the generated shell function was not loaded. Confirm the active shell, check the matching profile, move the init line to the end, and open a new terminal. Our [command-not-found diagnostic guide](/blog/zoxide-command-not-found) separates these cases step by step.
+
+### zoxide: no match found
+
+The database has not learned that destination. Visit it once with cd or add the full path with zoxide add. Use zoxide query --list to confirm that it is recorded.
+
+### zi opens an error or no selector
+
+Run fzf --version and compare it with the upstream minimum. Ubuntu 24.04's default fzf package is too old for the current requirement, even though apt installs it successfully.
+
+### apt and the official installer both appear in PATH
+
+Run type -a zoxide to see every matching binary. Keep one update path, remove the unwanted installation with the same method that created it, and start a fresh shell. Mixing apt and a per-user binary makes version checks confusing.
+
+## Updating and choosing the next step
+
+For an apt installation, use normal Ubuntu updates and review apt-cache policy zoxide. For the official script, rerun the upstream installer to fetch the current release. For Cargo, rerun cargo install zoxide --locked after updating the Rust toolchain.
+
+Once the installation is stable, compare [zoxide with autojump](/blog/zoxide-vs-autojump) before migrating an existing history, or continue with the basic command and fzf guides above.
+
+## Sources checked
+
+- [zoxide upstream installation and shell setup](https://github.com/ajeetdsouza/zoxide#installation)
+- [zoxide official installer source](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh)
+- [zoxide upstream releases](https://github.com/ajeetdsouza/zoxide/releases)
+- [Ubuntu 24.04 zoxide package](https://packages.ubuntu.com/noble/zoxide)
+- [Ubuntu 24.04 fzf package](https://packages.ubuntu.com/noble/fzf)
+- [fzf upstream installation guide](https://github.com/junegunn/fzf#installation)`,
+};
+
 const japaneseTutorialContent: Record<string, string> = {
   'quick-start': String.raw`# zoxide クイックスタート
 
@@ -416,75 +642,227 @@ zoxide remove /full/path/to/old-project
 
 問題が続く場合は、zoxide --version、使用シェル、初期化行、再現コマンドを添えて [公式 GitHub Issues](https://github.com/ajeetdsouza/zoxide/issues) を確認します。`,
 
-  'install-ubuntu': String.raw`# Ubuntu に zoxide をインストール
+  'install-ubuntu': String.raw`# Ubuntu 24.04 に zoxide をインストールする方法
 
-Ubuntu や Debian 系では、ディストリビューションのパッケージが最新リリースより遅れる場合があります。最新版が必要なら公式インストールスクリプトを優先し、組織の運用方針で apt が必要な場合は利用可能なバージョンを確認してください。
+Ubuntu 24.04 では、apt と上流の公式インストールスクリプトのどちらでも zoxide を導入できます。OS の更新にまとめて管理したいなら apt、現在の上流版を使いたいなら公式スクリプトが向いています。どちらを選んでも、インストール後にシェル初期化を行わない限り z コマンドは作られません。
 
-## 公式インストールスクリプト
+このガイドでは zoxide --version、type z、テスト用ディレクトリへのジャンプを順番に確認します。よくある失敗は、バイナリだけが入り、z を生成する初期化行が読み込まれていない状態です。二つを分けて調べると、原因を短時間で絞れます。
+
+内容は 2026 年 8 月 6 日に確認しました。この時点で Ubuntu 24.04 LTS のパッケージは zoxide 0.9.3、上流の最新安定版は 0.10.0 です。実際に導入するときは apt-cache policy zoxide と [上流のリリース一覧](https://github.com/ajeetdsouza/zoxide/releases) を確認してください。
+
+## 最初に導入方法を選ぶ
+
+| 方法 | 向いている環境 | 注意点 |
+| --- | --- | --- |
+| Ubuntu の apt | 管理端末、サーバー、OS 更新に統一したい環境 | Ubuntu 24.04 の版は上流より古い |
+| 公式インストールスクリプト | 個人用 Linux、WSL、現在の機能が必要な環境 | apt の外で更新を管理する |
+| Cargo | すでに Rust ツールチェーンを管理している開発環境 | ビルド時間と別の PATH 設定が必要 |
+
+[zoxide のインストール文書](https://github.com/ajeetdsouza/zoxide#installation) は、Linux と WSL では公式スクリプトを推奨しています。Ubuntu のパッケージ行は、更新が遅いという注記付きです。apt が使えないという意味ではありません。必要な版と管理方針を見て選びます。
+
+## 事前確認
+
+Ubuntu 24.04 のターミナル、ネット接続、パッケージを入れる権限または自分のホームへ書き込む権限が必要です。変更前に OS と現在のシェルを確認します。
+
+~~~bash
+lsb_release -ds
+ps -p $$ -o comm=
+~~~
+
+通常の Ubuntu ターミナルでは二つ目が bash と表示されます。zsh や fish が出た場合は、後の対応セクションを使ってください。WSL でも Linux 側の Ubuntu シェルで同じコマンドを実行し、Linux ホームにある設定ファイルを編集します。
+
+## 方法 A　apt で Ubuntu パッケージを入れる
+
+まず、apt が選ぶ版と配布元を確認します。
+
+~~~bash
+sudo apt update
+apt-cache policy zoxide
+~~~
+
+Ubuntu 24.04 の zoxide は universe にあります。Candidate が表示されたらインストールし、バイナリを確認します。
+
+~~~bash
+sudo apt install zoxide
+command -v zoxide
+zoxide --version
+~~~
+
+通常は /usr/bin/zoxide が表示されます。Ubuntu の更新や追加リポジトリによって、実際の版は当初の 0.9.3 より新しい場合があります。手元の apt-cache policy の結果を優先してください。
+
+Unable to locate package または Candidate: (none) が出る場合は universe を有効にし、索引を更新します。
+
+~~~bash
+sudo add-apt-repository universe
+sudo apt update
+apt-cache policy zoxide
+sudo apt install zoxide
+~~~
+
+zoxide --version が動かないままなら、ここで止めてパッケージの問題を解決します。シェル初期化は、存在しないバイナリを直せません。
+
+## 方法 B　現在の上流版を入れる
+
+公式の一行インストーラーは Linux のアーキテクチャを判定し、対応するリリースを取得します。既定のインストール先は ~/.local/bin です。
 
 ~~~bash
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 ~~~
 
-インストール後:
+通常のユーザー単位の導入では、このコマンドに sudo を付けません。実行前にスクリプトを読む運用なら、同じ公式ファイルを一度保存して確認できます。
 
 ~~~bash
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh -o /tmp/zoxide-install.sh
+less /tmp/zoxide-install.sh
+sh /tmp/zoxide-install.sh
+~~~
+
+[公式インストーラーのソース](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh) では、バイナリの既定先が ~/.local/bin と定義されています。この場所が PATH にない場合は、終了時にも警告が出ます。
+
+~~~bash
+ls -l "$HOME/.local/bin/zoxide"
 command -v zoxide
 zoxide --version
 ~~~
 
-見つからない場合は ~/.local/bin を PATH に追加します。
+ファイルはあるのに command -v で見つからない場合、zoxide init より前に次の行をシェル設定へ保存します。Bash は ~/.bashrc、Zsh は ~/.zshrc を使います。
 
 ~~~bash
 export PATH="$HOME/.local/bin:$PATH"
 ~~~
 
-この行は ~/.bashrc または ~/.zshrc に保存します。
+設定を読み直すか、新しいターミナルを開いて再確認します。
 
-## apt を使う場合
+## 方法 C　Rust 環境がある場合は Cargo を使う
 
-~~~bash
-sudo apt update
-apt policy zoxide
-sudo apt install zoxide
-~~~
-
-apt policy で候補バージョンを確認し、必要な機能が含まれるか公式リリースと比較してください。
-
-## Cargo を使う場合
+すでに Rust ツールチェーンを保守している端末なら Cargo も選べます。zoxide だけのために Rust 全体を入れるより、上流スクリプトのビルド済みバイナリを使う方が簡単です。
 
 ~~~bash
 cargo install zoxide --locked
+export PATH="$HOME/.cargo/bin:$PATH"
+zoxide --version
 ~~~
 
-Cargo の実行ファイルは通常 ~/.cargo/bin に入ります。
+PATH の行は利用中のシェル設定へ保存します。--locked は、プロジェクトが記録した依存関係の版でビルドするための指定です。
 
-## シェル初期化
+## 利用中のシェルを初期化する
+
+バイナリを入れただけでは z は定義されません。z は zoxide init が生成するシェル関数です。後続のエイリアスやプラグインに上書きされにくいよう、上流文書どおり設定ファイルの末尾へ追加します。
+
+### Ubuntu 標準の Bash
+
+~/.bashrc の末尾へ追加します。
 
 ~~~bash
-# Bash: ~/.bashrc
 eval "$(zoxide init bash)"
+~~~
 
-# Zsh: ~/.zshrc
+読み直して関数を確認します。
+
+~~~bash
+source ~/.bashrc
+type z
+~~~
+
+### Zsh
+
+~/.zshrc の末尾へ追加します。
+
+~~~bash
 eval "$(zoxide init zsh)"
 ~~~
 
-Fish:
+~~~bash
+source ~/.zshrc
+type z
+~~~
+
+### Fish
+
+~/.config/fish/config.fish へ追加します。
 
 ~~~fish
 zoxide init fish | source
 ~~~
 
-## 動作確認
+新しい Fish を開いて type z を実行します。zoxide --version は動くのに type z が失敗する場合、インストール方法ではなく、この初期化を確認してください。
+
+## 最初のジャンプまで確認する
+
+テスト用ディレクトリを作り、ローカルデータベースへ明示的に追加してからジャンプします。設定した対話シェルで一行ずつ実行してください。
 
 ~~~bash
-type z
-cd ~/projects/example
-z example
+mkdir -p "$HOME/projects/zoxide-demo"
+zoxide add "$HOME/projects/zoxide-demo"
+cd "$HOME"
+z zoxide-demo
+pwd
+~~~
+
+最後の表示が /projects/zoxide-demo で終われば、バイナリ、シェル関数、データベース検索が一通り動いています。移動せずに登録内容を見ることもできます。
+
+~~~bash
+zoxide query zoxide-demo
 zoxide query --list
 ~~~
 
-zoxide --version は動くのに z が見つからない場合、インストールではなくシェル初期化を確認します。ダウンロード元と最新手順は [zoxide 公式 GitHub](https://github.com/ajeetdsouza/zoxide) を参照してください。`,
+以後は普段どおり実際のプロジェクトへ移動します。訪問回数と最近の利用が蓄積されるにつれて順位が役立つようになります。query、add、remove の使い分けは [基本コマンドガイド](/tutorials/basic-commands) で確認できます。
+
+## Ubuntu 24.04 の fzf は版に注意する
+
+fzf は任意です。通常の z は fzf なしで動き、zi が対話選択に fzf を使います。現在の zoxide 文書が求める最小版は fzf 0.51.0 です。一方、Ubuntu 24.04 のカタログは fzf 0.44.1 を提供しているため、sudo apt install fzf だけでは現在の上流要件を満たしません。
+
+すでに入っている版を先に調べます。
+
+~~~bash
+fzf --version
+~~~
+
+0.51.0 未満で zi を使いたい場合は、[fzf 上流のインストールガイド](https://github.com/junegunn/fzf#installation) にある現在の方法を選びます。文書化されている Git 導入は次のとおりです。
+
+~~~bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+~~~
+
+新しいターミナルで fzf --version を再確認し、zi を試します。詳しい切り分けは [zoxide と fzf の連携ガイド](/tutorials/fzf-integration) にまとめています。
+
+## 症状ごとのトラブルシューティング
+
+### zoxide: command not found
+
+command -v zoxide を実行します。公式スクリプトなら ~/.local/bin、Cargo なら ~/.cargo/bin を調べ、対応する PATH 行が zoxide init より前にあるか確認します。type -a zoxide を使うと、PATH の手前に残った旧版も見つけられます。
+
+### z: command not found
+
+バイナリはありますが、生成されたシェル関数が読み込まれていません。現在のシェル、対応する設定ファイル、末尾の init 行を確認し、新しいターミナルを開きます。[command not found の診断ガイド](/blog/zoxide-command-not-found) でも順番に切り分けられます。
+
+### zoxide: no match found
+
+対象がまだデータベースにありません。一度 cd で訪れるか、完全パスを zoxide add で追加します。zoxide query --list で記録を確認してください。
+
+### zi で選択画面が出ない
+
+fzf --version を上流の最小要件と比較します。Ubuntu 24.04 の既定パッケージはインストール自体に成功しても、現在の要件より古い点に注意が必要です。
+
+### apt 版とユーザー版が両方見つかる
+
+type -a zoxide で全候補を表示します。更新経路を一つに決め、不要な方を導入時と同じ方法で削除してから、新しいシェルを開きます。二つを混在させると、表示版と更新元が分かりにくくなります。
+
+## 更新後の進み方
+
+apt 版は通常の Ubuntu 更新で管理し、apt-cache policy zoxide で候補を確認します。公式スクリプト版は同じ上流インストーラーを再実行します。Cargo 版は Rust 環境を更新したうえで cargo install zoxide --locked を再実行します。
+
+安定して動いたら、既存履歴を移す前に [zoxide と autojump の比較](/blog/zoxide-vs-autojump) を読み、上の基本コマンドまたは fzf ガイドへ進んでください。
+
+## 確認した資料
+
+- [zoxide 上流のインストールとシェル設定](https://github.com/ajeetdsouza/zoxide#installation)
+- [zoxide 公式インストーラーのソース](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh)
+- [zoxide 上流リリース](https://github.com/ajeetdsouza/zoxide/releases)
+- [Ubuntu 24.04 の zoxide パッケージ](https://packages.ubuntu.com/noble/zoxide)
+- [Ubuntu 24.04 の fzf パッケージ](https://packages.ubuntu.com/noble/fzf)
+- [fzf 上流のインストールガイド](https://github.com/junegunn/fzf#installation)`,
 
   'install-macos': String.raw`# macOS に zoxide をインストール
 
@@ -562,72 +940,227 @@ zoxide は起動後に訪問履歴を学習します。導入直後に候補が�
 };
 
 const chineseTutorialContent: Record<string, string> = {
-  'install-ubuntu': String.raw`# 在 Ubuntu 上安装 zoxide
+  'install-ubuntu': String.raw`# 在 Ubuntu 24.04 安装 zoxide
 
-Ubuntu 和 Debian 软件源中的 zoxide 版本可能落后于官方最新版本。如果希望跟随最新功能，优先使用官方安装脚本；如果组织环境要求使用 apt，请先查看候选版本。
+Ubuntu 24.04 可以通过 apt 或 zoxide 上游安装脚本完成安装。希望由系统统一更新时选 apt，希望使用当前上游版本时选官方脚本。无论走哪条路径，安装结束后都要配置 Shell，否则系统能找到 zoxide 二进制文件，终端里却没有 z 命令。
 
-## 方法一：官方安装脚本
+这篇教程会依次验证 zoxide --version、type z 和一次真实目录跳转。最常见的失败正好发生在前两项之间。二进制已经安装，生成 z 函数的初始化行却没有加载。把两项分开检查，排查会清楚很多。
+
+文中版本信息核对于 2026 年 8 月 6 日。当时 Ubuntu 24.04 LTS 软件包提供 zoxide 0.9.3，上游最新稳定版为 0.10.0。你实际安装时，应以本机 apt-cache policy zoxide 和 [上游发行页面](https://github.com/ajeetdsouza/zoxide/releases) 为准。
+
+## 先选安装方式
+
+| 方式 | 适合的环境 | 需要接受的取舍 |
+| --- | --- | --- |
+| Ubuntu apt | 受管理的工作站、服务器、希望跟随系统更新的环境 | Ubuntu 24.04 提供的版本落后于上游 |
+| 官方安装脚本 | 个人 Linux、WSL、需要当前功能的环境 | 更新不归 apt 管理 |
+| Cargo | 已经维护 Rust 工具链的开发环境 | 需要编译时间和另一处 PATH 配置 |
+
+[zoxide 上游安装说明](https://github.com/ajeetdsouza/zoxide#installation) 目前把官方脚本列为 Linux 和 WSL 的推荐方式，并在 Ubuntu 软件包旁标注发行版更新较慢。apt 仍然可以正常使用，只是选择前要先确认版本是否满足需求。
+
+## 开始前的检查
+
+你需要一台 Ubuntu 24.04 设备、可用网络，以及安装系统软件包或写入个人主目录的权限。修改配置前先确认系统和当前 Shell。
+
+~~~bash
+lsb_release -ds
+ps -p $$ -o comm=
+~~~
+
+Ubuntu 默认终端通常会在第二条命令输出 bash。如果看到 zsh 或 fish，请使用后文对应的配置。WSL 用户也在 Ubuntu Shell 中运行这些 Linux 命令，并修改 Linux 主目录下的配置文件。
+
+## 方式一　使用 apt 安装
+
+先让 apt 显示候选版本和软件源。
+
+~~~bash
+sudo apt update
+apt-cache policy zoxide
+~~~
+
+Ubuntu 24.04 的 zoxide 位于 universe 软件源。看到 Candidate 后即可安装，再检查二进制文件。
+
+~~~bash
+sudo apt install zoxide
+command -v zoxide
+zoxide --version
+~~~
+
+command -v 通常会输出 /usr/bin/zoxide。如果 Ubuntu 已发布更新，或设备启用了其他软件源，本机版本可能高于最初的 0.9.3。这里应信任本机 apt-cache policy 的结果。
+
+如果 apt 提示 Unable to locate package，或 Candidate 显示为空，先启用 universe 并刷新索引。
+
+~~~bash
+sudo add-apt-repository universe
+sudo apt update
+apt-cache policy zoxide
+sudo apt install zoxide
+~~~
+
+若 zoxide --version 仍然失败，先停在这一步解决软件包问题。Shell 初始化无法修复一个不存在的二进制文件。
+
+## 方式二　安装当前上游版本
+
+官方脚本会识别 Linux 架构，下载匹配的发行文件，并默认把二进制文件放到 ~/.local/bin。
 
 ~~~bash
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 ~~~
 
-安装后验证：
+普通的个人安装不要在前面添加 sudo。如果工作环境要求执行前先审查脚本，可以下载同一份官方文件，阅读后再运行。
 
 ~~~bash
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh -o /tmp/zoxide-install.sh
+less /tmp/zoxide-install.sh
+sh /tmp/zoxide-install.sh
+~~~
+
+[官方安装脚本源码](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh) 把 ~/.local/bin 定义为默认二进制目录。如果这个目录不在 PATH 中，脚本结束时也会给出提醒。
+
+~~~bash
+ls -l "$HOME/.local/bin/zoxide"
 command -v zoxide
 zoxide --version
 ~~~
 
-如果命令未找到，确认 ~/.local/bin 已加入 PATH：
+文件存在而 command -v 没有输出时，把下面一行写入 Shell 配置，并放在 zoxide init 之前。Bash 使用 ~/.bashrc，Zsh 使用 ~/.zshrc。
 
 ~~~bash
 export PATH="$HOME/.local/bin:$PATH"
 ~~~
 
-## 方法二：apt
+保存后重新加载配置，或打开一个新终端再检查。
 
-~~~bash
-sudo apt update
-apt policy zoxide
-sudo apt install zoxide
-~~~
+## 方式三　已有 Rust 时使用 Cargo
 
-使用 apt policy 对照仓库版本与 [zoxide 官方 Releases](https://github.com/ajeetdsouza/zoxide/releases)，确认所需参数和 Shell 支持已经包含。
-
-## 方法三：Cargo
+设备本来就在维护 Rust 工具链时，Cargo 是合理选择。如果只是为了安装 zoxide，引入整套 Rust 工具链会增加维护成本，上游脚本提供的预编译文件更省事。
 
 ~~~bash
 cargo install zoxide --locked
 export PATH="$HOME/.cargo/bin:$PATH"
+zoxide --version
 ~~~
 
-## 配置 Shell
+PATH 这一行也要保存到当前 Shell 的配置文件。--locked 会按项目锁定的依赖版本编译，结果更容易复现。
+
+## 初始化当前 Shell
+
+安装二进制文件不会自动创建 z。z 是 zoxide init 生成的 Shell 函数。按照上游说明，把初始化行放在配置文件末尾，可以减少后续别名或插件覆盖它的机会。
+
+### Ubuntu 默认 Bash
+
+在 ~/.bashrc 末尾加入下面一行。
 
 ~~~bash
-# Bash: ~/.bashrc
 eval "$(zoxide init bash)"
+~~~
 
-# Zsh: ~/.zshrc
+重新加载后检查生成的函数。
+
+~~~bash
+source ~/.bashrc
+type z
+~~~
+
+### Zsh
+
+在 ~/.zshrc 末尾加入初始化行。
+
+~~~bash
 eval "$(zoxide init zsh)"
 ~~~
 
-Fish:
+~~~bash
+source ~/.zshrc
+type z
+~~~
+
+### Fish
+
+把下面一行写入 ~/.config/fish/config.fish。
 
 ~~~fish
 zoxide init fish | source
 ~~~
 
-## 验证
+打开新的 Fish 会话并运行 type z。如果 zoxide --version 正常，type z 却失败，问题落在初始化环节，可以暂时排除安装方式。
+
+## 完成一次端到端验证
+
+创建一个无害的测试目录，手动加入本地数据库，再使用 z 跳转。请在刚刚配置好的交互式 Shell 中逐行执行。
 
 ~~~bash
-type z
-cd ~/projects/example
-z example
+mkdir -p "$HOME/projects/zoxide-demo"
+zoxide add "$HOME/projects/zoxide-demo"
+cd "$HOME"
+z zoxide-demo
+pwd
+~~~
+
+最后一行应以 /projects/zoxide-demo 结尾。到这里，二进制文件、Shell 函数和数据库查询都已经通过。还可以在不改变目录的情况下查看结果。
+
+~~~bash
+zoxide query zoxide-demo
 zoxide query --list
 ~~~
 
-如果 zoxide --version 正常而 z 不存在，问题通常是 Shell 初始化尚未加载，而不是安装失败。`,
+之后照常访问真实项目。访问次数和最近使用记录逐渐积累，排名才会越来越贴合习惯。[基础命令教程](/tutorials/basic-commands) 继续讲解 query、add 和 remove 的使用边界。
+
+## Ubuntu 24.04 的 fzf 版本问题
+
+fzf 不是普通 z 命令的依赖，只有 zi 的交互选择需要它。zoxide 当前文档要求 fzf 0.51.0 或更高版本，而 Ubuntu 24.04 软件包目前提供 fzf 0.44.1。因此，sudo apt install fzf 虽然能安装成功，却没有达到当前上游要求。
+
+安装另一份之前先看本机版本。
+
+~~~bash
+fzf --version
+~~~
+
+版本低于 0.51.0 且确实需要 zi 时，按 [fzf 上游安装说明](https://github.com/junegunn/fzf#installation) 选择当前版本。上游文档给出的 Git 安装方式如下。
+
+~~~bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+~~~
+
+打开新终端，确认 fzf --version 后再运行 zi。有关交互选择和版本检查的细节，可以继续看 [zoxide 与 fzf 配置教程](/tutorials/fzf-integration)。
+
+## 按症状排查
+
+### 出现 zoxide command not found
+
+先运行 command -v zoxide。官方脚本对应 ~/.local/bin，Cargo 对应 ~/.cargo/bin。确认相应 PATH 配置位于 zoxide init 之前。type -a zoxide 还能找出 PATH 前部残留的旧版本。
+
+### 出现 z command not found
+
+二进制文件已经存在，生成的 Shell 函数没有加载。核对当前 Shell、对应配置文件和末尾的 init 行，再打开新终端。[command not found 排查教程](/blog/zoxide-command-not-found) 对这些情况做了逐步拆分。
+
+### 出现 zoxide no match found
+
+数据库还没有目标记录。先用 cd 访问一次，或用 zoxide add 加入完整路径，再通过 zoxide query --list 确认。
+
+### zi 没有出现选择界面
+
+运行 fzf --version 并对照上游最低要求。Ubuntu 24.04 默认 fzf 软件包版本偏低，安装成功也可能无法满足当前 zoxide 的要求。
+
+### apt 版本和个人版本同时出现
+
+运行 type -a zoxide 查看所有候选。保留一条更新路径，用原来的安装方式移除另一份，然后重新打开 Shell。两种版本混用，会让版本显示和升级来源变得难以判断。
+
+## 后续更新与阅读
+
+apt 版本跟随 Ubuntu 常规更新，并用 apt-cache policy zoxide 查看候选。官方脚本版本可以重新运行同一个上游安装器。Cargo 版本则在更新 Rust 工具链后，再运行 cargo install zoxide --locked。
+
+安装稳定后，如果你准备迁移旧目录历史，可以先读 [zoxide 与 autojump 的实际对比](/blog/zoxide-vs-autojump)。只想继续学习日常操作，则进入前面的基础命令或 fzf 教程。
+
+## 核对资料
+
+- [zoxide 上游安装与 Shell 配置](https://github.com/ajeetdsouza/zoxide#installation)
+- [zoxide 官方安装脚本源码](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh)
+- [zoxide 上游发行页面](https://github.com/ajeetdsouza/zoxide/releases)
+- [Ubuntu 24.04 zoxide 软件包](https://packages.ubuntu.com/noble/zoxide)
+- [Ubuntu 24.04 fzf 软件包](https://packages.ubuntu.com/noble/fzf)
+- [fzf 上游安装说明](https://github.com/junegunn/fzf#installation)`,
 
   'install-macos': String.raw`# 在 macOS 上安装 zoxide
 
@@ -697,6 +1230,7 @@ zoxide query --list
 };
 
 const localizedTutorialContent: Record<string, Record<string, string>> = {
+  en: englishTutorialContent,
   ja: japaneseTutorialContent,
   zh: chineseTutorialContent,
 };

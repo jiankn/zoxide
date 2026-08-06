@@ -42,7 +42,7 @@
   },
   "home": {
     "title": "zoxide - 更智能的 cd 命令",
-    "subtitle": "安装即用，目录导航快 10 倍",
+    "subtitle": "用几个字符，跳到最常用的目录",
     "description": "zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。",
     "getStarted": "快速开始",
     "viewDocs": "查看文档",
@@ -411,9 +411,9 @@
         "category": "视频 & FAQ"
       },
       "install-ubuntu": {
-        "title": "zoxide 安装 Ubuntu",
-        "excerpt": "在 Ubuntu 及其他 Debian 系发行版安装 zoxide 的完整指南。",
-        "duration": "5 分钟",
+        "title": "Ubuntu 24.04 安装 zoxide 完整教程",
+        "excerpt": "在 Ubuntu 24.04 使用 apt 或上游脚本安装 zoxide，完成 Bash 或 Zsh 初始化、PATH 验证和常见问题排查。",
+        "duration": "12 分钟",
         "level": "初级",
         "category": "安装指南"
       }
@@ -592,16 +592,15 @@
         "content": "# zoxide 高级配置技巧\n\nzoxide 提供了丰富的配置选项，让你可以根据个人需求定制使用体验。\n\n## 环境变量配置\n\n### 排除目录\n\n使用 \\`_ZO_EXCLUDE_DIRS\\` 可以排除不需要索引的目录，提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n\\`\\`\\`\n\n多个目录用冒号分隔。\n\n### 自定义数据库位置\n\n默认数据库存储在用户主目录下的 \\`.zo\\` 文件中。可以通过 \\`_ZO_DATA_DIR\\` 自定义：\n\n\\`\\`\\`bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n\\`\\`\\`\n\n### 最大历史记录数\n\n使用 \\`_ZO_MAXAGE\\` 设置最大历史记录天数（默认 10000）：\n\n\\`\\`\\`bash\nexport _ZO_MAXAGE=5000\n\\`\\`\\`\n\n## 别名设置\n\nzoxide 支持自定义别名，让常用命令更简短：\n\n\\`\\`\\`bash\n# 在 Shell 配置文件中添加\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n\\`\\`\\`\n\n## 与 fzf 集成\n\n结合 fzf 可以实现更强大的目录搜索和选择：\n\n\\`\\`\\`bash\n# 在 ~/.zshrc 中添加\nzi() {\n local dir\n dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n\\`\\`\\`\n\n## 性能优化\n\n### 减少索引范围\n\n只索引常用目录，可以显著提升性能：\n\n\\`\\`\\`bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\\`\\`\\`\n\n### 定期清理数据库\n\n如果数据库过大，可以手动清理：\n\n\\`\\`\\`bash\n# 查看数据库大小\nls -lh ~/.zo\n\n# 删除数据库重新开始（谨慎操作）\nrm ~/.zo\n\\`\\`\\`\n\n## 团队协作\n\nzoxide 支持共享数据库，团队成员可以共享常用目录：\n\n\\`\\`\\`bash\n# 使用共享数据库位置\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n\\`\\`\\`\n\n## 总结\n\n通过合理配置，zoxide 可以更好地适应你的工作流程。建议从排除不需要的目录开始，逐步优化配置。\n\n更多配置选项，请查看[官方文档](https://github.com/ajeetdsouza/zoxide)。"
       },
       "zoxide-vs-autojump": {
-        "title": "zoxide vs autojump 性能对比",
-        "excerpt": "详细对比 zoxide 和 autojump 的性能差异和使用体验。",
+        "title": "zoxide 与 autojump 怎么选",
+        "excerpt": "基于上游资料比较 zoxide 与 autojump 的命令、Shell 和平台支持、交互选择与低风险迁移方法。",
         "category": "对比",
         "author": "zoxide.org",
         "tags": [
-          "对比",
-          "性能",
-          "autojump"
-        ],
-        "content": "# zoxide vs autojump 性能对比\n\nzoxide 和 autojump 都是智能目录跳转工具，但它们在性能、功能和易用性方面有显著差异。\n\n## 性能对比\n\n### 启动速度\n\nzoxide 使用 Rust 编写，启动速度极快：\n\n- **zoxide**: ~5ms 启动时间\n- **autojump**: ~50ms 启动时间\n\nzoxide 比 autojump 快 **10 倍**。\n\n### 查询速度\n\n在大型项目目录中，zoxide 的查询速度也明显更快：\n\n- **zoxide**: 模糊搜索 < 10ms\n- **autojump**: 查询时间 20-50ms\n\n## 功能对比\n\n### 模糊搜索\n\n- **zoxide**: ✅ 支持模糊搜索，无需完整路径\n- **autojump**: ❌ 不支持模糊搜索\n\n### 交互式选择\n\n- **zoxide**: ✅ 支持 \\`zi\\` 命令交互式选择\n- **autojump**: ❌ 不支持\n\n### 学习算法\n\n- **zoxide**: ✅ 智能学习算法，越用越准确\n- **autojump**: ✅ 基础频率统计\n\n## 易用性对比\n\n### 命令简洁性\n\nzoxide 的命令更简洁：\n\n\\`\\`\\`bash\n# zoxide\nz project\n\n# autojump\nj project\n\\`\\`\\`\n\n### 配置复杂度\n\n- **zoxide**: 配置简单，只需一行初始化命令\n- **autojump**: 需要额外配置 Shell 集成\n\n## 跨平台支持\n\n- **zoxide**: ✅ 支持 macOS、Linux、Windows\n- **autojump**: ✅ 支持 macOS、Linux（Windows 支持有限）\n\n## 维护状态\n\n- **zoxide**: 非常活跃，持续更新\n- **autojump**: 更新较慢\n\n## 总结\n\n| 特性 | zoxide | autojump |\n|------|--------|----------|\n| 性能 | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |\n| 模糊搜索 | ✅ | ❌ |\n| 交互式选择 | ✅ | ❌ |\n| 跨平台 | ✅ | ✅ |\n| 维护状态 | 活跃 | 较慢 |\n\n**结论**：如果你追求性能和现代化体验，zoxide 是更好的选择。如果你已经习惯使用 autojump，迁移到 zoxide 也很简单。\n\n查看[完整对比](/comparisons)了解更多细节。"
+          "zoxide vs autojump",
+          "目录跳转",
+          "迁移"
+        ]
       },
       "zoxide-command-not-found": {
         "title": "zoxide 命令未找到 - 解决方法",

@@ -1496,8 +1496,8 @@ export _ZO_DATA_DIR="/shared/path/zoxide"
   {
     id: "3",
     slug: "zoxide-vs-autojump",
-    title: "zoxide vs autojump 性能对比",
-    excerpt: "详细对比 zoxide 和 autojump 的性能差异和使用体验。",
+    title: "zoxide vs autojump: Which Directory Jumper Should You Use?",
+    excerpt: "A source-checked comparison of commands, shell and platform support, interactive selection, and a low-risk migration path.",
     content: `# zoxide vs autojump 性能对比
 
 zoxide 和 autojump 都是智能目录跳转工具，但它们在性能、功能和易用性方面有显著差异。
@@ -1583,8 +1583,8 @@ j project
     author: "zoxide.org",
     category: "对比",
     primaryKeyword: "zoxide vs autojump",
-    tags: ["zoxide vs autojump", "对比", "性能", "autojump"],
-    readTime: 8,
+    tags: ["zoxide vs autojump", "directory navigation", "migration", "autojump"],
+    readTime: 9,
   },
   {
     id: "4",
@@ -4099,41 +4099,200 @@ export function getAllPosts(): BlogPost[] {
   return blogPosts;
 }
 
-// 获取相关文章（基于分类和标签）
+const relatedContentSignals = [
+  ['install', 'installation', 'download', 'ubuntu', 'linux', 'macos', '安装', 'インストール', '導入'],
+  ['shell', 'init', 'bash', 'zsh', 'fish', 'powershell', 'configuration', '配置', 'シェル', '設定'],
+  ['troubleshooting', 'not found', 'not working', 'no match', 'error', '故障', '未找到', 'エラー', '動作しない', '見つからない'],
+  ['fzf', 'interactive', 'autocomplete', '交互', '自动补全', '対話', 'インタラクティブ', '補完'],
+  ['comparison', 'alternative', 'autojump', ' vs ', '对比', '替代', '比較', '代替'],
+  ['commands', 'quick start', 'basic', 'navigation', '命令', '快速开始', 'コマンド', '使い方'],
+  ['performance', 'algorithm', 'frecency', 'rust', '性能', '算法', '仕組み', 'アルゴリズム'],
+  ['advanced', 'alias', 'backup', 'workflow', '高级', '进阶', '高度', 'エイリアス'],
+] as const;
+
+function normalizeCategory(category: string): string {
+  const normalized = category.toLowerCase();
+
+  if (['教程', 'tutorial', 'チュートリアル'].some((value) => normalized.includes(value))) {
+    return 'tutorial';
+  }
+  if (['对比', 'comparison', '比較'].some((value) => normalized.includes(value))) {
+    return 'comparison';
+  }
+  if (['技巧', 'tips', 'ヒント'].some((value) => normalized.includes(value))) {
+    return 'tips';
+  }
+  if (['故障', 'troubleshooting', 'トラブル'].some((value) => normalized.includes(value))) {
+    return 'troubleshooting';
+  }
+  if (['深度', 'deep dive', '詳細'].some((value) => normalized.includes(value))) {
+    return 'deep-dive';
+  }
+
+  return normalized;
+}
+
+function getContentSignals(post: BlogPost): Set<number> {
+  const searchableText = [
+    post.slug,
+    post.title,
+    post.excerpt,
+    post.category,
+    ...post.tags,
+  ].join(' ').toLowerCase();
+
+  return new Set(
+    relatedContentSignals
+      .map((terms, index) => terms.some((term) => searchableText.includes(term)) ? index : -1)
+      .filter((index) => index >= 0),
+  );
+}
+
+function getCuratedRelatedSlugs(currentSlug: string, targetLocale?: string): string[] {
+  const locale = targetLocale === 'zh' || targetLocale === 'ja' ? targetLocale : 'en';
+  const localized = {
+    introduction: {
+      en: 'what-is-zoxide-smarter-cd',
+      zh: 'zoxide-shi-shenme-z-mingling-tidai-cd',
+      ja: 'zoxide-toha-cd-no-kawari',
+    },
+    alternatives: {
+      en: 'zoxide-alternatives-comparison-open-source',
+      zh: 'zoxide-tidai-autojump-z-fasd-zlua',
+      ja: 'zoxide-daitai-autojump-z-fasd-zlua',
+    },
+    performance: {
+      en: 'zoxide-performance-en',
+      zh: 'zoxide-performance-zh',
+      ja: 'zoxide-performance-ja',
+    },
+    linux: {
+      en: 'zoxide-linux-en',
+      zh: 'zoxide-linux-zh',
+      ja: 'zoxide-linux-ja',
+    },
+    fzf: {
+      en: 'zoxide-fzf-interactive-guide-en',
+      zh: 'zoxide-fzf-interactive-guide-zh',
+      ja: 'zoxide-fzf-interactive-guide-ja',
+    },
+  } as const;
+
+  const curated: Record<string, string[]> = {
+    'zoxide-vs-autojump': [
+      localized.alternatives[locale],
+      localized.introduction[locale],
+      localized.performance[locale],
+    ],
+    'quick-start': ['zoxide-download-guide', 'zoxide-init-guide', 'zoxide-commands'],
+    'stop-using-cd': [
+      localized.introduction[locale],
+      'zoxide-commands',
+      'zoxide-vs-autojump',
+    ],
+    'zoxide-command-not-found': [
+      'zoxide-not-working',
+      'zoxide-init-guide',
+      localized.linux[locale],
+    ],
+    'zoxide-not-working': [
+      'zoxide-command-not-found',
+      'troubleshooting-zoxide-no-match-found',
+      'zoxide-init-guide',
+    ],
+    'troubleshooting-zoxide-no-match-found': [
+      'zoxide-command-not-found',
+      'zoxide-not-working',
+      localized.fzf[locale],
+    ],
+    'zoxide-download-guide': [
+      localized.linux[locale],
+      'zoxide-init-guide',
+      'quick-start',
+    ],
+    'zoxide-init-guide': [
+      'zoxide-command-not-found',
+      localized.fzf[locale],
+      'quick-start',
+    ],
+    'zoxide-commands': [
+      'quick-start',
+      localized.fzf[locale],
+      'advanced-zoxide-techniques',
+    ],
+  };
+
+  return curated[currentSlug] || [];
+}
+
+// 获取相关文章（按内容意图、分类、标签和文章邻近度综合排序）
 export function getRelatedPosts(
   currentPost: BlogPost,
   limit: number = 3,
   targetLocale?: string,
 ): BlogPost[] {
-  return blogPosts
-    .filter((post) => {
-      // 排除当前文章
-      if (post.id === currentPost.id) return false;
+  const visiblePosts = blogPosts.filter((post) => {
+    if (post.id === currentPost.id) return false;
 
-      // 如果提供了目标语言，且文章限定了语言，必须包含目标语言
-      if (
-        targetLocale &&
-        post.locales &&
-        !post.locales.includes(targetLocale as "zh" | "en" | "ja")
-      ) {
-        return false;
-      }
+    if (
+      targetLocale &&
+      post.locales &&
+      !post.locales.includes(targetLocale as "zh" | "en" | "ja")
+    ) {
+      return false;
+    }
 
-      // 如果当前文章限定了语言，只推荐同语言的文章（保留原有逻辑作为回退）
-      if (
-        !targetLocale &&
-        currentPost.locales &&
-        !currentPost.locales.some((loc) => post.locales?.includes(loc))
-      ) {
-        return false;
-      }
+    if (
+      !targetLocale &&
+      currentPost.locales &&
+      !currentPost.locales.some((loc) => post.locales?.includes(loc))
+    ) {
+      return false;
+    }
 
-      // 优先匹配相同分类
-      if (post.category === currentPost.category) return true;
+    return true;
+  });
+  const localeSequence = blogPosts.filter((post) => {
+    return !targetLocale
+      || !post.locales
+      || post.locales.includes(targetLocale as "zh" | "en" | "ja");
+  });
+  const currentIndex = localeSequence.findIndex((post) => post.id === currentPost.id);
+  const currentSignals = getContentSignals(currentPost);
+  const currentTags = new Set(currentPost.tags.map((tag) => tag.toLowerCase()));
+  const currentCategory = normalizeCategory(currentPost.category);
 
-      // 其次匹配相同标签
-      return post.tags.some((tag) => currentPost.tags.includes(tag));
+  const rankedPosts = visiblePosts
+    .map((post) => {
+      const sharedTags = post.tags.filter((tag) => currentTags.has(tag.toLowerCase())).length;
+      const sharedSignals = [...getContentSignals(post)]
+        .filter((signal) => currentSignals.has(signal)).length;
+      const sameCategory = normalizeCategory(post.category) === currentCategory;
+      const candidateIndex = localeSequence.findIndex((candidate) => candidate.id === post.id);
+      const distance = currentIndex >= 0 && candidateIndex >= 0
+        ? Math.abs(currentIndex - candidateIndex)
+        : Number.MAX_SAFE_INTEGER;
+
+      return {
+        post,
+        score: sharedTags * 5 + sharedSignals * 3 + (sameCategory ? 6 : 0),
+        distance,
+      };
     })
+    .sort((left, right) => {
+      return right.score - left.score
+        || left.distance - right.distance
+        || left.post.slug.localeCompare(right.post.slug);
+    })
+    .map(({ post }) => post);
+
+  const visibleBySlug = new Map(visiblePosts.map((post) => [post.slug, post]));
+  const curatedPosts = getCuratedRelatedSlugs(currentPost.slug, targetLocale)
+    .map((slug) => visibleBySlug.get(slug))
+    .filter((post): post is BlogPost => Boolean(post));
+
+  return [...curatedPosts, ...rankedPosts]
+    .filter((post, index, posts) => posts.findIndex((candidate) => candidate.id === post.id) === index)
     .slice(0, limit);
 }
 

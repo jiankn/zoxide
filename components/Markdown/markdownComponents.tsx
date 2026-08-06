@@ -7,12 +7,16 @@ interface MarkdownComponentOptions {
    * When undefined, the markdown content controls the target attribute.
    */
   linkTarget?: '_blank' | '_self';
+  /**
+   * Keep root-relative article links in the reader's current language.
+   */
+  locale?: string;
 }
 
 export function createMarkdownComponents(
   options: MarkdownComponentOptions = {}
 ): Components {
-  const { linkTarget } = options;
+  const { linkTarget, locale } = options;
 
   const Code = ({
     inline,
@@ -46,11 +50,27 @@ export function createMarkdownComponents(
     },
     code: Code,
     a({ children, ...props }) {
-      const target = linkTarget ?? props.target;
+      const originalHref = props.href;
+      const isExternal = Boolean(
+        originalHref && /^(?:https?:)?\/\//i.test(originalHref)
+      );
+      const alreadyLocalized = Boolean(
+        originalHref && /^\/(?:en|zh|ja)(?:\/|$)/.test(originalHref)
+      );
+      const href = originalHref
+        && locale
+        && locale !== 'en'
+        && originalHref.startsWith('/')
+        && !originalHref.startsWith('//')
+        && !alreadyLocalized
+          ? `/${locale}${originalHref}`
+          : originalHref;
+      const target = isExternal ? (linkTarget ?? props.target) : undefined;
 
       return (
         <a
           {...props}
+          href={href}
           target={target}
           rel={target === '_blank' ? 'noopener noreferrer' : props.rel}
           className="text-gray-500 underline decoration-gray-300 underline-offset-4 hover:text-black transition-colors"
@@ -117,6 +137,38 @@ export function createMarkdownComponents(
         >
           {children}
         </ol>
+      );
+    },
+    table({ children, ...props }) {
+      return (
+        <div className="mb-6 max-w-full overflow-x-auto rounded-lg border border-gray-200">
+          <table
+            className="min-w-full border-collapse bg-white text-left text-sm"
+            {...props}
+          >
+            {children}
+          </table>
+        </div>
+      );
+    },
+    th({ children, ...props }) {
+      return (
+        <th
+          className="whitespace-nowrap border-b border-gray-200 bg-gray-50 px-4 py-3 font-semibold text-gray-900"
+          {...props}
+        >
+          {children}
+        </th>
+      );
+    },
+    td({ children, ...props }) {
+      return (
+        <td
+          className="min-w-40 border-b border-gray-100 px-4 py-3 align-top leading-6 text-gray-700"
+          {...props}
+        >
+          {children}
+        </td>
       );
     },
     li({ children, ...props }) {

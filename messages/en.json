@@ -42,7 +42,7 @@
   },
   "home": {
     "title": "zoxide - A smarter cd command",
-    "subtitle": "Install & navigate directories 10x faster",
+    "subtitle": "Jump to the directories you use most",
     "description": "zoxide is a smarter cd command that helps you jump between directories instantly. Follow our guides to install zoxide on Ubuntu, macOS, Windows and more, fix common \"zoxide command not found\" issues, and integrate it with tools like fzf and Neovim for a faster terminal workflow.",
     "getStarted": "Get Started",
     "viewDocs": "View Docs",
@@ -382,12 +382,11 @@
         "content": "\n# zoxide Troubleshooting\n\nCommon issues and quick fixes.\n\n## Install issues\n- `zoxide: command not found`: ensure install and PATH.\n```bash\nwhich zoxide\nzoxide --version\necho $PATH\n```\n\n## Config not applied\n- Confirm init lines exist and reload shell.\n```bash\nsource ~/.zshrc # or bashrc / fish config\n```\n\n## Wrong jump\n- Use interactive list:\n```bash\nzi project\nz -l project\n```\n- Manually add:\n```bash\nzoxide add /path/to/dir\n```\n\n## Database issues\n```bash\nls -lh ~/.zo\ncp ~/.zo ~/.zo.backup\nrm ~/.zo # rebuild if corrupted/too big\n```\n\n## Startup too slow\n- Try lazy loading for zsh:\n```bash\nzoxide() {\n unfunction zoxide\n eval \"$(command zoxide init zsh)\"\n zoxide \"$@\"\n}\n```\n- Place init near end of rc file.\n\n## Query slow\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\nexport _ZO_MAXAGE=1000\n```\n\n## Windows path issues\nUse PowerShell init:\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n## Debug\n```bash\nexport _ZO_DEBUG=1\nz project\n```\n"
       },
       "install-ubuntu": {
-        "title": "zoxide install Ubuntu",
-        "excerpt": "Complete guide to installing zoxide on Ubuntu and other Debian-based Linux distributions.",
-        "duration": "5 min",
+        "title": "How to Install zoxide on Ubuntu 24.04",
+        "excerpt": "Install zoxide on Ubuntu 24.04 with apt or the upstream installer, configure Bash or Zsh, verify PATH, and fix common setup errors.",
+        "duration": "12 min",
         "level": "Beginner",
-        "category": "Installation Guide",
-        "content": "\n# How to Install zoxide on Ubuntu\n\nThis guide will walk you through installing zoxide on Ubuntu and other Debian-based Linux distributions.\n\n## Prerequisites\n\n- Ubuntu 18.04 or later (or any Debian-based distribution)\n- Terminal access\n- Internet connection\n\n## Installation Methods\n\n### Method 1: Using Cargo (Recommended)\n\nIf you have Rust installed, you can use Cargo to install zoxide:\n\n```bash\ncargo install zoxide\n```\n\n**Note**: If you don't have Rust installed, you can install it using:\n\n```bash\ncurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh\nsource $HOME/.cargo/env\n```\n\n### Method 2: Using Pre-built Binary\n\nDownload the pre-built binary from the [zoxide releases page](https://github.com/ajeetdsouza/zoxide/releases):\n\n```bash\n# Download the latest release for Linux x86_64\nwget https://github.com/ajeetdsouza/zoxide/releases/latest/download/zoxide-x86_64-unknown-linux-musl.tar.gz\n\n# Extract\ntar -xzf zoxide-x86_64-unknown-linux-musl.tar.gz\n\n# Move to a directory in your PATH\nsudo mv zoxide /usr/local/bin/\n```\n\n### Method 3: Using Package Manager (if available)\n\nSome distributions may have zoxide in their repositories:\n\n```bash\n# Check if available (may not be available in all distributions)\nsudo apt update\nsudo apt install zoxide\n```\n\n## Shell Configuration\n\nAfter installation, you need to initialize zoxide in your shell configuration file.\n\n### For Bash\n\nAdd the following to your `~/.bashrc`:\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\nThen reload your shell:\n\n```bash\nsource ~/.bashrc\n```\n\n### For Zsh\n\nAdd the following to your `~/.zshrc`:\n\n```bash\neval \"$(zoxide init zsh)\"\n```\n\nThen reload your shell:\n\n```bash\nsource ~/.zshrc\n```\n\n### For Fish\n\nAdd the following to your `~/.config/fish/config.fish`:\n\n```fish\nzoxide init fish | source\n```\n\nThen reload your shell:\n\n```fish\nsource ~/.config/fish/config.fish\n```\n\n## Verify Installation\n\nTest that zoxide is installed correctly:\n\n```bash\nzoxide --version\n```\n\nYou should see the version number printed.\n\n## Basic Usage\n\nOnce installed and configured, you can start using zoxide:\n\n```bash\n# Navigate to a directory\nz project\n\n# Interactive selection\nzi project\n\n# Go back to previous directory\nz -\n```\n\n## Troubleshooting\n\n### Command Not Found\n\nIf you get \"command not found\" after installation:\n\n1. Check that zoxide is in your PATH:\n ```bash\n which zoxide\n ```\n\n2. If not found, add the installation directory to your PATH in `~/.bashrc` or `~/.zshrc`:\n ```bash\n export PATH=\"$HOME/.cargo/bin:$PATH\"\n ```\n\n3. Reload your shell configuration.\n\n### Permission Denied\n\nIf you get permission errors:\n\n1. Make sure the binary is executable:\n ```bash\n chmod +x /usr/local/bin/zoxide\n ```\n\n2. Or install to a user directory instead:\n ```bash\n mkdir -p ~/.local/bin\n mv zoxide ~/.local/bin/\n export PATH=\"$HOME/.local/bin:$PATH\"\n ```\n\n## Next Steps\n\n- Learn [basic zoxide commands](/tutorials/basic-commands)\n- Configure [advanced settings](/tutorials/advanced-config)\n- Check out [performance tips](/tutorials/performance)\n"
+        "category": "Installation Guide"
       },
       "install-macos": {
         "title": "zoxide install macOS",
@@ -585,16 +584,15 @@
         "content": "\n# zoxide Advanced Configuration Tips\n\nGo deeper with environment variables, aliases, and fzf.\n\n## Environment variables\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\nexport _ZO_MAXAGE=5000\n```\n\n## Aliases\n```bash\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\n```\n\n## fzf integration\n```bash\nzi() {\n local dir\n dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n```\n\n## Performance\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\nls -lh ~/.zo\nrm ~/.zo\n```\n\n## Team sharing\n```bash\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n```\n\nTune these settings to fit your workflow, starting with exclusions and database location.\n"
       },
       "zoxide-vs-autojump": {
-        "title": "zoxide vs autojump Performance Comparison",
-        "excerpt": "Detailed comparison of the performance differences and user experience between zoxide and autojump.",
+        "title": "zoxide vs autojump: Which Directory Jumper Should You Use?",
+        "excerpt": "A source-checked comparison of zoxide and autojump covering commands, shell and platform support, interactive selection, and a low-risk migration path.",
         "category": "Comparison",
         "author": "zoxide.org",
         "tags": [
-          "Comparison",
-          "Performance",
-          "autojump"
-        ],
-        "content": "\n# zoxide vs autojump Performance Comparison\n\nzoxide and autojump are both directory jumpers, but their speed and features differ.\n\n## Performance\n- Startup: **zoxide ~5ms** vs **autojump ~50ms**\n- Query: zoxide fuzzy search < 10ms; autojump 20-50ms in large trees\n\n## Features\n- Fuzzy search: zoxide - / autojump -\n- Interactive selection (`zi`): zoxide - / autojump -\n- Learning: zoxide smart weighting; autojump basic frequency\n\n## Usability\n```bash\n# zoxide\nz project\n\n# autojump\nj project\n```\n\nConfig: zoxide needs one init command; autojump requires extra shell setup.\n\n## Cross-platform\n- zoxide: macOS, Linux, Windows\n- autojump: macOS, Linux (limited Windows)\n\n## Conclusion\nChoose zoxide for speed and modern UX. Migration is straightforward if you currently use autojump. See the [full comparison](/comparisons).\n"
+          "zoxide vs autojump",
+          "Directory Navigation",
+          "Migration"
+        ]
       },
       "zoxide-command-not-found": {
         "title": "zoxide command not found - How to Fix",

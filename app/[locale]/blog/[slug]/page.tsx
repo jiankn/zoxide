@@ -5,12 +5,14 @@ import dynamic from "next/dynamic";
 import { Link } from "@/i18n/routing";
 import { getPostBySlug, getRelatedPosts } from "@/data/blog";
 import RelatedPosts from "@/components/RelatedPosts/RelatedPosts";
+import GuideLinks from "@/components/GuideLinks/GuideLinks";
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, User } from "lucide-react";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
+import { getBlogContentOverride } from '@/data/blog-content-overrides';
 
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
@@ -18,10 +20,6 @@ const ShareButtons = dynamic(
     loading: () => null,
   },
 );
-
-const blogMarkdownComponents = createMarkdownComponents({
-  linkTarget: "_blank",
-});
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -182,7 +180,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // 获取翻译后的数据
   const title = tData?.title || post.title;
   const excerpt = tData?.excerpt || post.excerpt;
-  const content = tData?.content || post.content;
+  const content = getBlogContentOverride(locale, slug) || tData?.content || post.content;
+  const blogMarkdownComponents = createMarkdownComponents({
+    linkTarget: "_blank",
+    locale,
+  });
   // 规范化 markdown 内容：去除开头的 H1（ATX / Setext），避免与模板重复
   const normalizedContent = stripLeadingH1(normalizeZoxideFacts(content));
   // 分类翻译映射表
@@ -214,6 +216,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     articleUrl,
     post.date, // dateModified 使用发布日期（如果有更新日期可以单独设置）
   );
+  const verificationNote = slug === "zoxide-vs-autojump"
+    ? locale === "zh"
+      ? "独立核验说明。本文的命令与支持范围已于 2026 年 8 月 6 日对照 zoxide 与 autojump 上游资料复核；批量配置前请再次查看最新发行说明。"
+      : locale === "ja"
+        ? "独立検証メモ：コマンドと対応範囲は2026年8月6日にzoxideとautojumpの上流資料で照合しました。複数端末へ展開する前に最新リリース文書を再確認してください。"
+        : "Independent verification note: commands and support statements were checked against the zoxide and autojump upstream sources on August 6, 2026. Recheck current release notes before a multi-machine rollout."
+    : locale === "zh"
+      ? "独立核验说明。文中的命令与版本说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；用于自动化前请再次查看最新发行说明。"
+      : locale === "ja"
+        ? "独立検証メモ：コマンドとバージョン情報は2026年7月16日にzoxide公式リポジトリと照合しました。自動化に利用する前に最新リリースノートを再確認してください。"
+        : "Independent verification note: commands and version references were checked against the official zoxide repository on July 16, 2026. Recheck the latest release notes before using them in automation.";
 
   // 如果是教程类文章，添加 HowTo Schema
   const isTutorial = post.category === "教程" || post.category === "Tutorial";
@@ -386,12 +399,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </ReactMarkdown>
             </article>
 
+            <GuideLinks locale={locale} currentPath={`/blog/${slug}`} />
+
             <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
-              {locale === "zh"
-                ? "独立核验说明：文中的命令与版本说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；用于自动化前请再次查看最新发行说明。"
-                : locale === "ja"
-                  ? "独立検証メモ：コマンドとバージョン情報は2026年7月16日にzoxide公式リポジトリと照合しました。自動化に利用する前に最新リリースノートを再確認してください。"
-                  : "Independent verification note: commands and version references were checked against the official zoxide repository on July 16, 2026. Recheck the latest release notes before using them in automation."}{" "}
+              {verificationNote}{" "}
               <a
                 href="https://github.com/ajeetdsouza/zoxide"
                 target="_blank"
