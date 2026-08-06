@@ -3,6 +3,7 @@ import zhMessages from '@/messages/zh.json';
 import enMessages from '@/messages/en.json';
 import jaMessages from '@/messages/ja.json';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 type VersionChange = {
   type: string;
@@ -46,6 +47,7 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/changelog" currentLabel={t('title')} />
       <main className="space-y-12">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">

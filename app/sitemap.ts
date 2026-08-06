@@ -2,10 +2,13 @@ import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/data/blog';
 import { getAllTutorials } from '@/data/tutorials';
 import { routing } from '@/i18n/routing';
+import { comparisonSlugs } from '@/data/comparison-guides';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://zoxide.org';
-  const currentDate = new Date().toISOString();
+  // Keep lastmod tied to a real content release instead of changing it on every build.
+  const staticContentLastModified = '2026-08-07';
+  const currentDate = staticContentLastModified;
   const locales = routing.locales; // ['zh', 'en']
 
   // 生成多语言静态页面
@@ -92,6 +95,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  return [...staticPages, ...blogPages, ...tutorialPages];
+  const comparisonPages: MetadataRoute.Sitemap = [];
+  comparisonSlugs.forEach((slug) => {
+    locales.forEach((locale) => {
+      const isDefaultLocale = locale === routing.defaultLocale;
+      comparisonPages.push({
+        url: isDefaultLocale
+          ? `${baseUrl}/comparisons/${slug}/`
+          : `${baseUrl}/${locale}/comparisons/${slug}/`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly' as const,
+        priority: 0.75,
+      });
+    });
+  });
+
+  return [...staticPages, ...blogPages, ...tutorialPages, ...comparisonPages];
 }
 

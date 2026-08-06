@@ -54,17 +54,20 @@ export function createMarkdownComponents(
       const isExternal = Boolean(
         originalHref && /^(?:https?:)?\/\//i.test(originalHref)
       );
+      const canonicalHref = originalHref === '/en' || originalHref === '/en/'
+        ? '/'
+        : originalHref?.replace(/^\/en(?=\/)/, '');
       const alreadyLocalized = Boolean(
-        originalHref && /^\/(?:en|zh|ja)(?:\/|$)/.test(originalHref)
+        canonicalHref && /^\/(?:zh|ja)(?:\/|$)/.test(canonicalHref)
       );
-      const href = originalHref
+      const href = canonicalHref
         && locale
         && locale !== 'en'
-        && originalHref.startsWith('/')
-        && !originalHref.startsWith('//')
+        && canonicalHref.startsWith('/')
+        && !canonicalHref.startsWith('//')
         && !alreadyLocalized
-          ? `/${locale}${originalHref}`
-          : originalHref;
+          ? `/${locale}${canonicalHref}`
+          : canonicalHref;
       const target = isExternal ? (linkTarget ?? props.target) : undefined;
 
       return (

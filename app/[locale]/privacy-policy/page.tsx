@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 type LegalSection = {
   title: string;
@@ -32,6 +33,7 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/privacy-policy" currentLabel={t('title')} />
       <main className="space-y-8">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">

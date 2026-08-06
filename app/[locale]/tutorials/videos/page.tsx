@@ -1,7 +1,8 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Play } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -48,6 +49,7 @@ const videos = [
 
 const localizedCopy = {
   en: {
+    title: 'zoxide Video Tutorials',
     introduction: 'Watch independently produced video guides, then use the notes below to choose the right tutorial for your setup.',
     videoBy: 'Video by',
     watch: 'Watch on YouTube',
@@ -59,6 +61,7 @@ const localizedCopy = {
     descriptions: videos.map((video) => video.description),
   },
   zh: {
+    title: 'zoxide 视频教程',
     introduction: '观看独立创作者制作的 zoxide 视频，并结合本站说明选择适合自己环境的教程。',
     videoBy: '视频作者',
     watch: '前往 YouTube 观看',
@@ -74,6 +77,7 @@ const localizedCopy = {
     ],
   },
   ja: {
+    title: 'zoxide 動画チュートリアル',
     introduction: '独立クリエイターによるzoxide動画を、各環境に合うチュートリアルを選ぶための補足説明とともに紹介します。',
     videoBy: '動画制作者',
     watch: 'YouTubeで見る',
@@ -96,10 +100,11 @@ export default async function VideosPage({ params }: { params: Promise<{ locale:
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/tutorials/videos" currentLabel={copy.title} />
       <main className="space-y-12">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            zoxide Video Tutorials
+            {copy.title}
           </h1>
           <p className="text-lg text-gray-600">
             {copy.introduction}

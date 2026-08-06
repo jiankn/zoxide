@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { routing } from '@/i18n/routing';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,6 +29,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/about" currentLabel={t('title')} />
       <main className="space-y-8">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">

@@ -5,6 +5,50 @@ import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { getHomeGuide } from '@/data/home-guide';
 
+const installGuidePaths = [
+  '/tutorials/install-macos',
+  '/tutorials/install-ubuntu',
+  '/tutorials/install-windows',
+];
+
+const troubleshootingGuidePaths = [
+  '/blog/zoxide-command-not-found',
+  '/blog/zoxide-init-guide',
+  '/blog/troubleshooting-zoxide-no-match-found',
+  '/tutorials/basic-commands',
+  '/tutorials/fzf-integration',
+];
+
+const contextualLinkCopy = {
+  en: {
+    features: 'See all zoxide features →',
+    install: 'Open the full installation guide →',
+    shell: 'Read the complete shell setup guide →',
+    commands: 'Continue with the basic commands guide →',
+    fix: 'Follow the detailed fix →',
+    compare: 'Compare zoxide with autojump, z, and fasd →',
+    faq: 'Read every FAQ and troubleshooting path →',
+  },
+  zh: {
+    features: '查看全部 zoxide 功能 →',
+    install: '打开完整安装教程 →',
+    shell: '阅读完整 Shell 配置教程 →',
+    commands: '继续学习基础命令 →',
+    fix: '查看详细排查步骤 →',
+    compare: '对比 zoxide、autojump、z 与 fasd →',
+    faq: '查看全部常见问题与排错入口 →',
+  },
+  ja: {
+    features: 'zoxide の機能をすべて見る →',
+    install: '詳しいインストール手順へ →',
+    shell: 'シェル設定ガイドを読む →',
+    commands: '基本コマンドガイドへ進む →',
+    fix: '詳しい解決手順を見る →',
+    compare: 'zoxide、autojump、z、fasd を比較 →',
+    faq: 'FAQ とトラブル解決をすべて見る →',
+  },
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations('seo');
@@ -34,6 +78,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   const t = await getTranslations('home');
   const guide = getHomeGuide(locale);
+  const linkCopy = contextualLinkCopy[locale === 'zh' || locale === 'ja' ? locale : 'en'];
 
   return (
     <div className="flex flex-col">
@@ -86,18 +131,24 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </div>
               ))}
             </div>
+            <Link href="/features" className="mt-6 inline-block font-semibold text-blue-700 hover:text-blue-900">
+              {linkCopy.features}
+            </Link>
           </section>
 
           <section id="install-zoxide" className="scroll-mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.install.title}</h2>
             <p className="max-w-4xl text-lg leading-8 text-gray-700">{guide.install.introduction}</p>
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {guide.install.methods.map((method) => (
+              {guide.install.methods.map((method, index) => (
                 <article key={method.title} className="min-w-0 flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                   <h3 className="text-xl font-semibold text-gray-900">{method.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-gray-600">{method.bestFor}</p>
                   <pre className="mt-5 max-w-full overflow-x-auto rounded-lg bg-gray-950 p-4 text-sm text-gray-100"><code>{method.command}</code></pre>
                   <p className="mt-4 text-sm leading-6 text-gray-600">{method.note}</p>
+                  <Link href={installGuidePaths[index]} className="mt-5 text-sm font-semibold text-blue-700 hover:text-blue-900">
+                    {linkCopy.install}
+                  </Link>
                 </article>
               ))}
             </div>
@@ -119,6 +170,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               ))}
             </div>
             <p className="mt-6 text-base leading-7 text-gray-700">{guide.activate.verification}</p>
+            <Link href="/tutorials/shell-setup" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+              {linkCopy.shell}
+            </Link>
           </section>
 
           <section id="first-zoxide-session" className="scroll-mt-24">
@@ -143,6 +197,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
+              <Link href="/tutorials/basic-commands" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+                {linkCopy.commands}
+              </Link>
             </div>
           </section>
 
@@ -150,13 +207,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.troubleshooting.title}</h2>
             <p className="max-w-4xl text-lg leading-8 text-gray-700">{guide.troubleshooting.introduction}</p>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
-              {guide.troubleshooting.items.map((item) => (
+              {guide.troubleshooting.items.map((item, index) => (
                 <article key={item.title} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                   <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
                   <p className="mt-2 leading-7 text-gray-600">{item.text}</p>
                   {item.command && (
                     <code className="mt-4 block overflow-x-auto rounded-md bg-gray-100 px-3 py-2 text-sm text-gray-900">{item.command}</code>
                   )}
+                  <Link href={troubleshootingGuidePaths[index]} className="mt-5 inline-block text-sm font-semibold text-blue-700 hover:text-blue-900">
+                    {linkCopy.fix}
+                  </Link>
                 </article>
               ))}
             </div>
@@ -174,6 +234,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               ))}
             </div>
             <p className="mt-6 max-w-4xl leading-7 text-gray-700">{guide.workflow.conclusion}</p>
+            <Link href="/comparisons" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+              {linkCopy.compare}
+            </Link>
           </section>
 
           <section id="zoxide-faq" className="scroll-mt-24">
@@ -188,6 +251,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </details>
               ))}
             </div>
+            <Link href="/faq" className="mt-6 inline-block font-semibold text-blue-700 hover:text-blue-900">
+              {linkCopy.faq}
+            </Link>
           </section>
 
           <section className="rounded-2xl bg-gray-950 p-6 text-white md:p-10">

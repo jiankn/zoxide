@@ -1,6 +1,7 @@
 import { Link, routing } from '@/i18n/routing';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { setRequestLocale } from 'next-intl/server';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 type Copy = {
   title: string;
@@ -121,6 +122,7 @@ export default async function ZoxideDoctorPage({ params }: { params: Promise<{ l
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/tools/zoxide-doctor" currentLabel={content.title} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

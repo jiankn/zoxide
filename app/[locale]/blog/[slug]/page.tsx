@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dynamic from "next/dynamic";
-import { Link } from "@/i18n/routing";
 import { getPostBySlug, getRelatedPosts } from "@/data/blog";
 import RelatedPosts from "@/components/RelatedPosts/RelatedPosts";
 import GuideLinks from "@/components/GuideLinks/GuideLinks";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, User } from "lucide-react";
@@ -273,88 +273,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           }}
         />
       )}
-      {/* 面包屑导航结构化数据 */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name:
-                  (
-                    { zh: "首页", en: "Home", ja: "ホーム" } as Record<
-                      string,
-                      string
-                    >
-                  )[locale] || "Home",
-                item:
-                  locale === "en"
-                    ? "https://zoxide.org/"
-                    : `https://zoxide.org/${locale}/`,
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name:
-                  (
-                    { zh: "博客", en: "Blog", ja: "ブログ" } as Record<
-                      string,
-                      string
-                    >
-                  )[locale] || "Blog",
-                item:
-                  locale === "en"
-                    ? "https://zoxide.org/blog/"
-                    : `https://zoxide.org/${locale}/blog/`,
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: title,
-                item: articleUrl,
-              },
-            ],
-          }),
-        }}
-      />
       <div className="container mx-auto max-w-7xl px-4 py-12">
-        {/* 面包屑导航 UI */}
-        <nav className="mb-6 text-sm text-gray-600" aria-label="Breadcrumb">
-          <ol className="flex items-center space-x-2">
-            <li>
-              <Link href="/" className="hover:text-blue-600 transition-colors">
-                {(
-                  { zh: "首页", en: "Home", ja: "ホーム" } as Record<
-                    string,
-                    string
-                  >
-                )[locale] || "Home"}
-              </Link>
-            </li>
-            <li className="text-gray-400">/</li>
-            <li>
-              <Link
-                href="/blog"
-                className="hover:text-blue-600 transition-colors"
-              >
-                {(
-                  { zh: "博客", en: "Blog", ja: "ブログ" } as Record<
-                    string,
-                    string
-                  >
-                )[locale] || "Blog"}
-              </Link>
-            </li>
-            <li className="text-gray-400">/</li>
-            <li className="text-gray-900 truncate max-w-xs" aria-current="page">
-              {title}
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumbs locale={locale} path={`/blog/${slug}`} currentLabel={title} />
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <main className="lg:col-span-3 space-y-8">
             <header>

@@ -25,9 +25,9 @@ export default function Footer() {
       { href: '/faq', label: t('links.faq') },
     ],
     comparisons: [
-      { href: '/comparisons', label: t('links.vsAutojump') },
-      { href: '/comparisons', label: t('links.vsZ') },
-      { href: '/comparisons', label: t('links.vsFasd') },
+      { href: '/comparisons/autojump', label: t('links.vsAutojump') },
+      { href: '/comparisons/z', label: t('links.vsZ') },
+      { href: '/comparisons/fasd', label: t('links.vsFasd') },
     ],
   };
 

@@ -4,13 +4,13 @@ import remarkGfm from "remark-gfm";
 import { getTutorialBySlug, getAllTutorials } from "@/data/tutorials";
 
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
-import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, BookOpen } from "lucide-react";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 import { getTutorialContentOverride } from "@/data/tutorial-content-overrides";
 import GuideLinks from "@/components/GuideLinks/GuideLinks";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 
 interface TutorialPageProps {
   params: Promise<{
@@ -78,7 +78,6 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const tutorial = getTutorialBySlug(slug);
-  const t = await getTranslations("tutorials.detail");
 
   if (!tutorial) {
     notFound();
@@ -117,17 +116,10 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
+      <Breadcrumbs locale={locale} path={`/tutorials/${slug}`} currentLabel={title} />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <main className="lg:col-span-3 space-y-8">
           <header>
-            <div className="mb-4">
-              <Link
-                href="/tutorials"
-                className="text-blue-600 hover:text-blue-800 text-sm"
-              >
-                ← {t("backToList")}
-              </Link>
-            </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{title}</h1>
 
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">

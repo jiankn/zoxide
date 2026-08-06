@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookOpen, Video } from 'lucide-react';
 import { getTutorialsByCategory } from '@/data/tutorials';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 type TutorialTranslationMeta = {
   title?: string;
@@ -42,6 +43,11 @@ export default async function TutorialsPage({ params }: { params: Promise<{ loca
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const t = await getTranslations('tutorials');
+  const bridgeCopy = locale === 'zh'
+    ? { title: '教程之外：查看实战文章与排错案例', description: '博客覆盖命令参考、工具对比、安装问题和更具体的工作流，适合在完成教程后继续深入。', blog: '浏览博客文章', download: '回到安装入口' }
+    : locale === 'ja'
+      ? { title: 'チュートリアルの次は実践記事へ', description: 'ブログではコマンド一覧、ツール比較、導入トラブル、具体的な運用例を扱います。', blog: 'ブログを見る', download: 'インストール方法へ' }
+      : { title: 'Beyond tutorials: practical articles and fixes', description: 'The blog covers command references, tool comparisons, installation failures, and focused workflows to continue after a tutorial.', blog: 'Browse the blog', download: 'Return to installation' };
 
   // 根据语言获取分类映射（数据文件中的分类名是中文）
   const categoryMap: Record<string, string> = locale === 'zh' ? {
@@ -121,6 +127,7 @@ export default async function TutorialsPage({ params }: { params: Promise<{ loca
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/tutorials" currentLabel={t('title')} />
       <main className="space-y-12">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -165,6 +172,15 @@ export default async function TutorialsPage({ params }: { params: Promise<{ loca
             );
           })}
         </div>
+
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 md:p-8">
+          <h2 className="text-2xl font-bold text-gray-950">{bridgeCopy.title}</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-gray-700">{bridgeCopy.description}</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link href="/blog" className="rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-500">{bridgeCopy.blog}</Link>
+            <Link href="/download" className="rounded-lg border border-blue-200 bg-white px-4 py-3 font-semibold text-blue-800 hover:border-blue-400">{bridgeCopy.download}</Link>
+          </div>
+        </section>
       </main>
     </div>
   );

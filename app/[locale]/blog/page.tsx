@@ -2,6 +2,7 @@ import { Link } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllPosts } from "@/data/blog";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 
 export async function generateMetadata({
   params,
@@ -24,6 +25,11 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const t = await getTranslations("blog");
+  const bridgeCopy = locale === "zh"
+    ? { title: "想按步骤学习？从教程路线开始", description: "教程中心按入门、进阶、安装和视频整理内容，比按发布时间浏览更适合完成一个明确任务。", tutorials: "进入教程中心", troubleshooting: "查看常见问题" }
+    : locale === "ja"
+      ? { title: "順番に学ぶならチュートリアルへ", description: "チュートリアルは入門、応用、導入、動画に分かれ、投稿日順より目的に沿って進めます。", tutorials: "チュートリアルへ", troubleshooting: "FAQを見る" }
+      : { title: "Prefer a step-by-step path? Start with tutorials", description: "The tutorial hub groups beginner, advanced, installation, and video guides so you can complete a task instead of browsing by publish date.", tutorials: "Open the tutorial hub", troubleshooting: "Read the FAQ" };
   const blogPosts = getAllPosts()
     .filter(
       (post) =>
@@ -34,6 +40,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
+      <Breadcrumbs locale={locale} path="/blog" currentLabel={t("title")} />
       <main className="space-y-12">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -96,6 +103,15 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             );
           })}
         </div>
+
+        <section className="rounded-2xl border border-blue-100 bg-blue-50 p-6 md:p-8">
+          <h2 className="text-2xl font-bold text-gray-950">{bridgeCopy.title}</h2>
+          <p className="mt-3 leading-7 text-gray-700">{bridgeCopy.description}</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link href="/tutorials" className="rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-500">{bridgeCopy.tutorials}</Link>
+            <Link href="/faq" className="rounded-lg border border-blue-200 bg-white px-4 py-3 font-semibold text-blue-800 hover:border-blue-400">{bridgeCopy.troubleshooting}</Link>
+          </div>
+        </section>
       </main>
     </div>
   );
