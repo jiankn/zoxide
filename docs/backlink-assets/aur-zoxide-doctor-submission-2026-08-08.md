@@ -25,29 +25,43 @@ zoxide project.
 3. In **My Account**, paste only the resulting `.pub` value into the SSH public
    key field. Never paste the private-key file anywhere.
 
-## Copy-paste submission commands
+## Fastest submission from Windows PowerShell
 
-Run these commands in an Arch Linux environment after the SSH public key is
-accepted. Replace the maintainer comment before committing with a contact
-address you are willing to make public.
+The committed Arch CI already ran `makepkg`, checked `.SRCINFO`, installed the
+package, and ran `zoxide-doctor --help`. You do not need to install Arch Linux
+just to push the verified package files.
 
-```sh
-git -c init.defaultBranch=master clone ssh://aur@aur.archlinux.org/zoxide-doctor.git
-cd zoxide-doctor
-curl -LO https://raw.githubusercontent.com/jiankn/zoxide-doctor/main/packaging/aur/PKGBUILD
-curl -LO https://raw.githubusercontent.com/jiankn/zoxide-doctor/main/packaging/aur/.SRCINFO
-curl -LO https://raw.githubusercontent.com/jiankn/zoxide-doctor/main/packaging/aur/LICENSE
+After the SSH public key is accepted, configure the dedicated private key for
+the AUR host. Replace the placeholder path with the private key that was
+generated in the previous step.
+
+```powershell
+@"
+Host aur.archlinux.org
+  User aur
+  IdentityFile C:\Users\YOUR_WINDOWS_USER\.ssh\aur_zoxide_doctor
+  IdentitiesOnly yes
+"@ | Add-Content "$env:USERPROFILE\.ssh\config"
 ```
 
-Before pushing, edit the first line of `PKGBUILD`, then run:
+Then run the following. Before committing, edit only the first line of
+`PKGBUILD` and use a contact address you are willing to publish.
 
-```sh
-makepkg -sfc
-makepkg --printsrcinfo > .SRCINFO
+```powershell
+git -c init.defaultBranch=master clone ssh://aur@aur.archlinux.org/zoxide-doctor.git
+Set-Location zoxide-doctor
+curl.exe -LO https://raw.githubusercontent.com/jiankn/zoxide-doctor/main/packaging/aur/PKGBUILD
+curl.exe -LO https://raw.githubusercontent.com/jiankn/zoxide-doctor/main/packaging/aur/.SRCINFO
+curl.exe -LO https://raw.githubusercontent.com/jiankn/zoxide-doctor/main/packaging/aur/LICENSE
+notepad PKGBUILD
 git add PKGBUILD .SRCINFO LICENSE
 git commit -m 'Initial AUR package for zoxide-doctor'
 git push origin master
 ```
+
+If you prefer to repeat the build locally, run `makepkg -sfc` and
+`makepkg --printsrcinfo > .SRCINFO` in an Arch Linux environment before the
+Git commit.
 
 ## After the push
 
