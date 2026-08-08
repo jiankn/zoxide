@@ -9,13 +9,13 @@ Latest update: 2026-08-08
 - Canonical target: https://zoxide.org/
 - Linkable tool target: https://zoxide.org/tools/zoxide-doctor/
 - Source repositories / configuration assets: 2 (`jiankn/zoxide`, `jiankn/zoxide-doctor`)
-- Completed external public listings: 0; three external contributions are awaiting maintainer review
+- Completed external public listings: 1 public article; three external contributions are awaiting maintainer review
 - Published source surfaces: 3 GitHub repository / release pages
-- Unique published referring root domains: 1 (`github.com`, source surfaces only)
+- Unique published referring root domains: 2 (`github.com` source surfaces; `dev.to` article)
 - Follow + indexable external listings: 0 completed; 3 expected after review and deployment
-- Nofollow / UGC listings: 3 source pages on one root domain
-- Noindex listings: 0
-- Pending: 3 external contributions; 1 original DEV Community tutorial awaits publication approval
+- Nofollow / UGC listings: 3 GitHub source pages on one root domain; DEV.to's anchor links are not `rel=nofollow`, but the page itself currently has `noindex,nofollow`
+- Noindex listings: 1 (DEV.to article)
+- Pending: 3 external contributions
 - Blocked: 2 platforms pending npm authentication / package publication
 - Rejected after qualification: 6 platforms
 
@@ -31,7 +31,7 @@ Source repositories are tracked for evidence but are not counted as completed ex
 | Devhints | devhints.io | https://github.com/rstacruz/cheatsheets/pull/2229 | Complete zoxide CLI cheatsheet | zoxide commands / how to use zoxide | zoxide commands reference | https://zoxide.org/blog/zoxide-commands/ | Proposed cheatsheet “Also see” reference | Expected followable | Existing site is public; proposed page requires deployment verification | Pending maintainer review | PR is mergeable and ready. Prettier and 21 non-Ruby tests passed; six local render tests could not start because Ruby Bundler is not installed. Expected public URL: https://devhints.io/zoxide |
 | OpenCLI | opencli.co | https://github.com/gvkhosla/open-cli/pull/3 | zoxide-doctor repository | CLI tool directory / shell diagnostics | Website and Docs | https://zoxide.org/tools/zoxide-doctor/ | Proposed CLI detail page | Expected followable; existing detail-page links use `noreferrer` only | Existing detail pages are HTTP 200 with no `noindex` | Pending maintainer review | PR is mergeable; data validation, ESLint, production build, and CodeRabbit review passed. Vercel preview requires maintainer authorization |
 | Tiny Tool Town | tinytooltown.com | https://github.com/shanselman/TinyToolTown/pull/726 | zoxide-doctor repository | tiny developer tool / zoxide commands | Website; zoxide commands reference | https://zoxide.org/tools/zoxide-doctor/; https://zoxide.org/blog/zoxide-commands/ | Proposed tool detail page | Expected followable; verified in local production output | Existing site is HTTP 200 and indexable | Pending maintainer review | PR is mergeable; the contextual keyword link was added on 2026-08-08; 51 tests and production build passed. First-time contributor CI needs maintainer approval |
-| DEV Community | dev.to | Local publication draft | Original zoxide setup tutorial | what is zoxide / install zoxide / zoxide commands | what is zoxide; install zoxide; zoxide commands reference | https://zoxide.org/blog/what-is-zoxide-smarter-cd/; https://zoxide.org/download/; https://zoxide.org/blog/zoxide-commands/ | Tutorial body | Verify after publication; UGC treatment is possible | Verify after publication | Awaiting publication approval | Draft: `docs/backlink-assets/devto-zoxide-setup-guide-2026-08-08.md`. Do not publish without explicit confirmation |
+| DEV Community | dev.to | https://dev.to/jiankn/zoxide-setup-that-actually-works-install-initialize-and-verify-2dng | Original zoxide setup tutorial | what is zoxide / install zoxide / zoxide commands | what zoxide is; install zoxide; zoxide commands reference | https://zoxide.org/blog/what-is-zoxide-smarter-cd/; https://zoxide.org/download/; https://zoxide.org/blog/zoxide-commands/ | Tutorial body | Anchors have `noopener noreferrer` only; page-level robots include `noindex,nofollow` | HTTP 200; canonical self-reference; currently not indexable by page directives | Published — noindex | Published 2026-08-08 after user approval. All three target URLs and anchors verified in public HTML; re-audit after DEV.to removes the page-level robots restriction |
 | npm | npmjs.com | https://www.npmjs.com/package/zoxide-doctor | zoxide-doctor package | zoxide diagnostic CLI | Homepage | https://zoxide.org/tools/zoxide-doctor/ | Package metadata | Not yet verifiable | Not yet verifiable | Blocked | Package name is available, but the local npm client is not authenticated. Publish only after `npm login` or an `NPM_TOKEN` is supplied |
 | Terminal Trove | terminaltrove.com | https://terminaltrove.com/zoxide-doctor/ | zoxide-doctor package | terminal tool directory | Website | https://zoxide.org/tools/zoxide-doctor/ | Tool detail page | Not yet verifiable | Submission page is indexable | Blocked | Submission requires an install command that already exists in a package registry and a preview image; revisit after npm publication |
 | CLIHub | clihub.ai | https://clihub.ai/submit | zoxide-doctor repository | CLI directory | Website | https://zoxide.org/tools/zoxide-doctor/ | Tool detail page | Not evaluated | Direct TLS certificate validation failed during qualification | Rejected | Do not submit while the public domain has a certificate failure |
@@ -52,6 +52,7 @@ The production guide is live in English, Chinese, and Japanese, has a self-refer
 - All three published GitHub source links return HTTP 200 and are indexable by page directives, but GitHub adds `nofollow`; they are not reported as follow links.
 - Devhints, OpenCLI, and Tiny Tool Town are reported as pending until their maintainers merge and deploy the contributions. Expected URLs and rel behavior must be audited again after deployment.
 - Tiny Tool Town's local production build renders the `zoxide commands reference` link as a normal anchor without a `rel` restriction. This remains an expectation, not a live backlink, until the PR is merged and deployed.
+- DEV.to article is public and HTTP 200, and its three zoxide.org anchors are ordinary `noopener noreferrer` links. Its current response includes page-level `noindex` and `nofollow`, so it is recorded as a public noindex listing rather than an indexable external backlink. Re-audit before counting it as an SEO result.
 - The zoxide-doctor package passed syntax checks, seven unit tests, package dry-run, installed-tarball smoke testing, and successful jobs across Linux, macOS, and Windows. Some matrix jobs were delayed at `Set up job` during GitHub's 2026-08-06 Actions incident rather than failing project steps.
 - Do not count npm or Terminal Trove until the package is genuinely published and the public pages are verified.
 
