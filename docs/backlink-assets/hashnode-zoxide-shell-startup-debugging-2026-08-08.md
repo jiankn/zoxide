@@ -11,6 +11,8 @@ The executable is present. The shell integration did not make it into the intera
 
 `zoxide init` prints shell code. Loading that code gives the shell its `z` command and arranges for normal directory changes to be recorded. That distinction makes the failure much easier to narrow down.
 
+That split also explains why [zoxide](https://zoxide.org/) can be installed successfully while `z` is still unavailable in a new terminal.
+
 This checklist assumes that zoxide itself is already on `PATH`. If it is not, start with the package installation. The platform-specific [install zoxide](https://zoxide.org/download/) page is the place to choose a single installation method before debugging startup files.
 
 > Disclosure: I maintain zoxide.org as an independent guide site. It is not the official zoxide project. The commands below were checked against the [official zoxide documentation](https://github.com/ajeetdsouza/zoxide).
@@ -119,3 +121,5 @@ When the terminal setup has accumulated several package managers, frameworks, an
 5. Visit a directory and use `zoxide query --list --score` before judging search results.
 
 That sequence prevents a database question from being mistaken for an installation question. Once the function is present and the directory list begins to fill, the rest of zoxide behaves like a small shell tool again.
+
+More background and related terminal guides are collected at [zoxide.org](https://zoxide.org/).
