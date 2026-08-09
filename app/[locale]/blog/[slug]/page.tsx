@@ -13,6 +13,7 @@ import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 import { getBlogContentOverride } from '@/data/blog-content-overrides';
+import { getEditorialGuide } from '@/data/zoxide-editorial-guides';
 
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
@@ -71,14 +72,15 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     };
   }
 
+  const editorialGuide = getEditorialGuide(locale, slug);
   const tData = t.has(`data.${slug}`) ? t.raw(`data.${slug}`) : undefined;
-  const title = tData?.title || post.title;
-  const excerpt = tData?.excerpt || post.excerpt;
+  const title = editorialGuide?.title || tData?.title || post.title;
+  const excerpt = editorialGuide?.excerpt || tData?.excerpt || post.excerpt;
   const author = tData?.author || post.author;
   const tSeo = await getTranslations("seo");
 
   // 使用 SEO 标题模板，替换 {title} 占位符
-  const seoTitle = tSeo("titles.blogPost", { title });
+  const seoTitle = editorialGuide?.title || tSeo("titles.blogPost", { title });
 
   // 优化 description：确保长度在 150-160 字符之间，包含关键词
   const optimizedDescription =
@@ -174,13 +176,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const tBlog = await getTranslations("blog");
+  const editorialGuide = getEditorialGuide(locale, slug);
   const tData = tBlog.has(`data.${slug}`) ? tBlog.raw(`data.${slug}`) : {};
   const relatedPosts = getRelatedPosts(post, 3, locale);
 
   // 获取翻译后的数据
-  const title = tData?.title || post.title;
-  const excerpt = tData?.excerpt || post.excerpt;
-  const content = getBlogContentOverride(locale, slug) || tData?.content || post.content;
+  const title = editorialGuide?.title || tData?.title || post.title;
+  const excerpt = editorialGuide?.excerpt || tData?.excerpt || post.excerpt;
+  const content = editorialGuide?.content || getBlogContentOverride(locale, slug) || tData?.content || post.content;
   const blogMarkdownComponents = createMarkdownComponents({
     linkTarget: "_blank",
     locale,

@@ -4,6 +4,16 @@ import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { Link, routing } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
+const englishDownloadCopy = {
+  title: 'Zoxide download and install for Linux, macOS and Windows',
+  description: 'Install zoxide from official upstream sources on Linux, macOS, or Windows. Verify the binary, then add the shell integration that creates z and zi.',
+  upstream: 'Official upstream repository',
+  installMethods: 'Choose an installation path',
+  shellTitle: 'Add zoxide to your shell',
+  shellDescription: 'Installing the binary does not create z or zi. Add the line for the shell you actually use, save the profile, and open a new terminal.',
+  shellTip: 'Keep the initialization line near the end of the shell profile. Zsh users should place it after compinit when completions are enabled.',
+};
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -16,8 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     locale,
     '/download',
     {
-      title: t('titles.download'),
-      description: tDownload('description'),
+      title: locale === 'en' ? englishDownloadCopy.title : t('titles.download'),
+      description: locale === 'en' ? englishDownloadCopy.description : tDownload('description'),
       keywords: t('install'),
     }
   );
@@ -33,29 +43,68 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
       ? { guide: '詳しいインストール手順 →', next: 'インストール後の次の手順', nextDescription: 'バイナリとシェル初期化を確認してから基本コマンドへ進み、失敗した場合は順番に切り分けます。', quick: 'クイックスタート', shell: 'シェル設定', troubleshoot: 'command not found の解決' }
       : { guide: 'Open the complete install guide →', next: 'What to do after installation', nextDescription: 'Verify the binary and shell initialization, learn the core commands, or follow the diagnostic path if a check fails.', quick: 'Quick-start tutorial', shell: 'Shell setup guide', troubleshoot: 'Fix command not found' };
 
-  const installers = [
-    {
-      name: 'Homebrew',
-      platform: t('installers.homebrew.platform'),
-      command: 'brew install zoxide',
-      description: t('installers.homebrew.description'),
-      guideHref: '/tutorials/install-macos',
-    },
-    {
-      name: 'Scoop',
-      platform: t('installers.scoop.platform'),
-      command: 'scoop install zoxide',
-      description: t('installers.scoop.description'),
-      guideHref: '/tutorials/install-windows',
-    },
-    {
-      name: 'Cargo',
-      platform: t('installers.cargo.platform'),
-      command: 'cargo install zoxide',
-      description: t('installers.cargo.description'),
-      guideHref: '/tutorials/quick-start',
-    },
-  ];
+  const installers = locale === 'en'
+    ? [
+      {
+        name: 'Homebrew',
+        platform: 'macOS',
+        command: 'brew install zoxide',
+        description: 'Homebrew is one of the package managers documented by the upstream project for macOS.',
+        guideHref: '/tutorials/install-macos',
+        language: 'bash',
+        prompt: 'user@mac:~$',
+      },
+      {
+        name: 'Winget',
+        platform: 'Windows',
+        command: 'winget install ajeetdsouza.zoxide',
+        description: 'Winget is the upstream project\'s recommended installation path for Windows.',
+        guideHref: '/tutorials/install-windows',
+        language: 'powershell',
+        prompt: 'PS C:\\>',
+      },
+      {
+        name: 'Install script',
+        platform: 'Linux and WSL',
+        command: 'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh',
+        description: 'The upstream project recommends its install script for Linux and WSL.',
+        guideHref: '/tutorials/install-ubuntu',
+        language: 'bash',
+        prompt: 'user@linux:~$',
+      },
+    ]
+    : [
+      {
+        name: 'Homebrew',
+        platform: t('installers.homebrew.platform'),
+        command: 'brew install zoxide',
+        description: t('installers.homebrew.description'),
+        guideHref: '/tutorials/install-macos',
+        language: 'bash',
+        prompt: 'user@dev:~$',
+      },
+      {
+        name: 'Scoop',
+        platform: t('installers.scoop.platform'),
+        command: 'scoop install zoxide',
+        description: t('installers.scoop.description'),
+        guideHref: '/tutorials/install-windows',
+        language: 'bash',
+        prompt: 'user@dev:~$',
+      },
+      {
+        name: 'Cargo',
+        platform: t('installers.cargo.platform'),
+        command: 'cargo install zoxide --locked',
+        description: t('installers.cargo.description'),
+        guideHref: '/tutorials/quick-start',
+        language: 'bash',
+        prompt: 'user@dev:~$',
+      },
+    ];
+
+  const pageTitle = locale === 'en' ? englishDownloadCopy.title : t('title');
+  const pageDescription = locale === 'en' ? englishDownloadCopy.description : t('description');
 
   const shellConfigs = [
     {
@@ -78,21 +127,21 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
 
   return (
     <div className="container mx-auto max-w-5xl px-4 py-12">
-      <Breadcrumbs locale={locale} path="/download" currentLabel={t('title')} />
+      <Breadcrumbs locale={locale} path="/download" currentLabel={pageTitle} />
       <main className="space-y-12">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {t('title')}
+            {pageTitle}
           </h1>
           <p className="text-lg text-gray-600">
-            {t('description')}{' '}
+            {pageDescription}{' '}
             <a
               href="https://github.com/ajeetdsouza/zoxide"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 underline"
             >
-              {t('githubLink')}
+              {locale === 'en' ? englishDownloadCopy.upstream : t('githubLink')}
             </a>
             {'.'}
           </p>
@@ -100,7 +149,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
 
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            {t('installMethods.title')}
+            {locale === 'en' ? englishDownloadCopy.installMethods : t('installMethods.title')}
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {installers.map((installer, index) => (
@@ -110,8 +159,9 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
                 </h3>
                 <CodeBlock
                   code={installer.command}
-                  language="bash"
+                  language={installer.language}
                   showPrompt={true}
+                  prompt={installer.prompt}
                 />
                 <p className="text-xs text-[#6a6968]">
                   {installer.description}
@@ -124,12 +174,31 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           </div>
         </section>
 
+        {locale === 'en' && (
+          <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-gray-950">Verify the binary before editing your shell profile</h2>
+            <p className="mt-3 leading-7 text-gray-700">
+              Open a new terminal and run the version check below. If it prints a version, the binary is on your PATH. If it fails, fix the installation first. Shell configuration cannot repair a missing executable.
+            </p>
+            <div className="mt-5 max-w-2xl">
+              <CodeBlock code="zoxide --version" language="bash" showPrompt={true} />
+            </div>
+            <p className="mt-4 text-sm leading-6 text-gray-600">
+              This site is an independent documentation project and does not distribute zoxide binaries. Check the{' '}
+              <a href="https://github.com/ajeetdsouza/zoxide#installation" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-700 underline hover:text-blue-900">
+                current upstream installation list
+              </a>{' '}
+              before upgrading or applying one setup to several machines.
+            </p>
+          </section>
+        )}
+
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            {t('shellConfig.title')}
+            {locale === 'en' ? englishDownloadCopy.shellTitle : t('shellConfig.title')}
           </h2>
           <p className="text-gray-600 mb-4">
-            {t('shellConfig.description')}
+            {locale === 'en' ? englishDownloadCopy.shellDescription : t('shellConfig.description')}
           </p>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {shellConfigs.map((config, index) => {
@@ -155,7 +224,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           </div>
           <div className="mt-6 rounded-lg bg-blue-50 p-4">
             <p className="text-sm text-blue-800">
-              {t('shellConfig.tip')}
+              {locale === 'en' ? englishDownloadCopy.shellTip : t('shellConfig.tip')}
             </p>
           </div>
         </section>
