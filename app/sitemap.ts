@@ -8,6 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://zoxide.org';
   // Keep lastmod tied to a real content release instead of changing it on every build.
   const staticContentLastModified = '2026-08-07';
+  const priorityContentLastModified = '2026-08-09';
+  const updatedEnglishBlogSlugs = new Set([
+    'mastering-terminal-navigation-zoxide-guide',
+    'zoxide-init-guide',
+    'zoxide-commands',
+    'zoxide-fzf-interactive-guide-en',
+  ]);
   const currentDate = staticContentLastModified;
   const locales = routing.locales; // ['zh', 'en']
 
@@ -44,7 +51,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: currentDate,
+        lastModified: isDefaultLocale && route.path === '/download'
+          ? priorityContentLastModified
+          : currentDate,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
@@ -68,7 +77,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       blogPages.push({
         url,
-        lastModified: post.date,
+        lastModified: isDefaultLocale && updatedEnglishBlogSlugs.has(post.slug)
+          ? priorityContentLastModified
+          : post.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       });
