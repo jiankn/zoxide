@@ -61,6 +61,8 @@ These are 308 redirects. Redirect sources were removed from the sitemap, search 
 - Runtime redirect check: all 12 representative redirect cases returned 308 with the expected locale target.
 - Runtime sitemap check: 128 URLs; tested redirect sources absent and primary targets present.
 - Runtime crawl: all 128 sitemap URLs returned 200; no sitemap entry or rendered link pointed to a consolidated source URL.
+- Deployment correction: OpenNext's static cache wrapped page-level redirects as `200` responses with a `Location` header. The same redirect registry now runs in middleware before the cache, while page-level redirects remain as fallback.
+- OpenNext Cloudflare preview: representative English, Chinese, and Japanese cases returned true 308 responses; retained locale pages returned 200 and query strings were preserved on redirect.
 - Full `npm run lint` is noisy because the repository currently includes generated `.open-next` output in ESLint discovery; source-scoped lint is clean.
 
 ## Measurement window

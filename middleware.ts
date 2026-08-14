@@ -1,6 +1,7 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
+import { getContentRedirect, localizePath } from './data/search-intents';
 
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -17,7 +18,23 @@ export default function middleware(request: NextRequest) {
 
   // 注意：www→非www 重定向由 Cloudflare 自动处理，无需在此实现
 
-  // 1. 阻止代码示例中的路径被访问（返回 404）
+  // 1. 在 OpenNext 的静态缓存层之前返回真正的 308。
+  // 页面级 permanentRedirect 作为应用内兜底保留，但 Cloudflare Worker
+  // 必须先处理，避免静态响应被包装成带 Location 的 200。
+  const localeMatch = pathname.match(/^\/(zh|en|ja)(?=\/|$)/);
+  const locale = localeMatch?.[1] || routing.defaultLocale;
+  const unlocalizedPath = localeMatch
+    ? pathname.slice(localeMatch[0].length) || '/'
+    : pathname;
+  const contentRedirect = getContentRedirect(locale, unlocalizedPath);
+
+  if (contentRedirect) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = localizePath(locale, contentRedirect);
+    return NextResponse.redirect(redirectUrl, { status: 308 });
+  }
+
+  // 2. 阻止代码示例中的路径被访问（返回 404）
   // 这些路径通常出现在代码示例中，不应该被当作真实 URL
   // 匹配模式：
   // - /home/user/... (代码示例中的用户目录)
@@ -44,7 +61,7 @@ export default function middleware(request: NextRequest) {
     return new NextResponse(null, { status: 404 });
   }
 
-  // 4. 处理国际化路由（next-intl）
+  // 3. 处理国际化路由（next-intl）
   // 创建 next-intl 中间件实例
   // localeDetection: false - 禁用自动语言检测，让用户手动选择语言
   // next-intl 会自动使用 NEXT_LOCALE Cookie 记住用户的语言偏好
