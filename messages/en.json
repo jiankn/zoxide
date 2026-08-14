@@ -702,6 +702,26 @@
       "title": "Shell Configuration",
       "description": "After installation, you need to add the following commands to your Shell configuration file. Choose the corresponding configuration based on the Shell you use:",
       "tip": "💡 Tip: Add the configuration to the corresponding Shell config file (such as ~/.zshrc, ~/.bashrc, etc.), then reload the Shell or open a new terminal window to use it."
+    },
+    "releaseDownloads": {
+      "officialRelease": "Official GitHub release",
+      "title": "Download official zoxide packages",
+      "description": "Choose a zoxide {version} package for your operating system and CPU architecture. Every file below is served directly by the official zoxide GitHub release.",
+      "releaseNotes": "Release notes",
+      "recommended": "Not sure which file to choose? Use the package-manager method above. Direct archives are intended for manual installation and require you to place the zoxide binary on your PATH.",
+      "download": "Download",
+      "sourceCode": "Source code",
+      "groups": {
+        "macos": "macOS archives",
+        "windows": "Windows archives",
+        "linux": "Linux musl archives",
+        "debian": "Debian and Ubuntu packages",
+        "android": "Android archives"
+      },
+      "verifyTitle": "Verify the binary before editing your shell profile",
+      "verifyDescription": "Open a new terminal and run the version check below. If it prints a version, the binary is on your PATH. If it fails, fix the installation first; shell configuration cannot repair a missing executable.",
+      "independentNote": "This independent documentation site does not host or redistribute zoxide binaries. Check the",
+      "upstreamInstallList": "current upstream installation list"
     }
   },
   "changelog": {

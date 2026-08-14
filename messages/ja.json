@@ -705,6 +705,26 @@
       "title": "シェル設定",
       "description": "インストール後、シェル設定ファイルに以下のコマンドを追加する必要があります。使用するシェルに応じて対応する設定を選択してください：",
       "tip": "💡 ヒント: 設定を対応するシェル設定ファイル（~/.zshrc、~/.bashrcなど）に追加し、シェルをリロードするか新しいターミナルウィンドウを開いて使用します。"
+    },
+    "releaseDownloads": {
+      "officialRelease": "GitHub 公式リリース",
+      "title": "zoxide 公式パッケージをダウンロード",
+      "description": "OS と CPU アーキテクチャに合う zoxide {version} パッケージを選んでください。以下のファイルはすべて zoxide 公式 GitHub Release から直接配信されます。",
+      "releaseNotes": "リリースノート",
+      "recommended": "どのファイルを選ぶか迷う場合は、上のパッケージマネージャーを使用してください。アーカイブを直接使う場合は、展開後に zoxide 実行ファイルを PATH に追加する必要があります。",
+      "download": "ダウンロード",
+      "sourceCode": "ソースコード",
+      "groups": {
+        "macos": "macOS アーカイブ",
+        "windows": "Windows アーカイブ",
+        "linux": "Linux musl アーカイブ",
+        "debian": "Debian / Ubuntu パッケージ",
+        "android": "Android アーカイブ"
+      },
+      "verifyTitle": "シェル設定を編集する前にバイナリを確認",
+      "verifyDescription": "新しいターミナルを開き、下のバージョン確認を実行します。バージョンが表示されれば PATH は正しく設定されています。失敗する場合は先にインストールを修正してください。シェル初期化では実行ファイルの欠落を解決できません。",
+      "independentNote": "この独立ドキュメントサイトは zoxide バイナリをホストまたは再配布しません。アップグレード前に",
+      "upstreamInstallList": "最新の公式インストール一覧"
     }
   },
   "changelog": {
