@@ -51,6 +51,9 @@ export default function middleware(request: NextRequest) {
   const intlMiddleware = createMiddleware({
     ...routing,
     localeDetection: false,
+    // Page metadata owns hreflang so redirect responses never advertise
+    // alternate URLs that themselves redirect in another locale.
+    alternateLinks: false,
   });
 
   // 执行 next-intl 中间件（这会处理语言检测和根路径重定向）

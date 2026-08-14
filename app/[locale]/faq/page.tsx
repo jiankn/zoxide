@@ -3,6 +3,7 @@ import { generateFAQPageSchema } from '@/lib/seo/schema';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { Link } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import { getPrimaryPaths } from '@/data/search-intents';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -28,12 +29,13 @@ export default async function FAQPage({ params }: { params: Promise<{ locale: st
   const messages = await getMessages();
   const faqs = messages.faq.items as Array<{ question: string; answer: string }>;
   const faqSchema = generateFAQPageSchema(faqs);
+  const primary = getPrimaryPaths(locale);
   const depthPaths = [
-    '/tutorials/shell-setup',
-    '/download',
+    primary.init,
+    primary.download,
     '/features',
-    '/tutorials/advanced-config',
-    '/tutorials/basic-commands',
+    primary.advanced,
+    primary.commands,
   ];
   const linkLabels = locale === 'zh'
     ? ['查看 Shell 配置教程', '选择安装方法', '了解性能与工作方式', '查看高级配置', '学习数据库与基础命令']

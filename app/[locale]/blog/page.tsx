@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllPosts } from "@/data/blog";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import { getPrimaryPaths, isRedirectedContentPath } from '@/data/search-intents';
 
 export async function generateMetadata({
   params,
@@ -25,6 +26,39 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const t = await getTranslations("blog");
+  const primary = getPrimaryPaths(locale);
+  const intentHub = locale === 'zh'
+    ? {
+        title: '按问题找主页面',
+        description: '每类搜索意图只保留一个主要答案；其他文章负责补充案例并给主页面投票。',
+        cards: [
+          { href: primary.howTo, title: '完整使用指南', description: '从安装、初始化到日常使用，适合系统学习。' },
+          { href: primary.commands, title: '命令主参考页', description: '集中查询 z、zi、query、add、remove。' },
+          { href: primary.troubleshooting, title: '故障排查中心', description: 'zoxide 已安装但不能正常工作时从这里开始。' },
+          { href: primary.autojump, title: 'zoxide 与 autojump', description: '查看差异、选择建议和迁移方法。' },
+        ],
+      }
+    : locale === 'ja'
+      ? {
+          title: '目的別のメインページ',
+          description: '検索意図ごとに主要な回答を一つにし、関連記事は事例を補足して主要ページを支えます。',
+          cards: [
+            { href: primary.howTo, title: '完全な使い方ガイド', description: '導入、初期化、日常操作を順番に学びます。' },
+            { href: primary.commands, title: 'コマンドリファレンス', description: 'z、zi、query、add、remove をまとめて確認します。' },
+            { href: primary.troubleshooting, title: 'トラブル解決', description: '導入済みなのに動かない場合はここから診断します。' },
+            { href: primary.autojump, title: 'zoxide と autojump', description: '違い、選び方、安全な移行手順を確認します。' },
+          ],
+        }
+      : {
+          title: 'Start with the main page for your task',
+          description: 'Each search intent has one primary answer. Supporting articles add examples and point back to it.',
+          cards: [
+            { href: primary.howTo, title: 'Complete how-to guide', description: 'Learn installation, initialization, and daily use in one path.' },
+            { href: primary.commands, title: 'Command reference', description: 'Look up z, zi, query, add, remove, and maintenance commands.' },
+            { href: primary.troubleshooting, title: 'Troubleshooting hub', description: 'Start here when zoxide is installed but does not work.' },
+            { href: primary.autojump, title: 'zoxide vs autojump', description: 'Compare behavior, tradeoffs, and a safe migration path.' },
+          ],
+        };
   const bridgeCopy = locale === "zh"
     ? { title: "想按步骤学习？从教程路线开始", description: "教程中心按入门、进阶、安装和视频整理内容，比按发布时间浏览更适合完成一个明确任务。", tutorials: "进入教程中心", troubleshooting: "查看常见问题" }
     : locale === "ja"
@@ -33,7 +67,8 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const blogPosts = getAllPosts()
     .filter(
       (post) =>
-        !post.locales || post.locales.includes(locale as "zh" | "en" | "ja"),
+        (!post.locales || post.locales.includes(locale as "zh" | "en" | "ja"))
+        && !isRedirectedContentPath(locale, `/blog/${post.slug}`),
     )
     .slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -48,6 +83,19 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           </h1>
           <p className="text-lg text-gray-600">{t("description")}</p>
         </div>
+
+        <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
+          <h2 className="text-2xl font-bold text-gray-950">{intentHub.title}</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-gray-700">{intentHub.description}</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {intentHub.cards.map((card) => (
+              <Link key={card.href} href={card.href} className="rounded-xl border border-slate-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-sm">
+                <h3 className="font-semibold text-gray-950">{card.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600">{card.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <div className="flex flex-col gap-0 border border-[#E9E9E7] rounded-md overflow-hidden">
           {blogPosts.map((post, index) => {

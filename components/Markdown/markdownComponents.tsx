@@ -1,5 +1,6 @@
 import type { Components } from 'react-markdown';
 import CodeBlockWrapper from '@/components/CodeBlock/CodeBlockWrapper';
+import { getContentRedirect } from '@/data/search-intents';
 
 interface MarkdownComponentOptions {
   /**
@@ -57,17 +58,20 @@ export function createMarkdownComponents(
       const canonicalHref = originalHref === '/en' || originalHref === '/en/'
         ? '/'
         : originalHref?.replace(/^\/en(?=\/)/, '');
+      const resolvedHref = canonicalHref && locale
+        ? getContentRedirect(locale, canonicalHref) || canonicalHref
+        : canonicalHref;
       const alreadyLocalized = Boolean(
-        canonicalHref && /^\/(?:zh|ja)(?:\/|$)/.test(canonicalHref)
+        resolvedHref && /^\/(?:zh|ja)(?:\/|$)/.test(resolvedHref)
       );
-      const href = canonicalHref
+      const href = resolvedHref
         && locale
         && locale !== 'en'
-        && canonicalHref.startsWith('/')
-        && !canonicalHref.startsWith('//')
+        && resolvedHref.startsWith('/')
+        && !resolvedHref.startsWith('//')
         && !alreadyLocalized
-          ? `/${locale}${canonicalHref}`
-          : canonicalHref;
+          ? `/${locale}${resolvedHref}`
+          : resolvedHref;
       const target = isExternal ? (linkTarget ?? props.target) : undefined;
 
       return (

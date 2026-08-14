@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
-import { routing } from '@/i18n/routing';
+import { Link, routing } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 export function generateStaticParams() {
@@ -26,6 +26,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('about');
+  const internalLinkCopy = locale === 'zh'
+    ? { website: '网站：', legalPrefix: '请查看我们的', privacy: '隐私政策', conjunction: '和', terms: '服务条款' }
+    : locale === 'ja'
+      ? { website: 'ウェブサイト：', legalPrefix: '', privacy: 'プライバシーポリシー', conjunction: 'と', terms: '利用規約' }
+      : { website: 'Website: ', legalPrefix: 'Please see our', privacy: 'Privacy Policy', conjunction: 'and', terms: 'Terms of Service' };
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
@@ -68,12 +73,17 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <p>{t('contact.description')}</p>
           <ul>
             <li dangerouslySetInnerHTML={{ __html: t.raw('contact.email') }} />
-            <li dangerouslySetInnerHTML={{ __html: t.raw('contact.website') }} />
+            <li>{internalLinkCopy.website}<Link href="/">zoxide.org</Link></li>
             <li dangerouslySetInnerHTML={{ __html: t.raw('contact.github') }} />
           </ul>
 
           <h2>{t('legal.title')}</h2>
-          <p dangerouslySetInnerHTML={{ __html: t.raw('legal.description') }} />
+          <p>
+            {internalLinkCopy.legalPrefix}{' '}
+            <Link href="/privacy-policy" className="text-blue-600 underline hover:text-blue-800">{internalLinkCopy.privacy}</Link>{' '}
+            {internalLinkCopy.conjunction}{' '}
+            <Link href="/terms-of-service" className="text-blue-600 underline hover:text-blue-800">{internalLinkCopy.terms}</Link>.
+          </p>
         </section>
       </main>
     </div>

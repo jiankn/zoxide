@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
-import { routing } from '@/i18n/routing';
+import { Link, routing } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 
 export function generateStaticParams() {
@@ -104,12 +104,12 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">{t('website.title')}</h3>
                   <p className="text-sm text-gray-600 mb-3">{t('website.description')}</p>
-                  <a
-                    href="https://zoxide.org"
+                  <Link
+                    href="/"
                     className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium transition-colors"
                   >
                     zoxide.org
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

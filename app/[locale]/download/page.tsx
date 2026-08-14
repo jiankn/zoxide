@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { Link, routing } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import { getPrimaryPaths } from '@/data/search-intents';
 
 const englishDownloadCopy = {
   title: 'Zoxide download and install for Linux, macOS and Windows',
@@ -84,6 +85,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function DownloadPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const primary = getPrimaryPaths(locale);
   setRequestLocale(locale);
   const t = await getTranslations('download');
   const copy = locale === 'zh'
@@ -357,9 +359,9 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           <h2 className="text-2xl font-bold text-gray-950">{copy.next}</h2>
           <p className="mt-3 max-w-3xl leading-7 text-gray-700">{copy.nextDescription}</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <Link href="/tutorials/quick-start" className="rounded-xl border border-blue-200 bg-white p-4 font-semibold text-blue-800 hover:border-blue-400">{copy.quick} →</Link>
-            <Link href="/tutorials/shell-setup" className="rounded-xl border border-blue-200 bg-white p-4 font-semibold text-blue-800 hover:border-blue-400">{copy.shell} →</Link>
-            <Link href="/blog/zoxide-command-not-found" className="rounded-xl border border-blue-200 bg-white p-4 font-semibold text-blue-800 hover:border-blue-400">{copy.troubleshoot} →</Link>
+            <Link href={primary.quickStart} className="rounded-xl border border-blue-200 bg-white p-4 font-semibold text-blue-800 hover:border-blue-400">{copy.quick} →</Link>
+            <Link href={primary.init} className="rounded-xl border border-blue-200 bg-white p-4 font-semibold text-blue-800 hover:border-blue-400">{copy.shell} →</Link>
+            <Link href={primary.commandNotFound} className="rounded-xl border border-blue-200 bg-white p-4 font-semibold text-blue-800 hover:border-blue-400">{copy.troubleshoot} →</Link>
           </div>
         </section>
       </main>

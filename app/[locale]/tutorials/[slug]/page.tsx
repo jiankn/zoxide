@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getTutorialBySlug, getAllTutorials } from "@/data/tutorials";
@@ -11,6 +11,7 @@ import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 import { getTutorialContentOverride } from "@/data/tutorial-content-overrides";
 import GuideLinks from "@/components/GuideLinks/GuideLinks";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import { getContentRedirect, localizePath } from '@/data/search-intents';
 
 interface TutorialPageProps {
   params: Promise<{
@@ -48,6 +49,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: TutorialPageProps) {
   const { slug, locale } = await params;
+  const redirectTarget = getContentRedirect(locale, `/tutorials/${slug}`);
+  if (redirectTarget) permanentRedirect(localizePath(locale, redirectTarget));
+
   const tutorial = getTutorialBySlug(slug);
   const t = await getTranslations("tutorials");
 
@@ -67,14 +71,23 @@ export async function generateMetadata({ params }: TutorialPageProps) {
   const seoTitle = tSeo("titles.tutorial", { title });
 
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
+  const alternatePaths = Object.fromEntries(
+    (['en', 'zh', 'ja'] as const).map((targetLocale) => {
+      const path = `/tutorials/${slug}`;
+      return [targetLocale, getContentRedirect(targetLocale, path) ? null : path];
+    }),
+  );
   return generateMultilingualMetadata(locale, `/tutorials/${slug}`, {
     title: seoTitle,
     description: excerpt,
-  });
+  }, alternatePaths);
 }
 
 export default async function TutorialPage({ params }: TutorialPageProps) {
   const { slug, locale } = await params;
+  const redirectTarget = getContentRedirect(locale, `/tutorials/${slug}`);
+  if (redirectTarget) permanentRedirect(localizePath(locale, redirectTarget));
+
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const tutorial = getTutorialBySlug(slug);

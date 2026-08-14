@@ -4,19 +4,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { getHomeGuide } from '@/data/home-guide';
+import { getPrimaryPaths } from '@/data/search-intents';
 
 const installGuidePaths = [
   '/tutorials/install-macos',
   '/tutorials/install-ubuntu',
   '/tutorials/install-windows',
-];
-
-const troubleshootingGuidePaths = [
-  '/blog/zoxide-command-not-found',
-  '/blog/zoxide-init-guide',
-  '/blog/troubleshooting-zoxide-no-match-found',
-  '/tutorials/basic-commands',
-  '/tutorials/fzf-integration',
 ];
 
 const contextualLinkCopy = {
@@ -79,6 +72,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('home');
   const guide = getHomeGuide(locale);
   const linkCopy = contextualLinkCopy[locale === 'zh' || locale === 'ja' ? locale : 'en'];
+  const primary = getPrimaryPaths(locale);
+  const troubleshootingGuidePaths = [
+    primary.commandNotFound,
+    primary.init,
+    primary.noMatch,
+    primary.commands,
+    primary.fzf,
+  ];
 
   return (
     <div className="flex flex-col">
@@ -170,7 +171,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               ))}
             </div>
             <p className="mt-6 text-base leading-7 text-gray-700">{guide.activate.verification}</p>
-            <Link href="/tutorials/shell-setup" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+            <Link href={primary.init} className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
               {linkCopy.shell}
             </Link>
           </section>
@@ -197,7 +198,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
-              <Link href="/tutorials/basic-commands" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+              <Link href={primary.commands} className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
                 {linkCopy.commands}
               </Link>
             </div>
@@ -385,7 +386,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </p>
               </Link>
               <Link
-                href="/tutorials/shell-setup"
+                href={primary.init}
                 className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
               >
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">

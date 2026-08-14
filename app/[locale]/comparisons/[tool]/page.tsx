@@ -1,9 +1,10 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 import { comparisonSlugs, getComparisonGuide, getComparisonGuides } from '@/data/comparison-guides';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
+import { getContentRedirect, localizePath } from '@/data/search-intents';
 
 interface ComparisonPageProps {
   params: Promise<{ locale: string; tool: string }>;
@@ -15,17 +16,29 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: ComparisonPageProps) {
   const { locale, tool } = await params;
+  const redirectTarget = getContentRedirect(locale, `/comparisons/${tool}`);
+  if (redirectTarget) permanentRedirect(localizePath(locale, redirectTarget));
+
   const guide = getComparisonGuide(locale, tool);
   if (!guide) return {};
+  const alternatePaths = Object.fromEntries(
+    (['en', 'zh', 'ja'] as const).map((targetLocale) => {
+      const path = `/comparisons/${tool}`;
+      return [targetLocale, getContentRedirect(targetLocale, path) ? null : path];
+    }),
+  );
 
   return generateMultilingualMetadata(locale, `/comparisons/${tool}`, {
     title: guide.title,
     description: guide.description,
-  });
+  }, alternatePaths);
 }
 
 export default async function ComparisonPage({ params }: ComparisonPageProps) {
   const { locale, tool } = await params;
+  const redirectTarget = getContentRedirect(locale, `/comparisons/${tool}`);
+  if (redirectTarget) permanentRedirect(localizePath(locale, redirectTarget));
+
   setRequestLocale(locale);
   const guide = getComparisonGuide(locale, tool);
   if (!guide) notFound();
@@ -128,7 +141,7 @@ export default async function ComparisonPage({ params }: ComparisonPageProps) {
           <h2 className="text-2xl font-bold text-gray-950">{copy.related}</h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {related.map((item) => (
-              <Link key={item.slug} href={`/comparisons/${item.slug}`} className="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-sm">
+              <Link key={item.slug} href={getContentRedirect(locale, `/comparisons/${item.slug}`) || `/comparisons/${item.slug}`} className="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-sm">
                 <h3 className="font-semibold text-gray-950">{item.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-gray-600">{item.verdict}</p>
               </Link>

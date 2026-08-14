@@ -3,6 +3,7 @@ import { getAllPosts } from '@/data/blog';
 import { getAllTutorials } from '@/data/tutorials';
 import { routing } from '@/i18n/routing';
 import { comparisonSlugs } from '@/data/comparison-guides';
+import { isRedirectedContentPath } from '@/data/search-intents';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://zoxide.org';
@@ -10,6 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticContentLastModified = '2026-08-07';
   const priorityContentLastModified = '2026-08-09';
   const downloadContentLastModified = '2026-08-14';
+  const intentArchitectureLastModified = '2026-08-15';
+  const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
+  const updatedEnglishTutorialSlugs = new Set([
+    'quick-start',
+    'basic-commands',
+    'fzf-integration',
+  ]);
   const updatedEnglishBlogSlugs = new Set([
     'mastering-terminal-navigation-zoxide-guide',
     'zoxide-init-guide',
@@ -52,7 +60,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: route.path === '/download'
+        lastModified: updatedIntentHubs.has(route.path)
+          ? intentArchitectureLastModified
+          : route.path === '/download'
           ? downloadContentLastModified
           : currentDate,
         changeFrequency: route.changeFrequency,
@@ -69,6 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       if (post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja')) {
         return;
       }
+      if (isRedirectedContentPath(locale, `/blog/${post.slug}`)) return;
 
       // 默认语言（en）不带语言前缀
       const isDefaultLocale = locale === routing.defaultLocale;
@@ -92,6 +103,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const tutorialPages: MetadataRoute.Sitemap = [];
   tutorials.forEach((tutorial) => {
     locales.forEach((locale) => {
+      if (isRedirectedContentPath(locale, `/tutorials/${tutorial.slug}`)) return;
+
       // 默认语言（en）不带语言前缀
       const isDefaultLocale = locale === routing.defaultLocale;
       const url = isDefaultLocale
@@ -100,7 +113,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       tutorialPages.push({
         url,
-        lastModified: tutorial.date,
+        lastModified: isDefaultLocale && updatedEnglishTutorialSlugs.has(tutorial.slug)
+          ? intentArchitectureLastModified
+          : tutorial.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       });
@@ -110,6 +125,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const comparisonPages: MetadataRoute.Sitemap = [];
   comparisonSlugs.forEach((slug) => {
     locales.forEach((locale) => {
+      if (isRedirectedContentPath(locale, `/comparisons/${slug}`)) return;
+
       const isDefaultLocale = locale === routing.defaultLocale;
       comparisonPages.push({
         url: isDefaultLocale

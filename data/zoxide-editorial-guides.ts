@@ -58,7 +58,7 @@ If several repositories have similar names, install fzf and use §zi§:
 zi project
 §§§
 
-§zi§ opens an interactive selector backed by fzf. Type to filter the candidates, choose one, and press Enter. The [zoxide and fzf guide](/blog/zoxide-fzf-interactive-guide-en/) includes the prerequisite check and the common "could not find fzf" failure.
+§zi§ opens an interactive selector backed by fzf. Type to filter the candidates, choose one, and press Enter. The [zoxide and fzf guide](/tutorials/fzf-integration/) includes the prerequisite check and the common "could not find fzf" failure.
 
 ## Inspect a surprising result
 
@@ -75,7 +75,7 @@ This prints the matching paths and their calculated scores. You can then use a m
 - Need the binary first? Use the [download and install guide](/download/).
 - Need the correct line for your shell? Use [zoxide init](/blog/zoxide-init-guide/).
 - Need every subcommand? Use the [zoxide commands reference](/blog/zoxide-commands/).
-- Need an interactive picker? Use [zoxide with fzf](/blog/zoxide-fzf-interactive-guide-en/).
+- Need an interactive picker? Use [zoxide with fzf](/tutorials/fzf-integration/).
 
 The commands on this page were checked against the [zoxide upstream documentation](https://github.com/ajeetdsouza/zoxide). This is an independent documentation site, not the official zoxide project.`),
     },
@@ -159,7 +159,7 @@ Then return with §z -§, or try §z§ followed by part of a directory you have 
 
 §zoxide init§ supports §--cmd§ to change the command prefix. For example, §--cmd j§ creates §j§ and §ji§. Using §--cmd cd§ replaces the usual §cd§ command, so test it in a disposable shell before putting it in a profile you depend on.
 
-For installation help, start with [download and install](/download/). For the interactive selector, see [zoxide with fzf](/blog/zoxide-fzf-interactive-guide-en/). Commands and shell placement were checked against the [upstream setup instructions](https://github.com/ajeetdsouza/zoxide#installation).`),
+For installation help, start with [download and install](/download/). For the interactive selector, see [zoxide with fzf](/tutorials/fzf-integration/). Commands and shell placement were checked against the [upstream setup instructions](https://github.com/ajeetdsouza/zoxide#installation).`),
     },
   },
   "zoxide-fzf-interactive-guide-en": {
@@ -287,7 +287,7 @@ The upstream project documents imports from atuin, autojump, fasd, z, z.lua, and
 
 §_ZO_ECHO=1§ prints the chosen directory before navigation. §_ZO_MAXAGE§ limits the database's aging threshold. §_ZO_RESOLVE_SYMLINKS=1§ resolves symlinks before they are added. These options are useful only when they address a specific workflow problem.
 
-For a first install, use [download and install](/download/). For interactive selection, use [zoxide with fzf](/blog/zoxide-fzf-interactive-guide-en/). This page was checked against the [zoxide command manual](https://github.com/ajeetdsouza/zoxide/blob/main/man/man1/zoxide.1), [query manual](https://github.com/ajeetdsouza/zoxide/blob/main/man/man1/zoxide-query.1), and upstream README.`),
+For a first install, use [download and install](/download/). For interactive selection, use [zoxide with fzf](/tutorials/fzf-integration/). This page was checked against the [zoxide command manual](https://github.com/ajeetdsouza/zoxide/blob/main/man/man1/zoxide.1), [query manual](https://github.com/ajeetdsouza/zoxide/blob/main/man/man1/zoxide-query.1), and upstream README.`),
     },
   },
 };

@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import dynamic from "next/dynamic";
@@ -14,6 +14,7 @@ import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 import { getBlogContentOverride } from '@/data/blog-content-overrides';
 import { getEditorialGuide } from '@/data/zoxide-editorial-guides';
+import { getContentRedirect, localizePath } from '@/data/search-intents';
 
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
@@ -40,6 +41,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
+  const redirectTarget = getContentRedirect(locale, `/blog/${slug}`);
+  if (redirectTarget) permanentRedirect(localizePath(locale, redirectTarget));
+
   const post = getPostBySlug(slug);
 
   // 如果文章限定了语言且不包含当前 locale，返回 404 元数据
@@ -102,25 +106,25 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     : post.tags;
 
   const supportedLocales = ["en", "zh", "ja"] as const;
-  const alternatePaths = post.locales
-    ? Object.fromEntries(
-      supportedLocales.map((targetLocale) => {
-        const alternateSlug = post.locales?.includes(targetLocale)
+  const alternatePaths = Object.fromEntries(
+    supportedLocales.map((targetLocale) => {
+      const alternateSlug = post.locales
+        ? post.locales.includes(targetLocale)
           ? slug
-          : post.alternateSlugs?.[targetLocale];
-        const alternatePost = alternateSlug
-          ? getPostBySlug(alternateSlug)
-          : undefined;
-        const isAvailable = alternatePost
-          && (!alternatePost.locales || alternatePost.locales.includes(targetLocale));
+          : post.alternateSlugs?.[targetLocale]
+        : slug;
+      const alternatePost = alternateSlug
+        ? getPostBySlug(alternateSlug)
+        : undefined;
+      const candidatePath = alternateSlug ? `/blog/${alternateSlug}` : null;
+      const isAvailable = alternatePost
+        && (!alternatePost.locales || alternatePost.locales.includes(targetLocale))
+        && candidatePath
+        && !getContentRedirect(targetLocale, candidatePath);
 
-        return [
-          targetLocale,
-          isAvailable ? `/blog/${alternateSlug}` : null,
-        ];
-      }),
-    )
-    : undefined;
+      return [targetLocale, isAvailable ? candidatePath : null];
+    }),
+  );
 
   const metadata = generateMultilingualMetadata(locale, `/blog/${slug}`, {
     title: seoTitle,
@@ -163,6 +167,9 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
+  const redirectTarget = getContentRedirect(locale, `/blog/${slug}`);
+  if (redirectTarget) permanentRedirect(localizePath(locale, redirectTarget));
+
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const post = getPostBySlug(slug);
