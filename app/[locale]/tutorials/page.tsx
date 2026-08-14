@@ -4,6 +4,7 @@ import { BookOpen, Video } from 'lucide-react';
 import { getTutorialsByCategory } from '@/data/tutorials';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import { getPrimaryPaths, isRedirectedContentPath } from '@/data/search-intents';
 
 type TutorialTranslationMeta = {
   title?: string;
@@ -43,6 +44,39 @@ export default async function TutorialsPage({ params }: { params: Promise<{ loca
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
   const t = await getTranslations('tutorials');
+  const primary = getPrimaryPaths(locale);
+  const learningPath = locale === 'zh'
+    ? {
+        title: '推荐学习顺序',
+        description: '这些页面各自负责一个明确任务，按顺序阅读可以避免在重复教程之间来回跳。',
+        cards: [
+          { href: primary.quickStart, title: '1. 5 分钟验证', description: '假设已经安装，先确认版本、初始化和第一次跳转。' },
+          { href: primary.init, title: '2. Shell 初始化', description: '把 zoxide 放进正确的配置文件并验证加载顺序。' },
+          { href: primary.fzf, title: '3. fzf 交互选择', description: '安装 fzf，用 zi 处理多个匹配结果。' },
+          { href: primary.advanced, title: '4. 高级配置', description: '基础功能稳定后再调整别名和选项。' },
+        ],
+      }
+    : locale === 'ja'
+      ? {
+          title: 'おすすめの学習順序',
+          description: '各ページは一つの明確な作業を担当し、重複するガイドを行き来せずに進められます。',
+          cards: [
+            { href: primary.quickStart, title: '1. 5分で確認', description: '導入済みの状態からバージョン、初期化、最初の移動を確認します。' },
+            { href: primary.init, title: '2. シェル初期化', description: '正しい設定ファイルと読み込み順を確認します。' },
+            { href: primary.fzf, title: '3. fzf 対話選択', description: 'fzf を導入し、複数候補を zi で選びます。' },
+            { href: primary.advanced, title: '4. 高度な設定', description: '基本動作が安定してからエイリアスやオプションを調整します。' },
+          ],
+        }
+      : {
+          title: 'Recommended learning order',
+          description: 'Each page owns one task, so you can progress without bouncing between overlapping tutorials.',
+          cards: [
+            { href: primary.quickStart, title: '1. Five-minute verification', description: 'Assume zoxide is installed, then verify the version, init, and first jump.' },
+            { href: primary.init, title: '2. Shell initialization', description: 'Put zoxide in the correct profile and verify the load order.' },
+            { href: primary.fzf, title: '3. fzf interactive selection', description: 'Install fzf and use zi when several directories match.' },
+            { href: primary.advanced, title: '4. Advanced configuration', description: 'Tune aliases and options only after the basic workflow is stable.' },
+          ],
+        };
   const bridgeCopy = locale === 'zh'
     ? { title: '教程之外：查看实战文章与排错案例', description: '博客覆盖命令参考、工具对比、安装问题和更具体的工作流，适合在完成教程后继续深入。', blog: '浏览博客文章', download: '回到安装入口' }
     : locale === 'ja'
@@ -62,10 +96,12 @@ export default async function TutorialsPage({ params }: { params: Promise<{ loca
     'installation': '安装指南',
   };
 
-  const beginnerTutorials = getTutorialsByCategory(categoryMap.beginner);
-  const advancedTutorials = getTutorialsByCategory(categoryMap.advanced);
-  const videoFaqTutorials = getTutorialsByCategory(categoryMap.video);
-  const installationTutorials = getTutorialsByCategory(categoryMap.installation);
+  const visibleTutorials = (category: string) => getTutorialsByCategory(category)
+    .filter((tutorial) => !isRedirectedContentPath(locale, `/tutorials/${tutorial.slug}`));
+  const beginnerTutorials = visibleTutorials(categoryMap.beginner);
+  const advancedTutorials = visibleTutorials(categoryMap.advanced);
+  const videoFaqTutorials = visibleTutorials(categoryMap.video);
+  const installationTutorials = visibleTutorials(categoryMap.installation);
 
   const tutorialCategories = [
     {
@@ -137,6 +173,19 @@ export default async function TutorialsPage({ params }: { params: Promise<{ loca
             {t('description')}
           </p>
         </div>
+
+        <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
+          <h2 className="text-2xl font-bold text-gray-950">{learningPath.title}</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-gray-700">{learningPath.description}</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {learningPath.cards.map((card) => (
+              <Link key={card.href} href={card.href} className="rounded-xl border border-slate-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-sm">
+                <h3 className="font-semibold text-gray-950">{card.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600">{card.description}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {tutorialCategories.map((category, categoryIndex) => {

@@ -1,3 +1,5 @@
+import { isRedirectedContentPath } from '@/data/search-intents';
+
 // 博客文章数据类型
 export interface BlogPost {
   id: string;
@@ -1381,7 +1383,7 @@ export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
 
 zoxide 让目录导航变得简单高效。通过智能学习和模糊搜索，你可以快速跳转到任何目录，无需输入完整路径。
 
-更多高级用法，请查看[高级配置教程](/blog/advanced-config/)。`,
+更多高级用法，请查看[高级配置教程](/tutorials/advanced-config/)。`,
     date: "2025-11-30",
     author: "zoxide.org",
     category: "教程",
@@ -1618,7 +1620,7 @@ find /usr -name zoxide 2>/dev/null
 find ~ -name zoxide 2>/dev/null
 \`\`\`
 
-If zoxide is not found, you need to reinstall it. See our [zoxide download guide](/blog/zoxide-download-guide/) for your platform.
+If zoxide is not found, you need to reinstall it. See our [zoxide download guide](/download/) for your platform.
 
 ## Solution 2: Add to PATH
 
@@ -1781,7 +1783,7 @@ To avoid this issue in the future:
 
 - [zoxide not working troubleshooting guide](/blog/zoxide-not-working/)
 - [zoxide init shell integration guide](/blog/zoxide-init-guide/)
-- [zoxide download guide](/blog/zoxide-download-guide/)`,
+- [zoxide download guide](/download/)`,
     date: "2025-12-01",
     author: "zoxide.org",
     category: "故障排除",
@@ -2250,7 +2252,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
 
 So, you've installed **zoxide** using a package manager like Homebrew, Scoop, or Apt. You type \`z\` in your terminal, expecting magic, but all you get is **\`command not found\`** or a cursor that does nothing.
 
-Don't worry — this is the most common stumbling block for new users. If you haven't installed zoxide yet, check out our [zoxide download guide](/blog/zoxide-download-guide/) first.
+Don't worry — this is the most common stumbling block for new users. If you haven't installed zoxide yet, check out our [zoxide download guide](/download/) first.
 
 Installing the binary is only step one. Step two is **initialization**.
 
@@ -2799,7 +2801,7 @@ If you’re evaluating **“z command instead of cd”**, the best way to think 
 - \`cd\` navigates by **exact paths**.
 - \`z\` navigates by **your habits**.
 
-Once zoxide is initialized, it becomes one of those tools that quietly saves time all day. Ready to get started? Check out our [quick start guide](/blog/quick-start/), or see how zoxide compares to other tools in our [zoxide vs autojump comparison](/blog/zoxide-vs-autojump/). For interactive fuzzy search, read our [zoxide and fzf integration guide](/blog/zoxide-fzf-interactive-guide-en/).
+Once zoxide is initialized, it becomes one of those tools that quietly saves time all day. Ready to get started? Check out our [quick start guide](/tutorials/quick-start/), or see how zoxide compares to other tools in our [zoxide vs autojump comparison](/blog/zoxide-vs-autojump/). For interactive fuzzy search, read our [zoxide and fzf integration guide](/tutorials/fzf-integration/).
 `,
     date: "2026-01-10",
     author: "zoxide.org",
@@ -4250,12 +4252,18 @@ export function getRelatedPosts(
       return false;
     }
 
+    if (targetLocale && isRedirectedContentPath(targetLocale, `/blog/${post.slug}`)) {
+      return false;
+    }
+
     return true;
   });
   const localeSequence = blogPosts.filter((post) => {
-    return !targetLocale
+    const isVisibleInLocale = !targetLocale
       || !post.locales
       || post.locales.includes(targetLocale as "zh" | "en" | "ja");
+    return isVisibleInLocale
+      && (!targetLocale || !isRedirectedContentPath(targetLocale, `/blog/${post.slug}`));
   });
   const currentIndex = localeSequence.findIndex((post) => post.id === currentPost.id);
   const currentSignals = getContentSignals(currentPost);

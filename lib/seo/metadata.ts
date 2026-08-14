@@ -70,9 +70,7 @@ export function generateMultilingualMetadata(
 
   // 添加 x-default，指向默认语言版本（不带前缀）
   const defaultAlternatePath = alternatePaths?.[routing.defaultLocale];
-  if (alternatePaths && defaultAlternatePath == null) {
-    languages['x-default'] = canonicalUrl;
-  } else {
+  if (!(alternatePaths && defaultAlternatePath == null)) {
     const xDefaultPath = defaultAlternatePath ?? normalizedPath;
     const normalizedDefaultPath = xDefaultPath === ''
       ? ''

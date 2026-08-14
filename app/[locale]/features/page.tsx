@@ -3,6 +3,7 @@ import { Zap, Search, Brain, Users, Settings, Rocket } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { Link } from '@/i18n/routing';
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import { getPrimaryPaths } from '@/data/search-intents';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -23,6 +24,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('features');
+  const primary = getPrimaryPaths(locale);
   const factualIntroduction = locale === 'zh'
     ? '了解 zoxide 的 Rust 实现、frecency 智能排序、模糊目录搜索，以及 Bash、Zsh、Fish 和 PowerShell 的 Shell 集成。'
     : locale === 'ja'
@@ -55,7 +57,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
           icon: Brain,
           title: t('core.smart.title'),
           description: t('core.smart.description'),
-          href: '/tutorials/basic-commands',
+          href: primary.commands,
         },
       ],
     },
@@ -72,7 +74,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
           icon: Users,
           title: t('advanced.team.title'),
           description: t('advanced.team.description'),
-          href: '/tutorials/shell-setup',
+          href: primary.init,
         },
         {
           icon: Rocket,

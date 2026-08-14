@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAllPosts } from '@/data/blog';
 import { getAllTutorials } from '@/data/tutorials';
 import { routing } from '@/i18n/routing';
+import { isRedirectedContentPath, localizePath } from '@/data/search-intents';
 
 export interface SearchResult {
   type: 'blog' | 'tutorial' | 'page';
@@ -48,12 +49,13 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
     if (post.locales && !post.locales.includes(locale as 'zh' | 'en' | 'ja')) {
       continue;
     }
+    if (isRedirectedContentPath(locale, `/blog/${post.slug}`)) continue;
     const tData = messages.blog?.data?.[post.slug];
     results.push({
       type: 'blog',
       title: tData?.title || post.title,
       description: tData?.excerpt || post.excerpt,
-      url: `/${locale}/blog/${post.slug}`,
+      url: localizePath(locale, `/blog/${post.slug}`),
       locale: locale,
     });
   }
@@ -61,12 +63,14 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   // 教程 - 从数据文件动态获取
   const tutorials = getAllTutorials();
   for (const tutorial of tutorials) {
+    if (isRedirectedContentPath(locale, `/tutorials/${tutorial.slug}`)) continue;
+
     const tData = messages.tutorials?.data?.[tutorial.slug];
     results.push({
       type: 'tutorial',
       title: tData?.title || tutorial.title,
       description: tData?.excerpt || tutorial.excerpt,
-      url: `/${locale}/tutorials/${tutorial.slug}`,
+      url: localizePath(locale, `/tutorials/${tutorial.slug}`),
       locale: locale,
     });
   }
@@ -78,37 +82,37 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
       type: 'page' as const,
       titleKey: 'features',
       descriptionKey: 'features',
-      url: `/${locale}/features`,
+      url: localizePath(locale, '/features'),
     },
     {
       type: 'page' as const,
       titleKey: 'download',
       descriptionKey: 'download',
-      url: `/${locale}/download`,
+      url: localizePath(locale, '/download'),
     },
     {
       type: 'page' as const,
       titleKey: 'faq',
       descriptionKey: 'faq',
-      url: `/${locale}/faq`,
+      url: localizePath(locale, '/faq'),
     },
     {
       type: 'page' as const,
       titleKey: 'changelog',
       descriptionKey: 'changelog',
-      url: `/${locale}/changelog`,
+      url: localizePath(locale, '/changelog'),
     },
     {
       type: 'page' as const,
       titleKey: 'comparisons',
       descriptionKey: 'comparisons',
-      url: `/${locale}/comparisons`,
+      url: localizePath(locale, '/comparisons'),
     },
     {
       type: 'page' as const,
       titleKey: 'about',
       descriptionKey: 'about',
-      url: `/${locale}/about`,
+      url: localizePath(locale, '/about'),
     },
   ];
 
