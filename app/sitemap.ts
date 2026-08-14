@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Keep lastmod tied to a real content release instead of changing it on every build.
   const staticContentLastModified = '2026-08-07';
   const priorityContentLastModified = '2026-08-09';
+  const downloadContentLastModified = '2026-08-14';
   const updatedEnglishBlogSlugs = new Set([
     'mastering-terminal-navigation-zoxide-guide',
     'zoxide-init-guide',
@@ -51,8 +52,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: isDefaultLocale && route.path === '/download'
-          ? priorityContentLastModified
+        lastModified: route.path === '/download'
+          ? downloadContentLastModified
           : currentDate,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
