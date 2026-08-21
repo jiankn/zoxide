@@ -34,6 +34,13 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl, { status: 308 });
   }
 
+  // 英文是默认语言，显式 /en 前缀应永久指向无前缀规范 URL。
+  if (localeMatch?.[1] === routing.defaultLocale) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = localizePath(routing.defaultLocale, unlocalizedPath);
+    return NextResponse.redirect(redirectUrl, { status: 308 });
+  }
+
   // 2. 阻止代码示例中的路径被访问（返回 404）
   // 这些路径通常出现在代码示例中，不应该被当作真实 URL
   // 匹配模式：

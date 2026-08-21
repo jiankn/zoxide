@@ -2486,7 +2486,7 @@ By combining these, \`zoxide\` ensures that a directory you visited 100 times la
 ## Best Practices for Performance
 
 To keep your database fast:
--   **Exclude heavy directories** like node_modules. (See [Advanced Config](/en/tutorials/advanced-config/))
+-   **Exclude heavy directories** like node_modules. (See [Advanced Config](/tutorials/advanced-config/))
 -   **Use strict mode** if you want exact matches.
 
 Zoxide is built in **Rust** for blazing speed, ensuring that the lookup time is imperceptible even with a large database.`,
@@ -2574,7 +2574,7 @@ Because the \`cd\` command is executed by the *shell wrapper* (which is part of 
 
 Many users install the binary and wonder why \`z\` doesn't work. Without the \`init\` line in your \`.bashrc\` or \`.zshrc\`, the \`z\` function doesn't exist, and the bridge between the tool and your shell is never built.
 
-To learn how to set this up correctly, check out our [Installation Guide](/en/tutorials/install-windows/).
+To learn how to set this up correctly, check out our [Installation Guide](/tutorials/install-windows/).
 
 ## Conclusion
 
