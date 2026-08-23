@@ -1,25 +1,34 @@
 const englishTutorialContent: Record<string, string> = {
-  'install-ubuntu': String.raw`# How to install zoxide on Ubuntu 24.04
+  'install-ubuntu': String.raw`# How to install zoxide on Ubuntu 26.04 or 24.04
 
-On a clean Ubuntu 24.04 system, there are two sensible installation paths. Use Ubuntu's apt package when you value distribution-managed updates and a minimal setup. Use the upstream install script when you want the current zoxide release. Either path still requires shell initialization before the z command exists.
+On Ubuntu 26.04 or 24.04, there are two sensible installation paths. Use Ubuntu's apt package when you value distribution-managed updates and a minimal setup. Use the upstream install script when you want the current zoxide release. Either path still requires shell initialization before the z command exists.
 
 By the end of this guide, zoxide --version will find the binary, type z will find the shell function, and z zoxide-demo will reach a test directory. The most common failed setup completes only the first of those checks, so this tutorial tests them separately.
 
-This page was verified on August 6, 2026. Ubuntu's package catalog listed zoxide 0.9.3 for Ubuntu 24.04 LTS, while the current upstream release was 0.10.0. Always use apt-cache policy zoxide and the [upstream releases page](https://github.com/ajeetdsouza/zoxide/releases) to see what is available when you install.
+This page was verified on August 23, 2026. Ubuntu's package catalog listed zoxide 0.9.8 for Ubuntu 26.04 LTS and 0.9.3 for Ubuntu 24.04 LTS, while the current upstream release was 0.10.0. Always use apt-cache policy zoxide and the [upstream releases page](https://github.com/ajeetdsouza/zoxide/releases) to see what is available when you install.
 
 ## Choose the installation method first
 
 | Method | Best for | Trade-off |
 | --- | --- | --- |
-| Ubuntu apt | Managed workstations, servers, and predictable OS updates | Ubuntu 24.04 ships an older upstream version |
+| Ubuntu apt | Managed workstations, servers, and predictable OS updates | The packaged version follows the Ubuntu release |
 | Official install script | Current zoxide features on a personal Linux or WSL account | You manage upgrades outside apt |
 | Cargo | Developers who already maintain a Rust toolchain | More build time and another PATH location |
 
 The [zoxide installation documentation](https://github.com/ajeetdsouza/zoxide#installation) currently recommends its install script for Linux and WSL. It also marks the Ubuntu package entry as slow-moving. That does not make apt unsafe or unusable. It means you should choose it knowingly rather than assume it matches the latest GitHub release.
 
+## Ubuntu version matrix
+
+| Ubuntu release | apt package checked | fzf package checked | Practical choice |
+| --- | --- | --- | --- |
+| 26.04 LTS | zoxide 0.9.8 | fzf 0.67.0 | apt is sufficient for z, zi, and current fzf integration |
+| 24.04 LTS | zoxide 0.9.3 | fzf 0.44.1 | apt is fine for zoxide, but install a newer fzf before relying on zi |
+
+Package updates can change these exact versions. Treat this table as a verified baseline and confirm the candidate shown by apt on your machine.
+
 ## Prerequisites
 
-You need an Ubuntu 24.04 terminal, internet access, and permission to install packages or write to your own home directory. Check the system and current shell before changing anything.
+You need an Ubuntu 26.04 or 24.04 terminal, internet access, and permission to install packages or write to your own home directory. Check the system and current shell before changing anything.
 
 ~~~bash
 lsb_release -ds
@@ -37,7 +46,7 @@ sudo apt update
 apt-cache policy zoxide
 ~~~
 
-On Ubuntu 24.04, zoxide is published in the universe component. If apt reports a candidate, install it and check the binary.
+On both supported LTS releases, zoxide is published in the universe component. If apt reports a candidate, install it and check the binary.
 
 ~~~bash
 sudo apt install zoxide
@@ -167,9 +176,9 @@ zoxide query --list
 
 From here, visit real project directories normally. The ranking becomes useful as zoxide observes repeated and recent visits. The [basic commands guide](/tutorials/basic-commands) covers querying, manual additions, and removing stale entries.
 
-## Ubuntu 24.04's fzf version needs attention
+## Check fzf before using zi
 
-fzf is optional. Plain z works without it, while zi uses fzf for interactive selection. The current zoxide documentation requires fzf 0.51.0 or newer. Ubuntu 24.04's package catalog currently provides fzf 0.44.1, so sudo apt install fzf does not satisfy that upstream minimum.
+fzf is optional. Plain z works without it, while zi uses fzf for interactive selection. The current zoxide documentation requires fzf 0.51.0 or newer. Ubuntu 26.04 currently provides fzf 0.67.0, so its apt package meets that requirement. Ubuntu 24.04 currently provides fzf 0.44.1, so its apt package does not.
 
 Check before installing another copy.
 
@@ -177,7 +186,7 @@ Check before installing another copy.
 fzf --version
 ~~~
 
-If the version is below 0.51.0 and you want zi, use a current method from the [fzf upstream installation guide](https://github.com/junegunn/fzf#installation). Its documented Git installation is:
+On Ubuntu 26.04, install the packaged selector with sudo apt install fzf. If the version is below 0.51.0—normally the Ubuntu 24.04 case—and you want zi, use a current method from the [fzf upstream installation guide](https://github.com/junegunn/fzf#installation). Its documented Git installation is:
 
 ~~~bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -202,7 +211,7 @@ The database has not learned that destination. Visit it once with cd or add the 
 
 ### zi opens an error or no selector
 
-Run fzf --version and compare it with the upstream minimum. Ubuntu 24.04's default fzf package is too old for the current requirement, even though apt installs it successfully.
+Run fzf --version and compare it with the upstream minimum. Ubuntu 26.04's current package meets the requirement; Ubuntu 24.04's current package is too old even though apt installs it successfully.
 
 ### apt and the official installer both appear in PATH
 
@@ -219,13 +228,168 @@ Once the installation is stable, compare [zoxide with autojump](/blog/zoxide-vs-
 - [zoxide upstream installation and shell setup](https://github.com/ajeetdsouza/zoxide#installation)
 - [zoxide official installer source](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh)
 - [zoxide upstream releases](https://github.com/ajeetdsouza/zoxide/releases)
+- [Ubuntu 26.04 zoxide package](https://packages.ubuntu.com/resolute/zoxide)
+- [Ubuntu fzf package search](https://packages.ubuntu.com/search?keywords=fzf&searchon=names)
 - [Ubuntu 24.04 zoxide package](https://packages.ubuntu.com/noble/zoxide)
 - [Ubuntu 24.04 fzf package](https://packages.ubuntu.com/noble/fzf)
 - [fzf upstream installation guide](https://github.com/junegunn/fzf#installation)`,
 
+  'install-macos': String.raw`# Install zoxide on macOS with Homebrew
+
+Homebrew is the shortest supported path on both Apple Silicon and Intel Macs. Installing the binary is only the first half of the setup: the z command appears after you add zoxide init to the shell profile and open a new terminal.
+
+This page was verified on August 23, 2026. Homebrew listed zoxide 0.10.0 as its stable formula and provided bottles for current Apple Silicon macOS releases and Intel Sonoma. Check brew info zoxide on your Mac because available bottles and versions change over time.
+
+## Confirm the Mac and active shell
+
+~~~bash
+uname -m
+echo "$SHELL"
+command -v brew || true
+~~~
+
+uname -m prints arm64 on Apple Silicon and x86_64 on Intel. Current macOS accounts normally use Zsh, but configure the shell printed on your machine rather than assuming.
+
+## Method A: install with Homebrew
+
+~~~bash
+brew update
+brew install zoxide
+brew info zoxide
+command -v zoxide
+zoxide --version
+~~~
+
+The normal Homebrew prefix is /opt/homebrew on Apple Silicon and /usr/local on Intel. brew --prefix reports the actual location. Do not hard-code the other architecture's path.
+
+If brew itself is missing after installing Homebrew, load the environment for the current terminal:
+
+~~~bash
+eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon
+eval "$(/usr/local/bin/brew shellenv)"      # Intel
+~~~
+
+Use only the line whose brew executable exists, then persist the shellenv line using the instructions printed by the Homebrew installer.
+
+## Method B: use Cargo only when Rust is already maintained
+
+~~~bash
+cargo install zoxide --locked
+export PATH="$HOME/.cargo/bin:$PATH"
+command -v zoxide
+zoxide --version
+~~~
+
+Persist the PATH export in the active shell profile. Installing a Rust toolchain only for zoxide is unnecessary when Homebrew or the official prebuilt installer is available.
+
+## Method C: official prebuilt installer
+
+The upstream installer detects the macOS architecture and installs the matching release. Review the script first when that is required by your environment.
+
+~~~bash
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh -o /tmp/zoxide-install.sh
+less /tmp/zoxide-install.sh
+sh /tmp/zoxide-install.sh
+~~~
+
+Its normal per-user binary directory is ~/.local/bin. If the file exists but command -v zoxide returns nothing, place this before the zoxide init line in ~/.zshrc:
+
+~~~bash
+export PATH="$HOME/.local/bin:$PATH"
+~~~
+
+## Initialize Zsh
+
+Add this line to the end of ~/.zshrc:
+
+~~~zsh
+eval "$(zoxide init zsh)"
+~~~
+
+Reload the file or open a new terminal, then verify both the binary and generated shell function:
+
+~~~zsh
+source ~/.zshrc
+zoxide --version
+type z
+type zi
+~~~
+
+If you use compinit or a Zsh plugin manager, keep zoxide init near the end of the file so an earlier plugin does not overwrite its functions or completion setup.
+
+## Bash and Fish
+
+For Bash, add this to ~/.bashrc:
+
+~~~bash
+eval "$(zoxide init bash)"
+~~~
+
+For Fish, add this to ~/.config/fish/config.fish:
+
+~~~fish
+zoxide init fish | source
+~~~
+
+Open a fresh shell after saving the file. The [zoxide init guide](/blog/zoxide-init-guide/) covers other shells and profile-loading problems.
+
+## Run an end-to-end test
+
+~~~bash
+mkdir -p "$HOME/Projects/zoxide-demo"
+zoxide add "$HOME/Projects/zoxide-demo"
+cd "$HOME"
+z zoxide-demo
+pwd
+~~~
+
+The final path should end in /Projects/zoxide-demo. A new zoxide database cannot match directories it has never learned, so this explicit addition makes the first test deterministic.
+
+## Add fzf for interactive selection
+
+Plain z does not require fzf. Install it only when you want zi to show an interactive list.
+
+~~~bash
+brew install fzf
+fzf --version
+zi zoxide-demo
+~~~
+
+For selector behavior and customization, continue with the [zoxide and fzf guide](/tutorials/fzf-integration/).
+
+## Troubleshooting by symptom
+
+### zoxide: command not found
+
+Run brew --prefix, brew list zoxide, and command -v zoxide. On Apple Silicon, verify /opt/homebrew/bin is loaded; on Intel, verify /usr/local/bin. For Cargo or the upstream installer, check ~/.cargo/bin or ~/.local/bin instead.
+
+### z: command not found
+
+The binary works but the active shell has not loaded zoxide init. Confirm echo $SHELL, edit the matching profile, put the init line near the end, and open a new terminal. Do not alias z directly to the zoxide binary.
+
+### An old zoxide version runs
+
+~~~bash
+type -a zoxide
+brew info zoxide
+~~~
+
+Multiple package managers can leave several binaries in PATH. Keep one update path and remove the unwanted installation with the package manager that created it.
+
+### zi cannot find fzf
+
+Run command -v fzf and fzf --version. If both work in the terminal but zi still fails, start a fresh shell and inspect whether a plugin redefines zi.
+
+## Sources checked
+
+- [zoxide upstream installation and shell setup](https://github.com/ajeetdsouza/zoxide#installation)
+- [zoxide upstream releases](https://github.com/ajeetdsouza/zoxide/releases)
+- [zoxide official installer source](https://github.com/ajeetdsouza/zoxide/blob/main/install.sh)
+- [Homebrew zoxide formula](https://formulae.brew.sh/formula/zoxide)`,
+
   'quick-start': String.raw`# Verify zoxide in five minutes
 
-This quick start assumes the zoxide binary is already installed. Its job is deliberately narrow: confirm the binary, shell initialization, learned database, and first smart jump. If you still need an installer, begin on the [download page](/download/). For a complete walkthrough of concepts and workflows, use the [full zoxide guide](/blog/mastering-zoxide-smarter-cd-command/).
+This quick start assumes the zoxide binary is already installed. Its job is deliberately narrow: confirm the binary, shell initialization, learned database, and first smart jump. If you still need an installer, begin on the [download page](/download/). For a complete walkthrough of concepts and workflows, use the [full zoxide guide](/blog/mastering-terminal-navigation-zoxide-guide/).
 
 ## 1. Confirm the binary
 
@@ -272,7 +436,7 @@ Plain z does not require fzf. The zi command does. If zi cannot find fzf or the 
 ## What to read next
 
 - Use the [command reference](/blog/zoxide-commands/) when you need query, add, remove, import, or scoring flags.
-- Use the [complete how-to guide](/blog/mastering-zoxide-smarter-cd-command/) for a full daily workflow.
+- Use the [complete how-to guide](/blog/mastering-terminal-navigation-zoxide-guide/) for a full daily workflow.
 - Use [general troubleshooting](/blog/zoxide-not-working/) if the checks fail in more than one layer.`,
 
   'basic-commands': String.raw`# Practice the basic zoxide commands

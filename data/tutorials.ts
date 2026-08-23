@@ -1507,8 +1507,8 @@ zsh -c "eval \\"\\$(zoxide init zsh)\\"; z --help"
   },
   {
     slug: 'install-ubuntu',
-    title: 'How to Install zoxide on Ubuntu 24.04',
-    excerpt: 'Install zoxide on Ubuntu 24.04 with apt or the upstream installer, configure your shell, verify PATH, and fix common setup errors.',
+    title: 'How to Install zoxide on Ubuntu 26.04 or 24.04',
+    excerpt: 'Install zoxide on Ubuntu 26.04 or 24.04 with apt or the upstream installer, configure your shell, verify PATH, and fix common setup errors.',
     duration: '12 min',
     level: 'Beginner',
     category: '安装指南',
@@ -1678,9 +1678,9 @@ If you get permission errors:
   },
   {
     slug: 'install-macos',
-    title: 'zoxide install macOS',
-    excerpt: 'Step-by-step guide to installing zoxide on macOS using Homebrew or Cargo.',
-    duration: '5 min',
+    title: 'Install zoxide on macOS with Homebrew',
+    excerpt: 'Install zoxide on Apple Silicon or Intel macOS with Homebrew, initialize Zsh, verify PATH, and fix common setup errors.',
+    duration: '10 min',
     level: 'Beginner',
     category: '安装指南',
     date: '2025-12-01',

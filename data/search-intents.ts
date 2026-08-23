@@ -87,7 +87,7 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
   en: {
     download: '/download',
     quickStart: '/tutorials/quick-start',
-    howTo: '/blog/mastering-zoxide-smarter-cd-command',
+    howTo: '/blog/mastering-terminal-navigation-zoxide-guide',
     commands: '/blog/zoxide-commands',
     init: '/blog/zoxide-init-guide',
     fzf: '/tutorials/fzf-integration',
@@ -103,7 +103,7 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
   zh: {
     download: '/download',
     quickStart: '/tutorials/quick-start',
-    howTo: '/blog/mastering-zoxide-smarter-cd-command',
+    howTo: '/blog/mastering-terminal-navigation-zoxide-guide',
     commands: '/tutorials/basic-commands',
     init: '/tutorials/shell-setup',
     fzf: '/tutorials/fzf-integration',
@@ -119,7 +119,7 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
   ja: {
     download: '/download',
     quickStart: '/tutorials/quick-start',
-    howTo: '/blog/mastering-zoxide-smarter-cd-command',
+    howTo: '/blog/mastering-terminal-navigation-zoxide-guide',
     commands: '/blog/zoxide-commands',
     init: '/tutorials/shell-setup',
     fzf: '/tutorials/fzf-integration',

@@ -68,7 +68,11 @@ export async function generateMetadata({ params }: TutorialPageProps) {
   const tSeo = await getTranslations("seo");
 
   // 使用 SEO 标题模板，替换 {title} 占位符
-  const seoTitle = tSeo("titles.tutorial", { title });
+  const seoTitle = locale === "en" && slug === "install-ubuntu"
+    ? "Install zoxide on Ubuntu 26.04 or 24.04"
+    : locale === "en" && slug === "install-macos"
+      ? "Install zoxide on macOS with Homebrew"
+      : tSeo("titles.tutorial", { title });
 
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
   const alternatePaths = Object.fromEntries(
@@ -104,7 +108,8 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   const content = getTutorialContentOverride(locale, slug) || translation?.content || tutorial.content;
   const tutorialMarkdownComponents = createMarkdownComponents({ locale });
   // 规范化 markdown 内容：去除开头的 H1（ATX / Setext），避免与模板重复
-  const normalizedContent = stripLeadingH1(normalizeZoxideFacts(content));
+  const factCheckedContent = slug === "install-ubuntu" ? content : normalizeZoxideFacts(content);
+  const normalizedContent = stripLeadingH1(factCheckedContent);
   // 分类需要从翻译文件中获取，如果数据文件中的分类是中文，需要映射
   const categoryKey =
     tutorial.category === "入门教程"
@@ -115,12 +120,17 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   const category = tTutorials(`categories.${categoryKey}`);
   const level = translation?.level || tutorial.level;
   const duration = translation?.duration || tutorial.duration;
+  const displayedDate = locale === "en" && ["install-ubuntu", "install-macos"].includes(slug)
+    ? "2026-08-23"
+    : tutorial.date;
   const verificationNote = slug === "install-ubuntu"
     ? locale === "zh"
       ? "独立核验说明。本教程的 Ubuntu 24.04 软件包版本、上游安装方式与 fzf 要求已于 2026 年 8 月 6 日复核；安装时仍应查看本机候选版本。"
       : locale === "ja"
         ? "独立検証メモ：Ubuntu 24.04のパッケージ版、上流の導入方法、fzf要件は2026年8月6日に照合しました。導入時は手元の候補版も確認してください。"
-        : "Independent verification note: Ubuntu 24.04 package versions, upstream installation methods, and the fzf requirement were checked on August 6, 2026. Confirm the versions offered to your machine when installing."
+        : "Independent verification note: Ubuntu 26.04 and 24.04 package versions, upstream installation methods, and the fzf requirement were checked on August 23, 2026. Confirm the versions offered to your machine when installing."
+    : slug === "install-macos" && locale === "en"
+      ? "Independent verification note: Homebrew availability, upstream installation methods, and shell setup were checked on August 23, 2026. Confirm the version offered to your machine when installing."
     : locale === "zh"
       ? "独立核验说明。本教程的命令与配置说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；不同版本可能存在差异。"
       : locale === "ja"
@@ -138,7 +148,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
-                <span>{tutorial.date}</span>
+                <span>{displayedDate}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4" />

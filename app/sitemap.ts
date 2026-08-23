@@ -12,11 +12,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const priorityContentLastModified = '2026-08-09';
   const downloadContentLastModified = '2026-08-14';
   const intentArchitectureLastModified = '2026-08-15';
+  const rankingRecoveryLastModified = '2026-08-23';
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([
     'quick-start',
     'basic-commands',
     'fzf-integration',
+    'install-ubuntu',
+    'install-macos',
   ]);
   const updatedEnglishBlogSlugs = new Set([
     'mastering-terminal-navigation-zoxide-guide',
@@ -114,7 +117,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       tutorialPages.push({
         url,
         lastModified: isDefaultLocale && updatedEnglishTutorialSlugs.has(tutorial.slug)
-          ? intentArchitectureLastModified
+          ? ['install-ubuntu', 'install-macos'].includes(tutorial.slug)
+            ? rankingRecoveryLastModified
+            : intentArchitectureLastModified
           : tutorial.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
