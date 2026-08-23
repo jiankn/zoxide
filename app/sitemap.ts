@@ -27,6 +27,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'zoxide-commands',
     'zoxide-fzf-interactive-guide-en',
   ]);
+  const rankingRecoveryEnglishBlogSlugs = new Set([
+    'zoxide-init-guide',
+    'zoxide-not-working',
+    'troubleshooting-zoxide-no-match-found',
+  ]);
   const currentDate = staticContentLastModified;
   const locales = routing.locales; // ['zh', 'en']
 
@@ -92,9 +97,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       blogPages.push({
         url,
-        lastModified: isDefaultLocale && updatedEnglishBlogSlugs.has(post.slug)
-          ? priorityContentLastModified
-          : post.date,
+        lastModified: isDefaultLocale && rankingRecoveryEnglishBlogSlugs.has(post.slug)
+          ? rankingRecoveryLastModified
+          : isDefaultLocale && updatedEnglishBlogSlugs.has(post.slug)
+            ? priorityContentLastModified
+            : post.date,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       });

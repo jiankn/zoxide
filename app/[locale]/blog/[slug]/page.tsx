@@ -224,9 +224,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     author,
     post.date,
     articleUrl,
-    post.date, // dateModified 使用发布日期（如果有更新日期可以单独设置）
+    editorialGuide?.lastReviewed || post.date,
   );
-  const verificationNote = slug === "zoxide-vs-autojump"
+  const verificationNote = editorialGuide?.lastReviewed
+    ? `Independent verification note: commands and troubleshooting steps were checked against the official zoxide documentation on ${editorialGuide.lastReviewed}. Recheck current release notes before using them in automation.`
+    : slug === "zoxide-vs-autojump"
     ? locale === "zh"
       ? "独立核验说明。本文的命令与支持范围已于 2026 年 8 月 6 日对照 zoxide 与 autojump 上游资料复核；批量配置前请再次查看最新发行说明。"
       : locale === "ja"
@@ -293,7 +295,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  <span>{post.date}</span>
+                  <span>{editorialGuide?.lastReviewed || post.date}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />

@@ -68,3 +68,49 @@ Do not add redirects or merge more URLs merely because a short window fluctuates
 5. Protection metrics for the homepage, Windows tutorial, Chinese Quick Start, and fzf tutorial.
 
 Any additional 301, canonical change, merge, or deletion still requires explicit approval after that review.
+
+## Ranking-recovery batch 2
+
+### IMPROVE — `/blog/zoxide-init-guide/`
+
+- GSC evidence: full page clicks 65 → 41 and average position 4.85 → 7.09. The exact `zoxide init` pair remained strong at 1.55 → 1.30, while official-docs, Zsh, Fish, and PowerShell variants produced substantial impressions with weak CTR.
+- Title/H1 remains `zoxide init for Bash, Zsh, Fish, PowerShell and Nushell` to protect the exact-query winner.
+- Added an above-the-fold official-source link, quick shell matrix, layered binary/function/database checks, and a dedicated `detected a possible configuration issue` section.
+- Risk: low. URL and primary intent are unchanged; the exact-query title was protected.
+- Confidence: medium.
+
+### REBUILD — `/blog/zoxide-not-working/`
+
+- GSC evidence: full page clicks 32 → 16 and average position 5.56 → 9.41. Disclosed queries mix command-not-found, no-match, configuration-warning, temporary-database, and fzf symptoms.
+- Before title/H1: `zoxide not working - Troubleshooting Guide`.
+- After title/H1: `zoxide not working? Diagnose PATH, init, database, and fzf`.
+- Replaced the generic issue list with a four-layer diagnostic hub. Removed the obsolete `~/.zo` assumption, destructive whole-database reset advice, and unsupported performance prescriptions. Added symptom-led links to the dedicated command-not-found, init, no-match, and fzf pages.
+- Risk: low to medium. The page remains the general troubleshooting hub but now yields specific error intent to primary pages.
+- Confidence: medium-high.
+
+### REBUILD — `/blog/troubleshooting-zoxide-no-match-found/`
+
+- GSC evidence: full page clicks 22 → 8 and average position 6.86 → 10.02. The branded exact query stayed near positions 1.4–1.6, while generic unbranded `no match found` impressions grew sharply without clicks.
+- Before title/H1: `Troubleshooting Zoxide: Fixing "No Match Found" and Database Errors`.
+- After title/H1: `zoxide no match found: fix learning, queries, and stale paths`.
+- Front-loaded the branded meaning, distinguished it from command-not-found, documented upstream matching rules, added controlled learning tests, stale-path handling, and a query-success/wrapper-failure branch.
+- Risk: low to medium. The narrower title may reduce irrelevant generic impressions; that is intentional and should not be treated as a loss if qualified branded clicks improve.
+- Confidence: medium-high.
+
+### PROTECT — `/tutorials/install-windows/`
+
+- No title, H1, URL, canonical, or body rewrite was made. Its exact Windows install queries remained strong and the disclosed Query × Page report showed click growth, so a broad rewrite would add avoidable risk.
+
+### Freshness and verification
+
+- Added an explicit `lastReviewed` field for evidence-backed English editorial guides.
+- Article `dateModified`, visible review date, verification note, and English sitemap `lastmod` now agree on 2026-08-23 for the three changed pages.
+- Canonical and hreflang behavior are unchanged.
+
+### Batch 2 verification
+
+- TypeScript `--noEmit`: passed.
+- Targeted ESLint for all changed TypeScript files: passed.
+- Next.js production build: passed; 195 static pages generated.
+- Generated HTML: one H1 per page, correct self-canonical, expected title/H1, and `dateModified=2026-08-23`.
+- Repository-wide ESLint remains unsuitable after a Cloudflare build because it scans generated `.open-next` files and existing CommonJS helper scripts; the reported failures do not originate in this batch.
