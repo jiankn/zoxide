@@ -213,24 +213,6 @@
       }
     ]
   },
-  "cookie": {
-    "title": "Cookie設定",
-    "message": "分析CookieとマーケティングCookieは、明示的に有効にしない限りオフのままです。詳細は",
-    "privacyPolicy": "プライバシーポリシー",
-    "necessary": {
-      "title": "必須Cookie",
-      "description": "これらのCookieはウェブサイトの機能に不可欠であり、無効にすることはできません。",
-      "alwaysEnabled": "常に有効"
-    },
-    "analytics": {
-      "title": "分析Cookie",
-      "description": "訪問者がウェブサイトをどのように使用しているかを理解し、ユーザー体験を改善するのに役立ちます。"
-    },
-    "marketing": {
-      "title": "マーケティングCookie",
-      "description": "このカテゴリを明示的に有効にした場合にのみ、広告表示や効果測定に使用されることがあります。"
-    }
-  },
   "disclaimer": {
     "label": "免責事項:",
     "message": "Zoxide.org は独立したコミュニティ主導のドキュメントプロジェクトであり、Ajeet D'Souza氏や公式Zoxideプロジェクトとは提携、承認、または関連していません。",
@@ -960,35 +942,35 @@
   "privacyPolicy": {
     "title": "プライバシーポリシー",
     "description": "zoxide.orgのプライバシーポリシー。収集する個人情報の種類、使用目的、保護方法について説明しています。",
-    "lastUpdated": "最終更新日：2026年7月16日",
+    "lastUpdated": "最終更新：2026年9月30日",
     "sections": {
       "collection": {
         "title": "1. 収集する情報",
         "content": [
           "<strong>基本的なサーバーおよびセキュリティデータ</strong>：ホスティングやセキュリティの提供者が、サイトの配信と保護のためにIPアドレス、リクエスト日時、URL、User-Agent、診断データを処理する場合があります。",
-          "<strong>分析データ</strong>：Google Analyticsは、分析Cookieを有効にした場合にのみ読み込まれます。端末、ブラウザ、おおよその地域、ページ閲覧、参照元、操作に関するデータを収集する場合があります。",
+          "<strong>分析データ</strong>：Google AnalyticsはGoogle Consent Modeを使用します。分析Cookieは初期状態で拒否され、同意シグナルが許可した場合に有効になります。同意がない場合も、Cookieを使用しない測定リクエストがGoogleに送信されることがあります。測定には端末、ブラウザ、おおよその地域、ページ閲覧、参照元、操作データが含まれる場合があります。",
           "<strong>お問い合わせで提供される情報</strong>：お問い合わせを受けた場合、返信のためにメッセージ内の情報を処理します。"
         ]
       },
       "usage": {
         "title": "2. 情報の利用",
-        "content": "zoxide.orgの運営と保護、Cookie設定の保存、同意がある場合の集計利用状況の把握、お問い合わせへの対応、技術的問題の診断、法的義務への対応に情報を使用します。"
+        "content": "zoxide.orgの運営と保護、プライバシー設定の保存、同意設定に応じた利用状況の集計、お問い合わせへの対応、技術的問題の診断、法的義務への対応に情報を使用します。"
       },
       "cookies": {
         "title": "3. Cookieと同意",
-        "content": "必須ストレージはCookie設定を保存するために使用します。分析とマーケティングのカテゴリは初期状態で無効で、選択後にのみ有効になります。バナーで任意Cookieを拒否でき、フッターの「Cookie設定」からいつでも選択を変更できます。"
+        "content": "Googleの同意管理プラットフォーム（CMP）が適用される同意メッセージと選択内容の保存を管理します。分析と広告のストレージは初期状態で拒否され、Googleが選択に応じて同意シグナルを更新します。メッセージでは同意、拒否、オプションの管理を選べます。GoogleのプライバシーAPIが読み込まれると、フッターの「Cookie設定」から適用される欧州規制メッセージを再表示できます。同意の更新がない場合、ストレージは拒否されたままです。その間もCookieを使用しない測定リクエストが送信される場合があります。"
       },
       "thirdParty": {
         "title": "4. Googleサービスと広告",
         "content": [
-          "<strong>Google Analytics</strong>：分析Cookieへの同意がある場合にのみ使用します。Googleは独自の<a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">プライバシーポリシー</a>に基づいてデータを処理します。",
-          "<strong>Google AdSense</strong>：広告を有効にした場合、Googleおよびパートナーは、当サイトまたは他サイトへの過去の訪問に基づき、広告の配信、制限、パーソナライズ、測定のためにCookie等を使用する場合があります。",
-          "<strong>広告に関する選択</strong>：<a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google広告設定</a>で広告のパーソナライズを管理できます。法令上必要な地域では、Google認定の同意管理プラットフォームで同意を得た後にのみ広告をリクエストします。"
+          "<strong>Google Analytics</strong>：Consent Modeで同意シグナルに応じて測定とCookie使用を調整します。同意がなくてもCookieを使用しないリクエストが送信される場合があります。Googleは独自の<a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">プライバシーポリシー</a>に基づいてデータを処理します。",
+          "<strong>Google AdSense</strong>：Googleとパートナーは、適用される同意の選択に応じて、広告の配信、制限、パーソナライズ、測定にCookie等を使用する場合があります。パーソナライズ広告は当サイトや他サイトへの過去の訪問に基づく場合があります。",
+          "<strong>広告の選択</strong>：<a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google広告設定</a>でパーソナライズを管理できます。Google CMPが適用される同意を取得し、広告配信はその選択とGoogleの配信ルールに従います。対応する場合、同意なしで制限付き広告が表示されることがあります。"
         ]
       },
       "choices": {
         "title": "5. 選択肢と権利",
-        "content": "フッターの設定から、任意Cookieへの同意をいつでも撤回または変更できます。地域によっては、個人データへのアクセス、訂正、削除、処理制限、異議申立ての権利が認められる場合があります。"
+        "content": "Googleの同意メッセージが適用される場合、プライバシーAPIの読み込み後にフッターの「Cookie設定」から同意を撤回または変更できます。地域によっては、個人データへのアクセス、訂正、削除、処理制限、異議申立ての権利が認められる場合があります。お問い合わせからご請求ください。"
       },
       "retention": {
         "title": "6. 保存期間とセキュリティ",

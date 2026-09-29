@@ -213,24 +213,6 @@
       }
     ]
   },
-  "cookie": {
-    "title": "Cookie 偏好设置",
-    "message": "除非您主动启用，否则分析和营销 Cookie 会保持关闭。详情请查看我们的",
-    "privacyPolicy": "隐私政策",
-    "necessary": {
-      "title": "必要 Cookie",
-      "description": "这些 Cookie 是网站运行所必需的，无法关闭。",
-      "alwaysEnabled": "始终启用"
-    },
-    "analytics": {
-      "title": "分析 Cookie",
-      "description": "帮助我们了解访客如何使用网站，以改善用户体验。"
-    },
-    "marketing": {
-      "title": "营销 Cookie",
-      "description": "仅在您明确启用此类别后，才可能用于广告展示和效果衡量。"
-    }
-  },
   "disclaimer": {
     "label": "免责声明：",
     "message": "Zoxide.org 是一个独立的、社区驱动的文档项目，与 Ajeet D'Souza 或 Zoxide 官方项目没有任何关联、认可或从属关系。",
@@ -890,35 +872,35 @@
   "privacyPolicy": {
     "title": "隐私政策",
     "description": "zoxide.org 隐私政策，说明我们如何收集、使用和保护您的个人信息。",
-    "lastUpdated": "最后更新：2026年7月16日",
+    "lastUpdated": "最后更新：2026年9月30日",
     "sections": {
       "collection": {
         "title": "1. 我们收集的信息",
         "content": [
           "<strong>基础服务器与安全数据</strong>：托管和安全服务商可能会处理 IP 地址、请求时间、请求 URL、User-Agent 和诊断数据，以提供并保护网站。",
-          "<strong>分析数据</strong>：只有在您启用分析 Cookie 后才会加载 Google Analytics。它可能收集设备、浏览器、大致位置、页面访问、来源和互动数据。",
+          "<strong>分析数据</strong>：Google Analytics 使用 Google Consent Mode。分析 Cookie 默认被拒绝，仅在同意信号允许时启用。未取得同意时，Google 可能收到不使用 Cookie 的衡量请求。衡量数据可能包括设备、浏览器、大致位置、页面访问、来源和互动数据。",
           "<strong>您主动提供的信息</strong>：如果您联系我们，我们会处理消息中包含的信息，以便回复。"
         ]
       },
       "usage": {
         "title": "2. 信息使用",
-        "content": "我们使用信息来运行和保护 zoxide.org、记住 Cookie 选择、在获得同意后了解汇总的网站使用情况、回复咨询、排查技术问题以及履行法律义务。"
+        "content": "我们使用信息来运行和保护 zoxide.org、记住隐私选择、根据同意设置衡量汇总的网站使用情况、回复咨询、排查技术问题以及履行法律义务。"
       },
       "cookies": {
         "title": "3. Cookie 与同意",
-        "content": "必要存储用于记住您的 Cookie 偏好。分析和营销类别默认关闭，只有在您选择后才会启用。您可以在横幅中拒绝可选 Cookie，也可以随时通过页脚的“Cookie 设置”重新修改决定。"
+        "content": "我们通过 Google 同意管理平台（CMP）展示适用的意见征求消息并保存您的选择。分析和广告存储默认被拒绝，Google 根据您的选择更新同意信号。消息展示时，您可以同意、拒绝或管理选项。Google 隐私接口加载后，页脚会提供“Cookie 设置”，用于重新打开适用的欧洲法规消息。未收到同意更新时，存储保持被拒绝状态；此时 Google 标签仍可能发送不使用 Cookie 的衡量请求。"
       },
       "thirdParty": {
         "title": "4. Google 服务与广告",
         "content": [
-          "<strong>Google Analytics</strong>：仅在您同意分析 Cookie 后使用。Google 会根据其自身的<a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">隐私政策</a>处理数据。",
-          "<strong>Google AdSense</strong>：如果启用广告，Google 及其合作伙伴可能使用 Cookie 或类似技术，根据您此前访问本网站或其他网站的情况来投放、限制、个性化和衡量广告。Google 广告 Cookie 可能用于这些目的。",
-          "<strong>广告选择</strong>：您可以通过 <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google 广告设置</a>管理广告个性化。在法律要求的地区，广告只会在通过 Google 认证的同意管理平台取得同意后请求。"
+          "<strong>Google Analytics</strong>：我们使用 Consent Mode，根据信号调整衡量与 Cookie 使用。未取得同意时可能发送不使用 Cookie 的请求。Google 会根据其自身的<a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">隐私政策</a>处理数据。",
+          "<strong>Google AdSense</strong>：Google 及其合作伙伴可能根据适用的同意选择，使用 Cookie 或类似技术投放、限制、个性化和衡量广告。个性化广告可能依据您此前访问本网站或其他网站的情况。",
+          "<strong>广告选择</strong>：您可以通过 <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google 广告设置</a>管理广告个性化。Google CMP 收集适用的同意选择；广告展示和个性化取决于您的选择及 Google 的投放规则。在支持的情况下，未取得同意也可能展示受限广告。"
         ]
       },
       "choices": {
         "title": "5. 您的选择与权利",
-        "content": "您可以随时使用页脚入口撤回或更改可选 Cookie 同意。根据您所在地区，您还可能享有访问、更正、删除、限制处理或反对处理个人数据的权利。您可以联系我们提出请求。"
+        "content": "在适用 Google 意见征求消息的地区，Google 隐私接口加载后，您可以通过页脚“Cookie 设置”撤回或更改决定。根据您所在地区，您还可能享有访问、更正、删除、限制处理或反对处理个人数据的权利。您可以联系我们提出请求。"
       },
       "retention": {
         "title": "6. 数据保留与安全",

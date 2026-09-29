@@ -3,10 +3,10 @@
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import Logo from '@/components/Logo/Logo';
+import GoogleConsentSettings from '@/components/GoogleConsentSettings/GoogleConsentSettings';
 
 export default function Footer() {
   const t = useTranslations('footer');
-  const tCommon = useTranslations('common');
 
   // 动态年份范围：起始年-当前年，如果相同只显示起始年
   const startYear = 2025;
@@ -129,13 +129,7 @@ export default function Footer() {
             >
               {t('contact')}
             </Link>
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new Event('openCookieSettings'))}
-              className="text-white/80 hover:text-white"
-            >
-              {tCommon('cookieSettings')}
-            </button>
+            <GoogleConsentSettings />
           </div>
           <p className="mt-4 text-center text-sm text-white/70">
             {t('copyright', { yearRange })}

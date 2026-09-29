@@ -213,24 +213,6 @@
       }
     ]
   },
-  "cookie": {
-    "title": "Cookie Preferences",
-    "message": "Optional analytics and marketing cookies remain off unless you choose to enable them. See our",
-    "privacyPolicy": "Privacy Policy",
-    "necessary": {
-      "title": "Necessary Cookies",
-      "description": "These cookies are essential for the website to function and cannot be disabled.",
-      "alwaysEnabled": "Always Enabled"
-    },
-    "analytics": {
-      "title": "Analytics Cookies",
-      "description": "Help us understand how visitors use the website to improve user experience."
-    },
-    "marketing": {
-      "title": "Marketing Cookies",
-        "description": "May be used for advertising only after you explicitly enable this category."
-    }
-  },
   "disclaimer": {
     "label": "Disclaimer:",
     "message": "Zoxide.org is an independent, community-driven documentation project and is not affiliated with, endorsed by, or connected to Ajeet D'Souza or the official Zoxide project.",
@@ -882,35 +864,35 @@
   "privacyPolicy": {
     "title": "Privacy Policy",
     "description": "zoxide.org privacy policy explaining how we collect, use, and protect your personal information.",
-    "lastUpdated": "Last Updated: July 16, 2026",
+    "lastUpdated": "Last updated: September 30, 2026",
     "sections": {
       "collection": {
         "title": "1. Information We Collect",
         "content": [
           "<strong>Basic server and security data</strong>: Our hosting and security providers may process IP address, request time, requested URL, user agent, and diagnostic data to deliver and protect the website.",
-          "<strong>Analytics data</strong>: Google Analytics is loaded only after you enable analytics cookies. It may collect device, browser, approximate location, page-view, referral, and interaction data.",
+          "<strong>Analytics data</strong>: Google Analytics uses Google Consent Mode. Analytics cookies are denied by default and are enabled only when a consent signal permits them. Without consent, Google may receive cookieless measurement pings. Measurement may include device, browser, approximate location, page-view, referral, and interaction data.",
           "<strong>Information you send us</strong>: If you contact us, we process the information included in your message so we can respond."
         ]
       },
       "usage": {
         "title": "2. Information Use",
-        "content": "We use information to operate and secure zoxide.org, remember cookie choices, understand aggregate site usage when consent is given, answer inquiries, diagnose technical problems, and meet legal obligations."
+        "content": "We use information to operate and secure zoxide.org, remember privacy choices, measure aggregate site usage according to consent settings, answer inquiries, diagnose technical problems, and meet legal obligations."
       },
       "cookies": {
         "title": "3. Cookies and Consent",
-        "content": "Necessary storage is used to remember your cookie preferences. Analytics and marketing categories are disabled by default and are activated only after your choice. You can reject optional cookies on the banner or change your decision at any time through the \"Cookie Settings\" control in the footer."
+        "content": "Google's consent management platform (CMP) manages applicable consent messages and stores your choices. Analytics and advertising storage are denied by default; Google updates consent signals based on your choices. Where a message is displayed, you can consent, decline, or manage options. The footer Cookie Settings control is available once the Google privacy API loads and reopens the applicable European regulations message. If no consent update is received, storage remains denied. Google tags may send cookieless measurement pings while consent is denied."
       },
       "thirdParty": {
         "title": "4. Google Services and Advertising",
         "content": [
-          "<strong>Google Analytics</strong>: We use Google Analytics only when analytics consent is granted. Google processes data under its own <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy Policy</a>.",
-          "<strong>Google AdSense</strong>: If advertising is enabled, Google and its partners may use cookies or similar technologies to serve, limit, personalize, and measure ads based on prior visits to this or other websites. Google advertising cookies may be used for these purposes.",
-          "<strong>Your advertising choices</strong>: You can manage Google ad personalization through <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google Ads Settings</a>. Where required, advertising will be requested only after consent through a Google-certified consent management platform."
+          "<strong>Google Analytics</strong>: We use Consent Mode to adjust measurement and cookie use to consent signals. Cookieless pings may be sent without consent. Google processes data under its own <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy Policy</a>.",
+          "<strong>Google AdSense</strong>: Google and its partners may use cookies or similar technologies to serve, limit, personalize, and measure ads, subject to applicable consent choices. Personalized ads may be based on prior visits to this or other websites.",
+          "<strong>Your advertising choices</strong>: You can manage Google ad personalization through <a href=\"https://adssettings.google.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Google Ads Settings</a>. Google's CMP collects applicable consent choices; ad availability and personalization depend on those choices and Google's serving rules. Limited ads may be served without consent where supported."
         ]
       },
       "choices": {
         "title": "5. Your Choices and Rights",
-        "content": "You may withdraw or change optional cookie consent at any time using the footer control. Depending on your location, you may also have rights to access, correct, delete, restrict, or object to processing of personal data. Contact us to make a request."
+        "content": "Where the Google consent message applies, you may withdraw or change your decision using Cookie Settings in the footer after the Google privacy API loads. Depending on your location, you may also have rights to access, correct, delete, restrict, or object to processing of personal data. Contact us to make a request."
       },
       "retention": {
         "title": "6. Data Retention and Security",

@@ -6,8 +6,8 @@ import { Providers } from "../providers";
 import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
-import CookieBanner from "@/components/CookieBanner/CookieBanner";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
+import Script from 'next/script';
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
 import { Geist, Geist_Mono } from "next/font/google"; // Moved from root layout
 import { Metadata } from 'next'; // Moved from root layout
@@ -65,8 +65,26 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="referrer" content="strict-origin-when-cross-origin" />
+        {/* Run before either Google tag, including the asynchronous AdSense tag. */}
         <script
-          async
+          id="google-consent-defaults"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+              gtag('consent', 'default', {
+                analytics_storage: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                wait_for_update: 500
+              });
+            `,
+          }}
+        />
+        <Script
+          id="google-adsense"
+          strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3562784107542460"
           crossOrigin="anonymous"
         />
@@ -92,7 +110,6 @@ export default async function LocaleLayout({
             <Navigation />
             <main className="min-h-screen">{children}</main>
             <Footer />
-            <CookieBanner />
             <GoogleAnalytics />
           </Providers>
         </NextIntlClientProvider>
