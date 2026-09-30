@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 2026-09-30：非官方身份说明（首页、About）与 Windows 实测教程（全部语言）
   const unofficialGuideLastModified = '2026-09-30';
   const unofficialGuidePaths = new Set(['', '/about']);
-  const retestedTutorialSlugs = new Set(['install-windows']);
+  const retestedTutorialSlugs = new Set(['install-windows', 'install-macos']);
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([
     'quick-start',

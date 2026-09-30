@@ -1,4 +1,163 @@
 const englishTutorialContent: Record<string, string> = {
+  'install-macos': String.raw`# How to install zoxide on macOS (tested with Homebrew and zsh)
+
+This guide installs zoxide on macOS with Homebrew, connects it to zsh (the default macOS shell), and then tests the points where a Mac setup usually fails: Homebrew's PATH on Apple Silicon, the z command, and the hook that records directories. The commands and outputs below are from a real test run, not copied from the README.
+
+## Test environment
+
+| Item | Value |
+| --- | --- |
+| Tested on | September 30, 2026 |
+| Machine | GitHub Actions macOS runner, Apple M1 (virtual), 3 cores |
+| OS | macOS 26.6.2, arm64 |
+| Shell | zsh 5.9 (the macOS default); system bash 3.2.57 also checked |
+| Homebrew | 6.0.22, prefix /opt/homebrew |
+| zoxide | 0.10.0 (Homebrew bottle) |
+| fzf | 0.74.3 (Homebrew) |
+
+We used a clean virtual Mac so that no earlier configuration could hide a problem. Timings on your own Mac will differ, but the behavior described here is the same.
+
+## Step 1: install with Homebrew
+
+~~~bash
+brew install zoxide
+~~~
+
+Homebrew listed zoxide as stable 0.10.0 (bottled), and the install took about 3 seconds because a prebuilt bottle was used. Check where it landed:
+
+~~~bash
+command -v zoxide
+zoxide --version
+~~~
+
+On Apple Silicon our output was /opt/homebrew/bin/zoxide and zoxide 0.10.0. On an Intel Mac, Homebrew uses /usr/local/bin instead.
+
+### If the shell says command not found: zoxide
+
+On Apple Silicon, /opt/homebrew/bin is not on the default PATH. Homebrew's installer asks you to add a brew shellenv line to ~/.zprofile, and if that step was skipped, every Homebrew tool is missing. We reproduced it by starting zsh with only the system PATH:
+
+~~~text
+zsh:1: command not found: zoxide
+~~~
+
+Adding the shellenv line fixed it in the same test:
+
+~~~bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+~~~
+
+Open a new terminal window afterwards. If brew itself is also "not found", this is the cause.
+
+## Step 2: add zoxide to ~/.zshrc
+
+Installing the binary does not create z. With an empty ~/.zshrc, our interactive zsh printed:
+
+~~~text
+zsh:1: command not found: z
+~~~
+
+Add the init line at the end of ~/.zshrc:
+
+~~~bash
+echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
+~~~
+
+Open a new window and check:
+
+~~~bash
+type z zi
+~~~
+
+Our run printed that z and zi are shell functions from ~/.zshrc. To make zoxide replace cd itself, use zoxide init zsh --cmd cd; in our test that defined cd and cdi as zoxide functions.
+
+## Step 3: how zoxide learns directories in zsh
+
+We read the script that zoxide init zsh generates. In zsh, zoxide adds its hook to chpwd_functions, a zsh feature that runs whenever the current directory changes. That has two practical consequences, and we tested both.
+
+**cd inside zsh scripts is recorded.** A non-interactive zsh script that ran the init line and then changed directories four times produced this database:
+
+~~~text
+   8.0 .../zo-demo/projects/web-app/src
+   4.0 .../zo-demo/notes/2026
+   4.0 .../zo-demo/projects/api-server
+~~~
+
+This is different from PowerShell on Windows, where zoxide records from the prompt and scripts teach it nothing. See our [Windows guide](/tutorials/install-windows/) for that case.
+
+**Something that clears chpwd_functions after zoxide breaks learning, and zoxide tells you.** We put a line that empties chpwd_functions after the init line, a pattern some plugin setups produce. On the next z, zoxide printed:
+
+~~~text
+zoxide: detected a possible configuration issue.
+Please ensure that zoxide is initialized right at the end of your shell configuration file (usually ~/.zshrc).
+~~~
+
+The database stayed empty. If you see this message, move the zoxide init line below your plugin manager, theme and any other shell setup. By contrast, clearing precmd_functions (the prompt hook list) did not affect zoxide in zsh: directories were still recorded.
+
+## Step 4: test jumping, and the matching rule
+
+After the visits above, z web failed:
+
+~~~text
+zoxide: no match found
+~~~
+
+The top entry was web-app/src, but zoxide requires the last keyword to match the last component of the path, which is src. These worked:
+
+~~~bash
+z web src      # web matches earlier in the path, src matches the last part
+z proj api     # api matches api-server, the last component
+~~~
+
+When a jump fails, run zoxide query -ls and check whether your last keyword appears in the final folder name.
+
+## Step 5: zi needs fzf
+
+On the clean machine, zi failed with:
+
+~~~text
+zoxide: could not find fzf, is it installed?
+~~~
+
+~~~bash
+brew install fzf
+~~~
+
+That installed fzf 0.74.3. zi's picker needs a real interactive terminal, so our automated run stopped at confirming fzf was installed; open a new window and run zi to see it. z never needs fzf. The [fzf integration guide](/tutorials/fzf-integration/) covers tuning the picker.
+
+## What about bash on macOS?
+
+macOS still ships bash 3.2.57 as /bin/bash. In our test, eval "$(zoxide init bash)" loaded without errors under that version and defined the z function. We did not run a full interactive bash session, so if you use bash as your daily shell, check with zoxide query -ls after a few directory changes. Since zsh is the default shell on current macOS, zsh is the path this guide recommends.
+
+## Does zoxide slow down zsh?
+
+We measured with 2,000 directories in the database (a 149 KB db.zo):
+
+| Measurement (median) | Time |
+| --- | --- |
+| zoxide query repo1500 src | 8.4 ms |
+| zoxide --version (bare process start) | 4.7 ms |
+| zsh -i startup, empty ~/.zshrc | 14.1 ms |
+| zsh -i startup, with zoxide init | 27.1 ms |
+
+A lookup is a few milliseconds above starting the process at all, and the init line added about 13 ms to shell startup. On this test machine, zoxide is not a meaningful source of terminal lag. If your shell feels slow, measure the rest of ~/.zshrc first.
+
+## Where zoxide keeps its data on macOS
+
+By default the database is ~/Library/Application Support/zoxide/db.zo. Our first zoxide add created it there. Set _ZO_DATA_DIR to move it. Deleting db.zo resets what zoxide has learned without removing zoxide.
+
+## Uninstall
+
+~~~bash
+brew uninstall zoxide
+~~~
+
+Then remove the init line from ~/.zshrc, otherwise every new terminal prints command not found: zoxide.
+
+## Next steps
+
+- [Basic commands](/tutorials/basic-commands/) for z, zi, z - and query flags
+- [Advanced configuration](/tutorials/advanced-config/) for _ZO_EXCLUDE_DIRS and other variables
+- [zoxide-doctor](/tools/zoxide-doctor/) to check a setup automatically`,
   'install-windows': String.raw`# How to install zoxide on Windows (tested with PowerShell 7)
 
 This guide installs zoxide on Windows with winget, wires it into PowerShell, and then checks the three places where a Windows setup usually breaks: the binary on PATH, the z command in the shell, and the prompt hook that records directories. Every command and output below comes from a real test run, not from the README.
@@ -1341,79 +1500,165 @@ apt 版は通常の Ubuntu 更新で管理し、apt-cache policy zoxide で候�
 - [Ubuntu 24.04 の fzf パッケージ](https://packages.ubuntu.com/noble/fzf)
 - [fzf 上流のインストールガイド](https://github.com/junegunn/fzf#installation)`,
 
-  'install-macos': String.raw`# macOS に zoxide をインストール
+  'install-macos': String.raw`# macOS に zoxide をインストールする方法（Homebrew + zsh で検証）
 
-macOS では Homebrew が最も簡単です。Apple Silicon と Intel で Homebrew のパスが異なるため、インストール後に command -v で確認します。
+このガイドでは Homebrew で zoxide を macOS にインストールし、macOS の既定シェルである zsh に組み込んだうえで、Mac で失敗しやすいポイントを検証します。Apple Silicon での Homebrew の PATH、z コマンド、ディレクトリを記録するフックです。以下のコマンドと出力は README の転記ではなく、実際のテスト結果です。
 
-## Homebrew
+## テスト環境
+
+| 項目 | 値 |
+| --- | --- |
+| 検証日 | 2026 年 9 月 30 日 |
+| マシン | GitHub Actions の macOS ランナー、Apple M1（仮想マシン）、3 コア |
+| OS | macOS 26.6.2、arm64 |
+| シェル | zsh 5.9（macOS 既定）。システム標準の bash 3.2.57 も確認 |
+| Homebrew | 6.0.22、プレフィックス /opt/homebrew |
+| zoxide | 0.10.0（Homebrew のビルド済みパッケージ） |
+| fzf | 0.74.3（Homebrew） |
+
+既存の設定が問題を隠さないよう、クリーンな仮想 Mac を使いました。お使いの Mac では時間が異なりますが、ここで説明する動作は同じです。
+
+## ステップ 1：Homebrew でインストール
 
 ~~~bash
-brew update
 brew install zoxide
-zoxide --version
 ~~~
 
-Apple Silicon で brew が見つからない場合:
-
-~~~bash
-eval "$(/opt/homebrew/bin/brew shellenv)"
-~~~
-
-Intel Mac では通常 /usr/local/bin/brew を利用します。
-
-## Cargo
-
-Rust 環境がある場合:
-
-~~~bash
-cargo install zoxide --locked
-export PATH="$HOME/.cargo/bin:$PATH"
-~~~
-
-## Zsh の設定
-
-現在の macOS の標準シェルは通常 Zsh です。~/.zshrc に追加します。
-
-~~~bash
-eval "$(zoxide init zsh)"
-~~~
-
-反映:
-
-~~~bash
-source ~/.zshrc
-type z
-~~~
-
-## Bash または Fish
-
-~~~bash
-# Bash: ~/.bashrc
-eval "$(zoxide init bash)"
-~~~
-
-~~~fish
-# Fish: ~/.config/fish/config.fish
-zoxide init fish | source
-~~~
-
-## 動作確認
+Homebrew では zoxide が stable 0.10.0 (bottled) と表示され、ビルド済みパッケージのためインストールは約 3 秒で終わりました。インストール先を確認します。
 
 ~~~bash
 command -v zoxide
 zoxide --version
-cd ~/Documents
-z Documents
 ~~~
 
-zoxide は起動後に訪問履歴を学習します。導入直後に候補がない場合は、普段使うディレクトリへ一度移動してから zoxide query --list を確認してください。
+Apple Silicon では /opt/homebrew/bin/zoxide と zoxide 0.10.0 が表示されました。Intel Mac の Homebrew は /usr/local/bin を使います。
 
-## よくある問題
+### command not found: zoxide と表示される場合
 
-- zoxide はあるが z がない: ~/.zshrc の初期化行と source を確認。
-- brew がない: Homebrew の shellenv を設定。
-- 古いバイナリが使われる: type -a zoxide で複数のインストール先を確認。
-- 補完や既存の z と競合する: type z で実際に呼ばれる関数を確認。`,
+Apple Silicon では /opt/homebrew/bin が既定の PATH に含まれていません。Homebrew のインストーラーは ~/.zprofile に brew shellenv の行を追加するよう案内しますが、この手順を飛ばすと Homebrew のツールがすべて見つからなくなります。システムの PATH だけで zsh を起動して再現しました。
+
+~~~text
+zsh:1: command not found: zoxide
+~~~
+
+同じテストで shellenv の行を追加すると解決しました。
+
+~~~bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+~~~
+
+その後、新しいターミナルウィンドウを開きます。brew 自体も見つからない場合は、これが原因です。
+
+## ステップ 2：~/.zshrc に zoxide を追加
+
+バイナリを入れただけでは z は作られません。~/.zshrc が空の状態で、対話型 zsh は次のように表示しました。
+
+~~~text
+zsh:1: command not found: z
+~~~
+
+~/.zshrc の最後に初期化行を追加します。
+
+~~~bash
+echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
+~~~
+
+新しいウィンドウで確認します。
+
+~~~bash
+type z zi
+~~~
+
+テストでは z と zi が ~/.zshrc 由来のシェル関数として表示されました。cd 自体を置き換えたい場合は zoxide init zsh --cmd cd を使います。テストでは cd と cdi が zoxide の関数として定義されました。
+
+## ステップ 3：zsh で zoxide がディレクトリを覚える仕組み
+
+zoxide init zsh が生成するスクリプトを読むと、zsh 版の zoxide は chpwd_functions にフックを追加しています。これはカレントディレクトリが変わるたびに zsh が実行する関数の一覧です。ここから生じる二つの影響を検証しました。
+
+**zsh スクリプト内の cd も記録される。** 初期化行を実行してから 4 回ディレクトリを移動する非対話型の zsh スクリプトで、データベースは次のようになりました。
+
+~~~text
+   8.0 .../zo-demo/projects/web-app/src
+   4.0 .../zo-demo/notes/2026
+   4.0 .../zo-demo/projects/api-server
+~~~
+
+これは Windows の PowerShell とは異なります。PowerShell 版はプロンプト表示時に記録するため、スクリプト内の移動は記録されません。詳しくは [Windows ガイド](/ja/tutorials/install-windows/) を参照してください。
+
+**初期化後に chpwd_functions を空にすると学習が止まり、zoxide が警告を出す。** 初期化行の後に chpwd_functions を空にする行を置きました。一部のプラグイン設定で起こりうる状態です。次に z を実行すると、zoxide は次のように表示しました。
+
+~~~text
+zoxide: detected a possible configuration issue.
+Please ensure that zoxide is initialized right at the end of your shell configuration file (usually ~/.zshrc).
+~~~
+
+データベースは空のままでした。このメッセージが出たら、zoxide の初期化行をプラグインマネージャー、テーマ、その他のシェル設定より後に移してください。対照として、precmd_functions（プロンプトのフック一覧）を空にしても zsh では zoxide に影響せず、ディレクトリは記録されました。
+
+## ステップ 4：ジャンプとマッチングの規則を試す
+
+上の移動の後、z web は失敗しました。
+
+~~~text
+zoxide: no match found
+~~~
+
+先頭の候補は web-app/src でしたが、zoxide は最後のキーワードがパスの最後の要素に一致することを求めます。ここでの最後の要素は src です。次の書き方は成功しました。
+
+~~~bash
+z web src      # web はパスの前半、src は最後の要素に一致
+z proj api     # api は最後の要素 api-server に一致
+~~~
+
+ジャンプに失敗したら zoxide query -ls を実行し、最後のキーワードが目的のフォルダー名に含まれているか確認してください。
+
+## ステップ 5：zi には fzf が必要
+
+クリーンなマシンでは、zi が次のエラーで失敗しました。
+
+~~~text
+zoxide: could not find fzf, is it installed?
+~~~
+
+~~~bash
+brew install fzf
+~~~
+
+これで fzf 0.74.3 が入りました。zi の選択画面には本物の対話型ターミナルが必要なため、自動テストでは fzf のインストール確認までにとどめています。新しいウィンドウで zi を実行して確認してください。z は fzf を必要としません。選択画面の調整は [fzf 連携ガイド](/ja/tutorials/fzf-integration/) を参照してください。
+
+## macOS の bash は？
+
+macOS には今も bash 3.2.57 が /bin/bash として入っています。テストでは、このバージョンで eval "$(zoxide init bash)" がエラーなく読み込まれ、z 関数が定義されました。完全な対話型 bash セッションは実行していないため、普段 bash を使う場合は、何度かディレクトリを移動した後に zoxide query -ls で確認してください。現在の macOS の既定シェルは zsh なので、このガイドでは zsh を推奨します。
+
+## zoxide で zsh は遅くなる？
+
+データベースに 2,000 個のディレクトリ（db.zo は 149 KB）を入れて計測しました。
+
+| 計測項目（中央値） | 時間 |
+| --- | --- |
+| zoxide query repo1500 src | 8.4 ms |
+| zoxide --version（プロセス起動のみ） | 4.7 ms |
+| zsh -i の起動、~/.zshrc が空 | 14.1 ms |
+| zsh -i の起動、zoxide の初期化あり | 27.1 ms |
+
+検索はプロセス起動そのものより数ミリ秒多いだけで、初期化行によるシェル起動の増加は約 13 ms でした。このテスト機では、zoxide はターミナルの遅さの主な原因ではありません。シェルの起動が遅い場合は、まず ~/.zshrc の他の設定を計測してください。
+
+## macOS でのデータ保存場所
+
+既定のデータベースは ~/Library/Application Support/zoxide/db.zo で、最初の zoxide add でここに作成されました。_ZO_DATA_DIR で場所を変更できます。db.zo を削除すると学習内容がリセットされますが、zoxide 本体は削除されません。
+
+## アンインストール
+
+~~~bash
+brew uninstall zoxide
+~~~
+
+その後 ~/.zshrc の初期化行を削除してください。残っていると、新しいターミナルを開くたびに command not found: zoxide と表示されます。
+
+## 次のステップ
+
+- [基本コマンド](/ja/tutorials/basic-commands/)：z、zi、z - と query のオプション
+- [高度な設定](/ja/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS などの環境変数
+- [zoxide-doctor](/ja/tools/zoxide-doctor/)：設定を自動でチェック`,
 };
 
 const chineseTutorialContent: Record<string, string> = {
@@ -1792,71 +2037,165 @@ apt 版本跟随 Ubuntu 常规更新，并用 apt-cache policy zoxide 查看候�
 - [Ubuntu 24.04 fzf 软件包](https://packages.ubuntu.com/noble/fzf)
 - [fzf 上游安装说明](https://github.com/junegunn/fzf#installation)`,
 
-  'install-macos': String.raw`# 在 macOS 上安装 zoxide
+  'install-macos': String.raw`# 在 macOS 上安装 zoxide（Homebrew + zsh 实测）
 
-macOS 上推荐使用 Homebrew。Apple Silicon 与 Intel Mac 的 Homebrew 路径不同，安装后应使用 command -v 检查实际调用的二进制文件。
+本文用 Homebrew 在 macOS 上安装 zoxide，接入 zsh（macOS 默认 Shell），然后逐一测试 Mac 上最容易出问题的地方：Apple Silicon 上 Homebrew 的 PATH、z 命令是否存在、记录目录的钩子是否在工作。下面的命令和输出都来自一次真实测试，而不是照抄 README。
 
-## Homebrew 安装
+## 测试环境
+
+| 项目 | 值 |
+| --- | --- |
+| 测试日期 | 2026 年 9 月 30 日 |
+| 机器 | GitHub Actions macOS 运行器，Apple M1（虚拟机），3 核 |
+| 系统 | macOS 26.6.2，arm64 |
+| Shell | zsh 5.9（macOS 默认）；另外检查了系统自带的 bash 3.2.57 |
+| Homebrew | 6.0.22，安装前缀 /opt/homebrew |
+| zoxide | 0.10.0（Homebrew 预编译包） |
+| fzf | 0.74.3（Homebrew） |
+
+我们用的是一台干净的虚拟 Mac，避免已有配置掩盖问题。你自己电脑上的耗时会不同，但本文描述的行为是一样的。
+
+## 第 1 步：用 Homebrew 安装
 
 ~~~bash
-brew update
 brew install zoxide
-zoxide --version
 ~~~
 
-Apple Silicon 如果找不到 brew：
-
-~~~bash
-eval "$(/opt/homebrew/bin/brew shellenv)"
-~~~
-
-## Cargo 安装
-
-已有 Rust 环境时：
-
-~~~bash
-cargo install zoxide --locked
-export PATH="$HOME/.cargo/bin:$PATH"
-~~~
-
-## 配置 Zsh
-
-macOS 默认通常使用 Zsh。在 ~/.zshrc 中添加：
-
-~~~bash
-eval "$(zoxide init zsh)"
-~~~
-
-然后重新加载：
-
-~~~bash
-source ~/.zshrc
-type z
-~~~
-
-## Bash 与 Fish
-
-~~~bash
-# Bash: ~/.bashrc
-eval "$(zoxide init bash)"
-~~~
-
-~~~fish
-# Fish: ~/.config/fish/config.fish
-zoxide init fish | source
-~~~
-
-## 验证使用
+Homebrew 显示 zoxide 为 stable 0.10.0 (bottled)，因为使用了预编译包，安装约 3 秒完成。检查安装位置：
 
 ~~~bash
 command -v zoxide
 zoxide --version
-cd ~/Documents
-z Documents
-zoxide query --list
 ~~~
 
-刚安装时 zoxide 还没有足够的访问记录。先进入几个常用目录，再使用 z 或 zi 测试。若系统存在多个 zoxide，可运行 type -a zoxide 检查旧版本是否抢占 PATH。`,
+在 Apple Silicon 上我们的输出是 /opt/homebrew/bin/zoxide 和 zoxide 0.10.0。Intel 芯片的 Mac 上，Homebrew 使用的是 /usr/local/bin。
+
+### 如果提示 command not found: zoxide
+
+Apple Silicon 上 /opt/homebrew/bin 默认不在 PATH 里。Homebrew 安装程序会提示你往 ~/.zprofile 加一行 brew shellenv，如果跳过了这一步，所有 Homebrew 装的工具都会找不到。我们用只含系统 PATH 的 zsh 复现了这个问题：
+
+~~~text
+zsh:1: command not found: zoxide
+~~~
+
+在同一测试里加上 shellenv 这一行就解决了：
+
+~~~bash
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+~~~
+
+之后新开一个终端窗口。如果连 brew 本身也提示找不到，原因就是这个。
+
+## 第 2 步：把 zoxide 加进 ~/.zshrc
+
+安装程序本身不会创建 z 命令。在 ~/.zshrc 为空时，交互式 zsh 输出：
+
+~~~text
+zsh:1: command not found: z
+~~~
+
+把初始化命令加到 ~/.zshrc 的末尾：
+
+~~~bash
+echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
+~~~
+
+新开窗口后检查：
+
+~~~bash
+type z zi
+~~~
+
+我们的输出显示 z 和 zi 都是来自 ~/.zshrc 的 shell 函数。如果想让 zoxide 直接替换 cd，改用 zoxide init zsh --cmd cd；实测中它会把 cd 和 cdi 定义为 zoxide 的函数。
+
+## 第 3 步：zoxide 在 zsh 里如何记录目录
+
+我们读了 zoxide init zsh 生成的脚本：在 zsh 里，zoxide 把钩子加进 chpwd_functions，这是 zsh 在每次切换目录时都会运行的函数列表。由此带来两个实际影响，我们都做了测试。
+
+**zsh 脚本里的 cd 也会被记录。** 一个非交互式 zsh 脚本执行初始化命令后切换了四次目录，数据库变成：
+
+~~~text
+   8.0 .../zo-demo/projects/web-app/src
+   4.0 .../zo-demo/notes/2026
+   4.0 .../zo-demo/projects/api-server
+~~~
+
+这和 Windows 上的 PowerShell 不同：PowerShell 版是在显示提示符时记录的，脚本里的切换不会被记住。那种情况见我们的 [Windows 教程](/zh/tutorials/install-windows/)。
+
+**如果之后有东西清空了 chpwd_functions，记录就会失效，而且 zoxide 会提醒你。** 我们在初始化命令之后加了一行清空 chpwd_functions 的代码，这是某些插件配置会产生的情况。下一次运行 z 时，zoxide 输出：
+
+~~~text
+zoxide: detected a possible configuration issue.
+Please ensure that zoxide is initialized right at the end of your shell configuration file (usually ~/.zshrc).
+~~~
+
+数据库始终是空的。看到这条提示时，请把 zoxide 的初始化行移到插件管理器、主题和其他 Shell 配置的后面。作为对照，清空 precmd_functions（提示符钩子列表）在 zsh 里不影响 zoxide，目录照常被记录。
+
+## 第 4 步：测试跳转与匹配规则
+
+完成上面的访问后，z web 失败了：
+
+~~~text
+zoxide: no match found
+~~~
+
+排第一的明明是 web-app/src，但 zoxide 要求最后一个关键词必须匹配路径的最后一段，而这里最后一段是 src。下面两种写法都成功了：
+
+~~~bash
+z web src      # web 匹配路径前面的部分，src 匹配最后一段
+z proj api     # api 匹配最后一段 api-server
+~~~
+
+跳转失败时，先运行 zoxide query -ls，看看最后一个关键词是否出现在目标文件夹名里。
+
+## 第 5 步：zi 需要 fzf
+
+在干净的机器上，zi 报错：
+
+~~~text
+zoxide: could not find fzf, is it installed?
+~~~
+
+~~~bash
+brew install fzf
+~~~
+
+这样装上了 fzf 0.74.3。zi 的选择界面需要真实的交互终端，所以自动化测试只确认到 fzf 安装成功；请新开窗口运行 zi 查看效果。z 本身从不依赖 fzf。选择器的调优见 [fzf 集成教程](/zh/tutorials/fzf-integration/)。
+
+## macOS 上的 bash 呢？
+
+macOS 仍然自带 bash 3.2.57（/bin/bash）。实测中 eval "$(zoxide init bash)" 在这个版本下加载没有报错，并定义了 z 函数。我们没有跑完整的交互式 bash 会话，所以如果你日常用 bash，请在切换几个目录后用 zoxide query -ls 确认一下。由于当前 macOS 默认 Shell 是 zsh，本文推荐走 zsh 这条路。
+
+## zoxide 会拖慢 zsh 吗？
+
+我们在数据库里放了 2,000 个目录（db.zo 为 149 KB）后测量：
+
+| 测量项（中位数） | 耗时 |
+| --- | --- |
+| zoxide query repo1500 src | 8.4 ms |
+| zoxide --version（仅启动进程） | 4.7 ms |
+| zsh -i 启动，~/.zshrc 为空 | 14.1 ms |
+| zsh -i 启动，加入 zoxide 初始化 | 27.1 ms |
+
+一次查询只比启动进程本身多几毫秒，初始化命令让 Shell 启动多了约 13 ms。在这台测试机上，zoxide 不是终端卡顿的明显来源。如果你的 Shell 启动很慢，先测量 ~/.zshrc 里的其他配置。
+
+## zoxide 在 macOS 上把数据存在哪里
+
+默认数据库位置是 ~/Library/Application Support/zoxide/db.zo，我们第一次执行 zoxide add 时就在这里创建了它。设置 _ZO_DATA_DIR 可以换位置。删除 db.zo 会清空学习记录，但不会卸载 zoxide。
+
+## 卸载
+
+~~~bash
+brew uninstall zoxide
+~~~
+
+然后删掉 ~/.zshrc 里的初始化行，否则每个新终端都会提示 command not found: zoxide。
+
+## 下一步
+
+- [基础命令](/zh/tutorials/basic-commands/)：z、zi、z - 与 query 参数
+- [高级配置](/zh/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS 等环境变量
+- [zoxide-doctor](/zh/tools/zoxide-doctor/)：自动检查你的配置`,
 };
 
 const localizedTutorialContent: Record<string, Record<string, string>> = {
