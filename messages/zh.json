@@ -209,6 +209,10 @@
     "corrections": {
       "title": "纠错",
       "description": "如果本站的某条命令在你那里不起作用，或者内容已经过时，请发邮件到 support@zoxide.org，并附上你的系统、Shell 和 zoxide --version 的输出。确认有误的内容我们会修正，重大修改会在页面上注明。"
+    },
+    "operator": {
+      "title": "谁在运营本站",
+      "description": "zoxide.org 由 Jacky Jian 编写和维护。他是一名独立开发者，使用 zoxide 已有两年。Jacky 负责撰写和测试本站教程、持续更新内容，并开发了 zoxide-doctor。他不是 zoxide 项目成员：zoxide 本身的 bug 请到官方 GitHub Issues 反馈，关于本站的意见请发邮件到 support@zoxide.org。"
     }
   },
   "faq": {
@@ -321,7 +325,7 @@
         "title": "别再只用 `cd` 了：Zoxide 如何彻底变革终端导航",
         "excerpt": "如果你常在终端中工作，还在频繁手动输入 `cd`、反复敲 Tab 补全路径，这篇文章会向你展示 Zoxide 如何用“智能跳转”彻底改变你的终端导航方式。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "命令未找到",
@@ -443,7 +447,7 @@
         "title": "Zoxide 是什么？能够替代 cd 的智能命令",
         "excerpt": "了解 Zoxide 如何通过学习你的使用习惯来替代传统的 cd 命令。探索 Frecency 算法、安装步骤以及如何实现目录间的瞬间跳转。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "教程",
@@ -455,7 +459,7 @@
         "title": "在 macOS 上安装 Zoxide：Shell 集成与自动补全指南",
         "excerpt": "在 macOS 上使用 Homebrew 或 Cargo 安装 Zoxide 的完整指南。学习如何为 zsh、bash 和 fish 配置 Shell 集成，并启用强大的自动补全功能。",
         "category": "安装指南",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "macos",
           "安装",
@@ -467,7 +471,7 @@
         "title": "Zoxide 最佳替代方案：与 Autojump、z 和 fasd 的深度对比",
         "excerpt": "将 Zoxide 与 Autojump、z 和 fasd 等流行替代方案进行对比。了解为什么 Zoxide 基于 Rust 的高性能和智能算法使其成为现代终端的首选。",
         "category": "对比",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "替代方案",
           "对比",
@@ -479,7 +483,7 @@
         "title": "提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能",
         "excerpt": "通过 zoxide alias 和 autocomplete（自动补全）深度优化终端导航体验，结合 fzf、Arch 与 NixOS 配置，构建高效、可重复的工作流。",
         "category": "技巧",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "alias",
           "autocomplete",
@@ -493,7 +497,7 @@
         "title": "超级终端：zoxide 与 fzf 交互式目录跳转终极教程",
         "excerpt": "通过结合 zoxide 和 fzf，解锁快如闪电的终端导航。本教程将展示如何配置和使用 zoxide 与 fzf，获得改变你命令行习惯的交互式模糊搜索体验。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "fzf",
@@ -508,7 +512,7 @@
         "title": "zoxide linux 安装与使用全攻略",
         "excerpt": "面向关键词 “zoxide linux”：覆盖 Ubuntu/Arch 安装、Shell 初始化、fzf 集成、常见错误修复，让你的 Linux 终端跳转更快。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide linux",
           "linux",
@@ -521,7 +525,7 @@
         "title": "Zoxide 故障排除：修复 \"No Match Found\" 和数据库错误",
         "excerpt": "Zoxide 通常是一个\"安装后即忘\"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。本指南涵盖了如何调试和修复 \"No Match Found\" 错误以及数据库相关问题。",
         "category": "故障排除",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "故障排除",
           "数据库",
@@ -535,7 +539,7 @@
         "title": "Zoxide 高级技巧：掌握 Frecency 和自定义工作流",
         "excerpt": "深入理解 frecency 排名、数据库备份与同步以及脚本化工作流，让你的 zoxide 在 Arch/NixOS 上始终高效。",
         "category": "技巧",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "frecency",
           "workflow",
@@ -549,7 +553,7 @@
         "title": "终端导航大师 —— Zoxide 使用终极指南",
         "excerpt": "如果你每天在命令行界面花费大量时间，你一定体会过使用标准 `cd` 命令在深层目录结构中导航的痛苦。这篇综合指南将深入探讨如何使用 Zoxide，涵盖从 Ubuntu 安装到高级 `fzf` 集成以及常见错误排查的所有内容。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "how to use",
@@ -564,7 +568,7 @@
         "title": "别再只用 `cd` 了：Zoxide 如何彻底变革终端导航",
         "excerpt": "如果你常在终端中工作，还在频繁手动输入 `cd`、反复敲 Tab 补全路径，这篇文章会向你展示 Zoxide 如何用“智能跳转”彻底改变你的终端导航方式。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "命令未找到",
@@ -578,7 +582,7 @@
         "title": "zoxide 快速开始指南",
         "excerpt": "5 分钟快速上手 zoxide，学习基本命令和配置方法。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "快速开始",
           "安装",
@@ -590,7 +594,7 @@
         "title": "zoxide 高级配置技巧",
         "excerpt": "学习如何配置 zoxide 以提升工作效率，包括别名设置、目录排除等。",
         "category": "技巧",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "配置",
           "高级",
@@ -602,7 +606,7 @@
         "title": "zoxide 与 autojump 怎么选",
         "excerpt": "基于上游资料比较 zoxide 与 autojump 的命令、Shell 和平台支持、交互选择与低风险迁移方法。",
         "category": "对比",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide vs autojump",
           "目录跳转",
@@ -613,7 +617,7 @@
         "title": "zoxide 命令未找到 - 解决方法",
         "excerpt": "排查 \"zoxide command not found\" 错误，修复 PATH 和安装问题。",
         "category": "故障排除",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "故障排除",
           "安装",
@@ -626,7 +630,7 @@
         "title": "zoxide 无法正常工作 - 故障排除指南",
         "excerpt": "当 zoxide 无法正常工作时的完整排查指南，修复常见问题。",
         "category": "故障排除",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "故障排除",
           "错误",
@@ -639,7 +643,7 @@
         "title": "Zoxide Commands 终极指南：光速导航你的终端",
         "excerpt": "掌握从初始化到数据库管理的全套 zoxide 命令。学习如何调试导航、清理历史、脚本化工作流以及迁移数据，包含实用示例。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide commands",
           "命令",
@@ -653,7 +657,7 @@
         "title": "Zoxide 下载指南：在 macOS、Windows、Linux 上安全快速安装",
         "excerpt": "面向关键词“zoxide download”的实战指南：官方下载安装渠道、各平台最快命令、验证与排错步骤，以及升级与常见问题。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide download",
           "安装",
@@ -668,7 +672,7 @@
         "title": "详解 zoxide init：配置终端智能跳转的最后一步",
         "excerpt": "很多用户在使用包管理器（如 Homebrew、Scoop、Apt）安装完 zoxide 后，兴致勃勃地在终端输入 `z`，结果却只收到冷冰冰的 command not found。别担心，这并不一定是安装失败了。这通常是因为你通过了第一关（安装二进制文件），却卡在了第二关——Shell 初始化（Shell Integration）。",
         "category": "教程",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide init",
           "shell",

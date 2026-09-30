@@ -209,6 +209,10 @@
     "corrections": {
       "title": "訂正について",
       "description": "このサイトのコマンドが動かない、または内容が古い場合は、OS、シェル、zoxide --version の出力を添えて support@zoxide.org までメールしてください。確認できた誤りは修正し、大きな変更はページに記載します。"
+    },
+    "operator": {
+      "title": "運営者について",
+      "description": "zoxide.org は Jacky Jian が執筆・運営しています。zoxide を 2 年間使っている独立系開発者です。ガイドの執筆と検証、内容の更新を行い、zoxide-doctor も開発しました。zoxide プロジェクトのメンバーではありません。zoxide 本体のバグは公式 GitHub の Issue へ、このサイトへのご意見は support@zoxide.org へお送りください。"
     }
   },
   "faq": {
@@ -438,7 +442,7 @@
         "title": "Zoxideとは？ cdコマンドに代わるスマートな自動学習ツール",
         "excerpt": "従来のcdコマンドを、よりスマートな学習ベースのナビゲーションツールであるZoxideに置き換える方法を紹介します。Frecency（頻度と最近の使用）、インストール方法、そしてディレクトリ間を瞬時にジャンプする方法について学びましょう。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "チュートリアル",
@@ -450,7 +454,7 @@
         "title": "macOSにZoxideをインストール：シェル統合とオートコンプリート完全ガイド",
         "excerpt": "HomebrewまたはCargoを使用してmacOSにZoxideをインストールするための完全ガイド。zsh、bash、fishのシェル統合を設定し、強力なオートコンプリート機能を有効にする方法を解説します。",
         "category": "インストールガイド",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "macos",
           "インストール",
@@ -462,7 +466,7 @@
         "title": "Zoxideの最適な代替案：Autojump、z、fasdとの徹底比較",
         "excerpt": "Zoxideを、autojump、z、fasdなどの人気のある代替ツールと比較します。なぜRustベースのパフォーマンスとスマートなアルゴリズムを持つZoxideが、現代のターミナルにとって最高の選択なのかを確認しましょう。",
         "category": "比較",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "代替ツール",
           "比較",
@@ -474,7 +478,7 @@
         "title": "ターミナル効率向上：Zoxideエイリアスとオートコンプリートの詳細ガイド",
         "excerpt": "zoxideのエイリアスとオートコンプリートをfzfと組み合わせて、Arch、NixOSなどのプラットフォームで高速なメモリベースのナビゲーションワークフローを構築する方法を学びます。",
         "category": "ヒント",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "エイリアス",
           "オートコンプリート",
@@ -488,7 +492,7 @@
         "title": "zoxide linux：Linuxでの高速ディレクトリジャンプ",
         "excerpt": "「zoxide linux」実践ガイド：Ubuntu/Archへのインストール、シェル初期化、fzf連携、トラブルシューティングでLinuxターミナルナビゲーションを高速化。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide linux",
           "linux",
@@ -502,7 +506,7 @@
         "title": "Zoxideトラブルシューティング：「No Match Found」とデータベースエラーの修正",
         "excerpt": "Zoxideは一度設定すれば忘れられるツールですが、ディレクトリ履歴が増えると特定の問題が発生することがあります。このガイドでは「No Match Found」エラーとデータベース関連の問題のデバッグと修正方法を説明します。",
         "category": "トラブルシューティング",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "トラブルシューティング",
           "データベース",
@@ -516,7 +520,7 @@
         "title": "Zoxide上級テクニック：Frecencyとカスタムワークフローのマスター",
         "excerpt": "frecencyスコアの確認、zoxideデータベースのバックアップ、独自のワークフローのスクリプト化を学び、ArchやNixOSセットアップをポータブルに保ちます。",
         "category": "ヒント",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "frecency",
           "ワークフロー",
@@ -530,7 +534,7 @@
         "title": "ターミナルナビゲーションをマスター - Zoxideの使い方完全ガイド",
         "excerpt": "コマンドラインで多くの時間を過ごすなら、標準のcdコマンドで深いディレクトリ構造をナビゲートする苦労を知っているでしょう。この包括的なガイドでは、Ubuntuへのインストールから高度なfzf連携、一般的なエラーのトラブルシューティングまで、Zoxideの使い方を詳しく解説します。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "使い方",
@@ -545,7 +549,7 @@
         "title": "cdを使うのをやめよう：zoxideがターミナルナビゲーションを革新する方法",
         "excerpt": "ターミナルで生活していて、まだ手動でcdを入力してTabを連打してパスを補完しているなら、この記事はzoxideがスマートジャンプでナビゲーションワークフローを完全に変える方法を紹介します。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "command not found",
@@ -559,7 +563,7 @@
         "title": "zoxideクイックスタートガイド",
         "excerpt": "5分でzoxideを始めよう。基本的なコマンドと設定方法を学びます。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "クイックスタート",
           "インストール",
@@ -571,7 +575,7 @@
         "title": "zoxide高度な設定ヒント",
         "excerpt": "生産性を向上させるためのzoxideの設定方法を学びます。エイリアス設定、ディレクトリ除外など。",
         "category": "ヒント",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "設定",
           "上級",
@@ -583,7 +587,7 @@
         "title": "zoxide と autojump を比較して選ぶ",
         "excerpt": "上流資料をもとに、zoxide と autojump のコマンド、シェルと OS の対応、対話選択、安全な移行手順を比較します。",
         "category": "比較",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide vs autojump",
           "ディレクトリ移動",
@@ -594,7 +598,7 @@
         "title": "zoxide command not found - 修正方法",
         "excerpt": "\"zoxide command not found\"エラーのトラブルシューティングガイド。PATHの問題を修正しインストールを確認する方法。",
         "category": "トラブルシューティング",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "トラブルシューティング",
           "インストール",
@@ -607,7 +611,7 @@
         "title": "zoxideが動作しない - トラブルシューティングガイド",
         "excerpt": "zoxideが正しく動作しない場合の包括的なトラブルシューティングガイド。一般的な問題を修正してzoxideを再び動作させましょう。",
         "category": "トラブルシューティング",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "トラブルシューティング",
           "エラー",
@@ -620,7 +624,7 @@
         "title": "Zoxideコマンド完全ガイド：ライトスピードでターミナルをナビゲート",
         "excerpt": "初期化からデータベース管理まで、zoxideコマンドの全てをマスター。ナビゲーションのデバッグ、履歴のクリーンアップ、ワークフローのスクリプト化、データ移行を実践的な例で学びます。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxideコマンド",
           "コマンド",
@@ -634,7 +638,7 @@
         "title": "Zoxide Download Guide: Safe, Fast Install for macOS, Windows, and Linux",
         "excerpt": "「zoxide download」キーワード向けの実用的でSEO重視のガイド：公式バイナリの入手先、macOS、Windows、Linuxへのインストール方法、検証、トラブルシューティング、アップグレードのヒント。",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide download",
           "install",
@@ -649,7 +653,7 @@
         "title": "zoxide init：シェル統合の包括的ガイド",
         "excerpt": "Homebrew、Scoop、Aptなどのパッケージマネージャーでzoxideをインストールしました。ターミナルでzと入力すると、魔法を期待していたのにcommand not foundだけ。心配いりません — このガイドはzoxide initコマンドに完全に焦点を当てています。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide init",
           "シェル",
@@ -672,7 +676,7 @@
         "title": "ターミナルを強化する：zoxideとfzfによるインタラクティブなディレクトリ移動の究極ガイド",
         "excerpt": "zoxideとfzfを連携させて、光速のターミナルナビゲーションを体験しましょう。このガイドでは、zoxideとfzfのセットアップ方法と使い方を解説し、あなたのコマンドライン習慣を変えるインタラクティブなあいまい検索を実現します。",
         "category": "チュートリアル",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "fzf",

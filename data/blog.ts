@@ -147,7 +147,7 @@ Combining zoxide and fzf is more than just a small tweak to your workflow; it's 
 
 By leveraging the intelligent history of zoxide and the interactive fuzzy search of fzf, you can navigate your filesystem at the speed of thought. If you're looking for a single change that will have a massive impact on your terminal productivity, the **zoxide fzf** combination is it. Give it a try—your \`cd\` key will thank you.`,
     date: "2026-01-17",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "Tutorial",
     primaryKeyword: "zoxide fzf",
     tags: [
@@ -284,7 +284,7 @@ alias jj "zi"
 
 通过利用 zoxide 的智能历史和 fzf 的**交互式模糊搜索**，你可以以思想的速度在文件系统中导航。如果你正在寻找一个能极大地提升你**命令行效率**的改变，那么 **zoxide fzf** 这个组合就是答案。试试看吧——你的 \`cd\` 键会感谢你的。`,
     date: "2026-01-17",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide fzf 教程",
     tags: ["zoxide fzf", "fzf", "教程", "交互式", "模糊搜索", "命令行神器"],
@@ -415,7 +415,7 @@ zoxideとfzfの連携は、ワークフローの小さな調整以上のもの�
 
 zoxideのインテリジェントな履歴とfzfの**インタラクティブなあいまい検索**を活用することで、思考の速さでファイルシステムをナビゲートできます。**コマンドライン効率化**に大きな影響を与える単一の変更を探しているなら、**zoxide fzf 連携**がその答えです。ぜひ試してみてください—あなたの \`cd\` キーが感謝することでしょう。`,
     date: "2026-01-17",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "チュートリアル",
     primaryKeyword: "zoxide fzf 連携",
     tags: ["zoxide fzf", "fzf", "連携", "使い方", "インタラクティブ", "効率化"],
@@ -755,7 +755,7 @@ The "**zoxide linux**" experience boils down to two essentials:
 After that, it's all ergonomics: fzf for interactive picking, multi-keyword jumps for precision, and optional takeover of \`cd\` if you want one unified muscle memory. If you live in a terminal all day, zoxide is one of the highest-ROI upgrades you can make in under five minutes.
 `,
     date: "2025-12-22",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide linux",
     tags: ["zoxide linux", "linux", "installation", "fzf", "troubleshooting"],
@@ -1074,7 +1074,7 @@ rm -rf "\${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
 当你把这些打磨好，你会发现：**每天几十次的目录跳转，真的能从"拖沓"变成"流畅"。**
 `,
     date: "2025-12-22",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide linux 安装",
     tags: ["zoxide linux", "linux", "安装", "fzf", "故障排除"],
@@ -1277,7 +1277,7 @@ rm -rf "\${XDG_DATA_HOME:-$HOME/.local/share}/zoxide"
 その後は、すべてが快適です：fzfでインタラクティブピッキング、複数キーワードジャンプで精度向上、オプションで\`cd\`を置き換えて統一されたマッスルメモリー。ターミナルで一日中作業するなら、zoxideは5分未満でできる最高のROIアップグレードの1つです。
 `,
     date: "2025-12-22",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "チュートリアル",
     primaryKeyword: "zoxide linux インストール",
     tags: [
@@ -1385,7 +1385,7 @@ zoxide 让目录导航变得简单高效。通过智能学习和模糊搜索，�
 
 更多高级用法，请查看[高级配置教程](/tutorials/advanced-config/)。`,
     date: "2025-11-30",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide 快速开始",
     tags: ["zoxide 快速开始", "安装", "配置"],
@@ -1489,7 +1489,7 @@ export _ZO_DATA_DIR="/shared/path/zoxide"
 
 更多配置选项，请查看[官方文档](https://github.com/ajeetdsouza/zoxide)。`,
     date: "2025-11-30",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "技巧",
     primaryKeyword: "zoxide 高级配置",
     tags: ["zoxide 高级配置", "配置", "高级", "优化"],
@@ -1582,7 +1582,7 @@ j project
 
 查看[完整对比](/blog/zoxide-alternatives-comparison-open-source/)了解更多细节。`,
     date: "2025-11-30",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide vs autojump",
     tags: ["zoxide vs autojump", "directory navigation", "migration", "autojump"],
@@ -1785,7 +1785,7 @@ To avoid this issue in the future:
 - [zoxide init shell integration guide](/blog/zoxide-init-guide/)
 - [zoxide download guide](/download/)`,
     date: "2025-12-01",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "故障排除",
     primaryKeyword: "zoxide command not found",
     tags: ["zoxide command not found", "troubleshooting", "installation", "error"],
@@ -2059,7 +2059,7 @@ If you're still experiencing issues:
 - [zoxide init shell integration guide](/blog/zoxide-init-guide/)
 - [Fix "no match found" and database errors](/blog/troubleshooting-zoxide-no-match-found/)`,
     date: "2025-12-01",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "故障排除",
     primaryKeyword: "zoxide not working",
     tags: ["zoxide not working", "troubleshooting", "error", "fix"],
@@ -2074,7 +2074,7 @@ If you're still experiencing issues:
     // 真实内容由多语言文案文件提供，这里只做占位，避免在翻译缺失时完全为空
     content: "# Stop Using cd: How Zoxide Revolutionizes Terminal Navigation",
     date: "2025-12-02",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide cd alternative",
     tags: ["zoxide cd alternative", "zoxide", "command not found", "setup", "fzf", "config"],
@@ -2090,7 +2090,7 @@ If you're still experiencing issues:
     content:
       "# Boosting Terminal Efficiency: A Deep Dive into Zoxide Aliases and Autocomplete",
     date: "2025-12-03",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "技巧",
     primaryKeyword: "zoxide alias autocomplete",
     tags: ["zoxide alias autocomplete", "alias", "autocomplete", "fzf", "arch", "nixos"],
@@ -2106,7 +2106,7 @@ If you're still experiencing issues:
     content:
       '# Troubleshooting Zoxide: Fixing "No Match Found" and Database Errors',
     date: "2025-12-04",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "故障排除",
     primaryKeyword: "zoxide no match found",
     tags: ["zoxide no match found", "troubleshooting", "database", "arch", "nixos"],
@@ -2122,7 +2122,7 @@ If you're still experiencing issues:
     content:
       "# Mastering Terminal Navigation – The Ultimate Guide on How to Use Zoxide",
     date: "2025-12-04",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "how to use zoxide",
     tags: ["how to use zoxide", "zoxide", "tutorial", "ubuntu", "fzf", "query"],
@@ -2198,7 +2198,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
 -----
 `,
     date: "2025-12-05",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "技巧",
     primaryKeyword: "zoxide advanced techniques",
     tags: ["zoxide advanced techniques", "frecency", "workflow", "backup", "arch", "nixos"],
@@ -2213,7 +2213,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
       "Master the full suite of zoxide commands from initialization to database management. Learn how to debug navigation, clean history, script workflows, and migrate data with practical examples.",
     content: "# The Ultimate Guide to Zoxide Commands",
     date: "2025-12-06",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide commands",
     tags: ["zoxide commands", "commands", "tutorial", "guide", "navigation"],
@@ -2229,7 +2229,7 @@ This effectively combines navigation and inspection. Whether you are fine-tuning
     // 内容由多语言文案文件提供，这里只做占位
     content: "# Zoxide Download Guide",
     date: "2025-12-11",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide download",
     tags: [
@@ -2444,7 +2444,7 @@ Whether you stick to the standard \`z\` command or alias \`cd\` entirely, proper
 
 Now, go edit that config file.`,
     date: "2025-12-20",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide init",
     tags: [
@@ -2491,7 +2491,7 @@ To keep your database fast:
 
 Zoxide is built in **Rust** for blazing speed, ensuring that the lookup time is imperceptible even with a large database.`,
     date: "2026-01-07",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "Deep Dive",
     primaryKeyword: "zoxide performance",
     tags: ["zoxide performance", "performance", "algorithm", "rust"],
@@ -2528,7 +2528,7 @@ Zoxide 使用一套加权排名算法：
 
 Zoxide 使用 **Rust** 编写，确保即使在庞大的数据库中，查询时间也几乎可以忽略不计。`,
     date: "2026-01-07",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "深度解析",
     primaryKeyword: "zoxide 性能",
     tags: ["zoxide 性能", "性能", "算法", "rust"],
@@ -2580,7 +2580,7 @@ To learn how to set this up correctly, check out our [Installation Guide](/tutor
 
 Zoxide relies on a clever handshake: the binary handles the brain (database, ranking, matching), and the shell function handles the body (moving the user). This separation allows zoxide to be incredibly fast and portable while still feeling native to your terminal.`,
     date: "2026-01-08",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "Deep Dive",
     primaryKeyword: "how zoxide works",
     tags: ["how zoxide works", "shell", "internals", "bash", "zsh"],
@@ -2632,7 +2632,7 @@ Zoxide relies on a clever handshake: the binary handles the brain (database, ran
 
 Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（数据库、排名、匹配），而 Shell 函数负责"身体"（移动用户）。这种分离设计使得 zoxide 既能保持极高的性能和移植性，又能像原生命令一样无缝融入你的终端体验。`,
     date: "2026-01-08",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "深度解析",
     primaryKeyword: "zoxide 工作原理",
     tags: ["zoxide 工作原理", "shell", "原理解析", "bash", "zsh"],
@@ -2649,7 +2649,7 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
       "zoxideの背後にあるFrecentアルゴリズムを理解し、次のディレクトリジャンプを高精度で予測する仕組み。",
     content: "",
     date: "2026-01-07",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "詳細解説",
     primaryKeyword: "zoxide パフォーマンス",
     tags: ["zoxide パフォーマンス", "zoxide", "アルゴリズム", "rust"],
@@ -2665,7 +2665,7 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
       "別のバイナリプロセスであるにもかかわらず、zoxideがシェルとどのように連携してディレクトリを変更するのかを深掘り。",
     content: "",
     date: "2026-01-08",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "詳細解説",
     primaryKeyword: "zoxide 仕組み",
     tags: ["zoxide 仕組み", "zoxide", "内部", "シェル", "フック"],
@@ -2804,7 +2804,7 @@ If you’re evaluating **“z command instead of cd”**, the best way to think 
 Once zoxide is initialized, it becomes one of those tools that quietly saves time all day. Ready to get started? Check out our [quick start guide](/tutorials/quick-start/), or see how zoxide compares to other tools in our [zoxide vs autojump comparison](/blog/zoxide-vs-autojump/). For interactive fuzzy search, read our [zoxide and fzf integration guide](/tutorials/fzf-integration/).
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "what is zoxide",
     tags: [
@@ -2939,7 +2939,7 @@ zoxide 支持补全，也经常与 fzf 搭配实现交互式选择。补全是�
 配置好 \`zoxide init\` 之后，你会发现它是一种“无感提升”：每天几十次目录跳转都更快、更轻松。下一篇我们会专门讲 **Mac 安装 zoxide、不同 Shell 的配置方法，以及自动补全/交互选择如何优化**。
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide 是什么",
     tags: [
@@ -3062,7 +3062,7 @@ Bash / Zsh / Fish など主要シェルに対応し、PowerShellやNushellなど
 まずは \`zoxide init\` を正しく設定して、普段どおりに使ってみてください。数日で“学習”が効いてきて、ディレクトリ移動のストレスが目に見えて減ります。
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide とは",
     tags: [
@@ -3254,7 +3254,7 @@ On macOS, zoxide is a 2-step tool:
 Once it’s configured, directory navigation becomes one of those “why didn’t I do this earlier?” upgrades.
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "how to install zoxide on Mac",
     tags: [
@@ -3443,7 +3443,7 @@ mac 上把 zoxide 用起来，本质就两件事：
 做到这两步，你就能在终端里真正享受到“智能跳转”的爽感。
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "mac 安装 zoxide",
     tags: [
@@ -3618,7 +3618,7 @@ macOS で zoxide を快適に使うポイントはシンプルです。
 これだけで、深いパス移動のストレスが一気に減ります。
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "教程",
     primaryKeyword: "zoxide mac インストール",
     tags: [
@@ -3785,7 +3785,7 @@ The directory-jump category is mature, and there are several good options. But z
 If you’re on the fence, install it, enable \`zoxide init\`, and try it for a week. The fastest test is always real usage.
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide alternatives",
     tags: [
@@ -3942,7 +3942,7 @@ zoxide 支持主流 Shell；常见如 Bash、Zsh、Fish，也能在 PowerShell�
 如果你还在犹豫，最好的办法不是继续对比参数，而是：装上 zoxide、配好 init，用一周。目录跳转这种工具，体验胜过一切。
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide 替代品",
     tags: [
@@ -4072,7 +4072,7 @@ zoxide の代替は複数ありますが、zoxide が選ばれやすいのは、
 というバランスが良いからです。迷うなら、まず zoxide を1週間使ってみるのが一番早い結論です。
 `,
     date: "2026-01-10",
-    author: "zoxide.org",
+    author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide 代替",
     tags: [

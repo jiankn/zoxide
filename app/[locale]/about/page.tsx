@@ -49,6 +49,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <h2>{t('mission.title')}</h2>
           <p>{t('mission.description')}</p>
 
+          <h2>{t('operator.title')}</h2>
+          <p>{t('operator.description')}</p>
+
           <h2>{t('disclaimer.title')}</h2>
           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
             <p className="text-yellow-800">

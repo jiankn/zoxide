@@ -9,6 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Calendar, Clock, User } from "lucide-react";
+import { Link } from "@/i18n/routing";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
@@ -303,7 +304,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  <span>{author}</span>
+                  <Link href="/about" rel="author" className="hover:underline">{author}</Link>
                 </div>
                 <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                   {category}

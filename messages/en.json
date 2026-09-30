@@ -209,6 +209,10 @@
     "corrections": {
       "title": "Corrections",
       "description": "If a command on this site does not work for you, or something is out of date, email support@zoxide.org with your OS, shell and zoxide --version output. We fix confirmed errors and note significant changes on the page."
+    },
+    "operator": {
+      "title": "Who runs this site",
+      "description": "zoxide.org is written and maintained by Jacky Jian, an independent developer who has been using zoxide for two years. Jacky writes and tests the guides, keeps them up to date, and built zoxide-doctor. He is not a member of the zoxide project: report bugs in zoxide itself on the official GitHub issue tracker, and send feedback about this site to support@zoxide.org."
     }
   },
   "faq": {
@@ -438,7 +442,7 @@
         "title": "What Is Zoxide? A Smarter cd Command That Learns Your Habits",
         "excerpt": "Discover how zoxide replaces the traditional cd command with a smarter, learning-based navigation tool. Learn about frecency, installation, and how to jump directories instantly.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "tutorial",
@@ -450,7 +454,7 @@
         "title": "zoxide + fzf: The Ultimate Guide to Interactive Navigation",
         "excerpt": "Learn how to combine zoxide with fzf for a powerful interactive directory selection workflow. Master fuzzy searching, previews, and custom aliases.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "fzf",
@@ -462,7 +466,7 @@
         "title": "Install Zoxide on macOS: Shell Integration & Autocomplete Guide",
         "excerpt": "A complete guide to installing zoxide on macOS using Homebrew or Cargo. Learn how to set up shell integration for zsh, bash, and fish, and enable powerful autocomplete features.",
         "category": "Installation",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "macos",
           "installation",
@@ -474,7 +478,7 @@
         "title": "Zoxide Best Alternatives: Comparison with Autojump, z, and fasd",
         "excerpt": "Compare zoxide with popular alternatives like autojump, z, and fasd. See why zoxide's Rust-based performance and smart algorithm make it the top choice for modern terminals.",
         "category": "Comparison",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "alternatives",
           "comparison",
@@ -486,7 +490,7 @@
         "title": "Boosting Terminal Efficiency: A Deep Dive into Zoxide Aliases and Autocomplete",
         "excerpt": "Learn how to use zoxide aliases and autocomplete together with fzf on Arch, NixOS, and other platforms to build a fast, memory-based navigation workflow.",
         "category": "Tips",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "alias",
           "autocomplete",
@@ -500,7 +504,7 @@
         "title": "zoxide linux: Fast Directory Jumps on Linux",
         "excerpt": "A practical “zoxide linux” guide: installation on Ubuntu/Arch, shell init, fzf integration, and troubleshooting so your Linux terminal navigation stays fast.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide linux",
           "linux",
@@ -513,7 +517,7 @@
         "title": "Troubleshooting Zoxide: Fixing \"No Match Found\" and Database Errors",
         "excerpt": "Zoxide is generally a set-and-forget tool, but as your directory history grows, you might encounter specific issues. This guide covers how to debug and fix \"No Match Found\" errors and database-related problems.",
         "category": "Troubleshooting",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "troubleshooting",
           "database",
@@ -527,7 +531,7 @@
         "title": "Advanced Zoxide Techniques: Mastering Frecency and Custom Workflows",
         "excerpt": "Learn how to inspect frecency scores, back up the zoxide database, and script your own workflows so Arch and NixOS setups stay portable.",
         "category": "Tips",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "frecency",
           "workflow",
@@ -541,7 +545,7 @@
         "title": "Mastering Terminal Navigation – The Ultimate Guide on How to Use Zoxide",
         "excerpt": "If you spend any significant amount of time in a command-line interface, you know the pain of navigating deep directory structures using the standard `cd` command. This comprehensive guide explores how to use Zoxide, covering everything from installation on Ubuntu to advanced `fzf` integration and troubleshooting common errors.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "how to use",
@@ -556,7 +560,7 @@
         "title": "Stop Using `cd`: How zoxide Revolutionizes Terminal Navigation",
         "excerpt": "If you live in the terminal and still type `cd` manually and spam Tab to complete paths, this article shows how zoxide can completely change your navigation workflow with smart jumps.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide",
           "command not found",
@@ -570,7 +574,7 @@
         "title": "zoxide Quick Start Guide",
         "excerpt": "Get started with zoxide in 5 minutes, learn basic commands and configuration methods.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "Quick Start",
           "Installation",
@@ -582,7 +586,7 @@
         "title": "zoxide Advanced Configuration Tips",
         "excerpt": "Learn how to configure zoxide to improve productivity, including alias settings, directory exclusion, etc.",
         "category": "Tips",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "Configuration",
           "Advanced",
@@ -594,7 +598,7 @@
         "title": "zoxide vs autojump: Which Directory Jumper Should You Use?",
         "excerpt": "A source-checked comparison of zoxide and autojump covering commands, shell and platform support, interactive selection, and a low-risk migration path.",
         "category": "Comparison",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide vs autojump",
           "Directory Navigation",
@@ -605,7 +609,7 @@
         "title": "zoxide command not found - How to Fix",
         "excerpt": "Troubleshooting guide for \"zoxide command not found\" error. Learn how to fix PATH issues and verify installation.",
         "category": "Troubleshooting",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "Troubleshooting",
           "Installation",
@@ -618,7 +622,7 @@
         "title": "zoxide not working - Troubleshooting Guide",
         "excerpt": "Comprehensive troubleshooting guide for when zoxide is not working correctly. Fix common issues and get zoxide running again.",
         "category": "Troubleshooting",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "Troubleshooting",
           "Error",
@@ -631,7 +635,7 @@
         "title": "The Ultimate Guide to Zoxide Commands: Navigating Your Terminal at Light Speed",
         "excerpt": "Master the full suite of zoxide commands from initialization to database management. Learn how to debug navigation, clean history, script workflows, and migrate data with practical examples.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide commands",
           "commands",
@@ -645,7 +649,7 @@
         "title": "Zoxide Download Guide: Safe, Fast Install for macOS, Windows, and Linux",
         "excerpt": "A practical zoxide download guide: where to get the official binaries, how to install on macOS, Windows, and Linux, plus verification, troubleshooting, and upgrade tips.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide download",
           "install",
@@ -660,7 +664,7 @@
         "title": "zoxide init: The Comprehensive Guide to Shell Integration",
         "excerpt": "So, you've installed zoxide using a package manager like Homebrew, Scoop, or Apt. You type `z` in your terminal, expecting magic, but all you get is command not found. Don't worry — this guide focuses entirely on the `zoxide init` command.",
         "category": "Tutorial",
-        "author": "zoxide.org",
+        "author": "Jacky Jian",
         "tags": [
           "zoxide init",
           "shell",

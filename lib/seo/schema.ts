@@ -9,6 +9,10 @@ export interface OrganizationSchema {
   logo?: string;
   description?: string;
   sameAs?: string[];
+  founder?: {
+    '@type': string;
+    name: string;
+  };
   contactPoint?: {
     '@type': string;
     email: string;
@@ -40,6 +44,7 @@ export interface ArticleSchema {
   author: {
     '@type': string;
     name: string;
+    url?: string;
   };
   datePublished: string;
   dateModified?: string;
@@ -92,6 +97,10 @@ export function generateOrganizationSchema(): OrganizationSchema {
     url: 'https://zoxide.org',
     logo: 'https://zoxide.org/icon.svg',
     description: 'Independent community documentation and tutorials for zoxide, the smarter cd command written in Rust. This website is not the official zoxide project.',
+    founder: {
+      '@type': 'Person',
+      name: 'Jacky Jian',
+    },
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'support@zoxide.org',
@@ -131,6 +140,8 @@ export function generateArticleSchema(
     author: {
       '@type': 'Person',
       name: author,
+      // 运营者介绍在 About 页，作者实体指向该页
+      url: 'https://zoxide.org/about/',
     },
     datePublished,
     dateModified: dateModified || datePublished,
