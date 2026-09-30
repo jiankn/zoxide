@@ -38,10 +38,12 @@
     "copyFailed": "复制失败",
     "notFound": "页面未找到",
     "notFoundDescription": "您访问的页面不存在或已被移动。",
-    "backToBlog": "返回博客"
+    "backToBlog": "返回博客",
+    "brandName": "zoxide 指南",
+    "unofficialBadge": "非官方"
   },
   "home": {
-    "title": "zoxide - 更智能的 cd 命令",
+    "title": "zoxide 非官方指南：更智能的 cd 命令",
     "subtitle": "用几个字符，跳到最常用的目录",
     "description": "zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。",
     "getStarted": "快速开始",
@@ -151,10 +153,10 @@
   },
   "about": {
     "title": "关于我们",
-    "description": "关于 zoxide.org — 独立的社区驱动文档站点，提供 zoxide 安装教程、Shell 集成指南、使用技巧和开发者博客。",
+    "description": "zoxide.org 是一个独立的、非官方的 zoxide（更智能的 cd 命令）使用指南。我们在真实电脑上测试安装步骤和修复方法，并如实记录结果。",
     "mission": {
-      "title": "我们的使命",
-      "description": "zoxide.org 是一个致力于推广和帮助用户使用 zoxide 的粉丝网站。我们提供详细的教程、使用技巧、常见问题解答等内容，帮助开发者更好地使用这个强大的工具。"
+      "title": "本站是什么",
+      "description": "zoxide.org 是一个独立的指南网站，面向正在安装、配置 zoxide 或排查问题的用户。它不是 zoxide 项目的官方网站：zoxide 由 Ajeet D'Souza 和贡献者在 GitHub 上开发和维护，官方文档也在那个仓库里。本站补充的是 README 不打算覆盖的内容：针对具体系统的实测教程、对令人困惑的报错的解释、实测数据，以及 zoxide-doctor 这样的工具。"
     },
     "disclaimer": {
       "title": "重要声明",
@@ -185,6 +187,28 @@
     "legal": {
       "title": "隐私和条款",
       "description": "请查看我们的 <a href=\"/privacy-policy\" className=\"text-blue-600 hover:text-blue-800 underline\">隐私政策</a> 和 <a href=\"/terms-of-service\" className=\"text-blue-600 hover:text-blue-800 underline\">服务条款</a>。"
+    },
+    "editorial": {
+      "title": "我们如何测试和更新内容",
+      "items": [
+        "标注为实测的教程都在真实电脑上跑过，并写明测试日期、系统、Shell 和 zoxide 版本。较早的教程正在按同样方式逐篇复核。",
+        "作为结果展示的命令输出，都复制自真实运行，而不是凭记忆编写。没有测试过的内容（例如其他安装方式），页面上会明确说明。",
+        "关于 zoxide 行为的说法，会对照官方仓库和 zoxide 生成的代码核实，并尽量附上链接。",
+        "zoxide 新版本改变行为时，受影响的教程会重新测试并更新日期。"
+      ]
+    },
+    "original": {
+      "title": "官方文档没有、而本站提供的内容",
+      "items": [
+        "zoxide-doctor：我们开发的开源检查工具，用来诊断常见的配置问题。",
+        "实测数据，例如数据库有 2,000 个目录时的查询耗时、Windows 上 PowerShell 的启动开销。",
+        "对新用户容易困惑的行为的解释，例如为什么 z web 匹配不到名为 web-app\\src 的文件夹。"
+      ],
+      "windowsGuide": "Windows 安装实测教程"
+    },
+    "corrections": {
+      "title": "纠错",
+      "description": "如果本站的某条命令在你那里不起作用，或者内容已经过时，请发邮件到 support@zoxide.org，并附上你的系统、Shell 和 zoxide --version 的输出。确认有误的内容我们会修正，重大修改会在页面上注明。"
     }
   },
   "faq": {
@@ -214,9 +238,10 @@
     ]
   },
   "disclaimer": {
-    "label": "免责声明：",
-    "message": "Zoxide.org 是一个独立的、社区驱动的文档项目，与 Ajeet D'Souza 或 Zoxide 官方项目没有任何关联、认可或从属关系。",
-    "closeLabel": "关闭提示"
+    "label": "非官方指南：",
+    "message": "zoxide.org 是独立网站，不是 zoxide 官方项目，与 zoxide 作者 Ajeet D'Souza 没有任何关联，也未获其认可。",
+    "closeLabel": "关闭提示",
+    "officialLink": "官方项目（GitHub）"
   },
   "footer": {
     "description": "一个更智能的 cd 命令替代工具，让目录导航更快更高效。",
@@ -253,7 +278,7 @@
     "video": "zoxide视频教程, zoxide youtube教程",
     "legal": "隐私政策, 服务条款, 关于我们",
     "titles": {
-      "home": "zoxide安装 - 智能cd命令替代工具 | 让目录导航快10倍",
+      "home": "zoxide安装与使用指南 - 智能cd命令替代工具（非官方）",
       "features": "zoxide功能 - 智能cd命令工具 | 极速性能",
       "download": "zoxide安装指南 - 一键安装教程 | macOS Linux Windows",
       "tutorials": "zoxide教程 - 完整使用指南 | 从入门到精通",
@@ -263,7 +288,7 @@
       "faq": "zoxide常见问题 - FAQ故障排除指南 | 问题解答",
       "changelog": "zoxide更新日志 - 版本历史和功能更新 | 最新版本",
       "comparisons": "zoxide vs 其他工具 - 最佳cd替代工具对比 | 工具对比",
-      "about": "关于我们 - zoxide.org粉丝网站 | zoxide社区",
+      "about": "关于我们 - zoxide.org 独立的非官方 zoxide 指南",
       "privacyPolicy": "隐私政策 - zoxide.org | 数据保护",
       "termsOfService": "服务条款 - zoxide.org | 使用协议",
       "videos": "zoxide视频教程 - YouTube视频学习 | 视频指南",

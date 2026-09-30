@@ -4,6 +4,7 @@ export interface OrganizationSchema {
   '@context': string;
   '@type': string;
   name: string;
+  alternateName?: string;
   url: string;
   logo?: string;
   description?: string;
@@ -20,6 +21,7 @@ export interface WebSiteSchema {
   '@context': string;
   '@type': string;
   name: string;
+  alternateName?: string;
   url: string;
   description: string;
   inLanguage: string[];
@@ -86,6 +88,7 @@ export function generateOrganizationSchema(): OrganizationSchema {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'zoxide.org',
+    alternateName: 'Unofficial zoxide Guide',
     url: 'https://zoxide.org',
     logo: 'https://zoxide.org/icon.svg',
     description: 'Independent community documentation and tutorials for zoxide, the smarter cd command written in Rust. This website is not the official zoxide project.',
@@ -104,6 +107,7 @@ export function generateWebSiteSchema(): WebSiteSchema {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'zoxide.org',
+    alternateName: 'Unofficial zoxide Guide',
     url: 'https://zoxide.org',
     description: 'Independent community documentation, tutorials, and resources for zoxide — a smarter cd command written in Rust.',
     inLanguage: ['en', 'zh', 'ja'],

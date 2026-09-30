@@ -56,6 +56,28 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </p>
           </div>
 
+          <h2>{t('editorial.title')}</h2>
+          <ul>
+            {(t.raw('editorial.items') as string[]).map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
+          <h2>{t('original.title')}</h2>
+          <ul>
+            {(t.raw('original.items') as string[]).map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p>
+            <Link href="/tools/zoxide-doctor" className="text-blue-600 underline hover:text-blue-800">zoxide-doctor</Link>
+            {' · '}
+            <Link href="/tutorials/install-windows" className="text-blue-600 underline hover:text-blue-800">{t('original.windowsGuide')}</Link>
+          </p>
+
+          <h2>{t('corrections.title')}</h2>
+          <p>{t('corrections.description')}</p>
+
           <h2>{t('content.title')}</h2>
           <p>{t('content.description')}</p>
           <ul>

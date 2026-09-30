@@ -187,7 +187,11 @@ export default function Navigation() {
             <Logo size={44} className="text-[#37352F] group-hover:opacity-80 transition-opacity hidden sm:block lg:hidden" />
             <Logo size={48} className="text-[#37352F] group-hover:opacity-80 transition-opacity hidden lg:block" />
             <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#37352F] whitespace-nowrap">
-              zoxide
+              {t('brandName')}
+            </span>
+            {/* 明确标注非官方身份，避免被误认为 zoxide 官方网站 */}
+            <span className="hidden sm:inline-flex items-center rounded border border-yellow-300 bg-yellow-50 px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-yellow-900 whitespace-nowrap">
+              {t('unofficialBadge')}
             </span>
           </Link>
 

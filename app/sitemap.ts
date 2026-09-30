@@ -12,6 +12,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const priorityContentLastModified = '2026-08-09';
   const downloadContentLastModified = '2026-08-14';
   const intentArchitectureLastModified = '2026-08-15';
+  // 2026-09-30：非官方身份说明（首页、About）与 Windows 实测教程（全部语言）
+  const unofficialGuideLastModified = '2026-09-30';
+  const unofficialGuidePaths = new Set(['', '/about']);
+  const retestedTutorialSlugs = new Set(['install-windows']);
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([
     'quick-start',
@@ -60,7 +64,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: updatedIntentHubs.has(route.path)
+        lastModified: unofficialGuidePaths.has(route.path)
+          ? unofficialGuideLastModified
+          : updatedIntentHubs.has(route.path)
           ? intentArchitectureLastModified
           : route.path === '/download'
           ? downloadContentLastModified
@@ -113,7 +119,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       tutorialPages.push({
         url,
-        lastModified: isDefaultLocale && updatedEnglishTutorialSlugs.has(tutorial.slug)
+        lastModified: retestedTutorialSlugs.has(tutorial.slug)
+          ? unofficialGuideLastModified
+          : isDefaultLocale && updatedEnglishTutorialSlugs.has(tutorial.slug)
           ? intentArchitectureLastModified
           : tutorial.date,
         changeFrequency: 'monthly' as const,

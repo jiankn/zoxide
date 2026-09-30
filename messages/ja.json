@@ -38,10 +38,12 @@
     "copyFailed": "コピーに失敗しました",
     "notFound": "ページが見つかりません",
     "notFoundDescription": "お探しのページは存在しないか、移動された可能性があります。",
-    "backToBlog": "ブログに戻る"
+    "backToBlog": "ブログに戻る",
+    "brandName": "zoxide ガイド",
+    "unofficialBadge": "非公式"
   },
   "home": {
-    "title": "zoxide - よりスマートなcdコマンド",
+    "title": "zoxide 非公式ガイド：よりスマートなcdコマンド",
     "subtitle": "よく使うディレクトリへ数文字で移動",
     "description": "zoxideは、ディレクトリ間を瞬時にジャンプできるスマートなcdコマンドです。Ubuntu、macOS、Windowsへのインストールガイド、「zoxide command not found」エラーの解決方法、fzfやNeovimとの連携方法を紹介します。",
     "getStarted": "始める",
@@ -151,10 +153,10 @@
   },
   "about": {
     "title": "私たちについて",
-    "description": "zoxide.org について — 独立したコミュニティ主導のドキュメントサイト。zoxideインストールガイド、シェル統合ヒント、使い方のティップス、開発者向けブログを提供。",
+    "description": "zoxide.org は、よりスマートな cd コマンド zoxide の独立した非公式ガイドです。インストール手順や修正方法を実機でテストし、その結果を記録しています。",
     "mission": {
-      "title": "私たちのミッション",
-      "description": "zoxide.org は、zoxideの普及とユーザーサポートに特化したファンサイトです。詳細なチュートリアル、使い方のヒント、よくある質問などを提供し、開発者がこの強力なツールをより良く活用できるようサポートします。"
+      "title": "このサイトについて",
+      "description": "zoxide.org は、zoxide のインストール、設定、トラブルシューティングを行う人のための独立したガイドです。zoxide プロジェクトの公式サイトではありません。zoxide は Ajeet D'Souza 氏とコントリビューターが GitHub で開発・保守しており、公式ドキュメントもそのリポジトリにあります。このサイトは README が扱わない内容を補います。特定の環境での検証済み手順、分かりにくいエラーの解説、計測結果、そして zoxide-doctor のようなツールです。"
     },
     "disclaimer": {
       "title": "重要な免責事項",
@@ -185,6 +187,28 @@
     "legal": {
       "title": "プライバシーと規約",
       "description": "<a href=\"/privacy-policy\" className=\"text-blue-600 hover:text-blue-800 underline\">プライバシーポリシー</a> と <a href=\"/terms-of-service\" className=\"text-blue-600 hover:text-blue-800 underline\">利用規約</a> をご覧ください。"
+    },
+    "editorial": {
+      "title": "コンテンツの検証と更新の方法",
+      "items": [
+        "検証済みと記載したガイドは実機で実行しており、検証日、OS、シェル、zoxide のバージョンを明記しています。古いガイドも同じ方法で順次見直しています。",
+        "結果として示すコマンド出力は、記憶で書いたものではなく実際の実行結果からコピーしています。検証していない内容（別のインストール方法など）はその旨をページに記載します。",
+        "zoxide の動作に関する説明は、公式リポジトリと zoxide が生成するコードで確認し、可能な限りリンクしています。",
+        "新しい zoxide リリースで動作が変わった場合は、影響するガイドを再検証し日付を更新します。"
+      ]
+    },
+    "original": {
+      "title": "公式ドキュメントにはない、このサイトの内容",
+      "items": [
+        "zoxide-doctor：よくある設定の問題を診断するために私たちが作ったオープンソースのチェッカー。",
+        "計測結果。たとえば 2,000 ディレクトリでの検索時間や、Windows での PowerShell 起動コスト。",
+        "新しいユーザーが戸惑う動作の解説。たとえば z web が web-app\\src というフォルダーに一致しない理由。"
+      ],
+      "windowsGuide": "Windows インストール検証ガイド"
+    },
+    "corrections": {
+      "title": "訂正について",
+      "description": "このサイトのコマンドが動かない、または内容が古い場合は、OS、シェル、zoxide --version の出力を添えて support@zoxide.org までメールしてください。確認できた誤りは修正し、大きな変更はページに記載します。"
     }
   },
   "faq": {
@@ -214,9 +238,10 @@
     ]
   },
   "disclaimer": {
-    "label": "免責事項:",
-    "message": "Zoxide.org は独立したコミュニティ主導のドキュメントプロジェクトであり、Ajeet D'Souza氏や公式Zoxideプロジェクトとは提携、承認、または関連していません。",
-    "closeLabel": "閉じる"
+    "label": "非公式ガイド:",
+    "message": "zoxide.org は独立したサイトであり、公式の zoxide プロジェクトではありません。作者 Ajeet D'Souza 氏とは提携しておらず、承認も受けていません。",
+    "closeLabel": "閉じる",
+    "officialLink": "公式プロジェクト（GitHub）"
   },
   "footer": {
     "description": "よりスマートなcdコマンド代替ツール。ディレクトリナビゲーションをより高速かつ効率的にします。",
@@ -253,7 +278,7 @@
     "video": "zoxideビデオチュートリアル, zoxide youtube",
     "legal": "プライバシーポリシー, 利用規約, 私たちについて",
     "titles": {
-      "home": "zoxide - スマートcdコマンド | インストール＆修正ガイド",
+      "home": "zoxide ガイド - スマートcdコマンド | インストール＆修正（非公式）",
       "features": "zoxide機能 - スマートcdコマンドツール | 超高速パフォーマンス",
       "download": "zoxideインストールガイド - macOS Linux Windows | ワンクリックインストール",
       "tutorials": "zoxideチュートリアル - 完全ガイド | スマートcdコマンド",
@@ -263,7 +288,7 @@
       "faq": "zoxide FAQ - トラブルシューティングガイド | よくある質問",
       "changelog": "zoxide更新履歴 - バージョン履歴と機能アップデート | 最新バージョン",
       "comparisons": "zoxide vs 他ツール - 最高のcd代替比較 | ツール比較",
-      "about": "私たちについて - zoxide.org ファンサイト | zoxideコミュニティ",
+      "about": "私たちについて - zoxide.org 独立した非公式 zoxide ガイド",
       "privacyPolicy": "プライバシーポリシー - zoxide.org | データ保護",
       "termsOfService": "利用規約 - zoxide.org | 使用契約",
       "videos": "zoxideビデオチュートリアル - YouTube動画学習 | 動画ガイド",

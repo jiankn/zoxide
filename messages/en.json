@@ -38,10 +38,12 @@
     "copyFailed": "Copy failed",
     "notFound": "Page Not Found",
     "notFoundDescription": "The page you are looking for does not exist or has been moved.",
-    "backToBlog": "Back to Blog"
+    "backToBlog": "Back to Blog",
+    "brandName": "zoxide guide",
+    "unofficialBadge": "Unofficial"
   },
   "home": {
-    "title": "zoxide - A smarter cd command",
+    "title": "zoxide guide: the smarter cd command, explained",
     "subtitle": "Jump to the directories you use most",
     "description": "zoxide is a smarter cd command that helps you jump between directories instantly. Follow our guides to install zoxide on Ubuntu, macOS, Windows and more, fix common \"zoxide command not found\" issues, and integrate it with tools like fzf and Neovim for a faster terminal workflow.",
     "getStarted": "Get Started",
@@ -151,10 +153,10 @@
   },
   "about": {
     "title": "About Us",
-    "description": "About zoxide.org — an independent, community-driven documentation site for zoxide. Tutorials, install guides, shell integration tips, and blog posts for developers.",
+    "description": "zoxide.org is an independent, unofficial guide to zoxide, the smarter cd command. We test install steps and fixes on real machines and document what we find.",
     "mission": {
-      "title": "Our Mission",
-      "description": "zoxide.org is a fan site dedicated to promoting and helping users use zoxide. We provide detailed tutorials, usage tips, FAQs and more to help developers better use this powerful tool."
+      "title": "What this site is",
+      "description": "zoxide.org is an independent guide for people installing, configuring and troubleshooting zoxide. It is not the zoxide project's website: the tool is written and maintained by Ajeet D'Souza and contributors on GitHub, and the official documentation lives in that repository. This site adds what the README does not try to cover: tested walk-throughs for specific systems, explanations of confusing errors, measurements, and tools such as zoxide-doctor."
     },
     "disclaimer": {
       "title": "Important Disclaimer",
@@ -185,6 +187,28 @@
     "legal": {
       "title": "Privacy and Terms",
       "description": "Please see our <a href=\"/privacy-policy\" className=\"text-blue-600 hover:text-blue-800 underline\">Privacy Policy</a> and <a href=\"/terms-of-service\" className=\"text-blue-600 hover:text-blue-800 underline\">Terms of Service</a>."
+    },
+    "editorial": {
+      "title": "How we test and update content",
+      "items": [
+        "Guides marked as tested were run on a real machine, and each one states the date, OS, shell and zoxide version it was checked with. We are working through older guides the same way.",
+        "Command output shown as a result is copied from an actual run, not written from memory. When we did not test something (for example an alternative install method), the page says so.",
+        "Facts about zoxide's behavior are checked against the official repository and the code that zoxide generates, and linked where possible.",
+        "When a new zoxide release changes behavior, affected guides are re-tested and their dates updated."
+      ]
+    },
+    "original": {
+      "title": "What you will find here that the official docs do not cover",
+      "items": [
+        "zoxide-doctor, an open-source checker we built that diagnoses common setup problems.",
+        "Measured results, such as query time with 2,000 directories and PowerShell startup cost on Windows.",
+        "Explanations of behavior that surprises new users, such as why z web does not match a folder named web-app\\src."
+      ],
+      "windowsGuide": "Tested Windows install guide"
+    },
+    "corrections": {
+      "title": "Corrections",
+      "description": "If a command on this site does not work for you, or something is out of date, email support@zoxide.org with your OS, shell and zoxide --version output. We fix confirmed errors and note significant changes on the page."
     }
   },
   "faq": {
@@ -214,9 +238,10 @@
     ]
   },
   "disclaimer": {
-    "label": "Disclaimer:",
-    "message": "Zoxide.org is an independent, community-driven documentation project and is not affiliated with, endorsed by, or connected to Ajeet D'Souza or the official Zoxide project.",
-    "closeLabel": "Close"
+    "label": "Unofficial guide:",
+    "message": "zoxide.org is an independent website, not the official zoxide project. It is not affiliated with or endorsed by zoxide's author, Ajeet D'Souza.",
+    "closeLabel": "Close",
+    "officialLink": "Official project on GitHub"
   },
   "footer": {
     "description": "A smarter cd command alternative that makes directory navigation faster and more efficient.",
@@ -253,7 +278,7 @@
     "video": "zoxide video tutorial, zoxide youtube",
     "legal": "privacy policy, terms of service, about us",
     "titles": {
-      "home": "zoxide - Smart cd Command | Install & Fix Guide",
+      "home": "zoxide Guide: Install, Setup & Fix the Smarter cd (Unofficial)",
       "features": "zoxide Features - Smart cd Command Tool | Blazing Performance",
       "download": "zoxide Install Guide - macOS Linux Windows | One-Click Install",
       "tutorials": "zoxide Tutorial - Complete Guide | Smart cd Command",
@@ -263,7 +288,7 @@
       "faq": "zoxide FAQ - Troubleshooting Guide | Common Questions",
       "changelog": "zoxide Changelog - Version History and Feature Updates | Latest Version",
       "comparisons": "zoxide vs Other Tools - Best cd Alternative Comparison | Tool Comparison",
-      "about": "About Us - zoxide.org Fan Site | zoxide Community",
+      "about": "About zoxide.org - An Independent, Unofficial zoxide Guide",
       "privacyPolicy": "Privacy Policy - zoxide.org | Data Protection",
       "termsOfService": "Terms of Service - zoxide.org | Usage Agreement",
       "videos": "zoxide Video Tutorial - YouTube Video Learning | Video Guide",
