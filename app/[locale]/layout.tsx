@@ -7,7 +7,6 @@ import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
 import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
-import Script from 'next/script';
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
 import { Geist, Geist_Mono } from "next/font/google"; // Moved from root layout
 import { Metadata } from 'next'; // Moved from root layout
@@ -65,6 +64,8 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="referrer" content="strict-origin-when-cross-origin" />
+        {/* AdSense 账户归属验证，与 ads.txt 及广告脚本的发布商 ID 保持一致 */}
+        <meta name="google-adsense-account" content="ca-pub-3562784107542460" />
         {/* Run before either Google tag, including the asynchronous AdSense tag. */}
         <script
           id="google-consent-defaults"
@@ -82,9 +83,10 @@ export default async function LocaleLayout({
             `,
           }}
         />
-        <Script
+        {/* AdSense 站点审核要求在初始 HTML 的 head 中直接看到该脚本，不能用 next/script 延迟注入 */}
+        <script
+          async
           id="google-adsense"
-          strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3562784107542460"
           crossOrigin="anonymous"
         />
