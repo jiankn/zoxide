@@ -117,8 +117,8 @@ export default function TerminalDemo() {
   const showCursor = lastLine && !lastLine.done;
 
   return (
-    <div className="w-full max-w-lg mx-auto lg:mx-0">
-      <div className="bg-[#1E1E1E] rounded-2xl overflow-hidden shadow-lg ring-1 ring-gray-200/50">
+    <div className="w-full max-w-xl mx-auto lg:max-w-none lg:mx-0">
+      <div className="bg-[#1E1E1E] rounded-2xl overflow-hidden shadow-xl ring-1 ring-gray-200/50">
         {/* 终端头部 */}
         <div className="flex items-center justify-between px-4 py-2.5 bg-[#2D2D2D] border-b border-[#3F3F3F]">
           <div className="flex items-center gap-2">
@@ -134,9 +134,9 @@ export default function TerminalDemo() {
         </div>
 
         {/* 终端内容 */}
-        <div className="p-4 min-h-[180px] lg:min-h-[270px] font-mono text-sm leading-relaxed">
+        <div className="p-5 min-h-[180px] lg:min-h-[340px] font-mono text-xs sm:text-sm lg:text-[13px] leading-relaxed">
           {lines.map((line, i) => (
-            <div key={`${phase}-${i}`} className="whitespace-nowrap">
+            <div key={`${phase}-${i}`} className="whitespace-pre-wrap break-words">
               {/* 提示符 */}
               <span className="text-[#A78BFA]">user</span>
               <span className="text-gray-500">@</span>
