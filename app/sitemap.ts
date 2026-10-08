@@ -19,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 2026-10-08：修正虚构内容、补充 Linux 发行版与下载页版本历史（按 语言:路径 记录实际改动的页面）
   const correctionLastModified = '2026-10-08';
   const correctedPaths = new Set([
+    // 2026-10-08：命令参考与初始化指南完成三语实测重写；中日路径已列在下方。
+    'en:/blog/zoxide-commands', 'en:/blog/zoxide-init-guide',
     'en:/download', 'zh:/download', 'ja:/download',
     'en:/tutorials/install-arch-nixos', 'zh:/tutorials/install-arch-nixos', 'ja:/tutorials/install-arch-nixos',
     'en:/tutorials/advanced-config', 'zh:/tutorials/advanced-config', 'ja:/tutorials/advanced-config',

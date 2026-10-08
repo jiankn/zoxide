@@ -1,6 +1,1177 @@
 // 实测改写的博客正文（2026-10-08，全新 ubuntu:24.04 容器 + tmux 真实终端）。
 // 优先级高于 messages 中的旧正文，由 getBlogContentOverride 读取。
 export const testedBlogContent: Record<string, Record<string, string>> = {
+  'zoxide-init-guide': {
+    en: String.raw`# zoxide init: tested shell setup, command names and hook modes
+
+zoxide init generates shell code. Loading that code defines navigation commands and connects directory recording to a shell hook. We tested both parts separately: a defined z command does not prove that directory learning is enabled.
+
+## Test environment
+
+| Item | Value |
+| --- | --- |
+| Date | October 8, 2026 |
+| System | Fresh ubuntu:24.04 container, x86_64, ordinary user tester |
+| Shells | Bash 5.2.21, Zsh 5.9, Fish 3.7.0, PowerShell 7.6.6, Nushell 0.116.1 |
+| zoxide | 0.10.0, installed with the official script as the user |
+| fzf | 0.74.4 (a140afeb), installed from its upstream clone with --bin |
+| Method | GitHub Actions; tmux 3.4 interactive terminals, 120 × 30; isolated startup files and _ZO_DATA_DIR |
+
+The [test run](https://github.com/jiankn/zoxide/actions/runs/37778722771) includes generated initialization code, terminal captures and database queries. Output paths here abbreviate /home/tester as ~. Screen excerpts omit completion markers, empty space and parts of function definitions. These were Linux tests, including PowerShell; this run did not test Windows or macOS profiles.
+
+## Initialize Bash, Zsh or Fish, then check z
+
+First, zoxide --version must work in the shell where you want to initialize it. Our binary printed zoxide 0.10.0. If the binary is missing, follow [download and install](/download/) before editing a profile.
+
+The normal startup lines are:
+
+~~~bash
+# Bash: ~/.bashrc
+eval "$(zoxide init bash)"
+
+# Zsh: ~/.zshrc
+eval "$(zoxide init zsh)"
+~~~
+
+~~~fish
+# Fish: ~/.config/fish/config.fish
+zoxide init fish | source
+~~~
+
+Our interactive tests used explicit --hook prompt, --hook pwd or --hook none with these loading forms. The tested help reports pwd as the default. For Zsh, the test configuration ran autoload -Uz compinit; compinit before initialization. The startup-file locations above follow the [upstream setup instructions](https://github.com/ajeetdsouza/zoxide/tree/v0.10.0#installation); we used separate test startup files.
+
+After initialization, type z confirmed the command in all three shells:
+
+| Shell | Result |
+| --- | --- |
+| Bash | z is a function; its body calls __zoxide_z |
+| Zsh | z is a shell function; its body calls __zoxide_z |
+| Fish | z is a function with definition; the generated alias calls __zoxide_z |
+
+For example, the Bash excerpt was:
+
+~~~bash
+z is a function
+z ()
+{
+    __zoxide_z "$@"
+}
+~~~
+
+Use [command not found troubleshooting](/blog/zoxide-command-not-found/) when the version command works but this check fails.
+
+## zoxide init --hook: default pwd is implemented differently by each shell
+
+The 0.10.0 help lists three hook modes: prompt, pwd and none. We tested all three in Bash, Zsh and Fish, starting each case with an empty query list.
+
+To choose a hook, edit the initialization line in your startup file and open a fresh shell. These forms were used in the pwd tests:
+
+~~~bash
+eval "$(zoxide init bash --hook pwd)"
+eval "$(zoxide init zsh --hook pwd)"
+~~~
+
+~~~fish
+zoxide init fish --hook pwd | source
+~~~
+
+The measurement sequence matters. First we entered cd /home/tester/projects/api-server, then ran zoxide query --list --score as the next interactive command. After it returned to the prompt, the test driver read the score with a separate external query. We then entered cd . and read externally again. Finally, one input line entered api-gateway and then api-docs; after another query, we checked whether the intermediate api-gateway path had been learned.
+
+| Shell and hook | Score after cd and the following query returned | Score after cd . | Intermediate api-gateway recorded |
+| --- | --- | --- | --- |
+| Bash prompt | 8.0 | 12.0 | No |
+| Bash pwd | 4.0 | 4.0 | No |
+| Bash none | No record | No record | No |
+| Zsh prompt | 8.0 | 12.0 | No |
+| Zsh pwd | 4.0 | 8.0 | Yes |
+| Zsh none | No record | No record | No |
+| Fish prompt | 8.0 | 12.0 | No |
+| Fish pwd | 4.0 | 8.0 | Yes |
+| Fish none | No record | No record | No |
+
+With prompt, returning to another prompt increased the score even when the command was only a query. That is why the external observation was 8.0 after one cd plus one query. It should not be read as two directory changes.
+
+With pwd, the generated Bash code used PROMPT_COMMAND to compare the current directory with its previous value. It did not record cd . and it missed the intermediate directory in a single line containing two cd commands. Zsh registered chpwd_functions; Fish registered an --on-variable PWD handler. Both recorded cd . and the intermediate directory in our test.
+
+Here is the Bash pwd case, with the automation markers removed:
+
+~~~text
+B> zoxide query --list --score
+(no output)
+B> cd /home/tester/projects/api-server
+B> zoxide query --list --score
+   4.0 ~/projects/api-server
+B> cd .
+~~~
+
+The external query after cd . still showed 4.0. In Zsh and Fish it showed 8.0. The parenthesized empty-output line above is an article annotation.
+
+--hook none defined the navigation commands but left all three test databases empty after ordinary cd commands. If you choose it, automatic learning is disabled; the separate add command remained available in our [command tests](/blog/zoxide-commands/).
+
+## --cmd and --no-cmd: command names and learning are separate
+
+In fresh Bash, Zsh and Fish sessions, --cmd j created j and ji. type z and type zi failed in those sessions. --no-cmd created neither pair, while type __zoxide_z confirmed that the internal navigation function still existed. The recording hook remained active: after cd into api-server, query returned its record.
+
+~~~bash
+eval "$(zoxide init bash --cmd j)"
+
+# In a separate fresh shell:
+eval "$(zoxide init bash --no-cmd)"
+~~~
+
+The tests combined these naming flags with --hook prompt; command-name checks were also performed in Zsh and Fish using their corresponding init syntax. The lines above show the same naming choices with the default hook.
+
+We also tested Bash with --hook prompt --cmd cd. It defined cd and cdi; z and zi were absent in that fresh shell. A single line that entered api-gateway and then api-docs still recorded only the final directory. Changing the prefix does not make a prompt hook observe every intermediate cd.
+
+## PowerShell: loaded successfully on Linux
+
+PowerShell was installed from Microsoft's Ubuntu 24.04 package repository. Our startup script loaded:
+
+~~~powershell
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Get-Command z,zi | Format-Table CommandType,Name -AutoSize
+~~~
+
+The lookup returned:
+
+~~~text
+CommandType Name
+----------- ----
+      Alias z
+      Alias zi
+~~~
+
+Before changing directory, query --list --score was empty. After Set-Location /home/tester/projects/api-server and a return to the prompt, it showed 4.0 for that path. z .. then moved to ~/projects. The generated default initialization wrapped the prompt function and checked for a changed location.
+
+PowerShell's other hook modes and naming flags were not tested. For a Windows profile walkthrough based on a separate Windows test, see [install on Windows](/tutorials/install-windows/).
+
+## Nushell: generate a file, then source it
+
+Nushell 0.116.1 was installed from its official Linux release archive. The test driver saved the output of zoxide init nushell to /home/tester/cases/zoxide.nu before starting the shell. Its test config contained:
+
+~~~nu
+source /home/tester/cases/zoxide.nu
+~~~
+
+help z reported Alias for __zoxide_z, with Command Type: custom. help zi reported Alias for __zoxide_zi. The initially empty database acquired api-server with score 4.0 after cd into that directory. After z .., print (pwd) returned ~/projects. The generated code attached recording to hooks.env_change.PWD.
+
+The upstream configuration form uses a generated file too:
+
+~~~nu
+# Generate the file before config.nu sources it:
+zoxide init nushell | save -f ~/.zoxide.nu
+
+# In config.nu:
+source ~/.zoxide.nu
+~~~
+
+Our run verified sourcing the generated file and using its commands with explicit test config paths. Automatic loading of a user's default env.nu/config.nu, other hook modes, naming flags and older Nushell versions were not tested.
+
+## Check the database as well as the command
+
+A useful setup check has two parts: look up z, then change to a real test directory and inspect query --list. The hook tests showed why both are needed: --hook none still provided z, and a query-only check could increase scores under --hook prompt.
+
+zoxide --help listed six public configuration variables: _ZO_DATA_DIR, _ZO_ECHO, _ZO_EXCLUDE_DIRS, _ZO_FZF_OPTS, _ZO_MAXAGE and _ZO_RESOLVE_SYMLINKS. We used _ZO_DATA_DIR for isolation; this guide did not test the behavior of the other five. See [advanced configuration](/tutorials/advanced-config/) for their separate tests.
+
+## Common questions
+
+### Does --cmd cd keep z available?
+
+In our fresh Bash session, it created cd and cdi, while type z and type zi failed. Check existing functions if you are reconfiguring a shell that has already been initialized.
+
+### Does --no-cmd stop directory learning?
+
+It did not in our tests. With an active hook, the database learned the directory even though z and zi were not defined. --hook none is the separate choice that disabled automatic recording.
+
+### Does pwd mean the same recording timing in every shell?
+
+No. Bash checked at the prompt; Zsh and Fish recorded their directory events, including cd . in this run. The table above gives the measured differences.
+
+Choose the zoxide init line for your shell, verify its command definition, and check one learned directory. The [command reference](/blog/zoxide-commands/) covers jumps and database operations; the [fzf guide](/tutorials/fzf-integration/) covers interactive selection.`,
+    zh: String.raw`# zoxide init 初始化指南：五种 Shell 配置与 hook 实测
+
+zoxide init 会生成 Shell 代码。加载这段代码后，导航命令被定义，目录记录也接入 Shell 的 hook。这次把两件事分开测试：能找到 z，不代表目录一定正在被记录。
+
+## 测试环境
+
+| 项目 | 实际配置 |
+| --- | --- |
+| 日期 | 2026 年 10 月 8 日 |
+| 系统 | 全新 ubuntu:24.04 容器，x86_64，普通用户 tester |
+| Shell | Bash 5.2.21、Zsh 5.9、Fish 3.7.0、PowerShell 7.6.6、Nushell 0.116.1 |
+| zoxide | 0.10.0，以普通用户运行官方脚本安装 |
+| fzf | 0.74.4（a140afeb），克隆上游仓库后用 --bin 安装 |
+| 方法 | GitHub Actions；tmux 3.4 交互终端，120 × 30；独立启动文件和 _ZO_DATA_DIR |
+
+[测试运行](https://github.com/jiankn/zoxide/actions/runs/37778722771)保存了初始化输出、终端抓取和数据库查询。本文输出中的 ~ 代表 /home/tester，屏幕摘录省略自动化完成标记、空白和部分函数定义。PowerShell 也运行在 Linux 上；本轮没有测试 Windows、macOS 的配置文件。
+
+## Bash、Zsh、Fish：加载初始化代码，再检查 z
+
+先在准备配置的 Shell 中执行 zoxide --version。这次输出 zoxide 0.10.0。二进制命令找不到时，先按[下载安装指南](/zh/download/)处理。
+
+通常使用的启动配置行如下：
+
+~~~bash
+# Bash：~/.bashrc
+eval "$(zoxide init bash)"
+
+# Zsh：~/.zshrc
+eval "$(zoxide init zsh)"
+~~~
+
+~~~fish
+# Fish：~/.config/fish/config.fish
+zoxide init fish | source
+~~~
+
+交互测试在这些加载形式中分别显式加入 --hook prompt、--hook pwd 或 --hook none。实测 help 标明默认值是 pwd。Zsh 的测试配置还在初始化前运行了 autoload -Uz compinit; compinit。上面列出的常规配置文件位置来自[上游配置说明](https://github.com/ajeetdsouza/zoxide/tree/v0.10.0#installation)，本次使用的是隔离的测试启动文件。
+
+加载后，三个 Shell 的 type z 均确认命令已定义：
+
+| Shell | 实际结果 |
+| --- | --- |
+| Bash | z is a function，函数调用 __zoxide_z |
+| Zsh | z is a shell function，函数调用 __zoxide_z |
+| Fish | z is a function with definition，生成的别名函数调用 __zoxide_z |
+
+例如 Bash 输出的片段是：
+
+~~~bash
+z is a function
+z ()
+{
+    __zoxide_z "$@"
+}
+~~~
+
+版本命令能运行、这个检查却失败时，参照[command not found 排错](/zh/blog/zoxide-command-not-found/)。
+
+## zoxide init --hook：默认 pwd，各 Shell 的记录时机有差异
+
+0.10.0 的 help 列出 prompt、pwd、none 三种模式。Bash、Zsh、Fish 的九组测试都从空查询列表开始。
+
+选择模式时，修改启动文件里的初始化行，再打开一个全新 Shell。pwd 测试使用了下面的加载形式。
+
+~~~bash
+eval "$(zoxide init bash --hook pwd)"
+eval "$(zoxide init zsh --hook pwd)"
+~~~
+
+~~~fish
+zoxide init fish --hook pwd | source
+~~~
+
+下表的测量过程需要说明。先输入 cd /home/tester/projects/api-server，再在下一条交互命令中执行 zoxide query --list --score。等查询返回提示符，测试程序在 Shell 外部再查一次分数，得到第一列。随后执行一次 cd .，再从外部查询，得到第二列。最后，在同一输入行先 cd 到 api-gateway，再 cd 到 api-docs，查询后检查中间目录 api-gateway 有没有被记录。
+
+| Shell 与 hook | cd 和随后查询返回提示符后的分数 | cd . 后的分数 | 中间目录 api-gateway 是否记录 |
+| --- | --- | --- | --- |
+| Bash prompt | 8.0 | 12.0 | 否 |
+| Bash pwd | 4.0 | 4.0 | 否 |
+| Bash none | 无记录 | 无记录 | 否 |
+| Zsh prompt | 8.0 | 12.0 | 否 |
+| Zsh pwd | 4.0 | 8.0 | 是 |
+| Zsh none | 无记录 | 无记录 | 否 |
+| Fish prompt | 8.0 | 12.0 | 否 |
+| Fish pwd | 4.0 | 8.0 | 是 |
+| Fish none | 无记录 | 无记录 | 否 |
+
+prompt 模式下，即使只执行查询，返回新提示符也会加分。因此，一次 cd 加一次查询后，从外部看到的是 8.0，不能把它解释成两次目录变化。
+
+pwd 模式下，Bash 生成的代码在 PROMPT_COMMAND 中比较当前目录与前一次目录。cd . 没有加分，同一输入行里两次 cd 的中间目录也没记录。Zsh 使用 chpwd_functions，Fish 使用 --on-variable PWD；这两个 Shell 都记录了 cd . 和中间目录。
+
+Bash pwd 模式的终端摘录如下，已省略自动化标记：
+
+~~~text
+B> zoxide query --list --score
+（无输出）
+B> cd /home/tester/projects/api-server
+B> zoxide query --list --score
+   4.0 ~/projects/api-server
+B> cd .
+~~~
+
+cd . 后，从外部查询仍是 4.0；Zsh 和 Fish 则是 8.0。“无输出”是文章标注，不是程序输出。
+
+--hook none 仍然定义导航命令，但执行普通 cd 后，三个 Shell 的测试数据库都保持为空。它关闭的是自动学习；手动 add 在同轮[命令测试](/zh/blog/zoxide-commands/)中仍可使用。
+
+## --cmd 与 --no-cmd：命令名和学习机制分别控制
+
+在全新的 Bash、Zsh、Fish 会话里，--cmd j 定义了 j 和 ji，type z 与 type zi 失败。--no-cmd 没有定义这两组名称，但 type __zoxide_z 确认内部导航函数仍然存在。记录 hook 也还在：cd 到 api-server 后，查询能看到目录记录。
+
+~~~bash
+eval "$(zoxide init bash --cmd j)"
+
+# 在另一份全新 Shell 中：
+eval "$(zoxide init bash --no-cmd)"
+~~~
+
+实测时，这些命名参数与 --hook prompt 一起使用，Zsh 和 Fish 也分别用对应初始化语法检查了命令定义。上面示例保留命名参数，使用默认 hook。
+
+还在 Bash 测试了 --hook prompt --cmd cd。它定义 cd 和 cdi；该全新 Shell 中没有 z 和 zi。同一输入行先进入 api-gateway，再进入 api-docs，仍然只记录最终目录。更换命令前缀，不会让 prompt hook 记录每一次中间 cd。
+
+## PowerShell：在 Linux 中成功加载
+
+PowerShell 从 Microsoft 的 Ubuntu 24.04 软件源安装。测试启动脚本执行：
+
+~~~powershell
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Get-Command z,zi | Format-Table CommandType,Name -AutoSize
+~~~
+
+查询命令定义得到：
+
+~~~text
+CommandType Name
+----------- ----
+      Alias z
+      Alias zi
+~~~
+
+切换目录前，query --list --score 为空。Set-Location /home/tester/projects/api-server 返回提示符后，该路径的分数为 4.0。随后 z .. 移动到 ~/projects。默认生成代码包装了 prompt 函数，并检查位置是否变化。
+
+PowerShell 的其他 hook 模式和命名参数未测试。Windows 配置文件的步骤来自另一次 Windows 实测，见[Windows 安装指南](/zh/tutorials/install-windows/)。
+
+## Nushell：先生成文件，再 source
+
+Nushell 0.116.1 从官方 Linux 发布压缩包安装。启动 Shell 前，测试程序把 zoxide init nushell 的输出保存到 /home/tester/cases/zoxide.nu。测试配置文件加载它：
+
+~~~nu
+source /home/tester/cases/zoxide.nu
+~~~
+
+help z 显示 Alias for __zoxide_z，Command Type 为 custom；help zi 显示 Alias for __zoxide_zi。原本为空的数据库，在 cd 到 api-server 后出现了分数 4.0 的记录。执行 z .. 后，print (pwd) 输出 ~/projects。生成代码把目录记录接入 hooks.env_change.PWD。
+
+上游提供的常规配置方式同样先生成文件：
+
+~~~nu
+# 在 config.nu 加载前生成文件：
+zoxide init nushell | save -f ~/.zoxide.nu
+
+# config.nu 中：
+source ~/.zoxide.nu
+~~~
+
+本轮验证了通过显式测试配置路径 source 生成文件，以及命令跳转和目录记录。用户默认 env.nu/config.nu 的自动加载、其他 hook 模式、命名参数和较老 Nushell 版本未测试。
+
+## 检查命令定义，也检查数据库
+
+配置后可以做两项检查：先查找 z，再进入一个真实测试目录，观察 query --list。hook 测试说明了为什么需要两项：--hook none 也能定义 z，而 --hook prompt 下只做查询也会继续加分。
+
+zoxide --help 列出的六个公开配置变量是 _ZO_DATA_DIR、_ZO_ECHO、_ZO_EXCLUDE_DIRS、_ZO_FZF_OPTS、_ZO_MAXAGE、_ZO_RESOLVE_SYMLINKS。本文用 _ZO_DATA_DIR 隔离测试，其他五个变量的行为没有在本篇测试；另见[高级配置实测](/zh/tutorials/advanced-config/)。
+
+## 常见问题
+
+### --cmd cd 后还保留 z 吗？
+
+本次全新 Bash 会话只有 cd 和 cdi，type z、type zi 都失败。在原有会话里修改配置时，再用 type 检查实际定义。
+
+### --no-cmd 会停止学习目录吗？
+
+这次测试中不会。hook 仍在工作，数据库照样学到了目录，只是没有定义 z 和 zi。关闭自动记录使用的是另一项 --hook none。
+
+### pwd 在每种 Shell 中都是一样的记录时机吗？
+
+不是。Bash 在提示符时检查；Zsh 和 Fish 记录目录事件，本次连 cd . 都加分。具体差异见上面的实测表。
+
+选择符合当前 Shell 的 zoxide init 加载行，再确认命令定义和一条新学到的目录记录。[命令参考](/zh/blog/zoxide-commands/)覆盖跳转和数据库操作，[fzf 集成](/zh/tutorials/fzf-integration/)覆盖交互选择。`,
+    ja: String.raw`# zoxide init：5 種類のシェル設定と hook の実測
+
+zoxide init はシェルコードを生成します。そのコードを読み込むと移動コマンドが定義され、ディレクトリの記録がシェルの hook に接続されます。今回はこの 2 つを別々に確認しました。z が見つかるだけでは、学習も有効とは限りません。
+
+## テスト環境
+
+| 項目 | 実際の構成 |
+| --- | --- |
+| 日付 | 2026 年 10 月 8 日 |
+| システム | 新規 ubuntu:24.04 コンテナ、x86_64、一般ユーザー tester |
+| シェル | Bash 5.2.21、Zsh 5.9、Fish 3.7.0、PowerShell 7.6.6、Nushell 0.116.1 |
+| zoxide | 0.10.0。一般ユーザーとして公式スクリプトで導入 |
+| fzf | 0.74.4（a140afeb）。上流 clone から --bin で導入 |
+| 方法 | GitHub Actions、tmux 3.4 の対話端末、120 × 30。独立した起動ファイルと _ZO_DATA_DIR |
+
+[テスト実行](https://github.com/jiankn/zoxide/actions/runs/37778722771)に生成コード、端末キャプチャ、データベースの検索結果を保存しました。出力では /home/tester を ~ に短縮しています。画面から完了マーカー、空白、関数定義の一部を省きました。PowerShell も Linux 上で実行しています。Windows と macOS のプロファイルは今回未テストです。
+
+## Bash、Zsh、Fish：初期化してから z を確認する
+
+設定するシェルで、まず zoxide --version を実行します。今回は zoxide 0.10.0 を表示しました。バイナリが見つからなければ、先に[ダウンロードと導入](/ja/download/)を確認してください。
+
+通常の起動設定行は次のとおりです。
+
+~~~bash
+# Bash: ~/.bashrc
+eval "$(zoxide init bash)"
+
+# Zsh: ~/.zshrc
+eval "$(zoxide init zsh)"
+~~~
+
+~~~fish
+# Fish: ~/.config/fish/config.fish
+zoxide init fish | source
+~~~
+
+対話テストでは、これらの読み込み方に --hook prompt、--hook pwd、--hook none を明示的に加えました。実際の help は pwd を既定値として示しています。Zsh のテスト設定では、初期化の前に autoload -Uz compinit; compinit も実行しました。通常の設定ファイルの位置は[上流の設定手順](https://github.com/ajeetdsouza/zoxide/tree/v0.10.0#installation)に従い、テスト自体は独立した起動ファイルを使っています。
+
+初期化後、3 つのシェルで type z がコマンド定義を確認しました。
+
+| シェル | 結果 |
+| --- | --- |
+| Bash | z is a function。関数から __zoxide_z を呼ぶ |
+| Zsh | z is a shell function。関数から __zoxide_z を呼ぶ |
+| Fish | z is a function with definition。生成した alias 関数から __zoxide_z を呼ぶ |
+
+Bash の出力の抜粋です。
+
+~~~bash
+z is a function
+z ()
+{
+    __zoxide_z "$@"
+}
+~~~
+
+バージョン確認は成功するのに z が見つからない場合は、[command not found の対処](/ja/blog/zoxide-command-not-found/)を参照してください。
+
+## zoxide init --hook：既定の pwd でもシェルごとに記録タイミングが違う
+
+0.10.0 の help には prompt、pwd、none があります。Bash、Zsh、Fish の 9 ケースすべてを、空の検索一覧から始めました。
+
+hook を選ぶ際は起動ファイルの初期化行を変更し、新規シェルを開きます。pwd テストで使った読み込み方です。
+
+~~~bash
+eval "$(zoxide init bash --hook pwd)"
+eval "$(zoxide init zsh --hook pwd)"
+~~~
+
+~~~fish
+zoxide init fish --hook pwd | source
+~~~
+
+表の測定手順を説明します。まず cd /home/tester/projects/api-server を入力し、次の対話コマンドで zoxide query --list --score を実行しました。プロンプトに戻った後、テストプログラムがシェルの外から検索してスコアを読みました。これが最初の数値列です。続いて cd . を 1 回実行し、もう一度外から検索しました。最後に、1 行で api-gateway と api-docs へ続けて cd し、検索後に途中の api-gateway が記録されたか確認しました。
+
+| シェルと hook | cd と次の検索が戻った後のスコア | cd . 後のスコア | 途中の api-gateway を記録 |
+| --- | --- | --- | --- |
+| Bash prompt | 8.0 | 12.0 | いいえ |
+| Bash pwd | 4.0 | 4.0 | いいえ |
+| Bash none | 記録なし | 記録なし | いいえ |
+| Zsh prompt | 8.0 | 12.0 | いいえ |
+| Zsh pwd | 4.0 | 8.0 | はい |
+| Zsh none | 記録なし | 記録なし | いいえ |
+| Fish prompt | 8.0 | 12.0 | いいえ |
+| Fish pwd | 4.0 | 8.0 | はい |
+| Fish none | 記録なし | 記録なし | いいえ |
+
+prompt では、検索だけでも次のプロンプトに戻るとスコアが増えました。そのため、cd 1 回と検索 1 回の後に外から観測した値は 8.0 です。ディレクトリを 2 回変えたという意味ではありません。
+
+pwd の Bash 生成コードは、PROMPT_COMMAND で現在と前回のディレクトリを比較していました。cd . は加算せず、1 行の 2 回の cd では途中の場所を記録しませんでした。Zsh は chpwd_functions、Fish は --on-variable PWD を登録していました。この 2 つは cd . と途中のディレクトリを記録しました。
+
+Bash pwd ケースの端末から、自動化マーカーを省いた抜粋です。
+
+~~~text
+B> zoxide query --list --score
+（出力なし）
+B> cd /home/tester/projects/api-server
+B> zoxide query --list --score
+   4.0 ~/projects/api-server
+B> cd .
+~~~
+
+cd . 後に外から検索しても 4.0 のままでした。Zsh と Fish では 8.0 でした。「出力なし」は記事側の注記です。
+
+--hook none でも移動コマンドは定義されましたが、通常の cd の後も 3 シェルのデータベースは空でした。自動学習を無効にする選択です。手動の add は同じ実行の[コマンドテスト](/ja/blog/zoxide-commands/)で利用できました。
+
+## --cmd と --no-cmd：コマンド名と学習を別々に設定する
+
+新規の Bash、Zsh、Fish で --cmd j は j と ji を作り、type z と type zi は失敗しました。--no-cmd はどちらの組も作りませんでしたが、type __zoxide_z で内部の移動関数は確認できました。記録 hook は有効で、api-server に cd した後の検索にそのパスが現れました。
+
+~~~bash
+eval "$(zoxide init bash --cmd j)"
+
+# 別の新規シェルで:
+eval "$(zoxide init bash --no-cmd)"
+~~~
+
+実測では命名オプションを --hook prompt と組み合わせ、Zsh と Fish も各シェルの初期化構文で定義を確認しました。上の例は同じ命名設定で既定の hook を使います。
+
+Bash の --hook prompt --cmd cd も試しました。cd と cdi が定義され、新規シェルに z と zi はありませんでした。1 行で api-gateway、続けて api-docs に移動しても、記録は最後の場所だけでした。コマンドの接頭辞を変えても、prompt hook が途中の cd をすべて記録するわけではありません。
+
+## PowerShell：Linux 上で初期化を確認
+
+Microsoft の Ubuntu 24.04 パッケージリポジトリから PowerShell を導入しました。起動スクリプトは次を実行しました。
+
+~~~powershell
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Get-Command z,zi | Format-Table CommandType,Name -AutoSize
+~~~
+
+コマンド定義の検索結果です。
+
+~~~text
+CommandType Name
+----------- ----
+      Alias z
+      Alias zi
+~~~
+
+移動前の query --list --score は空でした。Set-Location /home/tester/projects/api-server がプロンプトに戻ると、そのパスのスコアは 4.0 でした。z .. は ~/projects に移動しました。既定の生成コードは prompt 関数を包み、場所の変化を確認していました。
+
+PowerShell の他の hook と命名オプションは未テストです。別の Windows 実測によるプロファイル手順は[Windows 導入ガイド](/ja/tutorials/install-windows/)にあります。
+
+## Nushell：ファイルを生成して source する
+
+Nushell 0.116.1 を公式 Linux リリースアーカイブから導入しました。テストプログラムは起動前に zoxide init nushell の出力を /home/tester/cases/zoxide.nu へ保存しました。テスト設定で次を読み込みました。
+
+~~~nu
+source /home/tester/cases/zoxide.nu
+~~~
+
+help z は Alias for __zoxide_z、Command Type は custom と表示しました。help zi は Alias for __zoxide_zi でした。空のデータベースは api-server に cd した後、そのパスをスコア 4.0 で記録しました。z .. の後、print (pwd) は ~/projects を返しました。生成コードは hooks.env_change.PWD に記録処理を接続しています。
+
+上流の通常の設定例も、先にファイルを生成する形です。
+
+~~~nu
+# config.nu が読む前に生成する:
+zoxide init nushell | save -f ~/.zoxide.nu
+
+# config.nu 内:
+source ~/.zoxide.nu
+~~~
+
+明示したテスト設定パスで生成ファイルを source し、移動と記録を確認しました。ユーザー既定の env.nu/config.nu の自動読み込み、他の hook、命名オプション、古い Nushell は未テストです。
+
+## コマンド定義とデータベースの両方を確認する
+
+設定後は z の定義を調べ、実在するテストディレクトリに移動して query --list も確認します。--hook none でも z は定義され、--hook prompt では検索だけでも加算されました。片方の確認だけでは、この違いが分かりません。
+
+zoxide --help が列挙した公開設定変数は _ZO_DATA_DIR、_ZO_ECHO、_ZO_EXCLUDE_DIRS、_ZO_FZF_OPTS、_ZO_MAXAGE、_ZO_RESOLVE_SYMLINKS の 6 つです。このページでは _ZO_DATA_DIR でテストを分離しました。残る 5 つの動作は本稿ではテストしていません。個別の実測は[詳細設定](/ja/tutorials/advanced-config/)を参照してください。
+
+## よくある質問
+
+### --cmd cd でも z は残る？
+
+新規 Bash セッションは cd と cdi を作り、type z と type zi は失敗しました。すでに初期化したシェルを変更する際は、古い関数が残っているかも確認します。
+
+### --no-cmd は学習も止める？
+
+今回のテストでは止まりませんでした。有効な hook はディレクトリを記録し、z と zi だけが定義されませんでした。自動記録を止める選択は --hook none です。
+
+### pwd の記録タイミングは全シェルで同じ？
+
+同じではありません。Bash はプロンプトで確認し、Zsh と Fish はディレクトリのイベントを記録しました。今回は cd . も加算されました。測定表に違いを示しています。
+
+現在のシェルに合う zoxide init の読み込み行を選び、コマンド定義と新しく記録されたパスを確認します。[コマンド一覧](/ja/blog/zoxide-commands/)は移動とデータ操作、[fzf 連携](/ja/tutorials/fzf-integration/)は対話選択を扱います。`,
+  },
+  'zoxide-commands': {
+    en: String.raw`# zoxide commands: z, zi, query, add, remove, import and edit
+
+The zoxide commands below were run against version 0.10.0. The distinction that matters first is simple: z and zi change your shell's directory; zoxide query prints a path. The import syntax also needs a version check: this release rejected --from and accepted import subcommands instead.
+
+## Test environment
+
+| Item | Value |
+| --- | --- |
+| Date | October 8, 2026 |
+| System | Fresh ubuntu:24.04 container, x86_64, ordinary user tester |
+| Shells | Bash 5.2.21, Zsh 5.9, Fish 3.7.0; navigation examples here use Bash |
+| zoxide | 0.10.0, installed as the user with the official install script |
+| fzf | 0.74.4 (a140afeb), cloned from the upstream repository and installed with --bin |
+| Method | GitHub Actions, tmux 3.4, 120 × 30 terminal; separate _ZO_DATA_DIR for each case |
+
+The [test run and terminal captures](https://github.com/jiankn/zoxide/actions/runs/37778722771) contain the original outputs. On this page, ~ in output replaces /home/tester. Terminal excerpts omit automation completion markers, unused screen space and some function bodies. Import fixtures retain absolute paths because they are file contents, not shell expressions.
+
+For the navigation tests we initialized Bash with --hook none, then populated a separate database using add. That kept the scores stable while testing jumps. Our starting list was:
+
+~~~text
+$ zoxide query --list --score
+  12.0 ~/projects/api-server
+   8.0 ~/projects/api-gateway
+   4.0 ~/projects/space project
+   4.0 ~/work/web-app/src
+   4.0 ~/work/api-docs
+~~~
+
+## z: keywords and existing paths
+
+z is a shell function supplied by initialization. Bash reported:
+
+~~~bash
+z is a function
+z ()
+{
+    __zoxide_z "$@"
+}
+~~~
+
+These are the observed destinations in one session, starting in ~:
+
+| Command | Destination |
+| --- | --- |
+| z api | ~/projects/api-server |
+| z projects gateway | ~/projects/api-gateway |
+| z .. | ~/projects |
+| z - | ~/projects/api-gateway |
+| z /home/tester/scratch/unlearned-child | ~/scratch/unlearned-child, which was absent from the database |
+| z | ~ |
+| z projects / | ~/projects/api-server, from ~ |
+
+An existing path works without a learned record. For keyword queries, order mattered: zoxide query projects gateway returned api-gateway, while zoxide query api projects printed zoxide: no match found and exited with status 1. The single keyword apiserver also failed against api-server. These results do not support treating z as arbitrary fuzzy filesystem search.
+
+If type z fails, use the [initialization guide](/blog/zoxide-init-guide/). The binary installation alone does not define this function.
+
+## zi and query --interactive: choose, then check who changes directory
+
+From ~, zi api opened fzf with the three learned api paths. We pressed Down once and Enter; pwd then printed ~/projects/api-gateway.
+
+In a separate selection, zoxide query --interactive api returned ~/projects/api-server. The following pwd still printed ~. This binary command returns the selection; the shell function zi performs the directory change.
+
+Pressing Escape in the query selector returned exit status 130 without printing a selected path. The tested fzf was 0.74.4. The [upstream setup instructions](https://github.com/ajeetdsouza/zoxide/tree/v0.10.0#installation) list 0.51.0 as the minimum supported version; that minimum version was not tested in this run. See the [fzf integration guide](/tutorials/fzf-integration/) for setup.
+
+## zoxide query: the flags actually listed in 0.10.0
+
+We read zoxide query --help, then exercised each query option below:
+
+| Option | Observed behavior |
+| --- | --- |
+| -l, --list | Listed all three api matches, in score order |
+| -s, --score | Added a numeric score; without --list, returned only the first match |
+| -i, --interactive | Opened the fzf selector and printed its selected path |
+| -a, --all | Included a recorded directory after it was deleted from the filesystem |
+| --exclude PATH | Skipped the specified path; excluding api-server made api-gateway the result |
+| --base-dir PATH | Restricted results to paths inside the specified directory |
+
+~~~text
+$ zoxide query --score api
+  12.0 ~/projects/api-server
+$ zoxide query --exclude /home/tester/projects/api-server api
+~/projects/api-gateway
+$ zoxide query --list --base-dir /home/tester/projects api
+~/projects/api-server
+~/projects/api-gateway
+~~~
+
+The unavailable-directory test is useful when inspecting an old database. We added ~/scratch/deleted, removed that directory from the filesystem, and ran these queries in order:
+
+~~~text
+$ zoxide query --list --score --all
+   4.0 ~/scratch/deleted
+$ zoxide query --list --score
+(no output)
+$ zoxide query --list --score --all
+   4.0 ~/scratch/deleted
+~~~
+
+The parenthesized line denotes an empty result; the program did not print it. A normal query hid the unavailable directory but did not delete its record in this test. Use remove when you want an explicit deletion.
+
+## add and remove: operate on paths
+
+In a fresh database, one add of /home/tester/projects/api-server produced a displayed score of 4.0. Three separate adds produced 12.0. After emptying the test database again, add --score 3 for the same path also produced 12.0. These are immediate query scores from the test, not counts of visits or measurements of long-term aging.
+
+~~~bash
+zoxide add /home/tester/projects/api-server
+zoxide add --score 3 /home/tester/projects/api-server
+zoxide add /home/tester/projects/api-gateway /home/tester/work/api-docs
+~~~
+
+remove requires a stored path. A fragment was rejected:
+
+~~~text
+$ zoxide remove api-server
+zoxide: path not found in database: api-server
+$ zoxide remove /home/tester/projects/api-server
+(no output; the next list was empty)
+~~~
+
+Both add and remove accepted two paths in one command. remove --help listed no interactive removal flag. The database editor is a separate command.
+
+## import: use the 0.10.0 subcommands
+
+We tried the older syntax for both autojump and z. Both attempts exited with status 2:
+
+~~~text
+$ zoxide import --from autojump /home/tester/.local/share/autojump/autojump.txt
+error: unexpected argument '--from' found
+~~~
+
+For this version, the working commands were:
+
+~~~bash
+zoxide import autojump
+zoxide import z
+~~~
+
+Adding a filename after either subcommand was also rejected. In this Ubuntu test, autojump imported ~/.local/share/autojump/autojump.txt and z imported ~/.z. We created these synthetic files to test parsing; we did not install autojump or z for this article.
+
+The autojump file contained two rows, with a literal tab between weight and path:
+
+~~~text
+10	/home/tester/projects/api-server
+2	/home/tester/work/api-docs
+~~~
+
+Before import, zoxide query --list --score returned nothing. After zoxide import autojump:
+
+~~~text
+   0.2 ~/projects/api-server
+   0.2 ~/work/api-docs
+~~~
+
+The imported scores were not the source weights 10 and 2. The displayed precision also made the two initial scores look equal; this output is insufficient to infer their full numeric values.
+
+The z file used path, rank and Unix timestamp, separated by vertical bars:
+
+~~~text
+/home/tester/projects/api-gateway|3|1791463409
+/home/tester/work/web-app/src|2|1791463409
+~~~
+
+Its separate destination database was empty before import. After zoxide import z:
+
+~~~text
+  12.0 ~/projects/api-gateway
+   8.0 ~/work/web-app/src
+~~~
+
+A second import into either nonempty database failed with zoxide: current database is not empty, specify --merge to continue anyway. With --merge, the command succeeded. Reimporting the same z fixture changed the scores to 24.0 and 16.0; reimporting the autojump fixture changed them to 0.5 and 0.4. Repeated merging can add weight to entries that are already present.
+
+The help also listed atuin, fasd, z.lua and zsh-z importers. Those four importers were not tested here.
+
+## edit: the database editor exists
+
+zoxide edit opened an fzf interface. This is a shortened excerpt of its actual screen, with borders and the preview pane removed:
+
+~~~text
+ctrl-r:reload    ctrl-d:delete
+ctrl-w:increment ctrl-s:decrement
+
+ SCORE PATH
+  12.0 ~/projects/api-server
+   8.0 ~/projects/api-gateway
+~~~
+
+We exited with Ctrl+C and confirmed that the database list was unchanged. Opening and cancellation were tested; deleting entries and adjusting their scores through this interface were not tested.
+
+## Common questions
+
+### Why does query return a path without moving me?
+
+query is the binary command we used for inspection. Use the initialized z or zi shell function to change the current shell's directory.
+
+### Can remove take the same keyword as z?
+
+Our remove api-server attempt failed. Copy the full stored path from query --list, then pass that path to remove.
+
+### Why does an import example with --from fail?
+
+It is not the syntax accepted by the tested 0.10.0 binary. Check zoxide import --help and the chosen importer's help before migrating history.
+
+For daily zoxide commands, start with z and query --list --score. The [init guide](/blog/zoxide-init-guide/) explains learning hooks, and [advanced configuration](/tutorials/advanced-config/) covers configuration variables. Long-term score decay, other operating systems and the four untested importers are outside this test.`,
+    zh: String.raw`# zoxide 命令参考：z、zi、query、add、remove、import 与 edit 实测
+
+这份 zoxide 命令参考来自 0.10.0 的实际运行结果。先分清两种操作：z 和 zi 改变当前 Shell 的目录，zoxide query 输出路径。导入命令尤其需要核对版本：这次运行中，--from 被拒绝，正确语法是 import 后接工具名子命令。
+
+## 测试环境
+
+| 项目 | 实际配置 |
+| --- | --- |
+| 日期 | 2026 年 10 月 8 日 |
+| 系统 | 全新 ubuntu:24.04 容器，x86_64，普通用户 tester |
+| Shell | Bash 5.2.21、Zsh 5.9、Fish 3.7.0；本文跳转示例使用 Bash |
+| zoxide | 0.10.0，以普通用户运行官方安装脚本安装 |
+| fzf | 0.74.4（a140afeb），克隆上游仓库后运行 --bin 安装 |
+| 方法 | GitHub Actions，tmux 3.4，120 × 30 终端；每组用例使用独立的 _ZO_DATA_DIR |
+
+[测试运行与终端抓取](https://github.com/jiankn/zoxide/actions/runs/37778722771)保留了原始输出。本文输出中的 ~ 代表 /home/tester；终端摘录省略了自动化完成标记、空白屏幕和部分函数体。导入文件中的路径保留绝对形式，因为文件里的 ~ 不会由 Shell 展开。
+
+跳转测试先用 --hook none 初始化 Bash，再用 add 填充独立数据库，避免测试过程中分数继续变化。起始列表如下：
+
+~~~text
+$ zoxide query --list --score
+  12.0 ~/projects/api-server
+   8.0 ~/projects/api-gateway
+   4.0 ~/projects/space project
+   4.0 ~/work/web-app/src
+   4.0 ~/work/api-docs
+~~~
+
+## z：关键词跳转和真实路径
+
+z 由初始化代码定义。Bash 的 type z 输出是：
+
+~~~bash
+z is a function
+z ()
+{
+    __zoxide_z "$@"
+}
+~~~
+
+从用户主目录开始，连续执行下面的命令，得到这些位置：
+
+| 命令 | pwd 确认的位置 |
+| --- | --- |
+| z api | ~/projects/api-server |
+| z projects gateway | ~/projects/api-gateway |
+| z .. | ~/projects |
+| z - | ~/projects/api-gateway |
+| z /home/tester/scratch/unlearned-child | ~/scratch/unlearned-child，这个目录没有数据库记录 |
+| z | ~ |
+| z projects / | 从主目录跳到 ~/projects/api-server |
+
+真实路径存在时，不需要事先学习。关键词查询则要留意顺序：zoxide query projects gateway 找到了 api-gateway；zoxide query api projects 返回 zoxide: no match found，退出码为 1。把 api-server 写成 apiserver 也没有匹配。这些结果不能支持“随便模糊输入就能搜索整个文件系统”的说法。
+
+如果 type z 找不到命令，先看[初始化指南](/zh/blog/zoxide-init-guide/)。只装二进制程序不会自动定义这个函数。
+
+## zi 与 query --interactive：选中路径之后发生什么
+
+在主目录执行 zi api，fzf 列出了三个包含 api 的已记录目录。按一次向下键，再按 Enter，pwd 显示 ~/projects/api-gateway。
+
+另一次执行 zoxide query --interactive api，选中后输出 ~/projects/api-server，随后 pwd 仍然是主目录。二进制命令负责返回选择结果，zi 的 Shell 函数负责改变目录。
+
+在 query 的选择界面按 Escape，退出码为 130，没有输出选中的路径。这次用的是 fzf 0.74.4。[上游配置说明](https://github.com/ajeetdsouza/zoxide/tree/v0.10.0#installation)列出的最低版本是 0.51.0，但本轮没有测试这个最低版本；安装步骤见[fzf 集成指南](/zh/tutorials/fzf-integration/)。
+
+## zoxide query：按 0.10.0 的 help 核对参数
+
+我们先读取 zoxide query --help，再逐项测试：
+
+| 参数 | 实测行为 |
+| --- | --- |
+| -l、--list | 列出三个 api 匹配项，按分数排列 |
+| -s、--score | 在路径前显示分数；不加 --list 时只返回第一项 |
+| -i、--interactive | 打开 fzf，输出选中的路径 |
+| -a、--all | 显示文件系统中已经被删除、数据库中仍有记录的目录 |
+| --exclude PATH | 排除指定路径；排除 api-server 后返回 api-gateway |
+| --base-dir PATH | 只搜索指定目录内部的记录 |
+
+~~~text
+$ zoxide query --score api
+  12.0 ~/projects/api-server
+$ zoxide query --exclude /home/tester/projects/api-server api
+~/projects/api-gateway
+$ zoxide query --list --base-dir /home/tester/projects api
+~/projects/api-server
+~/projects/api-gateway
+~~~
+
+排查旧记录时，--all 有一个容易误解的地方。测试先添加 ~/scratch/deleted，再从文件系统删除该目录，然后依次执行：
+
+~~~text
+$ zoxide query --list --score --all
+   4.0 ~/scratch/deleted
+$ zoxide query --list --score
+（无输出）
+$ zoxide query --list --score --all
+   4.0 ~/scratch/deleted
+~~~
+
+“无输出”是本文标注，程序没有打印这几个字。普通查询隐藏了不可用目录，但这次没有把它从数据库删掉。要明确删除记录，使用 remove。
+
+## add 与 remove：参数是路径
+
+在空数据库中，对 /home/tester/projects/api-server 执行一次 add，查询分数为 4.0；分三次添加，分数为 12.0。清空测试数据库的记录后，执行一次 add --score 3，同样得到 12.0。这是立即查询到的分数，不能直接当成访问次数，也不是长期衰减测试。
+
+~~~bash
+zoxide add /home/tester/projects/api-server
+zoxide add --score 3 /home/tester/projects/api-server
+zoxide add /home/tester/projects/api-gateway /home/tester/work/api-docs
+~~~
+
+remove 不接受跳转时用的关键词片段：
+
+~~~text
+$ zoxide remove api-server
+zoxide: path not found in database: api-server
+$ zoxide remove /home/tester/projects/api-server
+（无输出；随后查询列表为空）
+~~~
+
+add 和 remove 都成功接受了一条命令中的两个路径。remove --help 没有列出交互删除参数；交互数据库编辑使用另一条命令 edit。
+
+## import：0.10.0 使用工具名子命令
+
+旧写法分别用 autojump 和 z 测试过，均以退出码 2 失败：
+
+~~~text
+$ zoxide import --from autojump /home/tester/.local/share/autojump/autojump.txt
+error: unexpected argument '--from' found
+~~~
+
+这次成功运行的写法是：
+
+~~~bash
+zoxide import autojump
+zoxide import z
+~~~
+
+子命令后再加文件名，也会报 unexpected argument。在本次 Ubuntu 环境里，autojump 读取 ~/.local/share/autojump/autojump.txt，z 读取 ~/.z。两份源文件都是为测试解析格式而人工创建的；本文没有实际安装 autojump 或 z。
+
+autojump 文件有两行，权重和路径之间是一个真正的 Tab：
+
+~~~text
+10	/home/tester/projects/api-server
+2	/home/tester/work/api-docs
+~~~
+
+导入前，zoxide query --list --score 无输出。执行 zoxide import autojump 后：
+
+~~~text
+   0.2 ~/projects/api-server
+   0.2 ~/work/api-docs
+~~~
+
+导入分数没有照搬源文件的 10 和 2。显示精度让两项看起来都是 0.2，不能据此认定它们的完整数值相等。
+
+z 文件用竖线分隔路径、rank 和 Unix 时间戳：
+
+~~~text
+/home/tester/projects/api-gateway|3|1791463409
+/home/tester/work/web-app/src|2|1791463409
+~~~
+
+另一份目标数据库在导入前也是空的。执行 zoxide import z 后：
+
+~~~text
+  12.0 ~/projects/api-gateway
+   8.0 ~/work/web-app/src
+~~~
+
+两个数据库再次导入时，都返回 zoxide: current database is not empty, specify --merge to continue anyway。加上 --merge 后成功。重复合并同一份 z 文件，分数变为 24.0 和 16.0；重复合并 autojump 文件，则变为 0.5 和 0.4。合并相同数据会继续增加已有记录的权重。
+
+help 还列出了 atuin、fasd、z.lua、zsh-z 四种导入子命令，这四项未测试。
+
+## edit：数据库编辑界面确实存在
+
+zoxide edit 打开了 fzf 界面。下面是实际屏幕的精简摘录，省略边框、预览区和其余记录：
+
+~~~text
+ctrl-r:reload    ctrl-d:delete
+ctrl-w:increment ctrl-s:decrement
+
+ SCORE PATH
+  12.0 ~/projects/api-server
+   8.0 ~/projects/api-gateway
+~~~
+
+这次按 Ctrl+C 退出，再查询确认列表没有变化。已测试打开和取消；通过编辑界面删除记录、调整分数的操作未测试。
+
+## 常见问题
+
+### 为什么 query 输出路径，却没有跳转？
+
+query 是用来检查数据库的二进制命令。要改变当前 Shell 的目录，使用初始化后定义的 z 或 zi。
+
+### remove 可以使用 z 的关键词吗？
+
+这次 remove api-server 失败了。先从 query --list 找到完整记录路径，再把这个路径交给 remove。
+
+### 为什么带 --from 的导入示例报错？
+
+测试的 0.10.0 二进制不接受该语法。迁移历史前，先看 zoxide import --help 和所选导入子命令的 help。
+
+日常使用 zoxide 命令，可以先掌握 z 与 query --list --score。[初始化指南](/zh/blog/zoxide-init-guide/)解释目录如何被记录，[高级配置](/zh/tutorials/advanced-config/)说明配置变量。本轮没有测试长期分数衰减、其他操作系统和另外四种导入来源。`,
+    ja: String.raw`# zoxide コマンド一覧：z・zi・query・add・remove・import・edit の実測
+
+この zoxide コマンド一覧は、0.10.0 を実行した結果から書いています。z と zi はシェルの現在のディレクトリを変え、zoxide query はパスを出力します。インポート構文にも違いがありました。このバージョンは --from を拒否し、import のサブコマンドを受け付けました。
+
+## テスト環境
+
+| 項目 | 実際の構成 |
+| --- | --- |
+| 日付 | 2026 年 10 月 8 日 |
+| システム | 新規 ubuntu:24.04 コンテナ、x86_64、一般ユーザー tester |
+| シェル | Bash 5.2.21、Zsh 5.9、Fish 3.7.0。このページの移動例は Bash |
+| zoxide | 0.10.0。一般ユーザーとして公式インストールスクリプトを実行 |
+| fzf | 0.74.4（a140afeb）。上流リポジトリを clone し、--bin で導入 |
+| 方法 | GitHub Actions、tmux 3.4、120 × 30 の端末。ケースごとに独立した _ZO_DATA_DIR |
+
+[テスト実行と端末キャプチャ](https://github.com/jiankn/zoxide/actions/runs/37778722771)に元の出力があります。このページでは、出力の ~ を /home/tester の省略形として使います。端末の抜粋から自動化用の完了マーカー、空白、関数本体の一部を省きました。インポート元ファイルはシェル式ではないため、絶対パスのまま掲載しています。
+
+移動テストでは --hook none で Bash を初期化し、add で別のデータベースを作りました。移動中にスコアが変わらない構成です。開始時の一覧は次のとおりでした。
+
+~~~text
+$ zoxide query --list --score
+  12.0 ~/projects/api-server
+   8.0 ~/projects/api-gateway
+   4.0 ~/projects/space project
+   4.0 ~/work/web-app/src
+   4.0 ~/work/api-docs
+~~~
+
+## z：キーワードと実在するパス
+
+z は初期化コードが定義するシェル関数です。Bash の type z は次を表示しました。
+
+~~~bash
+z is a function
+z ()
+{
+    __zoxide_z "$@"
+}
+~~~
+
+ホームディレクトリから順に実行し、pwd で移動先を確認しました。
+
+| コマンド | 移動先 |
+| --- | --- |
+| z api | ~/projects/api-server |
+| z projects gateway | ~/projects/api-gateway |
+| z .. | ~/projects |
+| z - | ~/projects/api-gateway |
+| z /home/tester/scratch/unlearned-child | ~/scratch/unlearned-child。データベースには未登録 |
+| z | ~ |
+| z projects / | ホームから ~/projects/api-server へ |
+
+実在するパスなら、学習済みの記録がなくても移動できました。キーワードの順序は結果に影響します。zoxide query projects gateway は api-gateway を返しましたが、zoxide query api projects は zoxide: no match found を表示し、終了コードは 1 でした。api-server に対して apiserver と入力しても一致しません。この結果から、任意のあいまいな入力でファイルシステム全体を検索できるとは言えません。
+
+type z が失敗する場合は[初期化ガイド](/ja/blog/zoxide-init-guide/)を参照してください。バイナリの導入だけでは、この関数は定義されません。
+
+## zi と query --interactive：選択後に誰が移動するか
+
+ホームから zi api を実行すると、fzf に学習済みの api パスが 3 件表示されました。下矢印を 1 回押して Enter で決定すると、pwd は ~/projects/api-gateway を表示しました。
+
+別の選択では zoxide query --interactive api が ~/projects/api-server を出力しました。その後の pwd はホームのままでした。バイナリは選択したパスを返し、zi のシェル関数がディレクトリを変えます。
+
+query の選択画面で Escape を押すと、パスを出力せず終了コード 130 で戻りました。今回は fzf 0.74.4 を使用しています。[上流の設定手順](https://github.com/ajeetdsouza/zoxide/tree/v0.10.0#installation)が示す最低対応バージョンは 0.51.0 ですが、その最低バージョン自体は今回テストしていません。設定は[fzf 連携ガイド](/ja/tutorials/fzf-integration/)にあります。
+
+## zoxide query：0.10.0 の help にあるオプション
+
+zoxide query --help を読み、次の検索オプションをそれぞれ実行しました。
+
+| オプション | 観察した動作 |
+| --- | --- |
+| -l、--list | api の一致 3 件をスコア順に表示 |
+| -s、--score | パスにスコアを付加。--list がなければ先頭の 1 件のみ |
+| -i、--interactive | fzf を開き、選択したパスを出力 |
+| -a、--all | ファイルシステムから削除済みの、記録に残るディレクトリを表示 |
+| --exclude PATH | 指定パスを除外。api-server を除外すると api-gateway を返した |
+| --base-dir PATH | 指定ディレクトリ内部の記録に検索を限定 |
+
+~~~text
+$ zoxide query --score api
+  12.0 ~/projects/api-server
+$ zoxide query --exclude /home/tester/projects/api-server api
+~/projects/api-gateway
+$ zoxide query --list --base-dir /home/tester/projects api
+~/projects/api-server
+~/projects/api-gateway
+~~~
+
+古い記録を調べる際は --all の動作に注意が必要です。~/scratch/deleted を登録してから実際のディレクトリを削除し、次の順で実行しました。
+
+~~~text
+$ zoxide query --list --score --all
+   4.0 ~/scratch/deleted
+$ zoxide query --list --score
+（出力なし）
+$ zoxide query --list --score --all
+   4.0 ~/scratch/deleted
+~~~
+
+「出力なし」は記事側の注記で、プログラムの出力ではありません。通常の検索は利用できないパスを隠しましたが、このテストでは記録を削除しませんでした。明示的に消すには remove を使います。
+
+## add と remove：パスを渡す
+
+空のデータベースで /home/tester/projects/api-server を 1 回 add すると、直後の検索スコアは 4.0 でした。3 回の add では 12.0 です。テストのデータベースが再び空の状態で add --score 3 を 1 回実行した場合も 12.0 でした。これは直後に表示されたスコアであり、訪問回数そのものや長期間の減衰を測った値ではありません。
+
+~~~bash
+zoxide add /home/tester/projects/api-server
+zoxide add --score 3 /home/tester/projects/api-server
+zoxide add /home/tester/projects/api-gateway /home/tester/work/api-docs
+~~~
+
+remove に移動用のキーワード断片を渡すと失敗しました。
+
+~~~text
+$ zoxide remove api-server
+zoxide: path not found in database: api-server
+$ zoxide remove /home/tester/projects/api-server
+（出力なし。次の一覧は空）
+~~~
+
+add と remove は、1 コマンドに 2 つのパスを渡した場合も成功しました。remove --help に対話削除のオプションはありませんでした。対話形式のデータベース編集は edit で行います。
+
+## import：0.10.0 のサブコマンド構文
+
+autojump と z の両方で旧構文を試しました。どちらも終了コード 2 で失敗しました。
+
+~~~text
+$ zoxide import --from autojump /home/tester/.local/share/autojump/autojump.txt
+error: unexpected argument '--from' found
+~~~
+
+このバージョンで動いたコマンドは次の 2 つです。
+
+~~~bash
+zoxide import autojump
+zoxide import z
+~~~
+
+サブコマンドの後にファイル名を追加しても unexpected argument になりました。今回の Ubuntu 環境では autojump が ~/.local/share/autojump/autojump.txt、z が ~/.z を読みました。解析を確かめるために作った合成データであり、この記事では autojump と z 自体を導入していません。
+
+autojump ファイルは 2 行で、重みとパスの間には実際の Tab を入れました。
+
+~~~text
+10	/home/tester/projects/api-server
+2	/home/tester/work/api-docs
+~~~
+
+インポート前の zoxide query --list --score は空でした。zoxide import autojump の実行後は次の出力です。
+
+~~~text
+   0.2 ~/projects/api-server
+   0.2 ~/work/api-docs
+~~~
+
+元ファイルの重み 10 と 2 は、そのまま検索スコアになりませんでした。表示精度のため両方とも 0.2 に見えますが、完全な数値が等しいとまでは判断できません。
+
+z のファイルは、パス、rank、Unix タイムスタンプを縦線で区切ります。
+
+~~~text
+/home/tester/projects/api-gateway|3|1791463409
+/home/tester/work/web-app/src|2|1791463409
+~~~
+
+別の空のデータベースに zoxide import z を実行すると、次の記録になりました。
+
+~~~text
+  12.0 ~/projects/api-gateway
+   8.0 ~/work/web-app/src
+~~~
+
+どちらも 2 回目のインポートは zoxide: current database is not empty, specify --merge to continue anyway で失敗しました。--merge を付けると成功しました。同じ z ファイルを再びマージした結果は 24.0 と 16.0、autojump ファイルでは 0.5 と 0.4 です。同じデータを繰り返しマージすると、既存の記録に重みが加わります。
+
+help は atuin、fasd、z.lua、zsh-z も列挙していました。この 4 種類のインポートは未テストです。
+
+## edit：データベース編集画面
+
+zoxide edit は fzf の画面を開きました。実際のキャプチャから枠、プレビュー、残りの記録を省いた抜粋です。
+
+~~~text
+ctrl-r:reload    ctrl-d:delete
+ctrl-w:increment ctrl-s:decrement
+
+ SCORE PATH
+  12.0 ~/projects/api-server
+   8.0 ~/projects/api-gateway
+~~~
+
+Ctrl+C で終了し、一覧が変わっていないことを確認しました。起動とキャンセルはテストしましたが、画面内での削除とスコア調整は未テストです。
+
+## よくある質問
+
+### query がパスを出しても移動しないのはなぜ？
+
+query はデータベースを調べるバイナリコマンドです。現在のシェルを移動させるには、初期化済みの z または zi を使います。
+
+### remove に z と同じキーワードを渡せる？
+
+remove api-server は失敗しました。query --list で完全な記録パスを確認し、それを remove に渡します。
+
+### --from を使うインポート例が失敗するのはなぜ？
+
+今回の 0.10.0 バイナリが受け付ける構文ではありません。移行前に zoxide import --help と対象サブコマンドの help を確認してください。
+
+日常の zoxide コマンドは、z と query --list --score から始められます。[初期化ガイド](/ja/blog/zoxide-init-guide/)で記録フック、[詳細設定](/ja/tutorials/advanced-config/)で環境変数を確認できます。長期間のスコア減衰、他の OS、残る 4 種類のインポートは今回テストしていません。`,
+  },
   'zoxide-command-not-found': {
     en: String.raw`# zoxide command not found: how to fix it
 

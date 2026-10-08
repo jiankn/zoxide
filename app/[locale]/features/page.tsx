@@ -45,7 +45,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
           icon: Zap,
           title: t('core.fast.title'),
           description: t('core.fast.description'),
-          href: '/tutorials/performance',
+          href: '/tutorials/advanced-config',
         },
         {
           icon: Search,
@@ -80,7 +80,7 @@ export default async function FeaturesPage({ params }: { params: Promise<{ local
           icon: Rocket,
           title: t('advanced.performance.title'),
           description: t('advanced.performance.description'),
-          href: '/tutorials/performance',
+          href: '/tutorials/advanced-config',
         },
       ],
     },
