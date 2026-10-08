@@ -108,6 +108,7 @@ type Copy = {
   testedNote: string;
   runTitle: string;
   runIntro: string;
+  runAlt: string;
   runTiming: string;
   checksTitle: string;
   checks: string[];
@@ -148,9 +149,10 @@ const copy: Record<string, Copy> = {
     intro: 'zoxide-doctor turns the usual manual troubleshooting commands into one repeatable report. It works on Linux, macOS, and Windows and supports Bash, Zsh, Fish, PowerShell, Nushell, Elvish, Tcsh, Xonsh, and POSIX shells.',
     disclaimer: 'This community tool is not affiliated with or endorsed by Ajeet D\'Souza or the official zoxide project.',
     testedNote: 'Every report on this page is real output from zoxide-doctor 0.1.0, run on October 8, 2026 on Ubuntu 24.04.5 (GitHub Actions runner) and on Windows 11 with PowerShell 7.6.6. Long paths are shortened to ~ or ..., and the JSON example has its line breaks condensed; nothing else was edited.',
-    runTitle: 'Run from GitHub',
-    runIntro: 'Node.js 18 or newer is required. The command installs the public repository package temporarily and runs the diagnostic locally.',
-    runTiming: 'In our test the first run, including the download, took about 2.2 seconds on the Linux runner and a repeat run about 1 second. Running the script directly with Node took a median of 114 ms on Windows.',
+    runTitle: 'Run it',
+    runIntro: 'Node.js 18 or newer is required. npx downloads the package temporarily and runs the diagnostic on your machine. The npm package and the GitHub repository contain the same code.',
+    runAlt: '# or run it straight from the GitHub repository',
+    runTiming: 'In our test with the GitHub command, the first run, including the download, took about 2.2 seconds on the Linux runner and a repeat run about 1 second. Running the script directly with Node took a median of 114 ms on Windows.',
     checksTitle: 'What the diagnostic checks',
     checks: [
       'The zoxide executable can be resolved from PATH and reports a version.',
@@ -241,9 +243,10 @@ const copy: Record<string, Copy> = {
     intro: 'zoxide-doctor 把常见的手动排查命令整理成一份可重复运行的报告。支持 Linux、macOS、Windows，以及 Bash、Zsh、Fish、PowerShell、Nushell、Elvish、Tcsh、Xonsh 和 POSIX Shell。',
     disclaimer: '这是独立社区工具，与 Ajeet D\'Souza 或 zoxide 官方项目没有隶属、赞助或背书关系。',
     testedNote: '本页所有报告都是 zoxide-doctor 0.1.0 的真实输出，于 2026 年 10 月 8 日分别在 Ubuntu 24.04.5（GitHub Actions 运行器）和 Windows 11 + PowerShell 7.6.6 上运行。较长的路径缩写为 ~ 或 ...，JSON 示例合并了换行，其余内容未做改动。',
-    runTitle: '从 GitHub 运行',
-    runIntro: '需要 Node.js 18 或更高版本。下面的命令会临时安装公开仓库中的包，并在本地运行诊断。',
-    runTiming: '实测中，Linux 运行器上第一次运行（含下载）约 2.2 秒，再次运行约 1 秒；在 Windows 上直接用 Node 运行脚本，耗时中位数为 114 ms。',
+    runTitle: '运行方法',
+    runIntro: '需要 Node.js 18 或更高版本。npx 会临时下载这个包并在你的电脑上运行诊断。npm 包和 GitHub 仓库里的代码完全相同。',
+    runAlt: '# 或者直接从 GitHub 仓库运行',
+    runTiming: '用 GitHub 方式实测时，Linux 运行器上第一次运行（含下载）约 2.2 秒，再次运行约 1 秒；在 Windows 上直接用 Node 运行脚本，耗时中位数为 114 ms。',
     checksTitle: '诊断内容',
     checks: [
       'PATH 中能否找到 zoxide，并成功输出版本。',
@@ -334,9 +337,10 @@ const copy: Record<string, Copy> = {
     intro: 'zoxide-doctor は、手作業のトラブルシューティングを再実行可能なレポートにまとめます。Linux、macOS、Windows と主要なシェルに対応します。',
     disclaimer: 'このコミュニティツールは Ajeet D\'Souza または公式 zoxide プロジェクトとは提携しておらず、承認も受けていません。',
     testedNote: 'このページのレポートはすべて zoxide-doctor 0.1.0 の実際の出力です。2026 年 10 月 8 日に Ubuntu 24.04.5（GitHub Actions ランナー）と Windows 11 + PowerShell 7.6.6 で実行しました。長いパスは ~ または ... に短縮し、JSON の例は改行をまとめています。それ以外は編集していません。',
-    runTitle: 'GitHub から実行',
-    runIntro: 'Node.js 18 以降が必要です。公開リポジトリのパッケージを一時的にインストールし、ローカルで診断します。',
-    runTiming: 'テストでは、Linux ランナーでの初回実行（ダウンロード込み）が約 2.2 秒、2 回目が約 1 秒でした。Windows で Node から直接スクリプトを実行した場合の中央値は 114 ms です。',
+    runTitle: '実行方法',
+    runIntro: 'Node.js 18 以降が必要です。npx がパッケージを一時的にダウンロードし、手元のマシンで診断します。npm パッケージと GitHub リポジトリのコードは同一です。',
+    runAlt: '# または GitHub リポジトリから直接実行',
+    runTiming: 'GitHub からの実行でテストしたところ、Linux ランナーでの初回実行（ダウンロード込み）が約 2.2 秒、2 回目が約 1 秒でした。Windows で Node から直接スクリプトを実行した場合の中央値は 114 ms です。',
     checksTitle: '診断する項目',
     checks: [
       'PATH から zoxide を見つけ、バージョンを取得できるか。',
@@ -488,7 +492,10 @@ export default async function ZoxideDoctorPage({ params }: { params: Promise<{ l
         <section>
           <h2 className="text-3xl font-bold text-gray-900">{content.runTitle}</h2>
           <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-700">{content.runIntro}</p>
-          <Terminal>npx github:jiankn/zoxide-doctor</Terminal>
+          <Terminal>{`npx zoxide-doctor
+
+${content.runAlt}
+npx github:jiankn/zoxide-doctor`}</Terminal>
           <p className="mt-4 max-w-4xl leading-7 text-gray-700">{content.runTiming}</p>
         </section>
 
