@@ -392,11 +392,10 @@
       },
       "install-arch-nixos": {
         "title": "在 Arch Linux 和 NixOS 上安装与配置 zoxide",
-        "excerpt": "介绍 Arch Linux 的 zoxide 安装命令与 NixOS 配置示例，以及 Shell 初始化和安装后的检查方法。",
+        "excerpt": "实测 Arch 官方仓库安装、NixOS 系统模块与 Home Manager 配置，检查 Bash/Zsh 目录记录、跳转及卸载后的数据库保留。",
         "duration": "10 分钟",
         "level": "中级",
-        "category": "安装指南",
-        "content": "# 在 Arch Linux 和 NixOS 上安装与配置 zoxide\n\nLinux 用户拥有各种各样的发行版，但 Arch Linux 和 NixOS 因其独特的包管理风格而脱颖而出。虽然 Zoxide 是一个跨平台工具，但在这些系统之间的安装和配置过程却大相径庭。本指南将探讨如何正确设置 **zoxide arch** 和 **zoxide nixos** 软件包，同时避免常见的陷阱。\n\n### 在 Arch Linux 上安装\n\n对于 Arch Linux 爱好者来说，官方仓库中现成提供了 **zoxide arch** 软件包。它轻量且快速。你只需运行以下命令即可安装：\n\n```bash\nsudo pacman -S zoxide\n# 或者从 AUR 安装开发版本\nyay -S zoxide-git\n```\n\n安装完成后，最重要的一步是将初始化行添加到你的 Shell 配置中。没有这一行，你的 **zoxide alias** 命令将无法工作，工具也无法跟踪你的目录移动。Arch 用户经常将 Zoxide 与 `exa` 和 `bat` 等其他基于 Rust 的工具结合使用，以创建现代化的终端体验。\n\n### 在 NixOS 上安装\n\n另一方面，**zoxide nixos** 用户生活在一个不同的世界里。因为 NixOS 依赖于声明式配置文件，你不能简单地运行安装命令并期望它能持久保存。相反，你应该使用 `home-manager`。\n\n以下是用于 `home.nix` 文件的代码片段，用于启用具有完整集成的 Zoxide：\n\n```nix\nprograms.zoxide = {\n enable = true;\n enableBashIntegration = true;\n enableZshIntegration = true;\n options = [\n \"--cmd cd\" # 这将用 zoxide 替换 cd 命令\n ];\n};\n```\n\n示例声明了 Bash 与 Zsh 集成。使用交互式选择前，还需要通过 fzf --version 确认 fzf 程序已经安装。\n\n### 其他发行版\n\n以下命令来自 [zoxide 官方安装表](https://github.com/ajeetdsouza/zoxide#installation)。发行版仓库里的版本可能落后于最新发布，安装后请运行 `zoxide --version` 确认。\n\n| 发行版 | 命令 |\n| --- | --- |\n| Fedora 32+ | `sudo dnf install zoxide` |\n| openSUSE Tumbleweed | `sudo zypper install zoxide` |\n| Alpine Linux 3.13+ | `sudo apk add zoxide` |\n| Gentoo | `sudo emerge app-shells/zoxide` |\n| Void Linux | `sudo xbps-install -S zoxide` |\n| Debian / Ubuntu | [Ubuntu 24.04 安装教程](/zh/tutorials/install-ubuntu/) |\n| 任意发行版 | `curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh \\| sh` |\n\n### 卸载\n\n用安装时的包管理器卸载，例如 `sudo dnf remove zoxide` 或 `sudo pacman -R zoxide`；如果用的是安装脚本，删除 `~/.local/bin/zoxide`。然后删掉 Shell 配置文件里的 `eval \"$(zoxide init ...)\"` 这一行。数据库 `~/.local/share/zoxide/db.zo` 会一直保留，直到你手动删除。\n\n### 处理 \"No Match Found\"\n\n两个平台上的用户报告的一个常见问题是，在尝试跳转到新建的项目文件夹时出现 **zoxide no match found** 错误。\n\n这不是一个 Bug，而是数据库工作方式的一个特性。它需要在跳转之前\"看到\"你至少访问过该目录一次。如果你刚刚安装 Zoxide，你的数据库是空的。为了快速缓解这个问题，请确保你的 **zoxide alias** 设置为替换 `cd`（如上面的 Nix 配置所示）。这样，你的初始导航就会被记录下来。\n\n### 验证安装\n\n设置完成后，通过检查版本和数据库健康状况来验证 **zoxide autocomplete** 和别名是否工作正常：\n\n```bash\nzoxide --version\n# 检查别名是否处于活动状态\ntype z\n```\n\n无论你是运行最小化的 **zoxide arch** 设置还是复杂的 **zoxide nixos** flake，正确配置这些元素都能确保你花更少的时间输入路径，而花更多的时间编写代码。\n"
+        "category": "安装指南"
       },
       "videos": {
         "title": "zoxide 视频教程",

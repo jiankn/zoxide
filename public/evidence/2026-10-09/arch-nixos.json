@@ -1,0 +1,634 @@
+{
+  "test_date": "2026-10-09",
+  "test_timezone": "Asia/Shanghai",
+  "source_run_id": "37812481566",
+  "source_commit": "0152d22ae6977feac0eeaf7b72dae0d6bc0b2841",
+  "scope": "Only command outputs and configuration snippets cited by the Arch/NixOS guide. OS metadata, type output, version output and package removal output are cropped to the cited lines. Installation/download/build/kernel logs, tmux control commands and executable test scripts are omitted.",
+  "method": "Arch: official container, full pacman upgrade then repository package installation. NixOS: two QEMU/KVM VMs built and booted with the pinned system and Home Manager modules. Interactive login shells driven with tmux; database queries run from a separate process. NixOS disable checks switch to a prebuilt specialisation, rather than running a rebuild inside the VM.",
+  "arch_image_digests": [
+    "archlinux@sha256:4e77cf2ea5f410e6f8be5abf93ccf17ce2436e87a138c167208356711a405dbd"
+  ],
+  "nixpkgs_commit": "7c8764b7c7b09b34f632464276218ef9090eaa11",
+  "home_manager_commit": "db7d5e2332710f5abb088f6b5de927d7f9511b35",
+  "configurations": {
+    "arch_bash": "eval \"$(zoxide init bash)\"",
+    "arch_zsh": "eval \"$(zoxide init zsh)\"",
+    "arch_bash_cd": "eval \"$(zoxide init bash --cmd cd)\"",
+    "nixos_system": "programs.zoxide.enable = true;\nprograms.zsh.enable = true;",
+    "home_manager": "programs.bash.enable = true;\nprograms.zoxide = {\n  enable = true;\n  enableBashIntegration = true;\n  options = [ \"--cmd\" \"cd\" ];\n};"
+  },
+  "arch": {
+    "executed_at_utc": "2026-10-08T16:55:51.004393+00:00",
+    "environment": [
+      {
+        "command": "id",
+        "exit": 0,
+        "stdout": "uid=1000(tester) gid=1000(tester) groups=1000(tester)\n",
+        "stderr": ""
+      },
+      {
+        "command": "cat /etc/os-release",
+        "exit": 0,
+        "stdout": "PRETTY_NAME=\"Arch Linux\"\nID=arch\nBUILD_ID=rolling\nVERSION_ID=20261004.0.606936\n",
+        "stderr": ""
+      },
+      {
+        "command": "uname -m",
+        "exit": 0,
+        "stdout": "x86_64\n",
+        "stderr": ""
+      },
+      {
+        "command": "bash --version",
+        "exit": 0,
+        "stdout": "GNU bash, version 5.3.20(1)-release (x86_64-pc-linux-gnu)\n",
+        "stderr": ""
+      },
+      {
+        "command": "tmux -V",
+        "exit": 0,
+        "stdout": "tmux 3.7c\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v zoxide",
+        "exit": 0,
+        "stdout": "/usr/bin/zoxide\n",
+        "stderr": ""
+      },
+      {
+        "command": "zoxide --version",
+        "exit": 0,
+        "stdout": "zoxide 0.10.0\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v fzf",
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "pacman -Q zoxide zsh tmux python",
+        "exit": 0,
+        "stdout": "zoxide 0.10.0-1\nzsh 5.9.2-1\ntmux 3.7_c-1\n",
+        "stderr": ""
+      },
+      {
+        "command": "zsh --version",
+        "exit": 0,
+        "stdout": "zsh 5.9.2 (x86_64-pc-linux-gnu)\n",
+        "stderr": ""
+      }
+    ],
+    "scenarios": [
+      {
+        "name": "arch-bash",
+        "shell": "bash",
+        "navigation": "z",
+        "initially_empty": "",
+        "learned": "   4.0 /home/tester/projects/api-server\n",
+        "jump": "/home/tester/projects/api-server\n",
+        "data_directory": "/home/tester/.local/share/evidence-arch-bash",
+        "commands": [
+          {
+            "command": "type z",
+            "exit": 0,
+            "stdout": "z is a function\n",
+            "stderr": ""
+          },
+          {
+            "command": "type zi",
+            "exit": 0,
+            "stdout": "zi is a function\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-arch-bash zoxide query --list --score",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~/projects/api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-arch-bash zoxide query --list --score",
+            "exit": 0,
+            "stdout": "   4.0 /home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "z api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "z zz-no-such-keyword-923",
+            "exit": 1,
+            "stdout": "",
+            "stderr": "zoxide: no match found\n"
+          },
+          {
+            "command": "pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "name": "arch-zsh",
+        "shell": "zsh",
+        "navigation": "z",
+        "initially_empty": "",
+        "learned": "   4.0 /home/tester/projects/api-server\n",
+        "jump": "/home/tester/projects/api-server\n",
+        "data_directory": "/home/tester/.local/share/evidence-arch-zsh",
+        "commands": [
+          {
+            "command": "type z",
+            "exit": 0,
+            "stdout": "z is a shell function from /home/tester/.zshrc\n",
+            "stderr": ""
+          },
+          {
+            "command": "type zi",
+            "exit": 0,
+            "stdout": "zi is a shell function from /home/tester/.zshrc\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-arch-zsh zoxide query --list --score",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~/projects/api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-arch-zsh zoxide query --list --score",
+            "exit": 0,
+            "stdout": "   4.0 /home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "z api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "z zz-no-such-keyword-923",
+            "exit": 1,
+            "stdout": "",
+            "stderr": "zoxide: no match found\n"
+          },
+          {
+            "command": "pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "name": "arch-bash-cd",
+        "shell": "bash",
+        "navigation": "cd",
+        "learned": "   4.0 /home/tester/projects/api-gateway\n",
+        "data_directory": "/home/tester/.local/share/evidence-arch-bash-cd",
+        "commands": [
+          {
+            "command": "type -t cd",
+            "exit": 0,
+            "stdout": "function\n",
+            "stderr": ""
+          },
+          {
+            "command": "type -t cdi",
+            "exit": 0,
+            "stdout": "function\n",
+            "stderr": ""
+          },
+          {
+            "command": "type -t z",
+            "exit": 1,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~/projects/api-gateway && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-gateway\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-arch-bash-cd zoxide query --list --score",
+            "exit": 0,
+            "stdout": "   4.0 /home/tester/projects/api-gateway\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd api-gateway && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-gateway\n",
+            "stderr": ""
+          }
+        ]
+      }
+    ],
+    "uninstall": [
+      {
+        "command": "pacman -R --noconfirm zoxide",
+        "exit": 0,
+        "stdout": "removing zoxide...\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v zoxide",
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "test -s /home/tester/.local/share/evidence-arch-bash/db.zo",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "test -s /home/tester/.local/share/evidence-arch-zsh/db.zo",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "test -s /home/tester/.local/share/evidence-arch-bash-cd/db.zo",
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "nixos_system": {
+    "executed_at_utc": "2026-10-08T16:56:09.570189+00:00",
+    "environment": [
+      {
+        "command": "id",
+        "exit": 0,
+        "stdout": "uid=1000(tester) gid=100(users) groups=100(users)\n",
+        "stderr": ""
+      },
+      {
+        "command": "cat /etc/os-release",
+        "exit": 0,
+        "stdout": "BUILD_ID=\"26.05test\"\nID=nixos\nPRETTY_NAME=\"NixOS 26.05 (Yarara)\"\nVERSION_ID=\"26.05\"\n",
+        "stderr": ""
+      },
+      {
+        "command": "uname -m",
+        "exit": 0,
+        "stdout": "x86_64\n",
+        "stderr": ""
+      },
+      {
+        "command": "bash --version",
+        "exit": 0,
+        "stdout": "GNU bash, version 5.3.9(1)-release (x86_64-pc-linux-gnu)\n",
+        "stderr": ""
+      },
+      {
+        "command": "tmux -V",
+        "exit": 0,
+        "stdout": "tmux 3.6a\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v zoxide",
+        "exit": 0,
+        "stdout": "/run/current-system/sw/bin/zoxide\n",
+        "stderr": ""
+      },
+      {
+        "command": "zoxide --version",
+        "exit": 0,
+        "stdout": "zoxide 0.9.9\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v fzf",
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": "zsh --version",
+        "exit": 0,
+        "stdout": "zsh 5.9.1 (x86_64-pc-linux-gnu)\n",
+        "stderr": ""
+      }
+    ],
+    "scenarios": [
+      {
+        "name": "nixos-system-bash",
+        "shell": "bash",
+        "navigation": "z",
+        "initially_empty": "",
+        "learned": "   4.0 /home/tester/projects/api-server\n",
+        "jump": "/home/tester/projects/api-server\n",
+        "data_directory": "/home/tester/.local/share/evidence-nixos-system-bash",
+        "commands": [
+          {
+            "command": "type z",
+            "exit": 0,
+            "stdout": "z is a function\n",
+            "stderr": ""
+          },
+          {
+            "command": "type zi",
+            "exit": 0,
+            "stdout": "zi is a function\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-nixos-system-bash zoxide query --list --score",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~/projects/api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-nixos-system-bash zoxide query --list --score",
+            "exit": 0,
+            "stdout": "   4.0 /home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "z api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "z zz-no-such-keyword-923",
+            "exit": 1,
+            "stdout": "",
+            "stderr": "zoxide: no match found\n"
+          },
+          {
+            "command": "pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          }
+        ]
+      },
+      {
+        "name": "nixos-system-zsh",
+        "shell": "zsh",
+        "navigation": "z",
+        "initially_empty": "",
+        "learned": "   4.0 /home/tester/projects/api-server\n",
+        "jump": "/home/tester/projects/api-server\n",
+        "data_directory": "/home/tester/.local/share/evidence-nixos-system-zsh",
+        "commands": [
+          {
+            "command": "type z",
+            "exit": 0,
+            "stdout": "z is a shell function from /etc/zshrc\n",
+            "stderr": ""
+          },
+          {
+            "command": "type zi",
+            "exit": 0,
+            "stdout": "zi is a shell function from /etc/zshrc\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-nixos-system-zsh zoxide query --list --score",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~/projects/api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-nixos-system-zsh zoxide query --list --score",
+            "exit": 0,
+            "stdout": "   4.0 /home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "z api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "z zz-no-such-keyword-923",
+            "exit": 1,
+            "stdout": "",
+            "stderr": "zoxide: no match found\n"
+          },
+          {
+            "command": "pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          }
+        ]
+      }
+    ],
+    "disable": {
+      "method": "Switch to prebuilt specialisation with zoxide disabled, then start a new login shell",
+      "switch_exit": 0,
+      "fresh_login_command_v_exit": 1,
+      "databases_retained": [
+        "/home/tester/.local/share/evidence-nixos-system-bash/db.zo",
+        "/home/tester/.local/share/evidence-nixos-system-zsh/db.zo"
+      ]
+    }
+  },
+  "nixos_home_manager": {
+    "executed_at_utc": "2026-10-08T16:56:17.308914+00:00",
+    "environment": [
+      {
+        "command": "id",
+        "exit": 0,
+        "stdout": "uid=1000(tester) gid=100(users) groups=100(users)\n",
+        "stderr": ""
+      },
+      {
+        "command": "cat /etc/os-release",
+        "exit": 0,
+        "stdout": "BUILD_ID=\"26.05test\"\nID=nixos\nPRETTY_NAME=\"NixOS 26.05 (Yarara)\"\nVERSION_ID=\"26.05\"\n",
+        "stderr": ""
+      },
+      {
+        "command": "uname -m",
+        "exit": 0,
+        "stdout": "x86_64\n",
+        "stderr": ""
+      },
+      {
+        "command": "bash --version",
+        "exit": 0,
+        "stdout": "GNU bash, version 5.3.9(1)-release (x86_64-pc-linux-gnu)\n",
+        "stderr": ""
+      },
+      {
+        "command": "tmux -V",
+        "exit": 0,
+        "stdout": "tmux 3.6a\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v zoxide",
+        "exit": 0,
+        "stdout": "/etc/profiles/per-user/tester/bin/zoxide\n",
+        "stderr": ""
+      },
+      {
+        "command": "zoxide --version",
+        "exit": 0,
+        "stdout": "zoxide 0.9.9\n",
+        "stderr": ""
+      },
+      {
+        "command": "command -v fzf",
+        "exit": 1,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "scenarios": [
+      {
+        "name": "nixos-home-manager-cd",
+        "shell": "bash",
+        "navigation": "cd",
+        "initially_empty": "",
+        "learned": "   4.0 /home/tester/projects/api-server\n",
+        "jump": "/home/tester/projects/api-server\n",
+        "data_directory": "/home/tester/.local/share/evidence-nixos-home-manager-cd",
+        "commands": [
+          {
+            "command": "type cd",
+            "exit": 0,
+            "stdout": "cd is a function\n",
+            "stderr": ""
+          },
+          {
+            "command": "type cdi",
+            "exit": 0,
+            "stdout": "cdi is a function\n",
+            "stderr": ""
+          },
+          {
+            "command": "type -t z",
+            "exit": 1,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-nixos-home-manager-cd zoxide query --list --score",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~/projects/api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "env _ZO_DATA_DIR=/home/tester/.local/share/evidence-nixos-home-manager-cd zoxide query --list --score",
+            "exit": 0,
+            "stdout": "   4.0 /home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd ~",
+            "exit": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          {
+            "command": "cd api-server && pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          },
+          {
+            "command": "cd zz-no-such-keyword-923",
+            "exit": 1,
+            "stdout": "",
+            "stderr": "zoxide: no match found\n"
+          },
+          {
+            "command": "pwd",
+            "exit": 0,
+            "stdout": "/home/tester/projects/api-server\n",
+            "stderr": ""
+          }
+        ]
+      }
+    ],
+    "disable": {
+      "method": "Switch to prebuilt specialisation with zoxide disabled, then start a new login shell",
+      "switch_exit": 0,
+      "fresh_login_command_v_exit": 1,
+      "databases_retained": [
+        "/home/tester/.local/share/evidence-nixos-home-manager-cd/db.zo"
+      ]
+    }
+  }
+}

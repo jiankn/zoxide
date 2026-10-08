@@ -1,0 +1,13 @@
+{
+  "test_date": "2026-10-09",
+  "test_timezone": "Asia/Shanghai",
+  "files": [
+    {
+      "file": "arch-nixos.json",
+      "bytes": 19002,
+      "sha256": "d2f982b69851aaea0cba4b31b632e110121c48ad0212f1b7ec43145d429075d6",
+      "source_run_id": "37812481566",
+      "source_commit": "0152d22ae6977feac0eeaf7b72dae0d6bc0b2841"
+    }
+  ]
+}

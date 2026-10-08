@@ -1,4 +1,7 @@
+import { linuxInstallationContent } from '@/data/linux-installation-content';
+
 const englishTutorialContent: Record<string, string> = {
+  'install-arch-nixos': linuxInstallationContent.en,
   'install-macos': String.raw`# How to install zoxide on macOS (tested with Homebrew and zsh)
 
 This guide installs zoxide on macOS with Homebrew, connects it to zsh (the default macOS shell), and then tests the points where a Mac setup usually fails: Homebrew's PATH on Apple Silicon, the z command, and the hook that records directories. The commands and outputs below are from a real test run, not copied from the README.
@@ -1008,6 +1011,7 @@ Sources: the zoxide README (Configuration section) and the zoxide 0.10.0 source 
 };
 
 const japaneseTutorialContent: Record<string, string> = {
+  'install-arch-nixos': linuxInstallationContent.ja,
   'install-windows': String.raw`# Windows に zoxide をインストールする方法（PowerShell 7 で検証）
 
 このガイドでは winget で zoxide を Windows にインストールし、PowerShell に組み込んだうえで、Windows で壊れやすい三つのポイントを順に確認します。PATH 上のバイナリ、シェルの z コマンド、そしてディレクトリを記録する prompt フックです。以下のコマンドと出力はすべて実際のテスト結果で、README の転記ではありません。
@@ -2214,6 +2218,7 @@ brew uninstall zoxide
 };
 
 const chineseTutorialContent: Record<string, string> = {
+  'install-arch-nixos': linuxInstallationContent.zh,
   'fzf-integration': String.raw`# zoxide 与 fzf 集成：zi 交互选择实测
 
 zoxide 自带 zi 命令。它把 zoxide 记录的目录交给 fzf，让你选一个，然后跳过去，不需要自己写 zi 函数。本文展示 zi 实际的样子、zoxide 传给 fzf 的参数，以及为什么最常见的自定义写法会悄悄打乱排名。

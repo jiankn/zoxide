@@ -152,13 +152,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       tutorialPages.push({
         url,
-        lastModified: correctedPaths.has(`${locale}:/tutorials/${tutorial.slug}`)
+        lastModified: tutorial.updated || (correctedPaths.has(`${locale}:/tutorials/${tutorial.slug}`)
           ? correctionLastModified
           : retestedTutorialSlugs.has(tutorial.slug)
           ? unofficialGuideLastModified
           : isDefaultLocale && updatedEnglishTutorialSlugs.has(tutorial.slug)
           ? intentArchitectureLastModified
-          : tutorial.date,
+          : tutorial.date),
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       });
