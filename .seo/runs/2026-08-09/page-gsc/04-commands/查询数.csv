@@ -1,0 +1,98 @@
+热门查询,点击次数,展示,点击率,排名
+zoxide remove path,5,65,7.69%,2.75
+zoxide commands,2,54,3.7%,4.09
+zoxide remove entry,2,35,5.71%,1.71
+zoxide,0,135,0%,16.63
+"""storebuilder::new(data_dir)"" zoxide",0,77,0%,2.6
+zoxide cli,0,55,0%,7.31
+how to use zoxide,0,39,0%,3.18
+"""could not move temporary database"" zoxide",0,34,0%,3.29
+zoxide command,0,33,0%,6.97
+"""db updates are now atomic and isolated"" zoxide",0,22,0%,7.5
+zoxide query --exclude --interactive documentation,0,14,0%,1.86
+"""zoxide-engine"" ""storeversion""",0,13,0%,9.85
+"""storebuilder::new"" zoxide",0,13,0%,10.15
+zoxide replace cd,0,12,0%,1
+zoxide alias cd,0,10,0%,1
+zoxide remove,0,10,0%,2.5
+zoxide list,0,10,0%,3
+zoxide query --exclude current directory docs,0,10,0%,3.7
+zoxide how to use,0,10,0%,4
+what is zoxide,0,10,0%,8.4
+zoxide history,0,8,0%,2.25
+zi command,0,8,0%,6.5
+zi mode,0,7,0%,1.57
+terminal directory navigation zoxide,0,7,0%,10.71
+zoxide vs autojump,0,7,0%,12.57
+zoxide interactive,0,6,0%,3.67
+zoxide zi,0,6,0%,6
+zi cli,0,6,0%,8.5
+zoxide query,0,5,0%,3.2
+zoxide cli tool,0,5,0%,6.6
+zoxide command line tool,0,5,0%,7.6
+zoxide vs z,0,5,0%,15.2
+autojump vs zoxide,0,4,0%,1
+zoxide documentation,0,4,0%,1
+using zoxide,0,4,0%,1.25
+zoxide command line,0,4,0%,4.5
+zoxide z command,0,4,0%,6.25
+zoxide vs cd,0,3,0%,1
+zoxide linux,0,3,0%,1.67
+zoxide zsh,0,3,0%,1.67
+zoxide alias,0,3,0%,7.33
+zoxide usage,0,3,0%,8
+zoxide init --cmd cd bash documentation,0,3,0%,8.67
+zoxide uninstall,0,3,0%,16.67
+zoxide terminal,0,3,0%,18
+replace cd with zoxide,0,2,0%,1
+zoxide delete entry,0,2,0%,1
+alias zoxide to cd,0,2,0%,1.5
+z vs zoxide,0,2,0%,1.5
+zoxide tutorial,0,2,0%,2
+zoxide init,0,2,0%,3.5
+zoxide usage examples,0,2,0%,5
+zoxide init zsh documentation,0,2,0%,5.5
+ja,0,2,0%,6
+uninstall zoxide,0,2,0%,8
+zoxide official documentation smarter cd command,0,2,0%,8.5
+zoxide cd alias,0,2,0%,9
+zoxide official smarter cd command,0,2,0%,9
+cd alternative,0,1,0%,1
+check,0,1,0%,1
+comando nao encontrado,0,1,0%,1
+imsporthistory,0,1,0%,1
+what is zoxide?,0,1,0%,1
+yes,0,1,0%,1
+z terminal,0,1,0%,1
+zoxide arch,0,1,0%,1
+zoxide vs,0,1,0%,1
+zoxie,0,1,0%,1
+"""crates/zoxide-engine"" zoxide",0,1,0%,2
+"""zoxide-engine = { path = \""crates/zoxide-engine\"" }""",0,1,0%,2
+did i miss anything,0,1,0%,2
+zoxide bash,0,1,0%,2
+zoxide: no match found,0,1,0%,2
+zsh zoxide,0,1,0%,2
+disable_zoxide,0,1,0%,3
+si por favor,0,1,0%,3
+ye,0,1,0%,4
+zoxide cd,0,1,0%,4
+zoxide command line tool purpose security,0,1,0%,4
+zoxide fzf integration,0,1,0%,4
+zoxide help,0,1,0%,4
+fish zoxide,0,1,0%,5
+z instead of cd,0,1,0%,5
+reduce the weight,0,1,0%,6
+z cd s,0,1,0%,6
+zoxide command line usage,0,1,0%,6
+zoxide init bash --cmd cd,0,1,0%,6
+zoxide init bash --cmd cd documentation,0,1,0%,6
+z oxide,0,1,0%,7
+i don't see that folder,0,1,0%,8
+icezyclon/zoxide.fish,0,1,0%,8
+zoxide guide,0,1,0%,9
+zoxide init --cmd cd bash docs,0,1,0%,10
+"""zoxide init bash --cmd cd""",0,1,0%,11
+zoxide claude code,0,1,0%,23
+zoxide fish,0,1,0%,78
+zoxied,0,1,0%,93
