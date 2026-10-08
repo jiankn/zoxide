@@ -9,15 +9,15 @@ export default async function DisclaimerBanner() {
   const t = await getTranslations('disclaimer');
 
   return (
-    <div className="bg-yellow-50 border-b border-yellow-200">
-      <div className="container mx-auto max-w-7xl px-4 py-2">
-        <p className="text-xs sm:text-sm text-yellow-900">
-          <strong>{t('label')}</strong> {t('message')}{' '}
+    <div className="bg-gray-50 border-b border-gray-200">
+      <div className="container mx-auto max-w-7xl px-4 py-1.5">
+        <p className="text-xs text-gray-600">
+          <span className="font-medium text-gray-700">{t('label')}</span> {t('message')}{' '}
           <a
             href="https://github.com/ajeetdsouza/zoxide"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-yellow-950"
+            className="underline hover:text-gray-900"
           >
             {t('officialLink')}
           </a>
