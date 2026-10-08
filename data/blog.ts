@@ -3126,151 +3126,12 @@ macOS で zoxide を快適に使うポイントはシンプルです。
       ja: "zoxide-daitai-autojump-z-fasd-zlua",
     },
     title:
-      "Alternatives to zoxide: autojump vs zoxide vs z.lua vs fasd (plus open source & shell support)",
+      "zoxide alternatives tested in Bash: autojump, z, fasd and z.lua",
     excerpt:
-      "Compare zoxide with popular directory-jump alternatives, learn what problems each solves, and understand zoxide’s open-source story and shell compatibility.",
-    content: `# Alternatives to zoxide: what to use (and when)
-
-If you’re searching **“what are the alternatives to zoxide”**, you’re already convinced of the bigger idea: **directory jumping** is worth it. The remaining question is which tool fits your workflow.
-
-zoxide is popular because it’s fast, cross-shell, and modern—but it’s not the only option. This post compares zoxide with common alternatives (autojump, “z”, fasd, z.lua, and plain fzf workflows), and also answers the “meta” questions that affect adoption: **is zoxide open source** and **what shell does zoxide work with**.
-
----
-
-## Why directory jump tools exist (the shared problem)
-
-All of these tools exist because \`cd\` scales poorly with real developer workflows:
-
-- deep repo structures,
-- multiple projects and environments,
-- frequent context switching,
-- and humans remembering intent rather than paths.
-
-So the category exists to turn navigation into: “jump where I mean.”
-
----
-
-## zoxide at a glance
-
-zoxide describes itself as “a smarter cd command,” inspired by older tools like \`z\` and autojump.
-Its core idea is simple:
-
-- record directories you visit,
-- rank them by your behavior (frequency + recency),
-- jump by fuzzy keywords via \`z\` (and optionally \`zi\`).
-
-This “learned ranking” is what makes it feel like it gets better over time.
-
----
-
-## Alternatives to zoxide (with practical trade-offs)
-
-### 1) autojump
-
-**autojump** is one of the classic directory jumpers. It’s been around a long time, and many people adopted it early. Reasons you might still choose it:
-
-- it’s widely packaged,
-- it has lots of community snippets,
-- it’s “good enough” for many workflows.
-
-Reasons people migrate away:
-
-- zoxide is often faster and tends to feel more modern,
-- shell integration and cross-platform tooling can be smoother in zoxide,
-- many users prefer zoxide’s defaults and integrations.
-
-zoxide also supports importing data from autojump, which helps with migration.
-
-### 2) “z” (the original z.sh / rupa/z)
-
-The original **\`z\`** scripts are lightweight and simple. They’re often implemented as shell scripts with minimal dependencies. The upside is simplicity; the downside is that the ecosystem is fragmented, and features differ across forks. If you love minimalism and your shell setup is stable, the original “z” can be enough.
-
-zoxide is explicitly inspired by \`z\` and modernizes the concept.
-
-### 3) fasd
-
-**fasd** is an older tool that ranks files and directories (not just directories). If you want “jump + open files” style workflows, fasd can be attractive. However, some users find its behavior and setup less straightforward, and they prefer a dedicated directory jumper plus separate tools for files.
-
-### 4) z.lua
-
-**z.lua** is popular among users who like Lua-based tooling and want extensive configuration knobs. It’s fast and flexible, and it’s a strong choice if you already live in a Lua ecosystem (like Neovim-heavy setups). The trade-off is: you may end up tuning a lot.
-
-### 5) fzf-only directory workflows
-
-Some people skip “learning” entirely and rely on fzf to search directories on demand. This can work well if you don’t want a database, or if you prefer explicit interactive selection every time.
-
-Trade-off: you lose the “it learns my habits” ranking that makes zoxide fast with a few letters.
-
----
-
-## What shell does zoxide work with?
-
-zoxide supports all major shells, and the official documentation provides init snippets for each one.
-In practice, if your workflow includes Bash, Zsh, Fish, PowerShell, or Nushell, zoxide is usually a safe bet.
-
-This shell breadth is one reason it’s widely recommended as the “default” directory jumper today.
-
----
-
-## Is zoxide open source? (and why it matters)
-
-Yes—zoxide is open source on GitHub and distributed under the MIT license.
-
-For teams and long-lived dotfile setups, that matters because:
-
-- you can audit what the init scripts do,
-- you can pin versions,
-- you can contribute fixes,
-- and you aren’t betting on a closed tool disappearing.
-
----
-
-## Which should you choose? A simple decision framework
-
-Choose **zoxide** if you want:
-
-- strong cross-shell support,
-- modern integrations (including fzf),
-- a tool that “learns” and improves over time,
-- easy onboarding and migration support.
-
-Choose **autojump** if you want:
-
-- a long-established, widely packaged default,
-- and you already have it working everywhere.
-
-Choose **z** (script) if you want:
-
-- minimal dependencies and a simple mental model,
-- and you’re okay with fewer modern integrations.
-
-Choose **fasd** if you want:
-
-- ranking for files and directories in one tool,
-- and you’re comfortable with its older style.
-
-Choose **z.lua** if you want:
-
-- maximum configurability and a Lua-friendly ecosystem.
-
-Choose **fzf-only** if you want:
-
-- no learning database, always interactive search,
-- and you don’t mind a couple more keystrokes per jump.
-
----
-
-## Wrap-up
-
-The directory-jump category is mature, and there are several good options. But zoxide has become a common recommendation because it combines:
-
-- “learned” ranking,
-- broad shell support,
-- and a modern open-source project surface.
-
-If you’re on the fence, install it, enable \`zoxide init\`, and try it for a week. The fastest test is always real usage.
-`,
+      "Bash tests of zoxide, autojump, z, fasd and z.lua: measured installation, directory learning, ordered keywords, missing matches, record deletion and real imports.",
+    content: "# zoxide alternatives tested in Bash: autojump, z, fasd and z.lua",
     date: "2026-01-10",
+    updated: "2026-10-08",
     author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide alternatives",
@@ -3280,7 +3141,7 @@ If you’re on the fence, install it, enable \`zoxide init\`, and try it for a w
       "is zoxide open source",
       "what shell does zoxide work with",
     ],
-    readTime: 6,
+    readTime: 7,
   },
   {
     id: "24",
@@ -3291,143 +3152,12 @@ If you’re on the fence, install it, enable \`zoxide init\`, and try it for a w
       ja: "zoxide-daitai-autojump-z-fasd-zlua",
     },
     title:
-      "zoxide 替代品有哪些？autojump、z、fasd、z.lua 对比：以及 zoxide 是否开源、支持哪些 Shell",
+      "zoxide 替代工具实测对比（autojump、z、fasd、z.lua）",
     excerpt:
-      "围绕 zoxide 替代品、autojump vs zoxide、zoxide 开源吗、zoxide 支持哪些 shell，给出实际选型建议与迁移思路。",
-    content: `# zoxide 替代品有哪些？autojump、z、fasd、z.lua 对比与选型
-
-如果你在搜 **“zoxide 替代品”** 或 **“zoxide 类似工具”**，说明你已经认可一个事实：在真实的开发/运维工作流里，纯 \`cd\` 的效率上限很低。你真正纠结的是：**到底选哪一个目录跳转工具更合适**。
-
-这篇文章会把常见候选（autojump、z、fasd、z.lua、fzf 纯交互流）放在同一张逻辑表里解释：它们解决同一类问题，但取舍不同。我们也会顺便回答几个“落地前必须确认”的问题：**zoxide 开源吗？zoxide 支持哪些 Shell？**
-
----
-
-## 1) 为什么会有“目录跳转工具”这条赛道？
-
-所有工具都在解决同一个现实：
-
-- 目录层级深，路径长；
-- 项目多、环境多、上下文切换频繁；
-- 你记得“我要去 infra”，但不想记“infra 在第几层”；
-- 输入成本高，Tab 补全也要一步步走树。
-
-所以这类工具把导航从“路径输入”变成“意图跳转”。
-
----
-
-## 2) zoxide 的定位：更现代、更通用的默认选择
-
-zoxide 的定位是“更聪明的 cd”，灵感来自早期的 \`z\` 和 autojump。
-它的核心逻辑可以简化为三句话：
-
-1. 记录你进入过的目录；
-2. 根据频率与最近使用情况进行排序/加权；
-3. 用 \`z <关键词>\` 模糊匹配并跳转（也可用 \`zi\` 做交互选择）。
-
-这让它很适合做“默认目录跳转工具”：轻量、跨 Shell、跨平台、学习曲线低。
-
----
-
-## 3) zoxide 替代品 / 类似工具对比（优缺点说人话）
-
-### 3.1 autojump（经典老将）
-
-autojump 是“老牌目录跳转工具”，很多 Linux 发行版里都很好装，资料也多。适合：
-
-- 你所在环境统一、历史包袱重，已经全员在用 autojump；
-- 你只需要一个“能用就行”的跳转工具。
-
-可能劝退的点：
-
-- 生态与体验偏旧；
-- 跨 Shell/跨平台时，你可能需要更细的折腾；
-- 一些用户会更偏爱 zoxide 的默认行为与集成。
-
-值得一提的是，zoxide 提供导入 autojump 数据的能力，迁移成本相对可控。
-
-### 3.2 z（早期脚本流的代表）
-
-最早的 \`z\`（各种 z.sh/fork）非常轻量，往往就是一段 shell 脚本，依赖少、心智模型简单。适合：
-
-- 你极简主义、喜欢“少即是多”；
-- 你不追求太多现代集成。
-
-但问题也明显：脚本生态分叉多、功能差异大、维护状态不一致。zoxide 明确受其启发，并将这个思路现代化。
-
-### 3.3 fasd（目录 + 文件一起排）
-
-fasd 的特色是“目录和文件都能按习惯排序”。如果你希望一套工具同时覆盖：
-
-- “跳目录”
-- “跳文件并打开”
-
-它会很有吸引力。代价是：配置/行为可能更复杂，很多人更愿意用“目录跳转 + 文件搜索”两件事分开处理。
-
-### 3.4 z.lua（偏重可配置与扩展）
-
-z.lua 在喜欢 Lua 生态的人群里很受欢迎（尤其 Neovim 重度用户）。它速度快、可调参数多。适合：
-
-- 你愿意花时间调教；
-- 你希望对匹配/评分策略有更细控制。
-
-不适合的点也很直白：**你可能会把时间花在“调工具”而不是“用工具”上**。
-
-### 3.5 fzf 纯交互流（不要学习，只要搜索）
-
-还有一类人完全不想维护“学习数据库”，就用 fzf 每次搜索目录。优点是：
-
-- 不依赖学习记录；
-- 任何机器、任何环境都能用。
-
-缺点是：
-
-- 每次都需要交互搜索；
-- 少了 zoxide 那种“打两三个字母就到”的学习加成。
-
----
-
-## 4) zoxide 支持哪些 Shell？
-
-zoxide 支持主流 Shell；常见如 Bash、Zsh、Fish，也能在 PowerShell、Nushell 等环境使用。
-对很多团队来说，“跨 Shell 一致”是选 zoxide 的关键原因之一。
-
----
-
-## 5) zoxide 开源吗？（以及为什么这很重要）
-
-是的，zoxide 是开源项目，并使用 MIT 许可证。
-
-对个人与团队而言，这意味着：
-
-- 你可以审计 init 脚本到底做了什么；
-- 你可以锁版本、可复现；
-- 工具不会因为闭源商业策略而突然不可用；
-- 有问题能提 issue/贡献修复。
-
----
-
-## 6) 怎么选？给你一个“少纠结”框架
-
-- 你要**省心通用**：选 zoxide（跨 Shell、现代、学习成本低）
-- 你要**环境历史包袱最小**：现成有 autojump 就继续用
-- 你要**极简脚本**：选 z（但接受功能较少与生态分叉）
-- 你要**目录 + 文件一体**：考虑 fasd
-- 你要**强可配置**：z.lua
-- 你要**每次都交互搜索**且不想记录：fzf 纯流
-
----
-
-## 总结
-
-“目录跳转工具”这条赛道已经成熟，但 zoxide 之所以成为很多人的默认推荐，是因为它把三件事做得比较平衡：
-
-1) 学习你的习惯（越用越准）
-2) 支持主流 Shell（跨环境一致）
-3) 开源 + MIT（长期可控）
-
-如果你还在犹豫，最好的办法不是继续对比参数，而是：装上 zoxide、配好 init，用一周。目录跳转这种工具，体验胜过一切。
-`,
+      "在同一 Ubuntu 24.04 用户环境实测五种目录跳转工具，比较安装耗时、同名目录、关键词顺序、未匹配报错和记录删除，并用真实 autojump 与 z 数据验证迁移。",
+    content: "# zoxide 替代工具实测对比（autojump、z、fasd、z.lua）",
     date: "2026-01-10",
+    updated: "2026-10-08",
     author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide 替代品",
@@ -3438,7 +3168,7 @@ zoxide 支持主流 Shell；常见如 Bash、Zsh、Fish，也能在 PowerShell�
       "zoxide 开源吗",
       "zoxide 支持哪些 shell",
     ],
-    readTime: 6,
+    readTime: 7,
   },
   {
     id: "25",
@@ -3449,115 +3179,12 @@ zoxide 支持主流 Shell；常见如 Bash、Zsh、Fish，也能在 PowerShell�
       zh: "zoxide-tidai-autojump-z-fasd-zlua",
     },
     title:
-      "zoxideの代替は？autojump・z・fasd・z.luaを比較（オープンソース/対応シェルも）",
+      "zoxide 代替ツールを実測比較（autojump・z・fasd・z.lua）",
     excerpt:
-      "「zoxide 代替」「zoxide 類似 ツール」「autojump vs zoxide」「zoxide オープンソース」「zoxide 対応シェル」をまとめて比較し、選び方の軸を作る。",
-    content: `# zoxideの代替は？autojump・z・fasd・z.luaを比較して選び方を整理する
-
-「**zoxide 代替**」「**zoxide 類似 ツール**」で検索している人は、もう気づいているはずです。
-ディレクトリ移動は \`cd\` だけだと遅い。深い階層・複数リポジトリ・頻繁な往復があると、入力コストが積み上がります。
-
-では、zoxide 以外に何があるのか？ そして、どれを選べば後悔しないのか？
-この記事では、よく名前が挙がる **autojump / z / fasd / z.lua / fzf中心の運用** を並べて比較しつつ、導入前に必ず確認したい **「zoxide オープンソース？」「zoxide 対応シェル？」** もあわせて解説します。
-
----
-
-## 1) そもそも、なぜ代替ツールが必要？（共通の課題）
-
-このカテゴリのツールは、同じ問題を解決します。
-
-- 階層が深い（monorepo、IaC、複数サービス）
-- 行き来が多い（infra / docs / api / client を往復）
-- フルパスを覚えない（覚えているのは“意味”）
-- Tab補完しても結局ツリーを辿る必要がある
-
-目的は一つ：**「行きたい意図」でジャンプする**。
-
----
-
-## 2) zoxideの立ち位置（なぜ“デフォルト候補”になりやすい？）
-
-zoxide は「よりスマートな cd」として、\`z\` や autojump に影響を受けたプロジェクトです。
-特徴をざっくり言うと：
-
-- 移動したディレクトリを記録し、頻度や最近使用を加味してランキング化
-- \`z <キーワード>\` で曖昧にジャンプ
-- 必要なら \`zi\` で対話的に選ぶ（fzfと相性が良い）
-
-「軽いのに賢い」「対応シェルが広い」「設定の正解が揃っている」点が評価されやすいです。
-
----
-
-## 3) zoxideの代替（zoxide 代替 / zoxide 類似 ツール）
-
-### 3.1 autojump（王道の古参）
-
-autojump は昔からある定番。配布パッケージも多く、導入記事も多い。向いている人：
-
-- すでに全環境で autojump が動いていて不満が少ない
-- “枯れた”ツールが好き
-
-一方で、よりモダンで一貫した体験を求める人は zoxide に移行することがあります。
-なお zoxide は autojump のデータ取り込みもサポートしているので、移行の心理的ハードルは下がります。
-
-### 3.2 z（スクリプト系の原点）
-
-最初期の \`z\` 系スクリプトは依存が少なく、シンプルで軽いのが魅力。
-ただし fork が多く、機能差やメンテ状況にばらつきが出やすい点は注意です。zoxide はこの思想を“現代的に実装し直した”立ち位置です。
-
-### 3.3 fasd（ファイルも含めてランク付け）
-
-fasd はディレクトリだけでなく、ファイルも含めてスコアリングします。
-「移動 + ファイルオープン」まで一体でやりたい人には魅力的。ただし挙動が複雑に感じる人もいるので、好みが分かれます。
-
-### 3.4 z.lua（高い柔軟性とカスタマイズ）
-
-z.lua は高速で設定の自由度が高い。NeovimなどLua文化に馴染みがある人には強い選択肢。
-一方で、自由度が高い＝調整が増えるので、「まずは手早く成果」を求める人は zoxide のほうが合うこともあります。
-
-### 3.5 fzf中心（学習しない、毎回検索する）
-
-「学習データベースは持ちたくない」「毎回インタラクティブで探したい」なら fzf 中心でも成立します。
-ただし、zoxide のように“数文字で一発”という学習の強みは減ります。
-
----
-
-## 4) zoxideはどのシェルで使える？（zoxide 対応シェル）
-
-zoxide は主要シェルに対応しており、シェル別の \`init\` 例が提供されています。
-Bash / Zsh / Fish に加えて、PowerShell や Nushell でも使えるため、複数環境を行き来する人に向いています。
-
----
-
-## 5) zoxideはオープンソース？（zoxide オープンソース）
-
-はい。zoxide は GitHub 上で開発されているオープンソースで、MITライセンスです。
-長期運用する dotfiles では、この点が安心材料になります。
-
----
-
-## 6) 結局どれを選ぶ？（迷わないための軸）
-
-- **迷ったら zoxide**：対応シェルが広く、導入が安定
-- **既に autojump が安定稼働**：そのままでもOK（移行は必要になってから）
-- **極限まで軽く**：\`z\` スクリプト系（ただし機能差に注意）
-- **ファイルも一緒にランク付け**：fasd
-- **強いカスタマイズ欲**：z.lua
-- **毎回インタラクティブ検索**：fzf中心
-
----
-
-## まとめ
-
-zoxide の代替は複数ありますが、zoxide が選ばれやすいのは、
-
-- “学習”で数文字ジャンプができる
-- 対応シェルが広く、導入パターンが整っている
-- オープンソースで長期運用しやすい
-
-というバランスが良いからです。迷うなら、まず zoxide を1週間使ってみるのが一番早い結論です。
-`,
+      "同じ Ubuntu 24.04 ユーザーで 5 種類の移動ツールを実測。インストール時間、同名ディレクトリ、検索語の順序、失敗時の出力、記録削除と実データの移行を比較します。",
+    content: "# zoxide 代替ツールを実測比較（autojump・z・fasd・z.lua）",
     date: "2026-01-10",
+    updated: "2026-10-08",
     author: "Jacky Jian",
     category: "对比",
     primaryKeyword: "zoxide 代替",
@@ -3568,7 +3195,7 @@ zoxide の代替は複数ありますが、zoxide が選ばれやすいのは、
       "zoxide オープンソース",
       "zoxide 対応シェル",
     ],
-    readTime: 6,
+    readTime: 7,
   },
 ];
 

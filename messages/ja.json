@@ -454,8 +454,8 @@
         ]
       },
       "zoxide-daitai-autojump-z-fasd-zlua": {
-        "title": "Zoxideの最適な代替案：Autojump、z、fasdとの徹底比較",
-        "excerpt": "Zoxideを、autojump、z、fasdなどの人気のある代替ツールと比較します。なぜRustベースのパフォーマンスとスマートなアルゴリズムを持つZoxideが、現代のターミナルにとって最高の選択なのかを確認しましょう。",
+        "title": "zoxide 代替ツールを実測比較（autojump・z・fasd・z.lua）",
+        "excerpt": "同じ Ubuntu 24.04 ユーザーで 5 種類の移動ツールを実測。インストール時間、同名ディレクトリ、検索語の順序、失敗時の出力、記録削除と実データの移行を比較します。",
         "category": "比較",
         "author": "Jacky Jian",
         "tags": [

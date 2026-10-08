@@ -466,8 +466,8 @@
         ]
       },
       "zoxide-alternatives-comparison-open-source": {
-        "title": "Zoxide Best Alternatives: Comparison with Autojump, z, and fasd",
-        "excerpt": "Compare zoxide with popular alternatives like autojump, z, and fasd. See why zoxide's Rust-based performance and smart algorithm make it the top choice for modern terminals.",
+        "title": "zoxide alternatives tested in Bash: autojump, z, fasd and z.lua",
+        "excerpt": "Bash tests of zoxide, autojump, z, fasd and z.lua: measured installation, directory learning, ordered keywords, missing matches, record deletion and real imports.",
         "category": "Comparison",
         "author": "Jacky Jian",
         "tags": [

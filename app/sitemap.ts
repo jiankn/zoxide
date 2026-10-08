@@ -25,6 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'en:/blog/what-is-zoxide-smarter-cd',
     'zh:/blog/zoxide-shi-shenme-z-mingling-tidai-cd',
     'ja:/blog/zoxide-toha-cd-no-kawari',
+    // 2026-10-08：同一 Ubuntu 容器实测五种目录工具，替代工具对比完成三语重写。
+    'en:/blog/zoxide-alternatives-comparison-open-source',
+    'zh:/blog/zoxide-tidai-autojump-z-fasd-zlua',
+    'ja:/blog/zoxide-daitai-autojump-z-fasd-zlua',
     'en:/download', 'zh:/download', 'ja:/download',
     'en:/tutorials/install-arch-nixos', 'zh:/tutorials/install-arch-nixos', 'ja:/tutorials/install-arch-nixos',
     'en:/tutorials/advanced-config', 'zh:/tutorials/advanced-config', 'ja:/tutorials/advanced-config',

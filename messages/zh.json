@@ -459,8 +459,8 @@
         ]
       },
       "zoxide-tidai-autojump-z-fasd-zlua": {
-        "title": "Zoxide 最佳替代方案：与 Autojump、z 和 fasd 的深度对比",
-        "excerpt": "将 Zoxide 与 Autojump、z 和 fasd 等流行替代方案进行对比。了解为什么 Zoxide 基于 Rust 的高性能和智能算法使其成为现代终端的首选。",
+        "title": "zoxide 替代工具实测对比（autojump、z、fasd、z.lua）",
+        "excerpt": "在同一 Ubuntu 24.04 用户环境实测五种目录跳转工具，比较安装耗时、同名目录、关键词顺序、未匹配报错和记录删除，并用真实 autojump 与 z 数据验证迁移。",
         "category": "对比",
         "author": "Jacky Jian",
         "tags": [

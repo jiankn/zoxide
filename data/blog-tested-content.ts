@@ -2854,4 +2854,562 @@ z proj と入力してスペースなしで Tab を押すと、bash と zsh（co
 - [コマンドリファレンス](/ja/blog/zoxide-commands/)：query、add、remove、import。
 - [zoxide が動作しない](/ja/blog/zoxide-not-working/)：z が学習しない、または違う場所へ移動する場合。`,
   },
+  "zoxide-alternatives-comparison-open-source": {
+    en: String.raw`# zoxide alternatives tested in Bash: autojump, z, fasd and z.lua
+
+All five tools learned our five test directories. The useful differences appeared when we reversed keywords, omitted a hyphen, asked for a missing match, or deleted a record. For example, autojump and fasd found api-server from apiserver; zoxide, z and the default z.lua setup did not. A missing match also did not always produce a nonzero exit status.
+
+## Test environment
+
+| Item | Recorded value |
+| --- | --- |
+| Date | 2026-10-08 |
+| System | GitHub Actions, fresh ubuntu:24.04 container; Ubuntu 24.04.5 LTS, x86_64 |
+| Shell and terminal | Bash 5.2.21, tmux 3.4; interactive Bash driven with send-keys and capture-pane |
+| User | tester, UID 1001; HOME=/home/tester for every tool |
+| Isolation | One tool initialized per Bash session, separate shell histories; the same directories and visit sequence |
+| Evidence | [Complete test run and downloadable terminal captures](https://github.com/jiankn/zoxide/actions/runs/37799809255) |
+
+Output excerpts omit the prompt and the test driver's exit-status markers. In examples, ~ means /home/tester. The result table uses the directory labels defined below; its numbers are shell exit statuses, not scores. These are observations from this configuration and sequence.
+
+## Installation: versions and elapsed time
+
+All five installations succeeded. Package installation ran as root; learning, jumping and importing ran as tester. The zoxide installer placed its executable in ~/.local/bin, which we added to PATH.
+
+| Tool | Tested version or source revision | Installation performed | Elapsed |
+| --- | --- | --- | --- |
+| zoxide | 0.10.0 | Download and run the official install.sh | 1.048 s |
+| autojump | v22.5.1; apt package 22.5.1-1.1 | apt-get install -y -qq autojump | 2.201 s |
+| z | [d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd](https://github.com/rupa/z/blob/d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd/z.sh) | git clone --depth 1 of rupa/z | 0.349 s |
+| fasd | 1.0.1; apt package 1.0.1-3 | apt-get install -y -qq fasd | 0.984 s |
+| z.lua | [86a9fc5b308b66197720811d295e3812b1c73325](https://github.com/skywind3000/z.lua/blob/86a9fc5b308b66197720811d295e3812b1c73325/z.lua); Lua 5.4.6 | apt-get install -y -qq lua5.4, then shallow clone of skywind3000/z.lua | 2.103 s |
+
+The clock covered each tool's installation commands once, including downloads. The z.lua measurement includes installing Lua, whose apt package was 5.4.6-3build2. The earlier apt update and common dependencies such as curl, Git, Python and tmux are excluded. These numbers describe one runner's setup; they do not measure query speed or establish a performance ranking.
+
+We used the following initialization lines independently. The paths reflect where the test clones were installed. Loading all five together would create competing z commands.
+
+| Tool | Initialization in the test Bash session | Jump command |
+| --- | --- | --- |
+| zoxide | eval "$(zoxide init bash)" | z |
+| autojump | source /usr/share/autojump/autojump.sh | j |
+| z | source /home/tester/tools/z/z.sh | z |
+| fasd | eval "$(fasd --init auto)" | z |
+| z.lua | eval "$(lua /home/tester/tools/z.lua/z.lua --init bash)" | z |
+
+## The shared directory history
+
+| Label | Directory |
+| --- | --- |
+| S | ~/projects/api-server |
+| G | ~/projects/api-gateway |
+| D | ~/work/api-docs |
+| W | ~/work/web-app/src |
+| L | ~/projects/legacy/src |
+| HOME | /home/tester |
+
+Starting at HOME, we ran cd to S, G, D, W, L, S, HOME, S and HOME, in that order. Each cd was a separate interactive command followed by a prompt. W and L deliberately have the same final directory name, src. The list command for every tool contained all five paths after training.
+
+For example, zoxide query --list --score printed:
+
+~~~text
+  12.0 /home/tester/projects/api-server
+   4.0 /home/tester/projects/legacy/src
+   4.0 /home/tester/work/web-app/src
+   4.0 /home/tester/work/api-docs
+   4.0 /home/tester/projects/api-gateway
+~~~
+
+autojump --stat showed weight 17.3 for S and 10.0 for each other test path. fasd's directory list also included HOME. We did not compare the tools' score scales: their hooks and scoring differ.
+
+## Eight keyword queries, in a fixed order
+
+Before each query, we separately ran cd /home/tester. The queries below were then executed from top to bottom, using j for autojump and z for the others. Successful jumps were allowed to update history; we did not restore the initial database between rows. Each cell shows the resulting directory and exit status.
+
+| Keywords | zoxide | autojump | z | fasd | z.lua |
+| --- | --- | --- | --- | --- | --- |
+| api | S (0) | S (0) | S (0) | S (0) | S (0) |
+| projects gateway | G (0) | G (0) | G (0) | G (0) | G (0) |
+| api projects | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+| web-app src | W (0) | W (0) | W (0) | W (0) | W (0) |
+| src web-app | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+| src | W (0) | W (0) | W (0) | W (0) | W (0) |
+| apiserver | HOME (1) | S (0) | HOME (1) | S (0) | HOME (0) |
+| zz-no-such-keyword-923 | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+
+None of the five accepted the two reversed keyword sequences in this test. For same-name directories, the earlier web-app src jump had already reinforced W before we asked for src alone. Its selection here does not prove that W would win with a fresh history or a different visit order.
+
+The apiserver row is another practical distinction. Dropping the hyphen still reached api-server with autojump and fasd. The same input left the other three at HOME. This is a measured example, not a claim that any tool handles every typo.
+
+### What a missing match actually printed
+
+| Command | Terminal output | Exit status | Directory afterward |
+| --- | --- | --- | --- |
+| z zz-no-such-keyword-923, zoxide | zoxide: no match found | 1 | HOME |
+| j zz-no-such-keyword-923, autojump | . | 0 | HOME |
+| z zz-no-such-keyword-923, z | No output | 1 | HOME |
+| z zz-no-such-keyword-923, fasd | No output | 0 | HOME |
+| z zz-no-such-keyword-923, z.lua | No output | 0 | HOME |
+
+“No output” is our description of an empty capture. autojump printed a literal dot; its initialized j function remained in the current directory and returned 0. For scripts, checking that the directory actually changed matters when using the tested fasd, z.lua or autojump wrappers.
+
+## Listing, deleting and locating the database
+
+| Tool | List command we ran | Record deletion we verified | Data file in this test |
+| --- | --- | --- | --- |
+| zoxide | zoxide query --list --score | zoxide remove /home/tester/projects/api-gateway | ~/cases/zoxide-data/db.zo, with _ZO_DATA_DIR set |
+| autojump | autojump --stat | Offline edit of one existing-path row; --purge for a removed directory | ~/.local/share/autojump/autojump.txt |
+| z | z -l | cd /home/tester/projects/api-gateway; z -x; cd /home/tester, on one command line | ~/.z |
+| fasd | fasd -ld | fasd -D /home/tester/projects/api-gateway | ~/.fasd |
+| z.lua | z -l | z -x /home/tester/projects/api-gateway | ~/.zlua |
+
+For zoxide, z, fasd and z.lua, the subsequent list omitted G while retaining S. z's -x removes the current directory's record; leaving on the same command line avoids presenting another prompt in that directory. z.lua needed the explicit path.
+
+autojump --remove /home/tester/projects/api-gateway was rejected with exit status 2 and “unrecognized arguments: --remove”. We closed its interactive session, backed up autojump.txt as autojump.txt.before-manual-delete, and removed the tab-separated row whose path exactly equalled G. An initialized autojump --stat confirmed that G disappeared while the directory itself still existed. We then removed the dedicated test file notes.txt and its empty D directory, ran autojump --purge, and confirmed that D disappeared too. Both list checks and purge returned 0. Purge and removing a still-existing path are different operations.
+
+### fasd also learned a file
+
+In fasd's session, after cat /home/tester/work/api-docs/notes.txt, f notes returned:
+
+~~~text
+6          /home/tester/work/api-docs/notes.txt
+~~~
+
+The directory stayed at HOME and the command returned 0. This verifies file lookup in the initialized fasd setup. We did not test launching an editor or compare file lookup in the other tools.
+
+## Importing real autojump and z histories into zoxide
+
+These sources were the databases produced by the interactive sessions above, saved before deletion. No records were fabricated. Each import used a separate, previously created empty zoxide data directory and the same tester HOME.
+
+zoxide 0.10.0 rejected both attempts using the old --from TOOL FILE form. The error began “error: unexpected argument '--from' found”, with exit status 2. The tested commands are zoxide import autojump and zoxide import z. They read the source tool's default data file; neither tested subcommand accepts a FILE argument.
+
+### autojump source: ~/.local/share/autojump/autojump.txt
+
+~~~bash
+export _ZO_DATA_DIR=/home/tester/cases/import-autojump
+zoxide query --list --score
+zoxide import autojump
+zoxide query --list --score
+~~~
+
+The first query had no output. The import returned 0. The second query printed:
+
+~~~text
+   0.2 /home/tester/projects/api-server
+   0.2 /home/tester/work/web-app/src
+   0.2 /home/tester/projects/api-gateway
+   0.2 /home/tester/work/api-docs
+   0.2 /home/tester/projects/legacy/src
+~~~
+
+All five paths survived, but the displayed scores are on zoxide's scale and rounded to one decimal place. Equal-looking 0.2 values do not establish identical underlying values or preserve autojump's printed weights.
+
+### z source: ~/.z
+
+~~~bash
+export _ZO_DATA_DIR=/home/tester/cases/import-z
+zoxide query --list --score
+zoxide import z
+zoxide query --list --score
+~~~
+
+Again the first query was empty and the import returned 0. The second query printed:
+
+~~~text
+  16.0 /home/tester/projects/api-server
+  12.0 /home/tester/work/web-app/src
+   8.0 /home/tester/projects/api-gateway
+   4.0 /home/tester/work/api-docs
+   4.0 /home/tester/projects/legacy/src
+~~~
+
+This verifies migration of the learned paths in these two default layouts. Custom source locations and merging into an existing zoxide database were not tested here.
+
+## Choosing from the behavior we measured
+
+If you want explicit failure status, removal by full path and migration from either tested history, zoxide covered those cases. If you already use autojump's j and rely on inputs like apiserver, this example gives a reason to try your usual keywords before migrating. z worked by sourcing one script and kept a ~/.z database; it fits a Bash setup where that interface already meets your needs.
+
+fasd is worth considering when you need both file lookup and directory jumping: we exercised both in one initialized session. z.lua worked after installing Lua and offered deletion by explicit path, so it is an option for an environment where a Lua runtime is already acceptable. These are choices based on the tested tasks; we did not measure maintenance cost or long-term reliability.
+
+For a focused migration discussion, see the existing [zoxide vs autojump comparison](/blog/zoxide-vs-autojump/). The [zoxide command reference](/blog/zoxide-commands/) and [initialization guide](/blog/zoxide-init-guide/) cover its commands and shell hooks in more detail.
+
+## Not tested in this comparison
+
+We did not benchmark 2,000 directories, compare query latency, use fzf or completion, test other shells or operating systems, observe long-term score aging, or enable z.lua's enhanced mode. The installation times above include different setup work. Neither those times nor the five-directory results establish which tool is fastest on a larger database.`,
+  },
+  "zoxide-tidai-autojump-z-fasd-zlua": {
+    zh: String.raw`# zoxide 替代工具实测对比（autojump、z、fasd、z.lua）
+
+五种工具都学到了同一组五个目录。差别出现在具体输入上。把 api-server 写成 apiserver，autojump 和 fasd 仍能找到，zoxide、z 和默认配置的 z.lua 没有跳转。输入一个完全不存在的关键词时，有的工具报错，有的留在原地却返回退出码 0。选工具之前，这些行为比笼统的功能清单更值得核对。
+
+## 测试环境
+
+| 项目 | 实测值 |
+| --- | --- |
+| 日期 | 2026-10-08 |
+| 系统 | GitHub Actions 中的全新 ubuntu:24.04 容器，Ubuntu 24.04.5 LTS，x86_64 |
+| Shell 与终端 | Bash 5.2.21、tmux 3.4，用 send-keys 输入交互命令，再用 capture-pane 抓取结果 |
+| 用户 | tester，UID 1001，所有工具的 HOME 都是 /home/tester |
+| 隔离方式 | 每个 Bash 会话只初始化一种工具，Shell 历史分开；目录和访问顺序一致 |
+| 原始证据 | [完整测试运行及可下载的终端记录](https://github.com/jiankn/zoxide/actions/runs/37799809255) |
+
+下面的输出省略了提示符和测试脚本的退出码标记，~ 都代表 /home/tester。跳转表用字母缩写目录，括号内是 Shell 退出码，不是评分。结果只对应本次配置和命令顺序。
+
+## 安装方式、版本和耗时
+
+五种工具都安装成功。apt 安装由 root 执行，学习目录、跳转和导入由普通用户 tester 执行。zoxide 官方脚本把程序放在 ~/.local/bin，测试环境将这个目录加入了 PATH。
+
+| 工具 | 测到的版本或源码提交 | 实际安装方式 | 耗时 |
+| --- | --- | --- | --- |
+| zoxide | 0.10.0 | 下载并运行官方 install.sh | 1.048 秒 |
+| autojump | v22.5.1，apt 包 22.5.1-1.1 | apt-get install -y -qq autojump | 2.201 秒 |
+| z | [d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd](https://github.com/rupa/z/blob/d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd/z.sh) | 对 rupa/z 执行 git clone --depth 1 | 0.349 秒 |
+| fasd | 1.0.1，apt 包 1.0.1-3 | apt-get install -y -qq fasd | 0.984 秒 |
+| z.lua | [86a9fc5b308b66197720811d295e3812b1c73325](https://github.com/skywind3000/z.lua/blob/86a9fc5b308b66197720811d295e3812b1c73325/z.lua)，Lua 5.4.6 | apt-get install -y -qq lua5.4，再浅克隆 skywind3000/z.lua | 2.103 秒 |
+
+每项只计时一次，包含对应安装命令的下载时间。z.lua 的时间还包含 Lua 安装，Lua 的 apt 包版本是 5.4.6-3build2。提前执行的 apt update，以及 curl、Git、Python、tmux 等共用依赖的安装，不计入表中。这组数值反映该 runner 的安装过程，不能用于比较查询速度。
+
+各自的交互 Bash 会话用了下面的初始化行。源码路径就是测试时的克隆位置。不要把五行一起加载，它们会争用 z 命令。
+
+| 工具 | 本次初始化行 | 跳转命令 |
+| --- | --- | --- |
+| zoxide | eval "$(zoxide init bash)" | z |
+| autojump | source /usr/share/autojump/autojump.sh | j |
+| z | source /home/tester/tools/z/z.sh | z |
+| fasd | eval "$(fasd --init auto)" | z |
+| z.lua | eval "$(lua /home/tester/tools/z.lua/z.lua --init bash)" | z |
+
+## 同一组目录怎么训练
+
+| 表内缩写 | 目录 |
+| --- | --- |
+| S | ~/projects/api-server |
+| G | ~/projects/api-gateway |
+| D | ~/work/api-docs |
+| W | ~/work/web-app/src |
+| L | ~/projects/legacy/src |
+| HOME | /home/tester |
+
+从 HOME 开始，依次用 cd 进入 S、G、D、W、L、S、HOME、S、HOME。每次 cd 都是独立的交互命令，执行完等待提示符。W 和 L 的末级目录都叫 src，用来观察同名目录的选择。
+
+训练后，五种工具各自的列表都包含这五条路径。zoxide query --list --score 输出如下。
+
+~~~text
+  12.0 /home/tester/projects/api-server
+   4.0 /home/tester/projects/legacy/src
+   4.0 /home/tester/work/web-app/src
+   4.0 /home/tester/work/api-docs
+   4.0 /home/tester/projects/api-gateway
+~~~
+
+autojump --stat 给 S 显示的权重是 17.3，其余四个目录都是 10.0。fasd 的目录列表还包含 HOME。不同工具的记录钩子和评分尺度不同，所以这里不把分数大小当作横向排名。
+
+## 同样的八组关键词，实际跳到哪里
+
+每行查询前，先单独执行 cd /home/tester。随后按表格从上到下测试，autojump 输入 j，其余输入 z。成功跳转会继续影响历史，没有在每行之间恢复数据库。每格依次写出最终目录和退出码。
+
+| 关键词 | zoxide | autojump | z | fasd | z.lua |
+| --- | --- | --- | --- | --- | --- |
+| api | S (0) | S (0) | S (0) | S (0) | S (0) |
+| projects gateway | G (0) | G (0) | G (0) | G (0) | G (0) |
+| api projects | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+| web-app src | W (0) | W (0) | W (0) | W (0) | W (0) |
+| src web-app | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+| src | W (0) | W (0) | W (0) | W (0) | W (0) |
+| apiserver | HOME (1) | S (0) | HOME (1) | S (0) | HOME (0) |
+| zz-no-such-keyword-923 | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+
+两组倒序关键词都没能让任何工具跳转。单独输入 src 时，五种工具都选了 W，但前面的 web-app src 已经增加了 W 的访问记录。这个结果不能推广成“无论历史如何都选 W”。遇到同名目录，加上能区分上级目录的关键词，在本次测试中确实有效。
+
+apiserver 这一行也值得试在自己的历史上。去掉连字符后，autojump 和 fasd 仍能找到 api-server，其他三种工具留在 HOME。这只是一个实际匹配样例，不代表它们能纠正所有拼写差异。
+
+### 未匹配时的真实输出和退出码
+
+| 输入命令 | 终端输出 | 退出码 | 执行后目录 |
+| --- | --- | --- | --- |
+| z zz-no-such-keyword-923，zoxide | zoxide: no match found | 1 | HOME |
+| j zz-no-such-keyword-923，autojump | . | 0 | HOME |
+| z zz-no-such-keyword-923，z | 无输出 | 1 | HOME |
+| z zz-no-such-keyword-923，fasd | 无输出 | 0 | HOME |
+| z zz-no-such-keyword-923，z.lua | 无输出 | 0 | HOME |
+
+“无输出”是对空终端记录的说明。autojump 输出的则是一个真实的点号，初始化后的 j 留在当前目录，仍返回 0。用本次测到的 autojump、fasd 或 z.lua 包装命令写脚本时，不能把退出码 0 直接当作“已跳到目标目录”。
+
+## 怎么查看、删除记录，数据放在哪里
+
+| 工具 | 跑过的列表命令 | 验证过的删除方式 | 本次数据文件 |
+| --- | --- | --- | --- |
+| zoxide | zoxide query --list --score | zoxide remove /home/tester/projects/api-gateway | ~/cases/zoxide-data/db.zo，由 _ZO_DATA_DIR 指定 |
+| autojump | autojump --stat | 关闭会话后删掉现存目录的一行；已消失目录用 --purge | ~/.local/share/autojump/autojump.txt |
+| z | z -l | 同一命令行执行 cd /home/tester/projects/api-gateway; z -x; cd /home/tester | ~/.z |
+| fasd | fasd -ld | fasd -D /home/tester/projects/api-gateway | ~/.fasd |
+| z.lua | z -l | z -x /home/tester/projects/api-gateway | ~/.zlua |
+
+删除后，zoxide、z、fasd 和 z.lua 的列表都不再包含 G，而 S 仍在。z 的 -x 删除当前目录记录，所以测试在同一命令行里离开该目录，避免下一次提示符将它重新记录。z.lua 的删除命令需要明确传入路径。
+
+autojump --remove /home/tester/projects/api-gateway 返回退出码 2，错误包含 unrecognized arguments: --remove。我们关闭 autojump 的交互会话，将 autojump.txt 备份成 autojump.txt.before-manual-delete，再按制表符分隔的完整路径删除 G 对应的一行。加载初始化脚本后执行 --stat，确认 G 已不在列表里，但目录仍然存在。
+
+随后删除专用测试文件 notes.txt 和它所在的空 D 目录，运行 autojump --purge，另一次 --stat 确认 D 的记录也被移除。两次列表检查和 purge 都返回 0。清理不存在的目录，与删除仍然存在的目录记录，需要分开处理。
+
+### fasd 还学到了一份文件
+
+在 fasd 会话中执行 cat /home/tester/work/api-docs/notes.txt 后，f notes 给出下面的输出。
+
+~~~text
+6          /home/tester/work/api-docs/notes.txt
+~~~
+
+命令返回 0，当前目录仍是 HOME。这验证了 fasd 初始化后的文件查询。打开编辑器的流程，以及其他工具的文件查询，本次没有测试。
+
+## 用真实 autojump 和 z 历史迁移到 zoxide
+
+导入来源就是前面交互会话实际生成的数据文件，在删除记录前保存，没有手工伪造记录。两次导入分别使用预先建立的独立空 zoxide 数据目录，普通用户和 HOME 保持一致。
+
+zoxide 0.10.0 不接受旧的 --from TOOL FILE 写法。两次尝试都返回退出码 2，错误以 error: unexpected argument '--from' found 开头。实测可用的是 zoxide import autojump 和 zoxide import z，它们读取对应工具的默认数据文件，这两个子命令都没有 FILE 参数。
+
+### autojump 的来源文件
+
+读取的是 ~/.local/share/autojump/autojump.txt。
+
+~~~bash
+export _ZO_DATA_DIR=/home/tester/cases/import-autojump
+zoxide query --list --score
+zoxide import autojump
+zoxide query --list --score
+~~~
+
+第一次查询没有输出，导入返回 0。第二次查询打印如下结果。
+
+~~~text
+   0.2 /home/tester/projects/api-server
+   0.2 /home/tester/work/web-app/src
+   0.2 /home/tester/projects/api-gateway
+   0.2 /home/tester/work/api-docs
+   0.2 /home/tester/projects/legacy/src
+~~~
+
+五条路径全部保留下来。分数属于 zoxide 的尺度，显示时只保留一位小数；同样显示为 0.2，不足以证明内部数值完全相等，也不等于保留了 autojump 原来的权重显示。
+
+### z 的来源文件
+
+读取的是 ~/.z，这次改用另一份空数据库。
+
+~~~bash
+export _ZO_DATA_DIR=/home/tester/cases/import-z
+zoxide query --list --score
+zoxide import z
+zoxide query --list --score
+~~~
+
+第一次查询同样没有输出，导入返回 0。随后列表如下。
+
+~~~text
+  16.0 /home/tester/projects/api-server
+  12.0 /home/tester/work/web-app/src
+   8.0 /home/tester/projects/api-gateway
+   4.0 /home/tester/work/api-docs
+   4.0 /home/tester/projects/legacy/src
+~~~
+
+这两组结果验证了默认文件位置下的真实历史迁移。自定义来源位置、向已有 zoxide 数据库合并，本次没有测试。
+
+## 根据这些行为怎么选
+
+如果需要明确的失败退出码、按完整路径删除记录，以及迁移本次两种历史来源，zoxide 都完成了对应测试。已经习惯 autojump 的 j，且经常输入 apiserver 这类省略连字符的关键词，可以先用自己的历史核对匹配结果再迁移。z 通过加载一个脚本工作，使用 ~/.z 数据文件，适合已经认可这套 Bash 接口的配置。
+
+fasd 适合同时需要目录跳转和文件查询的使用场景，本次在一个会话中验证了两者。z.lua 在装好 Lua 后正常工作，也能按明确路径删除记录，可以考虑用于已有 Lua 运行环境的配置。这些建议只依据本次任务，没有评估长期维护成本或可靠性。
+
+需要更聚焦的迁移讨论，可以看已有的 [zoxide 与 autojump 专题对比](/zh/blog/zoxide-vs-autojump/)。zoxide 的具体命令和钩子说明见 [命令参考](/zh/blog/zoxide-commands/)及[初始化指南](/zh/blog/zoxide-init-guide/)。
+
+## 本次没有测试的项目
+
+没有做 2,000 目录的查询基准、查询延迟排名、fzf 或补全、其他 Shell 和操作系统、长期评分衰减，也没有启用 z.lua 的增强模式。各项安装时间包含的工作不同；安装耗时和这五个目录的结果，都不足以判断大型数据库上哪种工具最快。`,
+  },
+  "zoxide-daitai-autojump-z-fasd-zlua": {
+    ja: String.raw`# zoxide 代替ツールを実測比較（autojump・z・fasd・z.lua）
+
+5 種類すべてが同じ 5 つのディレクトリを学習しました。違いが出たのは検索語の順序、ハイフンの省略、該当候補がない場合、履歴の削除です。api-server を apiserver と入力すると autojump と fasd は移動できましたが、zoxide、z、既定設定の z.lua は移動しませんでした。また、候補がなくても終了コード 0 を返すコマンドがありました。
+
+## テスト環境
+
+| 項目 | 記録した値 |
+| --- | --- |
+| 検証日 | 2026-10-08 |
+| システム | GitHub Actions の新規 ubuntu:24.04 コンテナ、Ubuntu 24.04.5 LTS、x86_64 |
+| シェルと端末 | Bash 5.2.21、tmux 3.4。send-keys で対話コマンドを送り、capture-pane で取得 |
+| ユーザー | tester、UID 1001。すべて HOME=/home/tester |
+| 分離方法 | Bash セッションごとに 1 種類だけ初期化し、シェル履歴も分離。同じディレクトリと訪問順を使用 |
+| 検証記録 | [テスト実行とダウンロードできる端末記録](https://github.com/jiankn/zoxide/actions/runs/37799809255) |
+
+掲載した出力からはプロンプトとテスト用の終了コードマーカーを省いています。例の ~ は /home/tester です。結果表では下記のディレクトリ記号を使い、括弧内にシェルの終了コードを記載します。スコアではありません。結果の範囲は、この設定とコマンド順序に限ります。
+
+## インストール方法、バージョン、所要時間
+
+すべてインストールに成功しました。apt は root で実行し、学習、移動、インポートは一般ユーザー tester で実行しました。zoxide の公式スクリプトは ~/.local/bin に実行ファイルを置いたため、このディレクトリを PATH に追加しました。
+
+| ツール | 検証したバージョンまたはソースのコミット | 実行した導入方法 | 所要時間 |
+| --- | --- | --- | --- |
+| zoxide | 0.10.0 | 公式 install.sh をダウンロードして実行 | 1.048 秒 |
+| autojump | v22.5.1、apt パッケージ 22.5.1-1.1 | apt-get install -y -qq autojump | 2.201 秒 |
+| z | [d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd](https://github.com/rupa/z/blob/d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd/z.sh) | rupa/z を git clone --depth 1 | 0.349 秒 |
+| fasd | 1.0.1、apt パッケージ 1.0.1-3 | apt-get install -y -qq fasd | 0.984 秒 |
+| z.lua | [86a9fc5b308b66197720811d295e3812b1c73325](https://github.com/skywind3000/z.lua/blob/86a9fc5b308b66197720811d295e3812b1c73325/z.lua)、Lua 5.4.6 | apt-get install -y -qq lua5.4、続いて skywind3000/z.lua を浅くクローン | 2.103 秒 |
+
+各導入コマンドを 1 回計測し、ダウンロード時間も含めました。z.lua は Lua の導入時間を含み、Lua の apt パッケージは 5.4.6-3build2 でした。事前の apt update と curl、Git、Python、tmux など共通依存の導入時間は含めていません。これは 1 台の runner での導入記録であり、検索速度の比較には使えません。
+
+Bash の各セッションでは次の行を個別に読み込みました。ソースのパスは検証時の配置です。まとめて読み込むと z コマンドが競合します。
+
+| ツール | 検証に使った初期化行 | 移動コマンド |
+| --- | --- | --- |
+| zoxide | eval "$(zoxide init bash)" | z |
+| autojump | source /usr/share/autojump/autojump.sh | j |
+| z | source /home/tester/tools/z/z.sh | z |
+| fasd | eval "$(fasd --init auto)" | z |
+| z.lua | eval "$(lua /home/tester/tools/z.lua/z.lua --init bash)" | z |
+
+## 共通のディレクトリ履歴
+
+| 記号 | ディレクトリ |
+| --- | --- |
+| S | ~/projects/api-server |
+| G | ~/projects/api-gateway |
+| D | ~/work/api-docs |
+| W | ~/work/web-app/src |
+| L | ~/projects/legacy/src |
+| HOME | /home/tester |
+
+HOME から始め、cd で S、G、D、W、L、S、HOME、S、HOME の順に移動しました。cd は 1 回ずつ入力し、次のプロンプトを待ちました。W と L はどちらも末尾が src なので、同名ディレクトリの選択を確認できます。
+
+学習後の一覧には、どのツールでも 5 つすべてのパスがありました。zoxide query --list --score の出力は次のとおりです。
+
+~~~text
+  12.0 /home/tester/projects/api-server
+   4.0 /home/tester/projects/legacy/src
+   4.0 /home/tester/work/web-app/src
+   4.0 /home/tester/work/api-docs
+   4.0 /home/tester/projects/api-gateway
+~~~
+
+autojump --stat は S の重みを 17.3、残る 4 つを 10.0 と表示しました。fasd のディレクトリ一覧には HOME も含まれました。記録フックとスコアの尺度が異なるため、数値の大小をツール間の順位にはしていません。
+
+## 同じ 8 組の検索語で移動する
+
+毎回、検索の前に別コマンドで cd /home/tester を実行しました。表の上から順に autojump では j、それ以外では z を使っています。成功した移動は履歴に反映され、行ごとにデータベースを初期状態へ戻していません。各セルは移動後のディレクトリと終了コードです。
+
+| 検索語 | zoxide | autojump | z | fasd | z.lua |
+| --- | --- | --- | --- | --- | --- |
+| api | S (0) | S (0) | S (0) | S (0) | S (0) |
+| projects gateway | G (0) | G (0) | G (0) | G (0) | G (0) |
+| api projects | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+| web-app src | W (0) | W (0) | W (0) | W (0) | W (0) |
+| src web-app | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+| src | W (0) | W (0) | W (0) | W (0) | W (0) |
+| apiserver | HOME (1) | S (0) | HOME (1) | S (0) | HOME (0) |
+| zz-no-such-keyword-923 | HOME (1) | HOME (0) | HOME (1) | HOME (0) | HOME (0) |
+
+2 組の逆順の検索語では、すべて移動できませんでした。src だけの場合は全ツールが W を選びましたが、先に実行した web-app src で W の履歴が増えています。別の訪問順や初期履歴でも W が選ばれるとは判断できません。この構成では、親ディレクトリ名を含めた検索で同名の src を指定できました。
+
+apiserver の行では、ハイフンを省いても autojump と fasd が api-server を見つけました。残る 3 種類は HOME に留まりました。これは実測した 1 例であり、あらゆる入力の違いを補正できるという意味ではありません。
+
+### 候補がない場合の出力と終了コード
+
+| 入力したコマンド | 端末の出力 | 終了コード | 実行後のディレクトリ |
+| --- | --- | --- | --- |
+| z zz-no-such-keyword-923、zoxide | zoxide: no match found | 1 | HOME |
+| j zz-no-such-keyword-923、autojump | . | 0 | HOME |
+| z zz-no-such-keyword-923、z | 出力なし | 1 | HOME |
+| z zz-no-such-keyword-923、fasd | 出力なし | 0 | HOME |
+| z zz-no-such-keyword-923、z.lua | 出力なし | 0 | HOME |
+
+「出力なし」は空の取得結果を説明したものです。autojump は実際にピリオド 1 個を表示し、初期化済みの j は現在地に留まって 0 を返しました。今回の autojump、fasd、z.lua のラッパーをスクリプトから使う場合、終了コードだけで目的地への移動成功を判定できません。
+
+## 一覧、削除、データファイル
+
+| ツール | 実行した一覧コマンド | 検証した削除操作 | 今回のデータファイル |
+| --- | --- | --- | --- |
+| zoxide | zoxide query --list --score | zoxide remove /home/tester/projects/api-gateway | _ZO_DATA_DIR で指定した ~/cases/zoxide-data/db.zo |
+| autojump | autojump --stat | セッション終了後に存在するパスの行を削除。消えたディレクトリは --purge | ~/.local/share/autojump/autojump.txt |
+| z | z -l | cd /home/tester/projects/api-gateway; z -x; cd /home/tester を 1 行で実行 | ~/.z |
+| fasd | fasd -ld | fasd -D /home/tester/projects/api-gateway | ~/.fasd |
+| z.lua | z -l | z -x /home/tester/projects/api-gateway | ~/.zlua |
+
+削除後、zoxide、z、fasd、z.lua の一覧から G が消え、S は残りました。z の -x は現在地の履歴を削除します。その場所で次のプロンプトを表示しないよう、同じコマンド行で HOME に戻りました。z.lua の削除にはパスを明示しました。
+
+autojump --remove /home/tester/projects/api-gateway は終了コード 2 で拒否され、エラーに unrecognized arguments: --remove と表示されました。autojump の対話セッションを閉じ、autojump.txt を autojump.txt.before-manual-delete にバックアップしてから、タブ区切りのパスが G と完全一致する行を削除しました。初期化スクリプトを読み込んで --stat を実行すると、ディレクトリは存在したまま G の履歴だけが消えていました。
+
+続いて専用テストファイル notes.txt と空になった D ディレクトリを削除し、autojump --purge を実行しました。再度 --stat を実行すると D も消えました。2 回の一覧確認と purge はいずれも 0 を返しました。存在しないディレクトリの掃除と、存在するパスの履歴削除は別の操作です。
+
+### fasd のファイル検索も確認
+
+fasd のセッションで cat /home/tester/work/api-docs/notes.txt を実行した後、f notes は次を返しました。
+
+~~~text
+6          /home/tester/work/api-docs/notes.txt
+~~~
+
+終了コードは 0、現在地は HOME のままでした。初期化済み fasd のファイル検索を確認できました。エディターの起動や、他のツールでのファイル検索は検証していません。
+
+## 実際の autojump と z の履歴を zoxide に移す
+
+移行元には、上記の対話セッションが生成し、削除前に保存したファイルを使いました。手作りの履歴ではありません。各インポートでは事前に用意した別々の空の zoxide データディレクトリを使い、tester と HOME は共通です。
+
+zoxide 0.10.0 は古い --from TOOL FILE 形式を受け付けませんでした。どちらも終了コード 2 で、エラーの先頭は error: unexpected argument '--from' found でした。検証できたコマンドは zoxide import autojump と zoxide import z です。それぞれ既定の移行元ファイルを読み、検証した 2 つのサブコマンドには FILE 引数がありません。
+
+### autojump の移行元
+
+読み込んだファイルは ~/.local/share/autojump/autojump.txt です。
+
+~~~bash
+export _ZO_DATA_DIR=/home/tester/cases/import-autojump
+zoxide query --list --score
+zoxide import autojump
+zoxide query --list --score
+~~~
+
+最初の検索は出力なし、インポートは終了コード 0 でした。次の検索では以下を表示しました。
+
+~~~text
+   0.2 /home/tester/projects/api-server
+   0.2 /home/tester/work/web-app/src
+   0.2 /home/tester/projects/api-gateway
+   0.2 /home/tester/work/api-docs
+   0.2 /home/tester/projects/legacy/src
+~~~
+
+5 つのパスはすべて移りました。表示値は zoxide の尺度で小数第 1 位まで丸められています。すべて 0.2 に見えることから内部値も等しいとは判断できず、autojump の重み表示をそのまま引き継ぐわけでもありません。
+
+### z の移行元
+
+ファイルは ~/.z です。別の空のデータベースを使いました。
+
+~~~bash
+export _ZO_DATA_DIR=/home/tester/cases/import-z
+zoxide query --list --score
+zoxide import z
+zoxide query --list --score
+~~~
+
+最初は出力なしで、インポートは 0 を返しました。その後の一覧は次のとおりです。
+
+~~~text
+  16.0 /home/tester/projects/api-server
+  12.0 /home/tester/work/web-app/src
+   8.0 /home/tester/projects/api-gateway
+   4.0 /home/tester/work/api-docs
+   4.0 /home/tester/projects/legacy/src
+~~~
+
+この結果で、2 種類の既定ファイルから実際の学習済みパスを移行できました。移行元の独自配置や、既存 zoxide データベースへのマージは今回検証していません。
+
+## 実測した動作を基に選ぶ
+
+明示的な失敗コード、フルパスでの削除、今回の 2 種類の履歴移行が必要なら、zoxide はそれぞれの検証を通りました。autojump の j に慣れ、apiserver のような入力を使う場合は、移行前に自分の履歴でも検索を試す意味があります。z は 1 つのスクリプトを読み込んで動き、\~/.z を使用しました。この Bash インターフェースで用が足りる構成なら候補になります。
+
+ディレクトリ移動とファイル検索を同時に使いたい場合、fasd は今回の両方の操作を実行できました。z.lua は Lua を導入すると動作し、明示したパスの履歴を削除できたため、Lua ランタイムを使う構成で検討できます。ここでの選び方は今回の操作に基づき、長期の保守費用や信頼性は評価していません。
+
+移行を中心に読む場合は、既存の [zoxide と autojump の比較](/ja/blog/zoxide-vs-autojump/)を参照してください。個々のコマンドとフックについては[コマンドリファレンス](/ja/blog/zoxide-commands/)と[初期化ガイド](/ja/blog/zoxide-init-guide/)で扱っています。
+
+## 今回検証していない項目
+
+2,000 ディレクトリの検索ベンチマーク、検索時間の順位、fzf と補完、別のシェルや OS、長期間のスコア減衰、z.lua の enhanced モードは検証していません。上記の導入時間は含む作業が異なり、5 ディレクトリでの結果と合わせても、大規模な履歴でどれが最速かは判断できません。`,
+  },
 };
