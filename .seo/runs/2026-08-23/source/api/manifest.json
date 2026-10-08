@@ -1,0 +1,33 @@
+{
+  "property": "sc-domain:zoxide.org",
+  "permission_level": "siteOwner",
+  "search_type": "web",
+  "data_state": "final",
+  "latest_final_date": "2026-08-20",
+  "windows": {
+    "recent_28d": {
+      "start_date": "2026-07-24",
+      "end_date": "2026-08-20",
+      "query_page_rows": 2294,
+      "totals": {
+        "clicks": 1439,
+        "impressions": 44865,
+        "ctr": 0.032073999777109105,
+        "position": 6.276607600579516
+      },
+      "file": "C:\\antigravity\\zoxide\\.seo\\runs\\2026-08-23\\source\\api\\recent_28d-query-page.csv"
+    },
+    "previous_28d": {
+      "start_date": "2026-06-26",
+      "end_date": "2026-07-23",
+      "query_page_rows": 2077,
+      "totals": {
+        "clicks": 1549,
+        "impressions": 59435,
+        "ctr": 0.02606208463026836,
+        "position": 4.813022629763607
+      },
+      "file": "C:\\antigravity\\zoxide\\.seo\\runs\\2026-08-23\\source\\api\\previous_28d-query-page.csv"
+    }
+  }
+}

@@ -1,0 +1,5926 @@
+{
+  "comparison": [
+    {
+      "cluster": "zoxide fish|en",
+      "status": "NEUTRAL",
+      "click_delta": -1.0,
+      "impression_delta": -5.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 50.0,
+      "position_delta": 0.17
+    },
+    {
+      "cluster": "aca2477b689712d752ac8478b0fdb7692598f39d zoxide github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "f0c5e28fd7e56d7cec045a40154ab4768339da44 zoxide github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 6.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "z vs zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.76
+    },
+    {
+      "cluster": "z instead cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.1
+    },
+    {
+      "cluster": "nushell zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "zoxide remove path|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "zoxide commands|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.11
+    },
+    {
+      "cluster": "zoxide fish shell|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide commit f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found z|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.18
+    },
+    {
+      "cluster": "z cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 36.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "no match found|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 19.0,
+      "position_delta": 0.13
+    },
+    {
+      "cluster": "z oxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 2.0,
+      "impression_delta": -16.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zoxid|en",
+      "status": "LOSS",
+      "click_delta": -1.0,
+      "impression_delta": 5.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "autojump|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": 10.0,
+      "position_delta": 0.41
+    },
+    {
+      "cluster": "zoxide detected possible configuration issue please ensure that|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -6.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "no matches found|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "z cd replacement|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": -10.0,
+      "position_delta": 0.3
+    },
+    {
+      "cluster": "github zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44 src db rs|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "cd z|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "zioxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.06
+    },
+    {
+      "cluster": "fzf|zh",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zedo alternatives|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 7.0,
+      "position_delta": 0.33
+    },
+    {
+      "cluster": "zoxide init bash cmd cd documentation|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -6.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "zocide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -7.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zoxyde|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -6.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "fzf cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "z cd d|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide detected possible configuration issue|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "zxoide|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "z cd z|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "z cd c|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "z directory jumper|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 5.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "z vs cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "zoxied|en",
+      "status": "NEUTRAL",
+      "click_delta": 1.0,
+      "impression_delta": 0.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zdoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 19.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "zoxide|en",
+      "status": "LOSS",
+      "click_delta": -105.0,
+      "impression_delta": -1317.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "zoxide github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -19.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "zoxide install|en",
+      "status": "LOSS",
+      "click_delta": -3.0,
+      "impression_delta": -37.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "install zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "what is zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 1.0,
+      "impression_delta": -15.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "zoxide linux|en",
+      "status": "LOSS",
+      "click_delta": -2.0,
+      "impression_delta": -10.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "github zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 1.0,
+      "impression_delta": 8.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "zoxide zsh|en",
+      "status": "NEUTRAL",
+      "click_delta": 1.0,
+      "impression_delta": -8.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxide windows|en",
+      "status": "NEUTRAL",
+      "click_delta": -1.0,
+      "impression_delta": -6.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide fzf|en",
+      "status": "LOSS",
+      "click_delta": -4.0,
+      "impression_delta": -13.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "how use zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -15.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide official github smarter cd command|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -22.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide powershell|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.33
+    },
+    {
+      "cluster": "zoxide no match found|en",
+      "status": "NEUTRAL",
+      "click_delta": -1.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide smarter cd command official github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -14.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "f0c5e28fd7e56d7cec045a40154ab4768339da44 zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 17.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "ajeetdsouza zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide nushell|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -7.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide init zsh official docs|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 20.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "github zoxide aca2477b689712d752ac8478b0fdb7692598f39d|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 11.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zsh zoxide|en",
+      "status": "WIN",
+      "click_delta": 2.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide mac|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.54
+    },
+    {
+      "cluster": "zoxide smarter cd official github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -8.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "zoxide|zh",
+      "status": "NEUTRAL",
+      "click_delta": -3.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "aca2477b689712d752ac8478b0fdb7692598f39d zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 7.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "zoxide vs z|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -8.0,
+      "position_delta": 0.1
+    },
+    {
+      "cluster": "f0c5e28fd7e56d7cec045a40154ab4768339da44 zoxide commit|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 10.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44 github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide official smarter cd command github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -13.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxide init|en",
+      "status": "NEUTRAL",
+      "click_delta": -1.0,
+      "impression_delta": -8.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide github smarter cd command|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -11.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide ubuntu|en",
+      "status": "LOSS",
+      "click_delta": -1.0,
+      "impression_delta": 5.0,
+      "position_delta": -0.19
+    },
+    {
+      "cluster": "ajeetdsouza zoxide github smarter cd command|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -17.0,
+      "position_delta": 0.08
+    },
+    {
+      "cluster": "aca2477b689712d752ac8478b0fdb7692598f39d zoxide commit|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide setup|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "arch linux package zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -34.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxide vs autojump|en",
+      "status": "NEUTRAL",
+      "click_delta": 2.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "install zoxide ubuntu|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide official smarter cd command|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "fish zoxide|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.11
+    },
+    {
+      "cluster": "zoxide terminal|en",
+      "status": "LOSS",
+      "click_delta": -1.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "zoxide autocomplete|en",
+      "status": "LOSS",
+      "click_delta": -1.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.7
+    },
+    {
+      "cluster": "linux zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": -1.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide oh my zsh|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "zoxide macos|en",
+      "status": "LOSS",
+      "click_delta": -4.0,
+      "impression_delta": -9.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "zoxide brew|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zoxide arch|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "zoxide init zsh documentation|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 12.0,
+      "position_delta": 0.1
+    },
+    {
+      "cluster": "zoxide alias|en",
+      "status": "NEUTRAL",
+      "click_delta": -1.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide nixos|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "storebuilder new data dir zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide install ubuntu|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "autojump vs zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 1.0,
+      "impression_delta": 9.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "oh my zsh zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "zoxide bash|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "how install zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zoxide alias cd|en",
+      "status": "LOSS",
+      "click_delta": -1.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxide config|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init zsh|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "brew zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zoxide vs cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.28
+    },
+    {
+      "cluster": "zoxide cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide z command not found|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf zoxide|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide alternatives|en",
+      "status": "LOSS",
+      "click_delta": -2.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "zoxide zi|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "zoxide cli|en",
+      "status": "LOSS",
+      "click_delta": -2.0,
+      "impression_delta": -9.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxide vs fzf|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zoxide docs|en",
+      "status": "WIN",
+      "click_delta": 2.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide official github smarter cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -6.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zoxide replace cd|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide alternative|en",
+      "status": "WIN",
+      "click_delta": 1.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init zsh official documentation|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 7.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide github smarter cd command official|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "nixos zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "zoxide usage|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zoxide smarter cd command github|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install zoxide mac|en",
+      "status": "NEUTRAL",
+      "click_delta": 1.0,
+      "impression_delta": 0.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zoxide git|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide how use|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zoxide cd alias|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide tab completion|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -7.0,
+      "position_delta": -0.16
+    },
+    {
+      "cluster": "zoxide documentation|en",
+      "status": "NEUTRAL",
+      "click_delta": 2.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.72
+    },
+    {
+      "cluster": "zoxide fzf integration|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "replace cd with zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": -1.1
+    },
+    {
+      "cluster": "arch zoxide|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.06
+    },
+    {
+      "cluster": "zoxide arch linux|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zoxide fedora|en",
+      "status": "NEUTRAL",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.11
+    },
+    {
+      "cluster": "fzf vs zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -2.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zcode ubuntu|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "zoxide official github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "winget zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": 0.4
+    },
+    {
+      "cluster": "powershell zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "zoxide nvim|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "zoxide what is it|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "z cd alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide aca2477b689712d752ac8478b0fdb7692598f39d|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 10.0,
+      "position_delta": 0.08
+    },
+    {
+      "cluster": "ubuntu zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "zoxide winget|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "homebrew zoxide formula|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "zoxide tutorial|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "autojump alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "zoxide official documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "ubuntu install zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 1.0,
+      "impression_delta": -3.0,
+      "position_delta": 0.15
+    },
+    {
+      "cluster": "zeoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -7.0,
+      "position_delta": -0.26
+    },
+    {
+      "cluster": "zoxide nix|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "z cd cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": 0.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "could not move temporary database zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 5.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide smarter cd command official|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zoxide init fish|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 1.0,
+      "impression_delta": 4.0,
+      "position_delta": 0.12
+    },
+    {
+      "cluster": "windows zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "zoxide init zsh docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 8.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "ajeetdsouza zoxide github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "zoxide init cmd cd bash docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide interactive|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "frecency|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -12.0,
+      "position_delta": -0.09
+    },
+    {
+      "cluster": "zoxide rust|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -6.0,
+      "position_delta": -0.17
+    },
+    {
+      "cluster": "zoxide init zsh documentation eval zoxide init zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "pub struct storebuilder zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "cd alternative z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.09
+    },
+    {
+      "cluster": "zoxide remove entry|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.19
+    },
+    {
+      "cluster": "zoxcide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "zoxide 0 9 9 github release|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 5.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "pwd hook on posix zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init cmd cd bash documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "how does zoxide work|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide install mac|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide with fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "macos zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zoxide change z cd fish|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zi command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": 0.79
+    },
+    {
+      "cluster": "zoxide could not find fzf is it installed|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 1.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.11
+    },
+    {
+      "cluster": "zoxide official smarter cd github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide installation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "storebuilder new zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide reddit|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "db updates are now atomic isolated zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 6.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "zoxide debian|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "zoxide init bash|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "ajeetdsouza zoxide official github smarter cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github zoxide shell completions zoxide generated by clap|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "yazi zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 7.0,
+      "position_delta": -9.47
+    },
+    {
+      "cluster": "zoxide init bash cmd cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -12.0,
+      "position_delta": -0.15
+    },
+    {
+      "cluster": "zoxide homebrew|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "using zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zxode|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": -0.15
+    },
+    {
+      "cluster": "zoding|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init cmd cd bash|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -12.0,
+      "position_delta": -0.26
+    },
+    {
+      "cluster": "zoxide fuzzy search|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 1.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.11
+    },
+    {
+      "cluster": "zoxide tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -13.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.39
+    },
+    {
+      "cluster": "zsh z vs zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.32
+    },
+    {
+      "cluster": "zoxide init zsh official documentation eval zoxide init|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide official smarter cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.09
+    },
+    {
+      "cluster": "setup zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z zi|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 30.0,
+      "position_delta": -2.19
+    },
+    {
+      "cluster": "linux cd alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.22
+    },
+    {
+      "cluster": "zoxide init zsh official|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxside|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "ajeetdsouza zoxide github smarter cd command official|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide command line tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": 0.05
+    },
+    {
+      "cluster": "terminal directory navigation zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "winget install zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.03
+    },
+    {
+      "cluster": "zoxide init bash cmd cd docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "homebrew formula zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide v0 9 9 src cmd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 11.0,
+      "position_delta": 0.42
+    },
+    {
+      "cluster": "zoxide download|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "zoxide init bash cmd cd official docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide install windows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 1.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.27
+    },
+    {
+      "cluster": "zoxide init zsh creates z command official documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zocde|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "warp packs green png zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "aca2477b689712d752ac8478b0fdb7692598f39d zoxide split crates github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "uninstall zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "brew install zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "bash improved completions z command zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide api documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide v0 9 9 src db|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 10.0,
+      "position_delta": 0.77
+    },
+    {
+      "cluster": "zoxide help|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 1.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.04
+    },
+    {
+      "cluster": "zoxide init powershell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.69
+    },
+    {
+      "cluster": "zoxide engine storeversion|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "rust zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "zoxide engine path crates zoxide engine|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "jchook xplr zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zo cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 9.0,
+      "position_delta": 0.16
+    },
+    {
+      "cluster": "zxiode|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide shell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "z jump|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.16
+    },
+    {
+      "cluster": "zoxide github official|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -0.06
+    },
+    {
+      "cluster": "zoxie|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.34
+    },
+    {
+      "cluster": "z cd v|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "emacs zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.12
+    },
+    {
+      "cluster": "mise zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide completion|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.34
+    },
+    {
+      "cluster": "zcido|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "no match found org|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoixide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide uninstall|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.62
+    },
+    {
+      "cluster": "crates zoxide engine zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "arch linux zoxide package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "dozuki alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "homebrew zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.12
+    },
+    {
+      "cluster": "oxide terminal|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide developer docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide github stars|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "zoxide terminal tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nomatchfound org|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.08
+    },
+    {
+      "cluster": "zxcddos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": -0.84
+    },
+    {
+      "cluster": "zoxide zshrc|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "better cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.09
+    },
+    {
+      "cluster": "ohmyzsh zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alias zoxide cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.02
+    },
+    {
+      "cluster": "zoxide list|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how setup zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.43
+    },
+    {
+      "cluster": "zoxide install linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zoxide eyhnpqumhvwncyb8gjgdxg|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcode linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide aca2477 split crates|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 5.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "zoxide yazi|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.09
+    },
+    {
+      "cluster": "install zoxide windows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.07
+    },
+    {
+      "cluster": "zoixde|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "print matched directory before navigating zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide ubuntu install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zooxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.16
+    },
+    {
+      "cluster": "zoxide official docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "packages ubuntu com noble zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": 0.17
+    },
+    {
+      "cluster": "fish shell zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.14
+    },
+    {
+      "cluster": "githubzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github jchook xplr zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "contrib completions linguist generated true zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "icezyclon zoxide fish|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf guide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.13
+    },
+    {
+      "cluster": "claude code zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found cargo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -6.71
+    },
+    {
+      "cluster": "zoxide exe|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "zoxide query exclude interactive documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zi mode|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide directory jumper|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.37
+    },
+    {
+      "cluster": "xonsh mypy strict zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "prevents zoxide from defining any commands zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide official readme smarter cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.01
+    },
+    {
+      "cluster": "xoide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -2.03
+    },
+    {
+      "cluster": "use crate store self store zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf integration|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z jump around|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide claude code|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install zoxide on ubuntu|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide remove|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide github ajeetdsouza|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zoxide github repository|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": 0.17
+    },
+    {
+      "cluster": "zoxide cd replacement|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.15
+    },
+    {
+      "cluster": "zoxode|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "winget install ajeetdsouza zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.37
+    },
+    {
+      "cluster": "zfux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z cd x|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": -0.84
+    },
+    {
+      "cluster": "fisher zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcvosoxfwr|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "shroud alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "stoid|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "autojump vs z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide smarter cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide aca2477 split crates github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "bash zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init zsh creates z function documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 11.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zoxide github readme|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "autojump linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zh:|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide smarter cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "zoxide install macos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "arch linux zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.1
+    },
+    {
+      "cluster": "zoxide smarter cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.12
+    },
+    {
+      "cluster": "zoxide commit f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide github smarter cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide github repo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "zoxide query exclude current directory docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide commit aca2477 split crates|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide smarter cd official|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.1
+    },
+    {
+      "cluster": "aca2477b689712d752ac8478b0fdb7692598f39d zoxide commit github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf powershell integration|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "queryl|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 2.58
+    },
+    {
+      "cluster": "const posix hook prompt zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "def zoxide errhandler typing callable zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxider|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oh my zsh zoxide plugin|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.2
+    },
+    {
+      "cluster": "zcode arch linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "f z f dagger x dagger qudit|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "atuin zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide command not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -5.0,
+      "position_delta": 0.15
+    },
+    {
+      "cluster": "zoxide v0 9 7 changelog 2025 02 10|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide zsh integration|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.04
+    },
+    {
+      "cluster": "zoxide history|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site packages fedoraproject org zoxide fedora package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ajeetdsouza zoxide github official|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nano zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "please ensure that zoxide is initialized right at|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.61
+    },
+    {
+      "cluster": "z command not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.02
+    },
+    {
+      "cluster": "zoxide zsh plugin|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.12
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide 0 9 9 src cmd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 6.0,
+      "position_delta": 2.62
+    },
+    {
+      "cluster": "zoxide vs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -1.77
+    },
+    {
+      "cluster": "zi cli|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.41
+    },
+    {
+      "cluster": "zoxide v0 7 0 src app import rs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf tutorial|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.68
+    },
+    {
+      "cluster": "keyword zdslozix|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide zo maxage 5000|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z|ja",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide z command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide cli tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.01
+    },
+    {
+      "cluster": "zcidos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.36
+    },
+    {
+      "cluster": "zoxide cd alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ajeet d souza zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site packages debian org zoxide debian package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.06
+    },
+    {
+      "cluster": "zoxide init bash cmd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github zoxide commit f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nvim zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide commit f0c5e28|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide query|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "f0c5e28fd7e56d7cec045a40154ab4768339da44 zoxide commit github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide usage examples|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.9
+    },
+    {
+      "cluster": "ajeetdsouza|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.6
+    },
+    {
+      "cluster": "xoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.12
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide f0c5e28|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github zoxide bash improved completions z command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide query list documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 6.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "site pkgs alpinelinux org zoxide alpine 3 13|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ajeet d souza zoxide f0c5e28 github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide command line tool purpose security|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.67
+    },
+    {
+      "cluster": "zoxide init zsh command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nana zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site formulae brew sh zoxide homebrew formula|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zinit zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.1
+    },
+    {
+      "cluster": "yazi zoxide not working|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github zoxide pub struct stream db file|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.8
+    },
+    {
+      "cluster": "github zoxide storebuilder new data dir|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oxide download windows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.6
+    },
+    {
+      "cluster": "z cd da|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.08
+    },
+    {
+      "cluster": "z cd s|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.03
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide v0 7 0 src app|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "rust z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.17
+    },
+    {
+      "cluster": "cd with fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "starship zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "best python alternatives zod|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ru:|ru",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide shell integration|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "linux better cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "xocide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.06
+    },
+    {
+      "cluster": "zoxide official website|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found claude|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site pkginfo devuan org zoxide devuan package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodixe|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "archlinux zoxide package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site packages ubuntu com zoxide ubuntu package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide commit f0c5e28fd7e56d7cec045a40154ab4768339da44 github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init cmd cd bash official docs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide fish integration|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.06
+    },
+    {
+      "cluster": "eval zoxide init zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide arch linux package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.1
+    },
+    {
+      "cluster": "zoxide init bash cmd cd example|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -5.0,
+      "position_delta": -0.5
+    },
+    {
+      "cluster": "alias z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide official docs smarter cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "what is zoxide command line tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ajeetdsouza zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44 github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "powershell fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcidso|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.37
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide 0 9 9 src db|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 1.47
+    },
+    {
+      "cluster": "z c d|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.4
+    },
+    {
+      "cluster": "winget fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.27
+    },
+    {
+      "cluster": "matches found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide delete entry|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zocd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoidcloud|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.85
+    },
+    {
+      "cluster": "zoxide guide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide zsh autocomplete|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": -1.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.08
+    },
+    {
+      "cluster": "install zoxide linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "xozide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -0.05
+    },
+    {
+      "cluster": "zoxice|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zexido jereira ranking|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z terminal|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide command line|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxite|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide official smarter cd frecency|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "better cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.83
+    },
+    {
+      "cluster": "zoxide 0 9 9 release github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.17
+    },
+    {
+      "cluster": "zoxide official documentation smarter cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -2.0
+    },
+    {
+      "cluster": "cd vs z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "scoop install fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide xplr github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oxide linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z command linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide edit|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 1.67
+    },
+    {
+      "cluster": "match not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "soxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no match found website|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no match found meaning|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no matching results|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zedo competitors|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": -1.0
+    },
+    {
+      "cluster": "fzf cd into directory|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -13.25
+    },
+    {
+      "cluster": "fzf install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "xcido|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodios|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 1.58
+    },
+    {
+      "cluster": "zplug|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": -1.75
+    },
+    {
+      "cluster": "site pkginfo devuan org zoxide devuan 4 0|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "unknown:|unknown",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 4.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zoxide vs jump|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoside|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf tab|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd alternatives|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "what replaced cds|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zvdoes|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install zoxide on ubuntu|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide logo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide query l documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 0.33
+    },
+    {
+      "cluster": "site github com zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z ideos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 3.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "site packages ubuntu com zoxide ubuntu 21 04|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "what is zoxide tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.07
+    },
+    {
+      "cluster": "zoidex|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcideod|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "official zoxide smarter cd command github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site archlinux org packages zoxide arch linux package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": -0.4
+    },
+    {
+      "cluster": "zcudoes|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.17
+    },
+    {
+      "cluster": "terminal z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.67
+    },
+    {
+      "cluster": "alternative z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "arch linux package zoxide pacman|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -3.0,
+      "position_delta": -0.5
+    },
+    {
+      "cluster": "autojump rust|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide aca2477b689712d752ac8478b0fdb7692598f39d|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf winget|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide v0 4 3 cargo toml|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -0.33
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide aca2477 split crates|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "rust cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z lua|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ziode|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf directory|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zandoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": 1.0
+    },
+    {
+      "cluster": "zcideow|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd replacement z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zpresto|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alternative software zz takeoff|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zydox|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide zoxide smarter cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.33
+    },
+    {
+      "cluster": "sure|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alias cd zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alternative cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd predecessors|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install homebrew on mac|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z run|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "i use zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.5
+    },
+    {
+      "cluster": "ajeet d souza zoxide commit f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install xz file linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z substitute|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcode changelog|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide fzf terminal|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found go|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 1.0
+    },
+    {
+      "cluster": "jchook zoxide xplr|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd is dead|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "disable zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.83
+    },
+    {
+      "cluster": "site docs rs zoxide storebuilder|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide official installation guide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "matchfound|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "official zoxide github smarter cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "site archlinux org packages zoxide arch package|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "what does zoxide do|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "xxd linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 2.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "z cidos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "archlinux package zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "clobber conflicting definitions shells zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fuzzy cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "linux z command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -4.0
+    },
+    {
+      "cluster": "zenoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide shell tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide official github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide z command example|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z cd aaa|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd cd z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -2.5
+    },
+    {
+      "cluster": "zeroxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ff79c6|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf init|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oxide windows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -2.0
+    },
+    {
+      "cluster": "cargo winget|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found cargo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf arch|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf vs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcideos3|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "brew install z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "winget install fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "yazi zoxide integration|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxxdot|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no matching found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "tozicode|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoig alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zomst|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zinit fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "selz alternatives|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z0d|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how use zotify|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zpodd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "gitoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alternative zz takeoff|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zolved|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodix|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "frecency site gitee com site github com site|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zang competitor alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zo cookbook space source code routes|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no match|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ja:|ja",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd|ja",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": -2.5
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide f0c5e28fd7e56d7cec045a40154ab4768339da44|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "top secret z os|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "mac zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 2.0
+    },
+    {
+      "cluster": "nixos bash|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide getting started|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "naizointeriors com no match|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "0 rank found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "anything else|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "aws command not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "bash opencode command not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "cara install nya gimana|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "cd but|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd lua|ko",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd shortcut|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "check|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cli tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -4.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "codex install linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "codex linux install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "comando nao encontrado|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command line tools|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found gcloud|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "configure z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "does not work|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "doesnt work at all|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "extract xz file linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "fast directory|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fedora|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish shell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fuzzy finding|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf alternatives|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf how use|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "gzip stdin not gzip format tar child returned|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how do i fix this|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "how use z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how ziasiadfillz problems|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "i use fish|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "imsporthistory|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "powershell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install socat|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install tar xz linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "installing ubuntu|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "it doesn t work|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "mac os z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "myoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no match meaning|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no parece funcionar|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no such file or directory|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nope|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nushell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oxide error jq 007|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ozide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "reload shell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "research properly|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "security concerns|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "shell goto|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "si|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "skopeo install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "smart cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "still empty|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "still same thing|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "tranduvexocalipo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "update cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "using zed|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "vim z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "yes do both those things|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z arch|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z code linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z code terminal|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "z config|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z is not working|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z substitution|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcidods|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcode nixos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide installation guide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh on mac|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "mac|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "arch install spotify|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "arch linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd replacement|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found error|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "command not found fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "did i miss anything|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "does zox work with android|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "doesnt work still|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish shell z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "instalar z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "install skopeo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install xz|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "linux fio|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "more|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nixos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "rupa z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "sigue igual|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site formulae brew sh zoxide formula|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide zoxide github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com kamiyaa joshuto zoxide rs joshuto|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "still loop|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "thats not it|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ubuntu 24 04|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "z bash|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z cli|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z get|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcds|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcideps|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcidows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zed install arch linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zed linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide better cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide brew install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide cd command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide init zsh official docs site github com|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide smart cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found grep|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found magick|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found zed|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zxod|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ajeetdsouza zoxide smarter cd command official github|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "already done that|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "bash|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "best cli tools|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cli software|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fz on road price bangalore|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github zoxide zoxide z prefix z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "googlezj|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "guvenli mi|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install tar xz file linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "im using nixos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install fzf windows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no co toan khong|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oxide cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "si por favor|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "that didn t work|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "uv sync zsh command not found uv|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "what|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "which fz model is best|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "which one is better|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "yes windows 11|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcoed|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zed linux install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zoxide bashrc|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide smarter cd command line tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -2.0,
+      "position_delta": 0.33
+    },
+    {
+      "cluster": "zoxide tool description|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found mcp|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found npx|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cd rust|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish shell|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install skopeo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how install sudo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "i don t have sudo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "it is still not working|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "it isn t working|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no matches were found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site formulae brew sh formula zoxide homebrew formulae|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide zo maxage 1000|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "this still doesnt work|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "yes please|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -1.5
+    },
+    {
+      "cluster": "za|ja",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zciodes|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcode homebrew|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcode|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zd cd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxdox|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh mac|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "is it safe install|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "pacman fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": 2.0
+    },
+    {
+      "cluster": "site github com ajeetdsouza zoxide zoxide xplr|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxido|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "sayanarijit xplr zoxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "how about powershell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "i don t see that folder|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "im on macos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ja|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -2.5
+    },
+    {
+      "cluster": "reduce weight|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "script powershell|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ubuntu z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "whats best way work fully cli without losing|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide cmd override|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "after all research no match found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "disohozid|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish arch linux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf brew|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "i m using fedora|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "oxide web|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zed fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zohcd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ajeet dsouza|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "brew fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "instalar|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": -1.0,
+      "position_delta": -2.5
+    },
+    {
+      "cluster": "fish|zh",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "rockset alias query editor autocomplete|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "xcidows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z command line tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zvcideos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "environment setenvironmentvariable path env path env userprofile local|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "bd93f9|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "cli z|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fish changelog|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "jj fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zaoload|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide smart cd tool|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "sourchgraph com no match|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "bash fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "blazing performance|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf alternative|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "github ajeetdsouza zoxide f0c5e28 src main rs query|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "linux autojump|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no match found site|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "rockset alias autocomplete query editor|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zcideos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zfzff|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodocs|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zosisfod|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh alternatives|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh z command|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "integration test tcell fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "apt install fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "nushell eval|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "z cd assessment|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoxide|ko",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no history found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "phob z jump|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zsh command not found nvim|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "doesn t work|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "macos fzf|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zcidwos|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zocudo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoedox|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "j00zek|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "winget zsh|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodisk|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zhashlid|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "fzf documentation|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zofindz|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "what does no match exists mean|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zand z jump|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "uzox commands|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "ztux|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no matching processes were found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zocodes|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "uzox|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zotify install guide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zamp alternatives|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zidixo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zobox|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zpoc|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zvodeps|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "git oxide|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "spawn command not found|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoodx|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zeroocd|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zotonic|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "xzodust|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zored|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zoutput|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "no matches found ne demek|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zoked|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zudy|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zetso|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zutty|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zeroshell tutorial|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zodex|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "install z image on windows|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zicod|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "zqo|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alternative zu xing|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "macports vs homebrew|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    },
+    {
+      "cluster": "alternatives xpertdox com software|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 1.0,
+      "position_delta": null
+    },
+    {
+      "cluster": "zoctor|en",
+      "status": "INSUFFICIENT_DATA",
+      "click_delta": 0.0,
+      "impression_delta": 0.0,
+      "position_delta": 0.0
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+# Project-specific verification snapshot. Unknown values are not publication passes.
+schema_version: 1
+field_rules:
+  boolean_or_unknown: "Use true, false, or unknown. Unknown fails a hard gate until verified."
+  expected_referring_domain_yield: "Unique root domains expected from one asset; mirrors count only after individual audits."
+  verification_status: "candidate, verified, rejected, or blocked."
+
+platforms:
+  - platform_name: npm
+    root_domain: npmjs.com
+    ecosystem: JavaScript and TypeScript
+    supported_asset_types: [CLI, config package]
+    self_publish: true
+    public_detail_page: true
+    indexable_verified: true
+    contextual_body_copy_supported: unknown
+    custom_anchor_supported: false
+    ordinary_follow_verified: true
+    metadata_link_rel: "No blocking rel reported during owner verification"
+    body_link_rel: unknown
+    cli_publish_support: true
+    api_publish_support: unknown
+    github_actions_support: true
+    moderation_required: false
+    account_creation_difficulty: medium
+    namespace_requirement: true
+    token_api_key_requirement: true
+    automatic_documentation_generation: true
+    automatic_mirrors_indexes: true
+    expected_referring_domain_yield: 4
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://www.npmjs.com/package/zoxide-doctor
+    publication_instructions: "Publish the tested tagged package through GitHub Actions with trusted publishing or a scoped npm token."
+    verification_notes: "v0.1.0 is public and its Homepage metadata points to the zoxide-doctor guide."
+    blocked_rejected_reason: null
+    verification_status: verified
+
+  - platform_name: npm.io
+    root_domain: npm.io
+    ecosystem: npm package mirror
+    supported_asset_types: [npm package mirror]
+    self_publish: false
+    public_detail_page: true
+    indexable_verified: true
+    contextual_body_copy_supported: false
+    custom_anchor_supported: false
+    ordinary_follow_verified: true
+    metadata_link_rel: "noopener noreferrer"
+    body_link_rel: unknown
+    cli_publish_support: false
+    api_publish_support: false
+    github_actions_support: false
+    moderation_required: false
+    account_creation_difficulty: none
+    namespace_requirement: false
+    token_api_key_requirement: false
+    automatic_documentation_generation: true
+    automatic_mirrors_indexes: unknown
+    expected_referring_domain_yield: 1
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://npm.io/package/zoxide-doctor
+    publication_instructions: "No direct submission; preserve npm homepage metadata and audit the generated page."
+    verification_notes: "HTTP 200, self-canonical, page meta robots index/follow, and a rendered ordinary follow homepage link."
+    blocked_rejected_reason: null
+    verification_status: verified
+
+  - platform_name: libraries.io
+    root_domain: libraries.io
+    ecosystem: package catalog
+    supported_asset_types: [npm package mirror]
+    self_publish: false
+    public_detail_page: true
+    indexable_verified: true
+    contextual_body_copy_supported: true
+    custom_anchor_supported: false
+    ordinary_follow_verified: false
+    metadata_link_rel: nofollow
+    body_link_rel: nofollow
+    cli_publish_support: false
+    api_publish_support: false
+    github_actions_support: false
+    moderation_required: false
+    account_creation_difficulty: none
+    namespace_requirement: false
+    token_api_key_requirement: false
+    automatic_documentation_generation: true
+    automatic_mirrors_indexes: unknown
+    expected_referring_domain_yield: 1
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://libraries.io/npm/zoxide-doctor
+    publication_instructions: "No direct submission; preserve npm homepage metadata and audit the generated page."
+    verification_notes: "HTTP 200 with Homepage and documentation links, both nofollow."
+    blocked_rejected_reason: "Not eligible for follow-only targets."
+    verification_status: verified
+
+  - platform_name: jsDelivr
+    root_domain: jsdelivr.com
+    ecosystem: npm CDN catalog
+    supported_asset_types: [npm package mirror]
+    self_publish: false
+    public_detail_page: true
+    indexable_verified: true
+    contextual_body_copy_supported: false
+    custom_anchor_supported: false
+    ordinary_follow_verified: false
+    metadata_link_rel: "nofollow noopener noreferrer"
+    body_link_rel: unknown
+    cli_publish_support: false
+    api_publish_support: false
+    github_actions_support: false
+    moderation_required: false
+    account_creation_difficulty: none
+    namespace_requirement: false
+    token_api_key_requirement: false
+    automatic_documentation_generation: true
+    automatic_mirrors_indexes: unknown
+    expected_referring_domain_yield: 1
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://www.jsdelivr.com/package/npm/zoxide-doctor
+    publication_instructions: "No direct submission; preserve npm homepage metadata and audit the generated page."
+    verification_notes: "HTTP 200 and indexable by page directives; target metadata links are nofollow."
+    blocked_rejected_reason: "Not eligible for follow-only targets."
+    verification_status: verified
+
+  - platform_name: OpenCLI
+    root_domain: opencli.co
+    ecosystem: CLI directory
+    supported_asset_types: [CLI]
+    self_publish: false
+    public_detail_page: true
+    indexable_verified: true
+    contextual_body_copy_supported: true
+    custom_anchor_supported: false
+    ordinary_follow_verified: true
+    metadata_link_rel: noreferrer
+    body_link_rel: noreferrer
+    cli_publish_support: false
+    api_publish_support: false
+    github_actions_support: true
+    moderation_required: true
+    account_creation_difficulty: none
+    namespace_requirement: false
+    token_api_key_requirement: false
+    automatic_documentation_generation: true
+    automatic_mirrors_indexes: unknown
+    expected_referring_domain_yield: 1
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://github.com/gvkhosla/open-cli/pull/3
+    publication_instructions: "Maintain PR #3; no owner action is appropriate while the upstream Vercel authorization remains pending."
+    verification_notes: "Representative detail pages were previously indexable. Current PR commit 3d34b84 uses the published npm install command."
+    blocked_rejected_reason: "Maintainer team must authorize Vercel preview and merge."
+    verification_status: blocked
+
+  - platform_name: Terminal Trove
+    root_domain: terminaltrove.com
+    ecosystem: terminal tool directory
+    supported_asset_types: [CLI]
+    self_publish: true
+    public_detail_page: true
+    indexable_verified: unknown
+    contextual_body_copy_supported: unknown
+    custom_anchor_supported: false
+    ordinary_follow_verified: unknown
+    metadata_link_rel: unknown
+    body_link_rel: unknown
+    cli_publish_support: false
+    api_publish_support: false
+    github_actions_support: false
+    moderation_required: true
+    account_creation_difficulty: medium
+    namespace_requirement: unknown
+    token_api_key_requirement: false
+    automatic_documentation_generation: unknown
+    automatic_mirrors_indexes: unknown
+    expected_referring_domain_yield: 1
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://terminaltrove.com/zoxide-doctor/
+    publication_instructions: "Owner has submitted the prepared entry. Do not duplicate it; audit only if the detail page becomes public."
+    verification_notes: "Expected detail page is HTTP 404 after owner-reported submission; Cloudflare prevents unauthenticated review of submission flow."
+    blocked_rejected_reason: "External moderation; no public pending detail page."
+    verification_status: blocked
+
+  - platform_name: Official MCP Registry
+    root_domain: modelcontextprotocol.io
+    ecosystem: Model Context Protocol
+    supported_asset_types: [stdio MCP server, remote MCP server]
+    self_publish: true
+    public_detail_page: true
+    indexable_verified: unknown
+    contextual_body_copy_supported: false
+    custom_anchor_supported: false
+    ordinary_follow_verified: unknown
+    metadata_link_rel: unknown
+    body_link_rel: unknown
+    cli_publish_support: true
+    api_publish_support: true
+    github_actions_support: true
+    moderation_required: false
+    account_creation_difficulty: low
+    namespace_requirement: true
+    token_api_key_requirement: false
+    automatic_documentation_generation: true
+    automatic_mirrors_indexes: true
+    expected_referring_domain_yield: 1
+    last_verified_date: 2026-08-09
+    representative_detail_page: https://registry.modelcontextprotocol.io/v0.1/servers/ac.tandem%2Fdocs-mcp/versions/latest
+    publication_instructions: "Publish the underlying scoped npm package, then publish server.json with mcp-publisher GitHub OIDC from its matching release tag."
+    verification_notes: "The active v0.1.2 API record is HTTP 200 and returns the exact websiteUrl plus npm identifier @agoes/zoxide-doctor-mcp. It is JSON metadata rather than an HTML anchor, so rel/follow semantics are not applicable; audit every downstream rendered aggregator separately."
+    blocked_rejected_reason: null
+    verification_status: verified

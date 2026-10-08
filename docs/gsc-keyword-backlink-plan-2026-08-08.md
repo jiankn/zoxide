@@ -1,5 +1,7 @@
 # GSC keyword and backlink plan — 2026-08-08
 
+Master anchor/target ledger: [backlink-anchor-ledger.md](backlink-anchor-ledger.md)
+
 ## Decision
 
 Build external links around three tightly related keyword clusters instead of spreading authority across every zoxide query:
@@ -47,10 +49,11 @@ No `AISA_API_KEY` or DataForSEO credentials were available in the environment, s
 
 | Platform | Contribution | Anchor / target | State |
 |---|---|---|---|
-| Devhints | [PR #2229](https://github.com/rstacruz/cheatsheets/pull/2229), a complete zoxide cheatsheet | `zoxide commands reference` → commands guide | Pending maintainer merge and deployment |
-| Tiny Tool Town | [PR #726](https://github.com/shanselman/TinyToolTown/pull/726), amended tool documentation | `zoxide commands reference` → commands guide | Pending maintainer merge and deployment |
-| OpenCLI | [PR #3](https://github.com/gvkhosla/open-cli/pull/3), zoxide-doctor directory entry | Schema-native Website / Docs → doctor guide | Pending maintainer merge and deployment |
+| Devhints | [PR #2229](https://github.com/rstacruz/cheatsheets/pull/2229), a complete zoxide cheatsheet | `zoxide commands reference` → commands guide | Pending maintainer review; no GitHub status checks reported |
+| Tiny Tool Town | [Issue #725](https://github.com/shanselman/TinyToolTown/issues/725), standard tool submission form | `zoxide-doctor` → diagnostic guide | Pending maintainer triage; PR #726 was closed per maintainer workflow |
+| OpenCLI | [PR #3](https://github.com/gvkhosla/open-cli/pull/3), zoxide-doctor directory entry | Schema-native Website / Docs → doctor guide | Pending maintainer authorization for Vercel preview |
+| OSSDrop | [PR #5](https://github.com/OSSDrop/OSSDrop/pull/5), one `data/tools.json` entry | `zoxide-doctor` → diagnostic guide | Pending maintainer review; public page expected at `https://ossdrop.com/tool/zoxide-doctor` |
 | DEV Community | [Published original English setup tutorial](https://dev.to/jiankn/zoxide-setup-that-actually-works-install-initialize-and-verify-2dng) | `what zoxide is`, `install zoxide`, `zoxide commands reference` → three mapped pages | Public, but current page-level `noindex,nofollow`; do not count as indexable backlink |
 | Hashnode | [Published shell-startup troubleshooting article](https://zoxide-guides.hashnode.dev/when-zoxide-works-but-z-does-not) | `zoxide`, `install zoxide`, `zoxide.org` → homepage, download page, homepage | Public and indexable by page directives, but all three links are `nofollow ugc`; count as a public UGC mention rather than a follow backlink |
 
-Pending pull requests are not counted as live backlinks. After each merge and deployment, verify the final URL, HTTP status, index directives, rendered anchor and `rel` attributes before changing its status. DEV.to is public, but its current page-level `noindex,nofollow` prevents it from being counted as an indexable backlink even though the three rendered anchors themselves have no blocking `rel` token.
+Pending contributions are not counted as live backlinks. After each merge, approval, and deployment, verify the final URL, HTTP status, index directives, rendered anchor and `rel` attributes before changing its status. DEV.to is public, but its current page-level `noindex,nofollow` prevents it from being counted as an indexable backlink even though the three rendered anchors themselves have no blocking `rel` token.

@@ -1,0 +1,151 @@
+热门查询,点击次数,展示,点击率,排名
+zoxide init,29,157,18.47%,1.79
+zoxide init zsh,12,83,14.46%,2.16
+zoxide nushell,11,212,5.19%,2.45
+oh my zsh zoxide,5,92,5.43%,3.87
+zoxide init fish,3,37,8.11%,2.43
+nushell zoxide,2,67,2.99%,3.21
+zoxide init powershell,2,18,11.11%,4.28
+zoxide alias cd,1,64,1.56%,5.95
+zoxide alias,1,59,1.69%,4.15
+zoxide fish shell,1,41,2.44%,7.29
+zoxide shell integration,1,5,20%,1.8
+zoxide init zsh official docs,0,183,0%,2.57
+zoxide powershell,0,154,0%,6.09
+zoxide bash,0,94,0%,5.02
+zoxide init zsh documentation,0,92,0%,3.26
+zoxide zsh,0,69,0%,6.55
+zoxide init zsh official documentation,0,62,0%,2.63
+zoxide init bash --cmd cd documentation,0,57,0%,3.56
+zoxide init --cmd cd bash documentation,0,41,0%,3.29
+"""zoxide init --cmd cd bash""",0,40,0%,4.42
+"zoxide init zsh documentation eval ""$(zoxide init zsh)""",0,38,0%,3.47
+zoxide init bash,0,34,0%,2.03
+zoxide oh my zsh,0,32,0%,8.88
+"zoxide init zsh official documentation eval ""$(zoxide init zsh)""",0,31,0%,3.23
+zoxide zi,0,31,0%,8.84
+zoxide init zsh docs,0,30,0%,3.1
+"""zoxide init bash --cmd cd""",0,30,0%,3.67
+powershell zoxide,0,28,0%,6.96
+zoxide init zsh official,0,27,0%,2.26
+zoxide,0,27,0%,49.11
+zoxide init zsh creates z command official documentation,0,25,0%,2.28
+zoxide cd alias,0,25,0%,6.68
+zsh zoxide,0,24,0%,7.83
+zoxide init --cmd cd bash docs,0,22,0%,4.91
+zoxide shell,0,20,0%,4.65
+zoxide install,0,16,0%,1.25
+zoxide init bash --cmd cd,0,16,0%,3.44
+replace cd with zoxide,0,16,0%,8.06
+zoxide init bash --cmd cd official docs,0,15,0%,2.53
+zoxide zsh integration,0,13,0%,4.15
+"""storebuilder::new(data_dir)"" zoxide",0,13,0%,9.15
+zoxide fish,0,12,0%,8.67
+install zoxide,0,11,0%,2.18
+homebrew zoxide formula,0,11,0%,5.45
+bash zoxide,0,11,0%,7.36
+zoxide init bash --cmd cd example,0,10,0%,3.3
+"zoxide: detected a possible configuration issue. please ensure that zoxide 
+is initialized right at the end of your shell configuration file (usually 
+~/.zshrc).",0,10,0%,3.9
+zoxide z command not found,0,10,0%,7.9
+how to use zoxide,0,9,0%,13.44
+zoxide zsh plugin,0,8,0%,5.25
+fish shell zoxide,0,8,0%,7.12
+alias zoxide to cd,0,8,0%,7.25
+zoxide documentation,0,7,0%,1
+zoxide install ubuntu,0,7,0%,2.14
+"""zoxide init bash --cmd""",0,7,0%,3.14
+zoxide zshrc,0,7,0%,5.14
+"please ensure that zoxide is initialized right at the end of your shell 
+configuration file (usually ~/.zshrc).",0,7,0%,6.14
+zoxide init zsh command,0,6,0%,3.33
+ohmyzsh zoxide,0,6,0%,7.17
+zoxide replace cd,0,6,0%,8.5
+zoxide config,0,6,0%,10.83
+zoxide arch linux,0,5,0%,1.6
+how to install zoxide,0,5,0%,2.2
+ubuntu install zoxide,0,5,0%,2.2
+zoxide ubuntu,0,5,0%,2.8
+zoxide init --cmd cd bash,0,5,0%,5.4
+what is zoxide,0,5,0%,17.6
+install zoxide ubuntu,0,4,0%,1.75
+zoxide init bash --cmd cd docs,0,4,0%,2.5
+"eval ""$(zoxide init zsh)""",0,4,0%,2.75
+fish zoxide,0,4,0%,4
+zinit zoxide,0,4,0%,7.75
+zoxide install windows,0,4,0%,11.25
+zoxide: no match found,0,4,0%,20.25
+using zoxide,0,3,0%,1.33
+zoxide commands,0,3,0%,3
+zoxide installation,0,3,0%,3
+zoxide change z to cd fish,0,3,0%,5
+z oxide,0,3,0%,7.33
+zoxide fish integration,0,3,0%,9.67
+zoxide claude code,0,3,0%,13.33
+zoxide docs,0,2,0%,1
+ubuntu zoxide,0,2,0%,2
+zoxide init --cmd cd bash official docs,0,2,0%,2.5
+brew install zoxide,0,2,0%,3
+zoxide brew,0,2,0%,3
+zoxide setup,0,2,0%,4
+zoxide linux,0,2,0%,4.5
+zoxide autocomplete,0,2,0%,5
+"""warp-packs-green.png"" zoxide",0,2,0%,6.5
+"""const posix_hook_prompt"" zoxide",0,2,0%,7
+oh my zsh zoxide plugin,0,2,0%,7
+zoxide completion,0,2,0%,18
+command not found: zoxide,0,2,0%,23.5
+atuin & zoxide,0,2,0%,28
+zoxide vs z,0,2,0%,35.5
+alias cd to zoxide,0,1,0%,1
+how to install zoxide on ubuntu,0,1,0%,1
+i use fish,0,1,0%,1
+install zoxide mac,0,1,0%,1
+install zoxide windows,0,1,0%,1
+ja,0,1,0%,1
+no,0,1,0%,1
+nushell,0,1,0%,1
+still the same thing,0,1,0%,1
+z is not working,0,1,0%,1
+zoxide debian,0,1,0%,1
+zoxide how to use,0,1,0%,1
+zoxide tutorial,0,1,0%,1
+zoxide windows,0,1,0%,1
+_z,0,1,0%,2
+zoxide cli,0,1,0%,2
+zoxide command not found,0,1,0%,2
+zoxide detected a possible configuration issue,0,1,0%,2
+zoxide init zsh eval,0,1,0%,2
+brew zoxide,0,1,0%,3
+command not found zsh,0,1,0%,3
+como instalar,0,1,0%,3
+homebrew formula zoxide,0,1,0%,3
+install zoxide linux,0,1,0%,3
+winget zoxide,0,1,0%,3
+zoxide arch,0,1,0%,3
+zoxide bashrc,0,1,0%,3
+zoxide init zsh --cmd cd,0,1,0%,3
+"zoxide init zsh eval ""$(zoxide init zsh)""",0,1,0%,3
+that didn't work,0,1,0%,4
+yes please,0,1,0%,4
+zoxide macos,0,1,0%,4
+zsh mac,0,1,0%,4
+doesnt work at all,0,1,0%,5
+zoxide install mac,0,1,0%,6
+zi mode,0,1,0%,8
+zoxide programming language,0,1,0%,8
+si,0,1,0%,9
+yes,0,1,0%,9
+"""pub struct storebuilder"" zoxide",0,1,0%,10
+research properly,0,1,0%,10
+nushell eval,0,1,0%,11
+zoxide homebrew,0,1,0%,11
+i'm using fedora,0,1,0%,12
+zoxide z,0,1,0%,12
+doesn't work,0,1,0%,14
+how does zoxide work,0,1,0%,14
+starship zoxide,0,1,0%,29
+zoxide: detected a possible configuration issue.,0,1,0%,31
+zoxide no match found,0,1,0%,32
+fisher zoxide,0,1,0%,44

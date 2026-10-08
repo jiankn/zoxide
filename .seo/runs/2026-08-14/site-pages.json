@@ -1,0 +1,149 @@
+[
+  {
+    "route": "/blog_page",
+    "file": "C:\\antigravity\\zoxide\\blog_page.html",
+    "title": "zoxide Command Tips - Tutorial &amp; Best Practices | Blog",
+    "h1": "zoxide Blog",
+    "description_hint": "meta name=\"description\" content=\"Read zoxide-related articles: usage tutorials, configuration tips, performance optimization, version updates, etc.\"/><meta name=\"keywords\" content=\"zoxide blog, zoxide tutorial, zoxide tips, zoxide news\"/><link rel=\"canonical\" hr"
+  },
+  {
+    "route": "/blog_page2",
+    "file": "C:\\antigravity\\zoxide\\blog_page2.html",
+    "title": "zoxide Command Tips - Tutorial &amp; Best Practices | Blog",
+    "h1": "zoxide Blog",
+    "description_hint": "meta name=\"description\" content=\"Read zoxide-related articles: usage tutorials, configuration tips, performance optimization, version updates, etc.\"/><meta name=\"keywords\" content=\"zoxide blog, zoxide tutorial, zoxide tips, zoxide news\"/><link rel=\"canonical\" hr"
+  },
+  {
+    "route": "/[dynamic]",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\page.tsx",
+    "title": null,
+    "h1": null,
+    "description_hint": "description = locale === 'en'"
+  },
+  {
+    "route": "/[dynamic]/about",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\about\\page.tsx",
+    "title": null,
+    "h1": "{t('title')}",
+    "description_hint": "description: tAbout('description'),"
+  },
+  {
+    "route": "/[dynamic]/blog",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\blog\\page.tsx",
+    "title": "想按步骤学习？从教程路线开始",
+    "h1": "{t(\"title\")}",
+    "description_hint": "description: tBlog(\"description\"),"
+  },
+  {
+    "route": "/[dynamic]/changelog",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\changelog\\page.tsx",
+    "title": null,
+    "h1": "{t('title')}",
+    "description_hint": "description: tChangelog('description'),"
+  },
+  {
+    "route": "/[dynamic]/comparisons",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\comparisons\\page.tsx",
+    "title": null,
+    "h1": "{t('title')}",
+    "description_hint": "description: tComparisons('description'),"
+  },
+  {
+    "route": "/[dynamic]/contact",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\contact\\page.tsx",
+    "title": null,
+    "h1": "{t('title')}",
+    "description_hint": "description: tContact('description'),"
+  },
+  {
+    "route": "/[dynamic]/download",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\download\\page.tsx",
+    "title": "Zoxide download and install for Linux, macOS and Windows",
+    "h1": "{pageTitle}",
+    "description_hint": "description: 'Install zoxide from official upstream sources on Linux, macOS, or Windows. Verify the binary, then add the shell integration that creates z and zi.',"
+  },
+  {
+    "route": "/[dynamic]/faq",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\faq\\page.tsx",
+    "title": "仍然没有解决？",
+    "h1": "{t('title')}",
+    "description_hint": "description: tFaq('description'),"
+  },
+  {
+    "route": "/[dynamic]/features",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\features\\page.tsx",
+    "title": "下一步：安装并完成第一次跳转",
+    "h1": "{t('title')}",
+    "description_hint": "description: tFeatures('description'),"
+  },
+  {
+    "route": "/[dynamic]/privacy-policy",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\privacy-policy\\page.tsx",
+    "title": null,
+    "h1": "{t('title')}",
+    "description_hint": "description: tPrivacy('description'),"
+  },
+  {
+    "route": "/[dynamic]/terms-of-service",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\terms-of-service\\page.tsx",
+    "title": null,
+    "h1": "{t('title')}",
+    "description_hint": "description: tTerms('description'),"
+  },
+  {
+    "route": "/[dynamic]/tutorials",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\tutorials\\page.tsx",
+    "title": "教程之外：查看实战文章与排错案例",
+    "h1": "{t('title')}",
+    "description_hint": "description: tTutorials('description'),"
+  },
+  {
+    "route": "/[dynamic]/tutorials/videos",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\tutorials\\videos\\page.tsx",
+    "title": "zoxide has forever improved the way I navigate in the terminal.",
+    "h1": "{copy.title}",
+    "description_hint": "description: tTutorials('videos.description') || 'Watch videos to learn zoxide installation, configuration, and advanced tips.',"
+  },
+  {
+    "route": "/[dynamic]/tutorials/[dynamic]",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\tutorials\\[slug]\\page.tsx",
+    "title": null,
+    "h1": "{title}",
+    "description_hint": "description: excerpt,"
+  },
+  {
+    "route": "/[dynamic]/tools/zoxide-doctor",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\tools\\zoxide-doctor\\page.tsx",
+    "title": "zoxide-doctor: check zoxide installation and shell setup",
+    "h1": "{content.title}",
+    "description_hint": "description: string;"
+  },
+  {
+    "route": "/[dynamic]/comparisons/[dynamic]",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\comparisons\\[tool]\\page.tsx",
+    "title": null,
+    "h1": "{guide.title}",
+    "description_hint": "description: guide.description,"
+  },
+  {
+    "route": "/[dynamic]/blog/[dynamic]",
+    "file": "C:\\antigravity\\zoxide\\app\\[locale]\\blog\\[slug]\\page.tsx",
+    "title": null,
+    "h1": "{title}",
+    "description_hint": "description：确保长度在 150-160 字符之间，包含关键词"
+  },
+  {
+    "route": "/api/alternate-slug",
+    "file": "C:\\antigravity\\zoxide\\app\\api\\alternate-slug\\route.ts",
+    "title": null,
+    "h1": null,
+    "description_hint": null
+  },
+  {
+    "route": "/api/search",
+    "file": "C:\\antigravity\\zoxide\\app\\api\\search\\route.ts",
+    "title": null,
+    "h1": null,
+    "description_hint": "description: string;"
+  }
+]

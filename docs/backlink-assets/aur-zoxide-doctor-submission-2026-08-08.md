@@ -1,5 +1,7 @@
 # AUR submission checklist — zoxide-doctor
 
+Status: **Frozen / skipped on 2026-08-08 because account registration failed.** Do not retry registration or submit this package unless the campaign owner explicitly reopens the platform.
+
 ## What is ready
 
 - Package name: `zoxide-doctor`
