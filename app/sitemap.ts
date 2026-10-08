@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'zh:/tutorials/troubleshooting', 'ja:/tutorials/troubleshooting',
     'en:/tutorials/quick-start',
     'zh:/blog/zoxide-init-guide', 'ja:/blog/zoxide-init-guide',
+    'en:/tools/zoxide-doctor', 'zh:/tools/zoxide-doctor', 'ja:/tools/zoxide-doctor',
   ]);
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([
