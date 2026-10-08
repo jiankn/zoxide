@@ -142,8 +142,8 @@
         "description": "支持环境变量配置、自定义别名、目录排除等高级功能。"
       },
       "team": {
-        "title": "团队协作",
-        "description": "团队可以共享可复现的 Shell 配置和入门说明，但每位用户应维护独立的 zoxide 数据库。"
+        "title": "从 autojump 和 z 导入",
+        "description": "用 zoxide import 导入原有的访问记录，排名从第一天就能用，而不是从零开始积累。"
       },
       "performance": {
         "title": "性能优化",
@@ -375,13 +375,6 @@
         "excerpt": "优化 zoxide 的性能，包括数据库优化、排除目录、限制历史记录等技巧。",
         "duration": "20 分钟",
         "level": "高级",
-        "category": "进阶技巧"
-      },
-      "team-collaboration": {
-        "title": "zoxide 团队协作",
-        "excerpt": "学习如何在团队中共享 zoxide 数据库，提升团队效率。",
-        "duration": "15 分钟",
-        "level": "中级",
         "category": "进阶技巧"
       },
       "install-macos": {
@@ -684,7 +677,7 @@
           "nushell",
           "设置"
         ],
-        "content": "# 详解 zoxide init：配置终端智能跳转的最后一步\n\n很多用户在使用包管理器（如 **Homebrew、Scoop、Apt**）安装完 **zoxide** 后，兴致勃勃地在终端输入 `z`，结果却只收到冷冰冰的 **`command not found`**。\n\n别担心，这并不一定是安装失败了。这通常是因为你通过了第一关（安装二进制文件），却卡在了第二关——**Shell 初始化（Shell Integration）**。\n\n这篇文章将深入剖析 `zoxide init` 这个关键词。它是连接 zoxide 核心程序与你终端（Shell）的桥梁。如果不配置它，zoxide 就无法监听你的目录切换，也无法进行智能跳转。本文将手把手教你如何在各大主流 Shell 中完成配置，并分享一些进阶的高效技巧。\n\n---\n\n## zoxide init 到底在做什么？\n\n在盲目复制粘贴代码之前，理解其原理非常重要。\n\n当你运行：\n\n```bash\nzoxide init <shell名称>\n```\n\n这个命令并不会修改任何文件。相反，它会在标准输出中打印一段 Shell 脚本代码。这段代码主要干了三件事：\n\n1. **定义函数：** 创建一个名为 `z`（或你指定的别名）的函数。\n2. **设置钩子（Hook）：** 在 Shell 中埋入一个钩子，每当你使用 `cd` 切换目录时，自动将新路径记录到 zoxide 的数据库中。\n3. **交互逻辑：** 定义 `zi` 命令的逻辑，用于配合 `fzf` 进行交互式选择。\n\n因此，我们需要用 `eval` 或 `source` 命令，在 Shell 启动时执行这段生成的脚本。\n\n---\n\n## 各大 Shell 配置完全指南\n\n以下是针对不同环境的\"标准答案\"。请找到你正在使用的 Shell，并将代码添加到对应的配置文件中。\n\n### 1. Bash（Linux / macOS 旧版默认）\n\n编辑你的 `~/.bashrc` 文件，在末尾添加：\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\n> **注意：** macOS 用户如果还在使用 Bash，可能需要修改 `~/.bash_profile`。\n\n---\n\n### 2. Zsh（macOS 默认 / 开发者首选）\n\n编辑 `~/.zshrc` 文件：\n\n```zsh\neval \"$(zoxide init zsh)\"\n```\n\n**排错指南：** 如果你使用了 oh-my-zsh 或其他插件管理器，建议将这行代码放在所有 `plugins=(...)` 定义之后。如果在 init 之前调用了某些通过 zoxide 跳转的脚本，可能会报错。\n\n---\n\n### 3. Fish Shell\n\nFish 的语法比较特殊，不使用 `eval`。编辑 `~/.config/fish/config.fish`：\n\n```fish\nzoxide init fish | source\n```\n\n---\n\n### 4. PowerShell（Windows）\n\nWindows 用户需要编辑 PowerShell 的 Profile 文件。在终端输入 ` $PROFILE ` 可以查看文件路径。打开该文件并添加：\n\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n---\n\n### 5. Nushell（新一代 Shell）\n\nNushell 用户需要分两步走。\n\n首先在 `env.nu` 文件中生成脚本：\n\n```nu\nzoxide init nushell | save -f ~/.zoxide.nu\n```\n\n然后在 `config.nu` 中加载它：\n\n```nu\nsource ~/.zoxide.nu\n```\n\n---\n\n## 进阶技巧：用 zoxide 完全接管 cd\n\n许多资深玩家（包括我）并不想在 `cd` 和 `z` 两个命令之间切换思维。我们希望 `cd` 变得更聪明。\n\n通过在 init 命令中加入 `--cmd` 参数，你可以让 `cd` 命令直接拥有 zoxide 的魔法。\n\n### Zsh 配置示例\n\n将原本的配置修改为：\n\n```zsh\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n### 效果如下\n\n- 输入 `cd`：回到用户主目录（行为不变）。\n- 输入 `cd ..`：返回上一级（行为不变）。\n- 输入 `cd /etc`：跳转到绝对路径（行为不变）。\n- 输入 `cd work`：直接模糊匹配并跳转到你最常用的那个 `work` 目录，哪怕它在 `~/dev/projects/company/work`。\n\n启用此功能后，建议彻底忘掉 `z` 命令，让肌肉记忆统一使用 `cd`。\n\n---\n\n## 性能优化：如何减少启动延迟？\n\n对于追求极致启动速度的用户，每次打开终端都运行 `zoxide init` 可能会带来几十毫秒的延迟。虽然微乎其微，但我们可以通过\"懒加载（Lazy Loading）\"来消除它。\n\n**原理：** 只有当你第一次输入 `z` 时，才去初始化 zoxide。\n\n### Zsh 懒加载脚本示例\n\n```zsh\nz() {\n    unfunction \"$0\"              # 删除临时的 z 函数\n    eval \"$(zoxide init zsh)\"    # 真正的初始化\n    $0 \"$@\"                      # 执行真正的 z 命令\n}\n```\n\n**缺点：** 懒加载有一个明显的副作用。如果你打开终端后，先手动 `cd` 去了几个新目录，但一直没有运行过 `z`，那么这些目录的访问记录不会被 zoxide 记录下来。权衡利弊，普通用户建议直接使用标准初始化方式。\n\n---\n\n## 常见问题排查（FAQ）\n\n### 1. 修改了配置文件但没生效？\n\n配置文件不会自动热重载。你需要运行：\n\n```bash\nsource ~/.zshrc\n```\n\n（或对应的配置文件），或者简单粗暴地关闭终端再重新打开。\n\n---\n\n### 2. 报错 \"unknown flag --cmd\"\n\n这说明你安装的 zoxide 版本太老了。\n\n检查版本：\n\n```bash\nzoxide --version\n```\n\n解决方案：不要使用 apt 安装（Ubuntu 官方源里的版本通常非常旧）。去 zoxide.org 按照官方脚本或 Homebrew 方式重新安装最新版。\n\n---\n\n### 3. FZF 集成不工作？\n\n`zoxide init` 会自动检测系统中是否安装了 `fzf`。如果安装了，`zi` 命令就会自动启用交互式选择模式。\n\n如果没生效，请确保 `fzf` 在你的 `PATH` 环境变量中。\n\n---\n\n## 结语\n\n`zoxide init` 看起来只是一行代码，但它是提升终端效率的基石。无论你是选择保留 `cd` 的纯粹性，还是通过 `--cmd cd` 拥抱全面智能化，正确配置这一步都至关重要。\n\n现在，去检查你的配置文件，确保护照（Init）已经盖章生效，开始享受 **10 倍速** 的目录跳转吧。\n"
+        "content": "# 详解 zoxide init：配置终端智能跳转的最后一步\n\n很多用户在使用包管理器（如 **Homebrew、Scoop、Apt**）安装完 **zoxide** 后，兴致勃勃地在终端输入 `z`，结果却只收到冷冰冰的 **`command not found`**。\n\n别担心，这并不一定是安装失败了。这通常是因为你通过了第一关（安装二进制文件），却卡在了第二关——**Shell 初始化（Shell Integration）**。\n\n这篇文章将深入剖析 `zoxide init` 这个关键词。它是连接 zoxide 核心程序与你终端（Shell）的桥梁。如果不配置它，zoxide 就无法监听你的目录切换，也无法进行智能跳转。本文将手把手教你如何在各大主流 Shell 中完成配置，并分享一些进阶的高效技巧。\n\n---\n\n## zoxide init 到底在做什么？\n\n在盲目复制粘贴代码之前，理解其原理非常重要。\n\n当你运行：\n\n```bash\nzoxide init <shell名称>\n```\n\n这个命令并不会修改任何文件。相反，它会在标准输出中打印一段 Shell 脚本代码。这段代码主要干了三件事：\n\n1. **定义函数：** 创建一个名为 `z`（或你指定的别名）的函数。\n2. **设置钩子（Hook）：** 在 Shell 中埋入一个钩子，每当你使用 `cd` 切换目录时，自动将新路径记录到 zoxide 的数据库中。\n3. **交互逻辑：** 定义 `zi` 命令的逻辑，用于配合 `fzf` 进行交互式选择。\n\n因此，我们需要用 `eval` 或 `source` 命令，在 Shell 启动时执行这段生成的脚本。\n\n---\n\n## 各大 Shell 配置完全指南\n\n以下是针对不同环境的\"标准答案\"。请找到你正在使用的 Shell，并将代码添加到对应的配置文件中。\n\n### 1. Bash（Linux / macOS 旧版默认）\n\n编辑你的 `~/.bashrc` 文件，在末尾添加：\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\n> **注意：** macOS 用户如果还在使用 Bash，可能需要修改 `~/.bash_profile`。\n\n---\n\n### 2. Zsh（macOS 默认 / 开发者首选）\n\n编辑 `~/.zshrc` 文件：\n\n```zsh\neval \"$(zoxide init zsh)\"\n```\n\n**排错指南：** 如果你使用了 oh-my-zsh 或其他插件管理器，建议将这行代码放在所有 `plugins=(...)` 定义之后。如果在 init 之前调用了某些通过 zoxide 跳转的脚本，可能会报错。\n\n---\n\n### 3. Fish Shell\n\nFish 的语法比较特殊，不使用 `eval`。编辑 `~/.config/fish/config.fish`：\n\n```fish\nzoxide init fish | source\n```\n\n---\n\n### 4. PowerShell（Windows）\n\nWindows 用户需要编辑 PowerShell 的 Profile 文件。在终端输入 ` $PROFILE ` 可以查看文件路径。打开该文件并添加：\n\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n---\n\n### 5. Nushell（新一代 Shell）\n\nNushell 用户需要分两步走。\n\n首先在 `env.nu` 文件中生成脚本：\n\n```nu\nzoxide init nushell | save -f ~/.zoxide.nu\n```\n\n然后在 `config.nu` 中加载它：\n\n```nu\nsource ~/.zoxide.nu\n```\n\n---\n\n## 进阶技巧：用 zoxide 完全接管 cd\n\n许多资深玩家（包括我）并不想在 `cd` 和 `z` 两个命令之间切换思维。我们希望 `cd` 变得更聪明。\n\n通过在 init 命令中加入 `--cmd` 参数，你可以让 `cd` 命令直接拥有 zoxide 的魔法。\n\n### Zsh 配置示例\n\n将原本的配置修改为：\n\n```zsh\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n### 效果如下\n\n- 输入 `cd`：回到用户主目录（行为不变）。\n- 输入 `cd ..`：返回上一级（行为不变）。\n- 输入 `cd /etc`：跳转到绝对路径（行为不变）。\n- 输入 `cd work`：直接模糊匹配并跳转到你最常用的那个 `work` 目录，哪怕它在 `~/dev/projects/company/work`。\n\n启用此功能后，建议彻底忘掉 `z` 命令，让肌肉记忆统一使用 `cd`。\n\n---\n\n## 性能优化：如何减少启动延迟？\n\n对于追求极致启动速度的用户，每次打开终端都运行 `zoxide init` 可能会带来几十毫秒的延迟。虽然微乎其微，但我们可以通过\"懒加载（Lazy Loading）\"来消除它。\n\n**原理：** 只有当你第一次输入 `z` 时，才去初始化 zoxide。\n\n### Zsh 懒加载脚本示例\n\n```zsh\nz() {\n    unfunction \"$0\"              # 删除临时的 z 函数\n    eval \"$(zoxide init zsh)\"    # 真正的初始化\n    $0 \"$@\"                      # 执行真正的 z 命令\n}\n```\n\n**缺点：** 懒加载有一个明显的副作用。如果你打开终端后，先手动 `cd` 去了几个新目录，但一直没有运行过 `z`，那么这些目录的访问记录不会被 zoxide 记录下来。权衡利弊，普通用户建议直接使用标准初始化方式。\n\n---\n\n## 常见问题排查（FAQ）\n\n### 1. 修改了配置文件但没生效？\n\n配置文件不会自动热重载。你需要运行：\n\n```bash\nsource ~/.zshrc\n```\n\n（或对应的配置文件），或者简单粗暴地关闭终端再重新打开。\n\n---\n\n### 2. 报错 \"unknown flag --cmd\"\n\n这说明你安装的 zoxide 版本太老了。\n\n检查版本：\n\n```bash\nzoxide --version\n```\n\n解决方案：不要使用 apt 安装（Ubuntu 官方源里的版本通常非常旧）。去 zoxide.org 按照官方脚本或 Homebrew 方式重新安装最新版。\n\n---\n\n### 3. FZF 集成不工作？\n\n`zoxide init` 会自动检测系统中是否安装了 `fzf`。如果安装了，`zi` 命令就会自动启用交互式选择模式。\n\n如果没生效，请确保 `fzf` 在你的 `PATH` 环境变量中。\n\n---\n\n## 结语\n\n`zoxide init` 看起来只是一行代码，但它是提升终端效率的基石。无论你是选择保留 `cd` 的纯粹性，还是通过 `--cmd cd` 拥抱全面智能化，正确配置这一步都至关重要。\n\n现在，去检查你的配置文件，确保护照（Init）已经盖章生效，开始用更少的输入在常用目录之间跳转吧。\n"
       },
       "zoxide-performance-zh": {
         "title": "为什么 zoxide 这么快：深入解析排名算法",
@@ -1003,81 +996,6 @@
         "title": "11. 联系我们",
         "content": "如对本条款有疑问，请发送邮件至 <a href=\"mailto:support@zoxide.org\">support@zoxide.org</a>。"
       }
-    }
-  },
-  "ads": {
-    "default": "广告位",
-    "home": {
-      "top": "💡 使用技巧 - \"使用 `z` 命令可以快速跳转到最近访问的目录\"",
-      "middle": "⚡ 效率提升 - \"zoxide 比传统 cd 命令快 10 倍以上\"",
-      "sidebar": "📚 热门教程 - \"查看 zoxide 高级玩法和实战案例\"",
-      "bottom": "🎯 优势 - \"zoxide 支持模糊搜索，无需输入完整路径\""
-    },
-    "features": {
-      "top": "🔧 配置技巧 - \"设置 `_ZO_EXCLUDE_DIRS` 排除不需要索引的目录，提升性能\"",
-      "sidebar": "🔧 配置技巧 - \"设置 `_ZO_EXCLUDE_DIRS` 排除不需要索引的目录，提升性能\"",
-      "middle": "💪 核心优势 - \"zoxide 使用 Rust 编写，性能卓越\"",
-      "bottom": "📊 性能优势 - \"zoxide 比 autojump 快 3 倍\""
-    },
-    "tutorials": {
-      "top": "🚀 效率技巧 - \"结合 fzf 使用可以实现目录的模糊搜索 + 智能跳转\"",
-      "sidebar": "🚀 效率技巧 - \"结合 fzf 使用可以实现目录的模糊搜索 + 智能跳转\"",
-      "middle": "📖 深度阅读 - \"性能调优、团队协作文档全在这里\"",
-      "bottom": "💡 使用技巧 - \"使用 `zi` 命令可以交互式选择目录\""
-    },
-    "download": {
-      "top": "🔧 配置技巧 - \"安装后记得初始化 Shell 配置，让 zoxide 生效\"",
-      "sidebar": "🔧 配置技巧 - \"安装后记得初始化 Shell 配置，让 zoxide 生效\"",
-      "middle": "⚡ 效率提升 - \"zoxide 支持所有主流 Shell\"",
-      "bottom": "🎯 优势 - \"一键安装，快速上手\""
-    },
-    "blog": {
-      "list": {
-        "top": "📚 热门文章 - \"查看 zoxide 版本更新解读和社区案例分享\"",
-        "sidebar": "📚 热门文章 - \"查看 zoxide 版本更新解读和社区案例分享\"",
-        "middle": "💡 使用技巧 - \"查看最新教程和最佳实践\"",
-        "bottom": "📖 深度阅读 - \"了解更多 zoxide 高级用法\""
-      }
-    },
-    "article": {
-      "top": "💡 使用技巧 - \"使用 `zi` 命令可以交互式选择目录，支持模糊搜索和预览\"",
-      "sidebar": "📚 热门文章 - \"查看 zoxide 版本更新解读和社区案例分享\"",
-      "inArticle": "📖 深度阅读 - \"性能调优、团队协作文档全在这里\"",
-      "bottom": "📚 进阶技巧 - \"使用 `zoxide query` 可以获取匹配结果但不跳转，适合脚本使用\""
-    },
-    "changelog": {
-      "top": "🔧 配置技巧 - \"新版本可能引入新的配置选项，记得查看文档\"",
-      "sidebar": "🔧 配置技巧 - \"新版本可能引入新的配置选项，记得查看文档\"",
-      "middle": "⚡ 效率提升 - \"关注更新日志，了解最新功能\"",
-      "bottom": "🎯 优势 - \"持续更新，功能不断完善\""
-    },
-    "faq": {
-      "top": "💡 常见问题解答 - \"查看 zoxide 使用中的常见问题和解决方案\"",
-      "sidebar": "💡 常见问题解答 - \"查看 zoxide 使用中的常见问题和解决方案\"",
-      "middle": "🔧 配置技巧 - \"遇到问题？查看 FAQ 快速解决\"",
-      "bottom": "📚 进阶技巧 - \"了解更多高级用法和技巧\""
-    },
-    "comparisons": {
-      "top": "📊 性能数据 - \"查看 zoxide 与其他工具的详细性能对比\"",
-      "sidebar": "📊 性能数据 - \"查看 zoxide 与其他工具的详细性能对比\"",
-      "middle": "💪 核心优势 - \"zoxide 在性能和易用性方面全面领先\"",
-      "bottom": "🎯 优势 - \"选择 zoxide，选择效率\""
-    },
-    "about": {
-      "top": "📚 关于我们 - \"了解 zoxide.org 的使命和愿景\"",
-      "sidebar": "📚 关于我们 - \"了解 zoxide.org 的使命和愿景\"",
-      "middle": "💡 使用技巧 - \"查看我们的教程和资源\"",
-      "bottom": "🎯 优势 - \"专业的 zoxide 粉丝网站\""
-    },
-    "privacy": {
-      "top": "🔒 隐私保护 - \"我们重视您的隐私，查看我们的隐私政策\"",
-      "sidebar": "🔒 隐私保护 - \"我们重视您的隐私，查看我们的隐私政策\"",
-      "bottom": "📚 了解更多 - \"了解我们如何保护您的数据\""
-    },
-    "terms": {
-      "top": "📋 服务条款 - \"了解使用本网站的条件和规则\"",
-      "sidebar": "📋 服务条款 - \"了解使用本网站的条件和规则\"",
-      "bottom": "📚 了解更多 - \"查看完整的服务条款\""
     }
   },
   "contactPage": {

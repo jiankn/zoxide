@@ -142,8 +142,8 @@
         "description": "環境変数、カスタムエイリアス、ディレクトリ除外などの高度な機能に対応。"
       },
       "team": {
-        "title": "チームコラボレーション",
-        "description": "再現可能なシェル設定や導入手順はチームで共有できますが、zoxideデータベースはユーザーごとに分けてください。"
+        "title": "autojump と z から移行",
+        "description": "zoxide import で既存の履歴を取り込めるため、ゼロから学習させずに初日からランキングを活用できます。"
       },
       "performance": {
         "title": "パフォーマンス最適化",
@@ -351,7 +351,7 @@
         "duration": "20分",
         "level": "中級",
         "category": "上級ヒント",
-        "content": "\n# zoxide Advanced Configuration\n\nCustomize zoxide with env vars, aliases, and performance tweaks.\n\n## Environment Variables\n\n### Exclude directories\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n```\nSeparate multiple paths with colons.\n\n### Custom database location\n```bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n```\n\n### Maximum history age\n```bash\nexport _ZO_MAXAGE=5000\n```\n\n### Exclusion patterns\n```bash\nexport _ZO_EXCLUDE_PATHS=\".git\"\n```\n\n## Alias Settings\n```bash\nalias zz='z'\nalias zi='zi'\nalias za='zoxide add'\nalias zq='zoxide query'\nalias zr='zoxide remove'\n```\n\n## fzf Integration\n```bash\n# Add to ~/.zshrc\nzi() {\n local dir\n dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n```\n\n## Performance Optimization\n\n### Reduce index scope\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n```\n\n### Periodic cleanup\n```bash\nls -lh ~/.zo\nrm ~/.zo\n```\n\n## Team Collaboration\n```bash\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n```\n\n## Summary\nStart with exclusions, then fine-tune history and database location to fit your workflow. See the official docs for more options.\n"
+        "content": "\n# zoxide Advanced Configuration\n\nCustomize zoxide with env vars, aliases, and performance tweaks.\n\n## Environment Variables\n\n### Exclude directories\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n```\nSeparate multiple paths with colons.\n\n### Custom database location\n```bash\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n```\n\n### Maximum history age\n```bash\nexport _ZO_MAXAGE=5000\n```\n\n### Exclusion patterns\n_ZO_EXCLUDE_DIRS already accepts globs; zoxide has no separate pattern variable. Setting it replaces the default, which excludes $HOME, so keep $HOME in the list.\n```bash\nexport _ZO_EXCLUDE_DIRS=\"$HOME:$HOME/private/*\"\n```\n\n## Alias Settings\n```bash\nalias zz='z'\nalias za='zoxide add'\nalias zq='zoxide query'\nalias zr='zoxide remove'\n```\n\n## fzf Integration\n```bash\n# Add to ~/.zshrc\nzi() {\n local dir\n dir=$(zoxide query -l | fzf) && z \"$dir\"\n}\n```\n\n## Performance Optimization\n\n### Reduce index scope\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n```\n\n### Periodic cleanup\n```bash\nls -lh ~/.zo\nrm ~/.zo\n```\n\n## Team Collaboration\n```bash\nexport _ZO_DATA_DIR=\"/shared/path/zoxide\"\n```\n\n## Summary\nStart with exclusions, then fine-tune history and database location to fit your workflow. See the official docs for more options.\n"
       },
       "fzf-integration": {
         "title": "zoxideとfzfの統合",
@@ -369,13 +369,6 @@
         "category": "上級ヒント",
         "content": "\n# zoxide Performance Optimization\n\nThis guide shows how to tune zoxide for speed: smaller databases, faster startup, and snappy queries.\n\n## Database Optimization\n\n### Exclude unnecessary directories\nKeep noise out of the index:\n```bash\n# System and temp paths\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys\"\n\n# Add development dependencies if you have many projects\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules:/.git\"\n```\n\nBenefits:\n- Smaller database\n- Faster queries\n- Lower memory\n\n### Clean the database regularly\n```bash\n# Check database size\nls -lh ~/.zo\n\n# If it grows too large, rebuild it (zoxide will relearn)\nrm ~/.zo\n```\n\n### Limit history\n```bash\n# Keep roughly one year of history\nexport _ZO_MAXAGE=365\n```\n\n## Startup Speed\n\n### Lazy initialization (zsh example)\n```bash\nzoxide() {\n unfunction zoxide\n eval \"$(command zoxide init zsh)\"\n zoxide \"$@\"\n}\n```\n\n### Place init at the end of your rc file\n```bash\n# ~/.zshrc\neval \"$(zoxide init zsh)\"\n```\n\n## Query Optimization\n\n- Prefer precise keywords: `z my-project` instead of `z pro`\n- Use the access frequency zoxide learns automatically\n\n## Memory Optimization\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys:/node_modules\"\nexport _ZO_MAXAGE=1000\n```\n\n## Performance Testing\n```bash\n# Measure init time\ntime eval \"$(zoxide init zsh)\"\n\n# Measure a query\ntime z project\n```\n\n## Real-World Cases\n\n### Many projects\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/node_modules:/.git:/dist:/build\"\n```\n\n### Sysadmin\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/proc:/sys:/usr\"\nexport _ZO_DATA_DIR=\"$HOME/.local/share/zoxide\"\n```\n\n### Team collaboration\n```bash\nexport _ZO_DATA_DIR=\"/shared/zoxide\"\n```\n\n## Monitoring\n```bash\n# Weekly size check via cron\n0 0 * * 0 ls -lh ~/.zo >> ~/zoxide-size.log\n```\n\n```bash\n# cleanup-zoxide.sh\n#!/bin/bash\nZO_DB=\"$HOME/.zo\"\nMAX_SIZE=10485760 # 10MB\nif [ -f \"$ZO_DB\" ]; then\n SIZE=$(stat -f%z \"$ZO_DB\" 2>/dev/null || stat -c%s \"$ZO_DB\" 2>/dev/null)\n if [ \"$SIZE\" -gt \"$MAX_SIZE\" ]; then\n echo \"Database too large, backing up and resetting...\"\n cp \"$ZO_DB\" \"$ZO_DB.backup\"\n rm \"$ZO_DB\"\n fi\nfi\n```\n\n## Best Practices\n1. Exclude noisy directories first\n2. Clean up occasionally\n3. Limit history if needed\n4. Keep init near the end of your rc file\n5. Monitor database size and tweak\n\n## Next Steps\n- [fzf Integration](/tutorials/fzf-integration)\n- [Troubleshooting](/tutorials/troubleshooting)\n- [Advanced Configuration Tips](/tutorials/advanced-config)\n"
       },
-      "team-collaboration": {
-        "title": "zoxideチームコラボレーション",
-        "excerpt": "チームでzoxideデータベースを共有してチーム効率を向上させる方法を学びます。",
-        "duration": "15分",
-        "level": "中級",
-        "category": "上級ヒント"
-      },
       "videos": {
         "title": "zoxide動画チュートリアル",
         "excerpt": "zoxideの動画チュートリアルを見て、基本的な使い方と上級ヒントをすばやく学びます。",
@@ -390,7 +383,7 @@
         "duration": "20分",
         "level": "中級",
         "category": "動画 & FAQ",
-        "content": "\n# zoxide Troubleshooting\n\nCommon issues and quick fixes.\n\n## Install issues\n- `zoxide: command not found`: ensure install and PATH.\n```bash\nwhich zoxide\nzoxide --version\necho $PATH\n```\n\n## Config not applied\n- Confirm init lines exist and reload shell.\n```bash\nsource ~/.zshrc # or bashrc / fish config\n```\n\n## Wrong jump\n- Use interactive list:\n```bash\nzi project\nz -l project\n```\n- Manually add:\n```bash\nzoxide add /path/to/dir\n```\n\n## Database issues\n```bash\nls -lh ~/.zo\ncp ~/.zo ~/.zo.backup\nrm ~/.zo # rebuild if corrupted/too big\n```\n\n## Startup too slow\n- Try lazy loading for zsh:\n```bash\nzoxide() {\n unfunction zoxide\n eval \"$(command zoxide init zsh)\"\n zoxide \"$@\"\n}\n```\n- Place init near end of rc file.\n\n## Query slow\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\nexport _ZO_MAXAGE=1000\n```\n\n## Windows path issues\nUse PowerShell init:\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n## Debug\n```bash\nexport _ZO_DEBUG=1\nz project\n```\n"
+        "content": "\n# zoxide Troubleshooting\n\nCommon issues and quick fixes.\n\n## Install issues\n- `zoxide: command not found`: ensure install and PATH.\n```bash\nwhich zoxide\nzoxide --version\necho $PATH\n```\n\n## Config not applied\n- Confirm init lines exist and reload shell.\n```bash\nsource ~/.zshrc # or bashrc / fish config\n```\n\n## Wrong jump\n- Use interactive list:\n```bash\nzi project\nz -l project\n```\n- Manually add:\n```bash\nzoxide add /path/to/dir\n```\n\n## Database issues\n```bash\nls -lh ~/.zo\ncp ~/.zo ~/.zo.backup\nrm ~/.zo # rebuild if corrupted/too big\n```\n\n## Startup too slow\n- Try lazy loading for zsh:\n```bash\nzoxide() {\n unfunction zoxide\n eval \"$(command zoxide init zsh)\"\n zoxide \"$@\"\n}\n```\n- Place init near end of rc file.\n\n## Query slow\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\nexport _ZO_MAXAGE=1000\n```\n\n## Windows path issues\nUse PowerShell init:\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n## See what a query matches\nzoxide has no debug mode. List the candidates and their scores, or make z print the directory it picked:\n```bash\nzoxide query --list --score project\nexport _ZO_ECHO=1\n```\n"
       },
       "install-ubuntu": {
         "title": "Ubuntu 24.04 に zoxide をインストールする方法",
@@ -665,7 +658,7 @@
           "nushell",
           "セットアップ"
         ],
-        "content": "# zoxide init：シェル統合の包括的ガイド\n\nHomebrew、Scoop、Aptなどのパッケージマネージャーで**zoxide**をインストールしました。ターミナルで`z`と入力すると、魔法を期待していたのに**command not found**が表示されました。\n\n心配いりません — これは新規ユーザーにとって最も一般的な障害です。\n\nバイナリのインストールはステップ1に過ぎません。ステップ2は**初期化**です。\n\nこのガイドは`zoxide init`コマンドに完全に焦点を当てています—zoxideバイナリとシェルの動作を接続する橋です。\n\n---\n\n## `zoxide init`は実際に何をするのか？\n\n`zoxide`は実行可能ファイルですが、シェル（Bash、Zshなど）はディレクトリを変更するときにそれと通信する方法を知る必要があります。\n\n```bash\nzoxide init <shell>\n```\n\nを実行すると、シェルスクリプトのブロックが出力されます。このスクリプトは3つのことを行います：\n\n1. **`z`コマンド（または関数）を定義**\n2. ディレクトリを変更するたびにリッスンする**「フック」を設定**し、そのパスをzoxideのデータベースに追加\n3. **`zi`**（対話式選択）コマンドのロジックを処理\n\n---\n\n## シェル別設定\n\n### 1. Bash（Linux / macOSデフォルト）\n\n`~/.bashrc`ファイルの末尾に追加：\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\n---\n\n### 2. Zsh（macOSデフォルト / パワーユーザー）\n\n`~/.zshrc`ファイルを編集：\n\n```zsh\neval \"$(zoxide init zsh)\"\n```\n\n**oh-my-zsh**や`zsh-syntax-highlighting`などのプラグインを使用している場合、zoxide init行は**プラグインがロードされた後**に配置してください。\n\n---\n\n### 3. Fish Shell\n\n`~/.config/fish/config.fish`に追加：\n\n```fish\nzoxide init fish | source\n```\n\n---\n\n### 4. PowerShell（Windows）\n\nPowerShellプロファイルを編集。パスは`$PROFILE`で確認：\n\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n---\n\n### 5. Nushell\n\nenvファイル（通常`~/.config/nushell/env.nu`）に追加：\n\n```nu\nzoxide init nushell | save -f ~/.zoxide.nu\n```\n\n設定ファイル（`~/.config/nushell/config.nu`）に追加：\n\n```nu\nsource ~/.zoxide.nu\n```\n\n---\n\n## 高度：zoxideで`cd`を置き換え\n\n`cd`か`z`か考えたくない場合、`--cmd`フラグを使用できます。\n\n### Zshの例\n\n```zsh\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n### これが何をするか\n\n- `cd`がzoxideのファジーロジックを使用\n- `cd ..`は通常通り1ディレクトリ上に移動\n- `cd /tmp`は絶対パスに移動\n- `cd foo`は最も頻繁な`foo`ディレクトリにジャンプ\n\n---\n\n## パフォーマンスチューニング：遅延ロード\n\nシェル起動時間にこだわる場合、**遅延ロード**できます。\n\n### Zsh遅延ロードスクリプト例\n\n```zsh\nz() {\n    unfunction \"$0\"\n    eval \"$(zoxide init zsh)\"\n    $0 \"$@\"\n}\n```\n\n⚠️ **警告：** 遅延ロードの欠点は、そのセッションで`z`を初めて実行するまでzoxideがディレクトリ変更を記録しないことです。\n\n---\n\n## 一般的なinitエラーのトラブルシューティング\n\n### 「command not found: z」\n\n- シェルを再起動しましたか？設定ファイルは起動時にのみ読み込まれます\n- `source ~/.zshrc`を実行するか、新しいターミナルタブを開く\n- zoxideが`PATH`にありますか？`which zoxide`を実行\n\n### 「zoxide: error: unknown flag」\n\n古いバージョンのzoxideを使用している可能性があります：\n\n```bash\nzoxide --version\n```\n\n**Homebrew**または**公式インストールスクリプト**で最新バージョンに更新してください。\n\n---\n\n## 最後に\n\n`zoxide init`コマンドは「設定して忘れる」ステップですが、理解することでターミナル環境を制御できます。\n\n標準の`z`コマンドを使うか、`cd`を完全にエイリアスするかに関わらず、適切な初期化が10倍のナビゲーション速度を解き放つ鍵です。\n"
+        "content": "# zoxide init：シェル統合の包括的ガイド\n\nHomebrew、Scoop、Aptなどのパッケージマネージャーで**zoxide**をインストールしました。ターミナルで`z`と入力すると、魔法を期待していたのに**command not found**が表示されました。\n\n心配いりません — これは新規ユーザーにとって最も一般的な障害です。\n\nバイナリのインストールはステップ1に過ぎません。ステップ2は**初期化**です。\n\nこのガイドは`zoxide init`コマンドに完全に焦点を当てています—zoxideバイナリとシェルの動作を接続する橋です。\n\n---\n\n## `zoxide init`は実際に何をするのか？\n\n`zoxide`は実行可能ファイルですが、シェル（Bash、Zshなど）はディレクトリを変更するときにそれと通信する方法を知る必要があります。\n\n```bash\nzoxide init <shell>\n```\n\nを実行すると、シェルスクリプトのブロックが出力されます。このスクリプトは3つのことを行います：\n\n1. **`z`コマンド（または関数）を定義**\n2. ディレクトリを変更するたびにリッスンする**「フック」を設定**し、そのパスをzoxideのデータベースに追加\n3. **`zi`**（対話式選択）コマンドのロジックを処理\n\n---\n\n## シェル別設定\n\n### 1. Bash（Linux / macOSデフォルト）\n\n`~/.bashrc`ファイルの末尾に追加：\n\n```bash\neval \"$(zoxide init bash)\"\n```\n\n---\n\n### 2. Zsh（macOSデフォルト / パワーユーザー）\n\n`~/.zshrc`ファイルを編集：\n\n```zsh\neval \"$(zoxide init zsh)\"\n```\n\n**oh-my-zsh**や`zsh-syntax-highlighting`などのプラグインを使用している場合、zoxide init行は**プラグインがロードされた後**に配置してください。\n\n---\n\n### 3. Fish Shell\n\n`~/.config/fish/config.fish`に追加：\n\n```fish\nzoxide init fish | source\n```\n\n---\n\n### 4. PowerShell（Windows）\n\nPowerShellプロファイルを編集。パスは`$PROFILE`で確認：\n\n```powershell\nInvoke-Expression (& { (zoxide init powershell | Out-String) })\n```\n\n---\n\n### 5. Nushell\n\nenvファイル（通常`~/.config/nushell/env.nu`）に追加：\n\n```nu\nzoxide init nushell | save -f ~/.zoxide.nu\n```\n\n設定ファイル（`~/.config/nushell/config.nu`）に追加：\n\n```nu\nsource ~/.zoxide.nu\n```\n\n---\n\n## 高度：zoxideで`cd`を置き換え\n\n`cd`か`z`か考えたくない場合、`--cmd`フラグを使用できます。\n\n### Zshの例\n\n```zsh\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n### これが何をするか\n\n- `cd`がzoxideのファジーロジックを使用\n- `cd ..`は通常通り1ディレクトリ上に移動\n- `cd /tmp`は絶対パスに移動\n- `cd foo`は最も頻繁な`foo`ディレクトリにジャンプ\n\n---\n\n## パフォーマンスチューニング：遅延ロード\n\nシェル起動時間にこだわる場合、**遅延ロード**できます。\n\n### Zsh遅延ロードスクリプト例\n\n```zsh\nz() {\n    unfunction \"$0\"\n    eval \"$(zoxide init zsh)\"\n    $0 \"$@\"\n}\n```\n\n⚠️ **警告：** 遅延ロードの欠点は、そのセッションで`z`を初めて実行するまでzoxideがディレクトリ変更を記録しないことです。\n\n---\n\n## 一般的なinitエラーのトラブルシューティング\n\n### 「command not found: z」\n\n- シェルを再起動しましたか？設定ファイルは起動時にのみ読み込まれます\n- `source ~/.zshrc`を実行するか、新しいターミナルタブを開く\n- zoxideが`PATH`にありますか？`which zoxide`を実行\n\n### 「zoxide: error: unknown flag」\n\n古いバージョンのzoxideを使用している可能性があります：\n\n```bash\nzoxide --version\n```\n\n**Homebrew**または**公式インストールスクリプト**で最新バージョンに更新してください。\n\n---\n\n## 最後に\n\n`zoxide init`コマンドは「設定して忘れる」ステップですが、理解することでターミナル環境を制御できます。\n\n標準の`z`コマンドを使うか、`cd`を完全にエイリアスするかに関わらず、適切な初期化こそが、少ない入力で目的のディレクトリへ移動するための鍵です。\n"
       },
       "zoxide-performance-ja": {
         "title": "zoxideが速い理由：ランクアルゴリズムの詳細解説",
@@ -892,81 +885,6 @@
         }
       }
     ]
-  },
-  "ads": {
-    "default": "Ad Slot",
-    "home": {
-      "top": "💡 Usage Tip - \"Use `z` command to quickly jump to recently visited directories\"",
-      "middle": "⚡ Performance Boost - \"zoxide is 10x faster than traditional cd command\"",
-      "sidebar": "📚 Popular Tutorials - \"Check out zoxide advanced usage and real-world examples\"",
-      "bottom": "🎯 Advantage - \"zoxide supports fuzzy search, no need to type full paths\""
-    },
-    "features": {
-      "top": "🔧 Configuration Tip - \"Set `_ZO_EXCLUDE_DIRS` to exclude directories from indexing, improve performance\"",
-      "sidebar": "🔧 Configuration Tip - \"Set `_ZO_EXCLUDE_DIRS` to exclude directories from indexing, improve performance\"",
-      "middle": "💪 Core Advantage - \"zoxide is written in Rust with excellent performance\"",
-      "bottom": "📊 Performance Advantage - \"zoxide is 3x faster than autojump\""
-    },
-    "tutorials": {
-      "top": "🚀 Efficiency Tip - \"Combine with fzf for fuzzy search + smart directory jumping\"",
-      "sidebar": "🚀 Efficiency Tip - \"Combine with fzf for fuzzy search + smart directory jumping\"",
-      "middle": "📖 Deep Reading - \"Performance tuning and team collaboration docs all here\"",
-      "bottom": "💡 Usage Tip - \"Use `zi` command for interactive directory selection\""
-    },
-    "download": {
-      "top": "🔧 Configuration Tip - \"Remember to initialize Shell config after installation to make zoxide work\"",
-      "sidebar": "🔧 Configuration Tip - \"Remember to initialize Shell config after installation to make zoxide work\"",
-      "middle": "⚡ Performance Boost - \"zoxide supports all major shells\"",
-      "bottom": "🎯 Advantage - \"One-click install, quick start\""
-    },
-    "blog": {
-      "list": {
-        "top": "📚 Popular Articles - \"Check out zoxide version updates and community case studies\"",
-        "sidebar": "📚 Popular Articles - \"Check out zoxide version updates and community case studies\"",
-        "middle": "💡 Usage Tip - \"Check out latest tutorials and best practices\"",
-        "bottom": "📖 Deep Reading - \"Learn more about zoxide advanced usage\""
-      }
-    },
-    "article": {
-      "top": "💡 Usage Tip - \"Use `zi` command for interactive directory selection with fuzzy search and preview\"",
-      "sidebar": "📚 Popular Articles - \"Check out zoxide version updates and community case studies\"",
-      "inArticle": "📖 Deep Reading - \"Performance tuning and team collaboration docs all here\"",
-      "bottom": "📚 Advanced Tip - \"Use `zoxide query` to get matching results without jumping, perfect for scripts\""
-    },
-    "changelog": {
-      "top": "🔧 Configuration Tip - \"New versions may introduce new config options, remember to check docs\"",
-      "sidebar": "🔧 Configuration Tip - \"New versions may introduce new config options, remember to check docs\"",
-      "middle": "⚡ Performance Boost - \"Follow changelog to learn about latest features\"",
-      "bottom": "🎯 Advantage - \"Continuous updates, features keep improving\""
-    },
-    "faq": {
-      "top": "💡 FAQ - \"Check out common questions and solutions for using zoxide\"",
-      "sidebar": "💡 FAQ - \"Check out common questions and solutions for using zoxide\"",
-      "middle": "🔧 Configuration Tip - \"Having issues- Check FAQ for quick solutions\"",
-      "bottom": "📚 Advanced Tip - \"Learn more about advanced usage and tips\""
-    },
-    "comparisons": {
-      "top": "📊 Performance Data - \"View detailed performance comparison between zoxide and other tools\"",
-      "sidebar": "📊 Performance Data - \"View detailed performance comparison between zoxide and other tools\"",
-      "middle": "💪 Core Advantage - \"zoxide leads in both performance and usability\"",
-      "bottom": "🎯 Advantage - \"Choose zoxide, choose efficiency\""
-    },
-    "about": {
-      "top": "📚 About Us - \"Learn about zoxide.org's mission and vision\"",
-      "sidebar": "📚 About Us - \"Learn about zoxide.org's mission and vision\"",
-      "middle": "💡 Usage Tip - \"Check out our tutorials and resources\"",
-      "bottom": "🎯 Advantage - \"Professional zoxide fan site\""
-    },
-    "privacy": {
-      "top": "🔒 プライバシー保護 - \"お客様のプライバシーを尊重します。プライバシーポリシーをご確認ください\"",
-      "sidebar": "🔒 プライバシー保護 - \"お客様のプライバシーを尊重します。プライバシーポリシーをご確認ください\"",
-      "bottom": "📚 詳細はこちら - \"データの保護方法について学ぶ\""
-    },
-    "terms": {
-      "top": "📋 利用規約 - \"当サイトの利用条件とルールをご確認ください\"",
-      "sidebar": "📋 利用規約 - \"当サイトの利用条件とルールをご確認ください\"",
-      "bottom": "📚 詳細はこちら - \"利用規約の全文を見る\""
-    }
   },
   "privacyPolicy": {
     "title": "プライバシーポリシー",

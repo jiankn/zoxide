@@ -2487,7 +2487,7 @@ By combining these, \`zoxide\` ensures that a directory you visited 100 times la
 
 To keep your database fast:
 -   **Exclude heavy directories** like node_modules. (See [Advanced Config](/tutorials/advanced-config/))
--   **Use strict mode** if you want exact matches.
+-   **Use more specific keywords** when several directories share a name: \`z proj api\` instead of \`z api\`. zoxide has no separate exact-match mode; the last keyword must match the last component of the path.
 
 Zoxide is built in **Rust** for blazing speed, ensuring that the lookup time is imperceptible even with a large database.`,
     date: "2026-01-07",

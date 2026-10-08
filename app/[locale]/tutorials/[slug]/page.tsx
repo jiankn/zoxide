@@ -115,17 +115,14 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   const category = tTutorials(`categories.${categoryKey}`);
   const level = translation?.level || tutorial.level;
   const duration = translation?.duration || tutorial.duration;
+  // 仅对实际复核过的教程显示核验说明；Windows、macOS 教程正文自带测试环境表
   const verificationNote = slug === "install-ubuntu"
     ? locale === "zh"
       ? "独立核验说明。本教程的 Ubuntu 24.04 软件包版本、上游安装方式与 fzf 要求已于 2026 年 8 月 6 日复核；安装时仍应查看本机候选版本。"
       : locale === "ja"
         ? "独立検証メモ：Ubuntu 24.04のパッケージ版、上流の導入方法、fzf要件は2026年8月6日に照合しました。導入時は手元の候補版も確認してください。"
         : "Independent verification note: Ubuntu 24.04 package versions, upstream installation methods, and the fzf requirement were checked on August 6, 2026. Confirm the versions offered to your machine when installing."
-    : locale === "zh"
-      ? "独立核验说明。本教程的命令与配置说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；不同版本可能存在差异。"
-      : locale === "ja"
-        ? "独立検証メモ：このチュートリアルのコマンドと設定は2026年7月16日にzoxide公式リポジトリと照合しました。バージョンによる差異に注意してください。"
-        : "Independent verification note: commands and configuration guidance were checked against the official zoxide repository on July 16, 2026. Behavior can differ by version.";
+    : null;
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-12">
@@ -165,17 +162,19 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
 
           <GuideLinks locale={locale} currentPath={`/tutorials/${slug}`} />
 
-          <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
-            {verificationNote}{" "}
-            <a
-              href="https://github.com/ajeetdsouza/zoxide"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-700 underline hover:text-blue-900"
-            >
-              GitHub
-            </a>
-          </aside>
+          {verificationNote && (
+            <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
+              {verificationNote}{" "}
+              <a
+                href="https://github.com/ajeetdsouza/zoxide"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-700 underline hover:text-blue-900"
+              >
+                GitHub
+              </a>
+            </aside>
+          )}
         </main>
       </div>
     </div>

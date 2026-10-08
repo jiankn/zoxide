@@ -227,17 +227,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     articleUrl,
     post.date, // dateModified 使用发布日期（如果有更新日期可以单独设置）
   );
+  // 仅对实际复核过的文章显示核验说明，未复核的文章不显示
   const verificationNote = slug === "zoxide-vs-autojump"
     ? locale === "zh"
       ? "独立核验说明。本文的命令与支持范围已于 2026 年 8 月 6 日对照 zoxide 与 autojump 上游资料复核；批量配置前请再次查看最新发行说明。"
       : locale === "ja"
         ? "独立検証メモ：コマンドと対応範囲は2026年8月6日にzoxideとautojumpの上流資料で照合しました。複数端末へ展開する前に最新リリース文書を再確認してください。"
         : "Independent verification note: commands and support statements were checked against the zoxide and autojump upstream sources on August 6, 2026. Recheck current release notes before a multi-machine rollout."
-    : locale === "zh"
-      ? "独立核验说明。文中的命令与版本说明已于 2026 年 7 月 16 日对照 zoxide 官方仓库复核；用于自动化前请再次查看最新发行说明。"
-      : locale === "ja"
-        ? "独立検証メモ：コマンドとバージョン情報は2026年7月16日にzoxide公式リポジトリと照合しました。自動化に利用する前に最新リリースノートを再確認してください。"
-        : "Independent verification note: commands and version references were checked against the official zoxide repository on July 16, 2026. Recheck the latest release notes before using them in automation.";
+    : null;
 
   // 如果是教程类文章，添加 HowTo Schema
   const isTutorial = post.category === "教程" || post.category === "Tutorial";
@@ -332,17 +329,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             <GuideLinks locale={locale} currentPath={`/blog/${slug}`} />
 
-            <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
-              {verificationNote}{" "}
-              <a
-                href="https://github.com/ajeetdsouza/zoxide"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-700 underline hover:text-blue-900"
-              >
-                GitHub
-              </a>
-            </aside>
+            {verificationNote && (
+              <aside className="mx-auto max-w-3xl rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-gray-700">
+                {verificationNote}{" "}
+                <a
+                  href="https://github.com/ajeetdsouza/zoxide"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-700 underline hover:text-blue-900"
+                >
+                  GitHub
+                </a>
+              </aside>
+            )}
 
             <div className="flex flex-wrap gap-2">
               {tags.map((tag: string) => (
@@ -355,7 +354,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ))}
             </div>
 
-            <RelatedPosts posts={relatedPosts} />
+            <RelatedPosts
+              posts={relatedPosts.map(({ id, slug, title, excerpt, category, readTime }) => ({ id, slug, title, excerpt, category, readTime }))}
+            />
           </main>
         </div>
       </div>

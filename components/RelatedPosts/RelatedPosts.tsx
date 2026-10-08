@@ -4,8 +4,11 @@ import { Link } from '@/i18n/routing';
 import { BlogPost } from '@/data/blog';
 import { useTranslations, useLocale } from 'next-intl';
 
+// 只接收卡片需要的字段，避免把文章全文序列化进页面
+export type RelatedPostSummary = Pick<BlogPost, 'id' | 'slug' | 'title' | 'excerpt' | 'category' | 'readTime'>;
+
 interface RelatedPostsProps {
-  posts: BlogPost[];
+  posts: RelatedPostSummary[];
 }
 
 export default function RelatedPosts({ posts }: RelatedPostsProps) {

@@ -530,11 +530,11 @@ export _ZO_MAXAGE=5000
 
 ### 排除模式
 
-使用 \`_ZO_EXCLUDE_PATHS\` 可以设置更复杂的排除规则：
+zoxide 没有单独的排除模式变量，\`_ZO_EXCLUDE_DIRS\` 本身就支持通配符（glob）。注意：设置它会覆盖默认值（默认排除家目录），所以要把 \`$HOME\` 一起写上：
 
 \`\`\`bash
-# 排除所有包含 .git 的路径
-export _ZO_EXCLUDE_PATHS=".git"
+# 排除家目录本身，以及 ~/private 下的所有目录
+export _ZO_EXCLUDE_DIRS="$HOME:$HOME/private/*"
 \`\`\`
 
 ## 自定义别名
@@ -644,20 +644,17 @@ rm ~/.zo
 eval "$(zoxide init zsh)"
 \`\`\`
 
-## 团队协作
+## 在多台电脑间保持一致
 
-### 共享数据库
-
-zoxide 支持共享数据库，团队成员可以共享常用目录：
+zoxide 的数据库是每个用户自己的文件，不要让多个人或多台电脑同时写入同一个数据库。换电脑时需要同步的是 Shell 配置，而不是数据库：
 
 \`\`\`bash
-# 使用共享数据库位置
-export _ZO_DATA_DIR="/shared/path/zoxide"
+# 把这些行放进用 Git 管理的 dotfiles，同步到每台电脑
+export _ZO_EXCLUDE_DIRS="$HOME:$HOME/private/*"
+eval "$(zoxide init zsh)"
 \`\`\`
 
-**注意事项**：
-- 确保所有团队成员有读写权限
-- 定期备份共享数据库
+如果确实想带走访问记录，可以在两台电脑都没有运行 zoxide 时复制 \`db.zo\` 文件（Linux 默认位于 \`~/.local/share/zoxide/db.zo\`）。
 - 考虑使用版本控制管理数据库
 
 ## 故障排除
@@ -686,7 +683,7 @@ mv ~/.zo ~/.zo.backup
 1. **合理设置排除目录**：排除不需要索引的大型目录
 2. **定期清理**：定期清理不常用的目录记录
 3. **备份数据库**：重要配置要备份
-4. **团队协作**：使用共享数据库提升团队效率
+4. **配置写进 dotfiles**：换电脑时同步 Shell 配置，数据库各自保留
 
 ## 下一步
 
@@ -851,19 +848,14 @@ export _ZO_EXCLUDE_DIRS="/tmp:/var:/proc:/sys:/usr"
 export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
 \`\`\`
 
-### 案例 3：团队协作
+### 案例 3：多台电脑使用同一套配置
 
-团队共享数据库：
+把 zoxide 的环境变量和初始化命令放进用 Git 管理的 dotfiles；每台电脑保留自己的数据库：
 
 \`\`\`bash
-# 使用共享位置
-export _ZO_DATA_DIR="/shared/zoxide"
+# 每台电脑使用本机的默认数据库位置
+export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
 \`\`\`
-
-**注意事项**：
-- 确保权限正确
-- 定期备份
-- 考虑使用 Git 管理
 
 ## 监控和维护
 
@@ -1411,12 +1403,13 @@ zi() {
 
 ## 调试技巧
 
-### 启用调试模式
+### 查看匹配过程
 
 \`\`\`bash
-# 查看 zoxide 的调试信息
-export _ZO_DEBUG=1
-z project
+# zoxide 没有调试模式；用 query 查看会匹配到哪些目录及其得分
+zoxide query --list --score project
+# 让 z 在跳转前打印匹配到的目录
+export _ZO_ECHO=1
 \`\`\`
 
 ### 检查数据库内容

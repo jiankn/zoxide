@@ -37,6 +37,27 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+type Messages = Awaited<ReturnType<typeof getMessages>>;
+
+// 客户端组件使用的命名空间：common、footer、home，以及 RelatedPosts 用到的 blog 摘要字段
+function pickClientMessages(all: Messages): Messages {
+  const blog = (all.blog ?? {}) as Record<string, unknown>;
+  const data = (blog.data ?? {}) as Record<string, { title?: string; excerpt?: string; category?: string }>;
+  const blogSummaries = Object.fromEntries(
+    Object.entries(data).map(([slug, post]) => [
+      slug,
+      { title: post.title, excerpt: post.excerpt, category: post.category },
+    ]),
+  );
+
+  return {
+    common: all.common,
+    footer: all.footer,
+    home: all.home,
+    blog: { readTime: blog.readTime, detail: blog.detail, data: blogSummaries },
+  } as Messages;
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -54,8 +75,9 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // 获取消息
-  const messages = await getMessages();
+  // 只把客户端组件用到的文案发给浏览器。完整文案里有文章全文和 SEO 字段，
+  // 若整份序列化进每个页面的 HTML，会让爬虫读到大量与当前页面无关的隐藏文本。
+  const messages = pickClientMessages(await getMessages());
 
   const organizationSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
