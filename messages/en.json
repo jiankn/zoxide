@@ -430,8 +430,8 @@
     "notFound": "Post Not Found",
     "data": {
       "what-is-zoxide-smarter-cd": {
-        "title": "What Is Zoxide? A Smarter cd Command That Learns Your Habits",
-        "excerpt": "Discover how zoxide replaces the traditional cd command with a smarter, learning-based navigation tool. Learn about frecency, installation, and how to jump directories instantly.",
+        "title": "What is zoxide? How directory jumping and learning work",
+        "excerpt": "Tested zoxide 0.10.0: how the z function changes directories, when Bash and Zsh record visits, and why repeating cd . produces different scores.",
         "category": "Tutorial",
         "author": "Jacky Jian",
         "tags": [

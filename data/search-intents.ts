@@ -119,17 +119,32 @@ const redirectRules: readonly RedirectRule[] = [
   },
   {
     source: '/blog/zoxide-performance-en',
-    target: '/blog/how-zoxide-works-en',
+    target: '/blog/what-is-zoxide-smarter-cd',
     locales: ['en'],
   },
   {
     source: '/blog/zoxide-performance-zh',
-    target: '/blog/how-zoxide-works-zh',
+    target: '/blog/zoxide-shi-shenme-z-mingling-tidai-cd',
     locales: ['zh'],
   },
   {
     source: '/blog/zoxide-performance-ja',
-    target: '/blog/how-zoxide-works-ja',
+    target: '/blog/zoxide-toha-cd-no-kawari',
+    locales: ['ja'],
+  },
+  {
+    source: '/blog/how-zoxide-works-en',
+    target: '/blog/what-is-zoxide-smarter-cd',
+    locales: ['en'],
+  },
+  {
+    source: '/blog/how-zoxide-works-zh',
+    target: '/blog/zoxide-shi-shenme-z-mingling-tidai-cd',
+    locales: ['zh'],
+  },
+  {
+    source: '/blog/how-zoxide-works-ja',
+    target: '/blog/zoxide-toha-cd-no-kawari',
     locales: ['ja'],
   },
   {

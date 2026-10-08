@@ -435,8 +435,8 @@
     "notFound": "文章未找到",
     "data": {
       "zoxide-shi-shenme-z-mingling-tidai-cd": {
-        "title": "Zoxide 是什么？能够替代 cd 的智能命令",
-        "excerpt": "了解 Zoxide 如何通过学习你的使用习惯来替代传统的 cd 命令。探索 Frecency 算法、安装步骤以及如何实现目录间的瞬间跳转。",
+        "title": "zoxide 是什么？它如何跳转目录、记录访问和计分",
+        "excerpt": "在 Ubuntu 24.04 实测 zoxide 0.10.0，展示 z 函数如何调用 cd、Bash 与 Zsh 何时记录目录，以及重复 cd .、多次 add 和真实路径跳转的结果。",
         "category": "教程",
         "author": "Jacky Jian",
         "tags": [

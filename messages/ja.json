@@ -430,8 +430,8 @@
     "notFound": "記事が見つかりません",
     "data": {
       "zoxide-toha-cd-no-kawari": {
-        "title": "Zoxideとは？ cdコマンドに代わるスマートな自動学習ツール",
-        "excerpt": "従来のcdコマンドを、よりスマートな学習ベースのナビゲーションツールであるZoxideに置き換える方法を紹介します。Frecency（頻度と最近の使用）、インストール方法、そしてディレクトリ間を瞬時にジャンプする方法について学びましょう。",
+        "title": "zoxide とは？ディレクトリ移動と記録の仕組みを実測",
+        "excerpt": "Ubuntu 24.04 で zoxide 0.10.0 を実測。z 関数が cd を呼ぶ流れ、Bash と Zsh の記録タイミング、cd . と add の繰り返しによるスコアの違いを確認します。",
         "category": "チュートリアル",
         "author": "Jacky Jian",
         "tags": [

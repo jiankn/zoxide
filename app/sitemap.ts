@@ -21,11 +21,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const correctedPaths = new Set([
     // 2026-10-08：命令参考与初始化指南完成三语实测重写；中日路径已列在下方。
     'en:/blog/zoxide-commands', 'en:/blog/zoxide-init-guide',
+    // 2026-10-08：定义页合并工作原理，正文来自同一次 Ubuntu 交互测试。
+    'en:/blog/what-is-zoxide-smarter-cd',
+    'zh:/blog/zoxide-shi-shenme-z-mingling-tidai-cd',
+    'ja:/blog/zoxide-toha-cd-no-kawari',
     'en:/download', 'zh:/download', 'ja:/download',
     'en:/tutorials/install-arch-nixos', 'zh:/tutorials/install-arch-nixos', 'ja:/tutorials/install-arch-nixos',
     'en:/tutorials/advanced-config', 'zh:/tutorials/advanced-config', 'ja:/tutorials/advanced-config',
     'en:/blog/zoxide-alias-autocomplete', 'zh:/blog/zoxide-alias-autocomplete', 'ja:/blog/zoxide-alias-autocomplete',
-    'zh:/blog/zoxide-commands', 'ja:/blog/zoxide-commands', 'ja:/blog/zoxide-init-guide', 'ja:/blog/how-zoxide-works-ja',
+    'zh:/blog/zoxide-commands', 'ja:/blog/zoxide-commands', 'ja:/blog/zoxide-init-guide',
     'en:', 'zh:', 'ja:', 'en:/tutorials',
     'zh:/tutorials/troubleshooting', 'ja:/tutorials/troubleshooting',
     'en:/tutorials/quick-start',
@@ -33,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'en:/tools/zoxide-doctor', 'zh:/tools/zoxide-doctor', 'ja:/tools/zoxide-doctor',
     'en:/tutorials/install-ubuntu', 'zh:/tutorials/install-ubuntu', 'ja:/tutorials/install-ubuntu',
     'en:/tutorials/fzf-integration', 'zh:/tutorials/fzf-integration', 'ja:/tutorials/fzf-integration',
-    'en:/blog/zoxide-command-not-found', 'zh:/blog/zoxide-command-not-found', 'ja:/blog/zoxide-command-not-found', 'en:/blog/troubleshooting-zoxide-no-match-found', 'zh:/blog/troubleshooting-zoxide-no-match-found', 'ja:/blog/troubleshooting-zoxide-no-match-found', 'en:/blog/zoxide-not-working', 'zh:/blog/zoxide-not-working', 'ja:/blog/zoxide-not-working', 'en:/blog/zoxide-alias-autocomplete', 'zh:/blog/zoxide-alias-autocomplete', 'ja:/blog/zoxide-alias-autocomplete', 'en:/blog/how-zoxide-works-en', 'ja:/blog/how-zoxide-works-ja', 'zh:/blog/zoxide-commands', 'ja:/blog/zoxide-commands',
+    'en:/blog/zoxide-command-not-found', 'zh:/blog/zoxide-command-not-found', 'ja:/blog/zoxide-command-not-found', 'en:/blog/troubleshooting-zoxide-no-match-found', 'zh:/blog/troubleshooting-zoxide-no-match-found', 'ja:/blog/troubleshooting-zoxide-no-match-found', 'en:/blog/zoxide-not-working', 'zh:/blog/zoxide-not-working', 'ja:/blog/zoxide-not-working', 'en:/blog/zoxide-alias-autocomplete', 'zh:/blog/zoxide-alias-autocomplete', 'ja:/blog/zoxide-alias-autocomplete', 'zh:/blog/zoxide-commands', 'ja:/blog/zoxide-commands',
   ]);
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([

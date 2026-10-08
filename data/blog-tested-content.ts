@@ -1,6 +1,525 @@
 // 实测改写的博客正文（2026-10-08，全新 ubuntu:24.04 容器 + tmux 真实终端）。
 // 优先级高于 messages 中的旧正文，由 getBlogContentOverride 读取。
 export const testedBlogContent: Record<string, Record<string, string>> = {
+  'what-is-zoxide-smarter-cd': {
+    en: String.raw`# What is zoxide? How directory jumping and learning work
+
+zoxide records directories in a database and finds them from short keywords. The z command is a function loaded into your shell: it asks the binary for a destination, then changes the shell's directory. Our test used z api to reach ~/projects/api-server after adding that path to a fresh database.
+
+Recording happens through shell hooks. This matters when interpreting a score: Bash and Zsh did not record the same sequence of cd commands in the same way.
+
+## Test environment
+
+| Item | Value |
+| --- | --- |
+| Date | October 8, 2026 |
+| System | Fresh ubuntu:24.04 container, reporting Ubuntu 24.04.5 LTS; x86_64 |
+| User | Ordinary user tester, uid 1001 |
+| Shells | Bash 5.2.21 and Zsh 5.9 |
+| zoxide | 0.10.0, installed as tester with the official installation script |
+| Hook | Default pwd, as reported by zoxide init --help |
+| Method | GitHub Actions; tmux 3.4 interactive shells, 120 × 30; separate startup files and _ZO_DATA_DIR for each case |
+| fzf | Not installed; interactive selection was not tested in this run |
+
+The [test log](https://github.com/jiankn/zoxide/actions/runs/37785045934) contains generated shell code, captured terminals and queries from outside those terminals. The artifact contains the full captures and results.json. We abbreviate /home/tester as ~ in output below. Terminal excerpts omit completion markers and blank space; generated-code excerpts are explicitly cropped.
+
+## Why z can change the current shell's directory
+
+In a separate navigation case, we first ran zoxide add /home/tester/projects/api-server. The shell started in /home/tester. The captured output, split into individual commands for readability, was:
+
+~~~text
+$ pwd
+~
+$ zoxide query api
+~/projects/api-server
+$ pwd
+~
+$ z api
+$ pwd
+~/projects/api-server
+~~~
+
+The query printed a path and left the current shell in its original directory. Calling z changed that shell's directory. Reading the code printed by zoxide init bash explains the difference.
+
+These two function definitions are excerpts from that generated output; the intervening code is omitted:
+
+~~~bash
+function z() {
+    __zoxide_z "$@"
+}
+
+function __zoxide_cd() {
+    # shellcheck disable=SC2164
+    \builtin cd -- "$@"
+}
+~~~
+
+Inside the keyword branch of __zoxide_z, the generated query line was:
+
+~~~bash
+        result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" &&
+~~~
+
+This last line is a cropped excerpt, not a standalone command. The following line passes the result to __zoxide_cd. The call sequence is z → __zoxide_z → zoxide query → __zoxide_cd → builtin cd. The built-in cd executes inside the current shell; the query subprocess supplies the path.
+
+Generating this code and loading it are separate steps. Our Bash startup file loaded it with eval "$(zoxide init bash)"; Zsh used eval "$(zoxide init zsh)" after compinit. The [tested initialization guide](/blog/zoxide-init-guide/) covers startup files and command names.
+
+## What the frecency score showed immediately after recording
+
+The score combines frequency and recency. For this test, we measured the immediate effect of recording a directory, using zoxide query --list --score. The displayed number is a score, not a literal visit count.
+
+We gave explicit add commands their own empty _ZO_DATA_DIR and queried immediately after each command:
+
+~~~text
+$ zoxide query --list --score
+# No output: the database was empty.
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+   4.0 ~/projects/api-server
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+   8.0 ~/projects/api-server
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+  12.0 ~/projects/api-server
+~~~
+
+The comment describing empty output is an annotation. Repeated add calls increased this one path's score even though the caller never changed directory. That separates explicit recording from automatic recording by a shell hook.
+
+Next, each interactive shell started with another empty database and default initialization. We sent one command at a time, waited for its prompt, then queried the same database from an external process. The table follows one continuous sequence in each shell:
+
+| Action | Bash: api-server score | Zsh: api-server score |
+| --- | --- | --- |
+| cd ~/projects/api-server | 4.0 | 4.0 |
+| cd . while already there | 4.0 | 8.0 |
+| cd ~, then cd ~/projects/api-server, as separate commands | 8.0 | 12.0 |
+| Leave and return once more, as separate commands | 12.0 | 16.0 |
+
+Bash did not add another record for cd .; Zsh did. Returning after leaving added another record in both shells. Thus a score can reflect hook events, including a same-directory cd in Zsh, rather than distinct directories visited.
+
+**Time-based score changes were not tested.** We did not wait across hour, day or week boundaries, alter the clock, or measure _ZO_MAXAGE cleanup. These immediate scores do not establish how a record's score changes after a long wait.
+
+## When Bash and Zsh record the directory
+
+The actual hook registrations in the interactive shells were:
+
+~~~text
+Bash:
+declare -- PROMPT_COMMAND="__zoxide_hook"
+
+Zsh:
+typeset -a chpwd_functions=( __zoxide_hook )
+~~~
+
+Bash's default pwd hook runs through PROMPT_COMMAND before the next prompt. Its generated function compares the current path with the previous path. Zsh attaches the function to chpwd_functions and calls add when that event fires. These are different implementations of the same default hook mode.
+
+To see the timing, we sent this as one command line after the score sequence above:
+
+~~~bash
+cd ~/projects/api-gateway; cd ~/work/api-docs; zoxide query --list --score
+~~~
+
+We then ran another query from outside the terminal after the prompt returned:
+
+| Query point | Bash | Zsh |
+| --- | --- | --- |
+| Query on the same line as both cd commands | Only api-server, score 12.0 | api-server 16.0, api-docs 4.0, api-gateway 4.0 |
+| External query after the next prompt | api-server 12.0 and api-docs 4.0; no api-gateway | The same three entries as above |
+
+Bash learned the final directory when the prompt appeared and missed the intermediate directory. Zsh recorded both cd events before the query on that line. An empty query result immediately after cd in a Bash command list can therefore reflect timing; check again after the prompt.
+
+### A cd in a child script did not teach the parent shell
+
+Our child Bash script changed into ~/scratch/script-only and printed its working directory. On returning, the interactive parent printed ~/projects/api-server. Its database still contained only api-server, with the same score as before, in both the Bash and Zsh parent cases. The child script did not load zoxide integration.
+
+We also tested a separate noninteractive Bash process that did load it:
+
+~~~bash
+bash -c 'eval "$(zoxide init bash)"; cd /home/tester/scratch/script-only; pwd'
+~~~
+
+It printed the script-only path, but an external query of that case's fresh database returned no entries. There was no prompt to run PROMPT_COMMAND. For explicit recording in a script, the add commands above provide a tested route.
+
+### PowerShell: a separately dated Windows test
+
+The [Windows installation tutorial](/tutorials/install-windows/) tested Windows 11 Pro 23H2, PowerShell 7.6.6 and zoxide 0.10.0 on September 30, 2026. It found that recording happens through the prompt function: redefining prompt after initialization stopped learning, and script cd commands without prompts did not record visits. This is evidence from that earlier Windows test; we did not run PowerShell in the present Ubuntu case.
+
+## z also accepts real paths, z .. and z -
+
+The navigation terminal also produced these results:
+
+| Starting directory | Command | Directory reported by pwd |
+| --- | --- | --- |
+| ~/projects/api-server | z .. | ~/projects |
+| ~/projects | z - | ~/projects/api-server |
+| ~/projects/api-server | z /home/tester/scratch | ~/scratch |
+| ~/scratch | z unlearned-child | ~/scratch/unlearned-child |
+
+Before the last two moves, the query list contained no unlearned-child entry. The child directory already existed on disk, and z entered it without a learned match. The generated Bash function checks whether a single argument is a usable path before falling back to a database query.
+
+These cases behaved like cd for a parent path, the previous directory, an absolute path and an existing child. This test did not compare every cd option, CDPATH or symlink behavior. You can use these tested path forms alongside keyword jumps; the [command reference](/blog/zoxide-commands/) covers the broader command set.
+
+## Reproduce the recording test in a separate shell
+
+Create the test directories and choose an empty database before loading integration. Run this setup in a separate Bash session:
+
+~~~bash
+mkdir -p ~/projects/api-server ~/projects/api-gateway ~/work/api-docs
+export _ZO_DATA_DIR="$(mktemp -d)"
+eval "$(zoxide init bash)"
+~~~
+
+In Zsh, use eval "$(zoxide init zsh)" instead. Send each cd as a separate line when comparing scores after prompts. For the compound-command case, keep both cd commands and the query on one line. Our automated check used tmux capture-pane -p and an external query sharing that shell's _ZO_DATA_DIR.
+
+The tested 0.10.0 help lists six public configuration variables: _ZO_DATA_DIR, _ZO_ECHO, _ZO_EXCLUDE_DIRS, _ZO_FZF_OPTS, _ZO_MAXAGE and _ZO_RESOLVE_SYMLINKS. We varied _ZO_DATA_DIR to isolate cases; we did not vary the other five here. Other hook modes and additional Linux shells are covered in the [initialization tests](/blog/zoxide-init-guide/). This run did not test fzf, macOS or Windows profiles, or long-term score changes.
+`,
+  },
+  'zoxide-shi-shenme-z-mingling-tidai-cd': {
+    zh: String.raw`# zoxide 是什么？它如何跳转目录、记录访问和计分
+
+zoxide 把目录记录到数据库里，让你用短关键词找到路径。终端里的 z 是初始化代码定义的 Shell 函数：先向 zoxide 二进制查询目标，再在当前 Shell 里执行 cd。本次测试先把 ~/projects/api-server 加入一个空数据库，随后用 z api 跳到了这个目录。
+
+目录由 Shell 的 hook 自动记录。Bash 和 Zsh 对同一组 cd 命令的记录结果不同，因此“进去了一次”与“分数增加了一次”不能简单画等号。
+
+## 测试环境
+
+| 项目 | 实际环境 |
+| --- | --- |
+| 日期 | 2026-10-08 |
+| 系统 | 全新 ubuntu:24.04 容器；系统报告 Ubuntu 24.04.5 LTS；x86_64 |
+| 用户 | 普通用户 tester，uid 1001 |
+| Shell | Bash 5.2.21、Zsh 5.9 |
+| zoxide | 0.10.0，由 tester 使用官方安装脚本安装 |
+| hook | zoxide init --help 显示的默认模式 pwd |
+| 方法 | GitHub Actions + tmux 3.4，120 × 30 交互终端；每个案例使用独立启动文件和 _ZO_DATA_DIR |
+| fzf | 本轮未安装，也未测试交互式选择 |
+
+[本次测试日志](https://github.com/jiankn/zoxide/actions/runs/37785045934)包含初始化代码、终端抓屏和终端外部的数据库查询；附件保留了完整抓屏与 results.json。下文输出把 /home/tester 缩写为 ~，删去了测试完成标记和空白行；初始化代码的节选会单独注明。
+
+## z 为什么能改变当前 Shell 的目录
+
+跳转案例使用独立数据库，先执行 zoxide add /home/tester/projects/api-server，再从 /home/tester 开始查询。下面把抓屏中同一行的命令拆开展示，便于对应输入和输出：
+
+~~~text
+$ pwd
+~
+$ zoxide query api
+~/projects/api-server
+$ pwd
+~
+$ z api
+$ pwd
+~/projects/api-server
+~~~
+
+query 输出了一个路径，当前 Shell 仍在原处；执行 z 后，当前目录才变成 api-server。zoxide init bash 生成的代码解释了这个过程。
+
+以下两个函数来自生成结果，中间的其他代码已省略：
+
+~~~bash
+function z() {
+    __zoxide_z "$@"
+}
+
+function __zoxide_cd() {
+    # shellcheck disable=SC2164
+    \builtin cd -- "$@"
+}
+~~~
+
+__zoxide_z 的关键词查询分支里有这一行：
+
+~~~bash
+        result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" &&
+~~~
+
+这一行也是节选，不能作为独立命令执行；后面省略的一行把查询结果传给 __zoxide_cd。调用顺序是 z → __zoxide_z → zoxide query → __zoxide_cd → builtin cd。查询进程提供路径，Shell 函数在当前 Shell 内调用内建 cd。
+
+生成代码之后还要加载它。测试用 Bash 启动文件执行 eval "$(zoxide init bash)"；Zsh 则在 compinit 后执行 eval "$(zoxide init zsh)"。[初始化实测指南](/zh/blog/zoxide-init-guide/)解释了启动文件位置和命令名称。
+
+## frecency 分数如何变化：本次测到的即时结果
+
+frecency 把使用频率与近期程度结合起来。本轮用 zoxide query --list --score 观察记录后立即查询的分数；这个数值是显示分数，不是访问次数。
+
+显式 add 使用独立、空的 _ZO_DATA_DIR，每次添加后立即查询：
+
+~~~text
+$ zoxide query --list --score
+# 没有输出：数据库为空。
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+   4.0 ~/projects/api-server
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+   8.0 ~/projects/api-server
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+  12.0 ~/projects/api-server
+~~~
+
+“没有输出”是编辑注释。调用者没有切换目录，连续三次 add 仍把同一路径的分数依次加到了 4.0、8.0、12.0。显式添加与 Shell 自动记录可以分开观察。
+
+接下来，Bash 和 Zsh 各自从另一份空数据库开始，使用默认初始化。每发出一条命令，我们都等待提示符重新出现，再从终端外部查询同一个数据库。下表按实际执行顺序列出同一路径的分数：
+
+| 操作 | Bash 中 api-server 的分数 | Zsh 中 api-server 的分数 |
+| --- | --- | --- |
+| cd ~/projects/api-server | 4.0 | 4.0 |
+| 已在目录内，再执行 cd . | 4.0 | 8.0 |
+| 分两条命令执行 cd ~、cd ~/projects/api-server | 8.0 | 12.0 |
+| 再离开并返回一次，两条命令分别执行 | 12.0 | 16.0 |
+
+Bash 的 cd . 没有重复记录，Zsh 的 cd . 增加了记录。先离开、再回到这个目录，两种 Shell 都会增加记录。Zsh 的同目录 cd 也能产生记录事件，分数因此不能直接当作访问不同目录的次数。
+
+**等待时间对分数的影响未测试。** 本轮没有跨小时、天或周等待，没有修改系统时钟，也没有测试 _ZO_MAXAGE 的清理行为。上面的即时分数不能作为长期变化的实测证据。
+
+## Bash 与 Zsh 到底在何时记录目录
+
+交互终端实际显示的 hook 注册是：
+
+~~~text
+Bash:
+declare -- PROMPT_COMMAND="__zoxide_hook"
+
+Zsh:
+typeset -a chpwd_functions=( __zoxide_hook )
+~~~
+
+Bash 的默认 pwd hook 由 PROMPT_COMMAND 在下一个提示符出现前调用，生成的函数会比较当前路径与上次路径。Zsh 把函数接到 chpwd_functions，在该事件发生时执行 add。同样叫默认 pwd 模式，实现时机却不同。
+
+完成上面的分数序列后，我们把以下内容作为一行发送到终端：
+
+~~~bash
+cd ~/projects/api-gateway; cd ~/work/api-docs; zoxide query --list --score
+~~~
+
+等提示符重新出现，再从终端外部查询一次，结果如下：
+
+| 查询时刻 | Bash | Zsh |
+| --- | --- | --- |
+| 两次 cd 后，同一行里的 query | 只有 api-server，分数 12.0 | api-server 16.0、api-docs 4.0、api-gateway 4.0 |
+| 下一个提示符出现后的外部 query | api-server 12.0、api-docs 4.0；没有 api-gateway | 仍是上面三个记录 |
+
+Bash 到提示符出现时才记住最后的 api-docs，中间的 api-gateway 没有被记录。Zsh 在同一行里的 query 执行前就记录了两次 cd。因此，在 Bash 的命令列表里紧接 cd 查询，还看不到新目录时，可以等提示符出现后再查一次。
+
+### 子脚本里的 cd 没有教会父 Shell
+
+测试用子 Bash 脚本进入 ~/scratch/script-only 并打印路径。脚本结束后，交互父 Shell 打印的仍是 ~/projects/api-server。Bash 和 Zsh 父 Shell 的数据库都仍只有 api-server，分数也没有改变；这个子脚本没有加载 zoxide 初始化代码。
+
+我们另外测试了一份会加载初始化代码的非交互 Bash：
+
+~~~bash
+bash -c 'eval "$(zoxide init bash)"; cd /home/tester/scratch/script-only; pwd'
+~~~
+
+它打印了 script-only 路径，但在外部查询这一案例的空数据库，仍没有记录。非交互执行不会绘制提示符，也就不会调用 PROMPT_COMMAND。脚本需要主动记录目录时，可以采用上面实测过的 add。
+
+### PowerShell：引用另一份有日期的 Windows 实测
+
+[Windows 安装教程](/zh/tutorials/install-windows/)的测试日期是 2026-09-30，环境为 Windows 11 Pro 23H2、PowerShell 7.6.6 和 zoxide 0.10.0。那次测试发现目录记录通过 prompt 函数完成：初始化后再重定义 prompt 会停止记录，不绘制提示符的脚本 cd 也不记录。这里引用的是此前的 Windows 证据，本轮 Ubuntu 测试没有运行 PowerShell。
+
+## z 也能处理真实路径、z .. 和 z -
+
+跳转终端还得到了以下结果：
+
+| 起始目录 | 命令 | pwd 输出的目录 |
+| --- | --- | --- |
+| ~/projects/api-server | z .. | ~/projects |
+| ~/projects | z - | ~/projects/api-server |
+| ~/projects/api-server | z /home/tester/scratch | ~/scratch |
+| ~/scratch | z unlearned-child | ~/scratch/unlearned-child |
+
+最后两次跳转前，查询列表里没有 unlearned-child 记录。这个子目录已经存在于磁盘上，z 没有依赖已学习的匹配就进入了它。生成的 Bash 函数会先检查单个参数能否当作路径使用，再考虑数据库查询。
+
+在这些案例里，父目录、上一目录、绝对路径和已有子目录的行为与 cd 一致。本轮没有比较 cd 的全部选项、CDPATH 或符号链接行为。[命令参考](/zh/blog/zoxide-commands/)提供了更完整的命令实测。
+
+## 在独立 Shell 中复现记录测试
+
+先创建测试目录，再在加载初始化代码之前设置一个空数据库。下面的准备命令放在另开的 Bash 会话里执行：
+
+~~~bash
+mkdir -p ~/projects/api-server ~/projects/api-gateway ~/work/api-docs
+export _ZO_DATA_DIR="$(mktemp -d)"
+eval "$(zoxide init bash)"
+~~~
+
+Zsh 会话改用 eval "$(zoxide init zsh)"。比较提示符之后的分数时，把每次 cd 分行发送；测试同一行连续切换时，把两次 cd 和 query 保持在一行。自动测试通过 tmux capture-pane -p 抓屏，外部查询与交互 Shell 共用同一 _ZO_DATA_DIR。
+
+实测的 0.10.0 帮助列出了六个公开配置变量：_ZO_DATA_DIR、_ZO_ECHO、_ZO_EXCLUDE_DIRS、_ZO_FZF_OPTS、_ZO_MAXAGE、_ZO_RESOLVE_SYMLINKS。本轮只改变了用于隔离案例的 _ZO_DATA_DIR，其余五项没有改变。其他 hook 模式和更多 Linux Shell 的结果见[初始化实测](/zh/blog/zoxide-init-guide/)。本轮未测试 fzf、macOS 与 Windows 配置文件，也未测试分数的长期变化。
+`,
+  },
+  'zoxide-toha-cd-no-kawari': {
+    ja: String.raw`# zoxide とは？ディレクトリ移動と記録の仕組みを実測
+
+zoxide はディレクトリをデータベースに記録し、短いキーワードからパスを検索するツールです。端末で使う z は初期化コードが定義するシェル関数で、バイナリから移動先を受け取り、現在のシェルで cd を実行します。今回のテストでは空のデータベースに ~/projects/api-server を追加し、z api でその場所へ移動しました。
+
+自動記録にはシェルの hook が使われます。Bash と Zsh で同じ cd の列を実行しても、記録された回数は同じになりませんでした。
+
+## テスト環境
+
+| 項目 | 実際の環境 |
+| --- | --- |
+| 日付 | 2026-10-08 |
+| OS | 新規 ubuntu:24.04 コンテナ。OS の表示は Ubuntu 24.04.5 LTS、x86_64 |
+| ユーザー | 一般ユーザー tester、uid 1001 |
+| シェル | Bash 5.2.21、Zsh 5.9 |
+| zoxide | 0.10.0。tester が公式インストールスクリプトで導入 |
+| hook | zoxide init --help が示す既定値 pwd |
+| 方法 | GitHub Actions、tmux 3.4 の対話端末、120 × 30。ケースごとに起動ファイルと _ZO_DATA_DIR を分離 |
+| fzf | 今回は未インストール。対話選択も未テスト |
+
+[テストログ](https://github.com/jiankn/zoxide/actions/runs/37785045934)には生成コード、端末のキャプチャ、端末外からのデータベース検索を記録しています。添付アーティファクトには完全なキャプチャと results.json があります。以下の出力では /home/tester を ~ に短縮し、完了マーカーと空行を省きました。生成コードの抜粋もその都度明示します。
+
+## z が現在のシェルのディレクトリを変える流れ
+
+移動用のケースでは、別のデータベースに zoxide add /home/tester/projects/api-server でパスを追加しました。シェルの開始位置は /home/tester です。端末で同じ行に送ったコマンドを個別に分けると、入出力は次のようになります。
+
+~~~text
+$ pwd
+~
+$ zoxide query api
+~/projects/api-server
+$ pwd
+~
+$ z api
+$ pwd
+~/projects/api-server
+~~~
+
+query が出力したのはパスで、現在のシェルは元の場所に残っています。z を実行すると、そのシェルの現在位置が api-server に変わりました。zoxide init bash の生成結果を見ると、役割を確認できます。
+
+次の二つの関数は生成結果からの抜粋です。間にある別のコードは省いています。
+
+~~~bash
+function z() {
+    __zoxide_z "$@"
+}
+
+function __zoxide_cd() {
+    # shellcheck disable=SC2164
+    \builtin cd -- "$@"
+}
+~~~
+
+__zoxide_z のキーワード検索の分岐には、次の行がありました。
+
+~~~bash
+        result="$(\command zoxide query --exclude "$(__zoxide_pwd)" -- "$@")" &&
+~~~
+
+この一行も抜粋であり、単独で実行するためのコマンドではありません。省略した次の行で結果を __zoxide_cd に渡します。呼び出しは z → __zoxide_z → zoxide query → __zoxide_cd → builtin cd と進みます。検索用の子プロセスがパスを出し、シェル関数が現在のシェル内で組み込みの cd を実行します。
+
+生成したコードを読み込む必要もあります。テストの Bash 起動ファイルでは eval "$(zoxide init bash)"、Zsh では compinit の後に eval "$(zoxide init zsh)" を実行しました。起動ファイルとコマンド名は[初期化の実測ガイド](/ja/blog/zoxide-init-guide/)で確認できます。
+
+## frecency のスコアを記録直後に調べる
+
+frecency は頻度と最近の使用を組み合わせる考え方です。今回は zoxide query --list --score で、記録直後の数値を測りました。表示される数値はスコアであり、訪問回数そのものではありません。
+
+明示的な add のテストでは、専用の空の _ZO_DATA_DIR を使い、追加するたびにすぐ検索しました。
+
+~~~text
+$ zoxide query --list --score
+# 出力なし。データベースは空。
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+   4.0 ~/projects/api-server
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+   8.0 ~/projects/api-server
+$ zoxide add ~/projects/api-server
+$ zoxide query --list --score
+  12.0 ~/projects/api-server
+~~~
+
+「出力なし」のコメントは編集時の注記です。呼び出す側は移動していませんが、同じパスへの三回の add でスコアが 4.0、8.0、12.0 と増えました。明示的な記録とシェル hook による記録は、別々に調べられます。
+
+対話テストでは Bash と Zsh にそれぞれ別の空のデータベースを用意し、既定の初期化を使いました。一つずつコマンドを送り、プロンプトが戻ってから端末外のプロセスで同じデータベースを検索しています。表は各シェルで続けて実行した順序です。
+
+| 操作 | Bash の api-server スコア | Zsh の api-server スコア |
+| --- | --- | --- |
+| cd ~/projects/api-server | 4.0 | 4.0 |
+| 同じ場所で cd . | 4.0 | 8.0 |
+| cd ~ と cd ~/projects/api-server を別々に送信 | 8.0 | 12.0 |
+| もう一度離れて戻る。二つのコマンドを別々に送信 | 12.0 | 16.0 |
+
+Bash では cd . で記録が増えず、Zsh では増えました。一度離れて戻った場合は両方で増えています。Zsh では同じ場所への cd も記録イベントになるため、このスコアを異なる場所への訪問数として数えることはできません。
+
+**待ち時間によるスコアの変化は未テストです。** 時間・日・週の境界を越えて待つ実験、時計の変更、_ZO_MAXAGE による削除は行っていません。上の即時スコアは長時間経過後の変化を測った結果ではありません。
+
+## Bash と Zsh が記録するタイミング
+
+対話端末で確認した hook の登録は次のとおりでした。
+
+~~~text
+Bash:
+declare -- PROMPT_COMMAND="__zoxide_hook"
+
+Zsh:
+typeset -a chpwd_functions=( __zoxide_hook )
+~~~
+
+Bash の既定の pwd hook は、次のプロンプトの前に PROMPT_COMMAND 経由で動きます。生成された関数は現在のパスと直前のパスを比較します。Zsh は chpwd_functions に関数を登録し、そのイベントが起きると add を実行します。同じ既定モードでも呼び出すタイミングが異なります。
+
+上のスコア測定の後、端末に次の一行を送りました。
+
+~~~bash
+cd ~/projects/api-gateway; cd ~/work/api-docs; zoxide query --list --score
+~~~
+
+プロンプトが戻ってから、端末外でもう一度検索した結果を並べます。
+
+| 検索時点 | Bash | Zsh |
+| --- | --- | --- |
+| 二つの cd と同じ行の query | api-server 12.0 のみ | api-server 16.0、api-docs 4.0、api-gateway 4.0 |
+| 次のプロンプトの後、端末外の query | api-server 12.0 と api-docs 4.0。api-gateway はなし | 上と同じ三つの記録 |
+
+Bash はプロンプトが表示されると最後の api-docs を記録し、途中の api-gateway は記録しませんでした。Zsh は同じ行の query が始まる前に両方の cd を記録しています。Bash で cd のすぐ後に新しいパスが見つからない場合は、プロンプトが戻った後の検索と比較できます。
+
+### 子スクリプト内の cd は親シェルに記録されなかった
+
+子 Bash スクリプトで ~/scratch/script-only に移動して現在位置を出力しました。終了後に対話型の親シェルが出した位置は ~/projects/api-server のままです。親が Bash と Zsh のどちらでも、データベースには以前と同じスコアの api-server だけが残りました。この子スクリプトは zoxide の初期化を読み込んでいません。
+
+さらに、初期化を読み込む別の非対話 Bash も試しました。
+
+~~~bash
+bash -c 'eval "$(zoxide init bash)"; cd /home/tester/scratch/script-only; pwd'
+~~~
+
+script-only のパスは出力されましたが、このケースの空のデータベースを外から検索しても記録はありませんでした。プロンプトを描画しないため、PROMPT_COMMAND が呼ばれません。スクリプトで明示的に記録する方法としては、上の add を実測しています。
+
+### PowerShell の説明は別の日の Windows テストから
+
+[Windows インストールガイド](/ja/tutorials/install-windows/)は 2026-09-30 に Windows 11 Pro 23H2、PowerShell 7.6.6、zoxide 0.10.0 で測定した記事です。記録が prompt 関数を通ること、初期化後に prompt を再定義すると記録が止まること、プロンプトを描画しないスクリプトの cd は記録されないことを確認しています。これは以前の Windows テストからの引用で、今回の Ubuntu ケースでは PowerShell を実行していません。
+
+## 実在するパス、z .. と z - の動作
+
+移動用の端末では次の結果も得られました。
+
+| 開始位置 | コマンド | pwd が示した位置 |
+| --- | --- | --- |
+| ~/projects/api-server | z .. | ~/projects |
+| ~/projects | z - | ~/projects/api-server |
+| ~/projects/api-server | z /home/tester/scratch | ~/scratch |
+| ~/scratch | z unlearned-child | ~/scratch/unlearned-child |
+
+最後の二つの移動前には、検索リストに unlearned-child の記録がありませんでした。その子ディレクトリはディスク上に存在しており、学習済みの候補なしで移動できました。生成された Bash 関数は、引数が一つならパスとして移動できるかを先に確認し、その後でデータベース検索へ進みます。
+
+このケースでは、親ディレクトリ、直前のディレクトリ、絶対パス、実在する子ディレクトリへの移動が cd と同様に動きました。cd の全オプション、CDPATH、シンボリックリンクの挙動は比較していません。ほかのコマンドは[コマンド実測リファレンス](/ja/blog/zoxide-commands/)にまとめています。
+
+## 別のシェルで記録テストを再現する
+
+テスト用のディレクトリを作り、初期化を読み込む前に空のデータベースを選びます。別に開いた Bash セッションで次の準備を実行してください。
+
+~~~bash
+mkdir -p ~/projects/api-server ~/projects/api-gateway ~/work/api-docs
+export _ZO_DATA_DIR="$(mktemp -d)"
+eval "$(zoxide init bash)"
+~~~
+
+Zsh セッションでは eval "$(zoxide init zsh)" を使います。プロンプト後のスコアを比べる場合は cd を一行ずつ送り、連続移動のケースは二つの cd と query を同じ行にします。自動テストは tmux capture-pane -p で端末を取得し、対話シェルと同じ _ZO_DATA_DIR を端末外の検索にも渡しました。
+
+測定した 0.10.0 のヘルプには、公開設定変数として _ZO_DATA_DIR、_ZO_ECHO、_ZO_EXCLUDE_DIRS、_ZO_FZF_OPTS、_ZO_MAXAGE、_ZO_RESOLVE_SYMLINKS の六つが載っています。今回変更したのはケースを分けるための _ZO_DATA_DIR だけで、ほかの五つは変更していません。別の hook モードと Linux シェルの結果は[初期化テスト](/ja/blog/zoxide-init-guide/)で読めます。今回、fzf、macOS と Windows のプロファイル、長期的なスコア変化は未テストです。
+`,
+  },
   'zoxide-init-guide': {
     en: String.raw`# zoxide init: tested shell setup, command names and hook modes
 
