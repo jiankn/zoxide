@@ -207,6 +207,32 @@ const redirectRules: readonly RedirectRule[] = [
     target: '/tutorials',
     locales: allLocales,
   },
+  // 2026-10-08 补齐中日文：此前这些合并只对英文生效
+  {
+    source: '/blog/advanced-config',
+    target: '/tutorials/advanced-config',
+    locales: ['zh', 'ja'],
+  },
+  {
+    source: '/blog/mac-anzhuang-zoxide-init-autocomplete',
+    target: '/tutorials/install-macos',
+    locales: ['zh'],
+  },
+  {
+    source: '/blog/mac-ni-zoxide-install-init-completion',
+    target: '/tutorials/install-macos',
+    locales: ['ja'],
+  },
+  {
+    source: '/tutorials/shell-setup',
+    target: '/blog/zoxide-init-guide',
+    locales: ['zh', 'ja'],
+  },
+  {
+    source: '/tutorials/troubleshooting',
+    target: '/blog/zoxide-not-working',
+    locales: ['zh', 'ja'],
+  },
 ] as const;
 
 const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
@@ -231,10 +257,10 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
     quickStart: '/tutorials/quick-start',
     howTo: '/tutorials/quick-start',
     commands: '/blog/zoxide-commands',
-    init: '/tutorials/shell-setup',
+    init: '/blog/zoxide-init-guide',
     fzf: '/tutorials/fzf-integration',
     advanced: '/tutorials/advanced-config',
-    troubleshooting: '/tutorials/troubleshooting',
+    troubleshooting: '/blog/zoxide-not-working',
     commandNotFound: '/blog/zoxide-command-not-found',
     noMatch: '/blog/troubleshooting-zoxide-no-match-found',
     doctor: '/tools/zoxide-doctor',
@@ -247,10 +273,10 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
     quickStart: '/tutorials/quick-start',
     howTo: '/tutorials/quick-start',
     commands: '/blog/zoxide-commands',
-    init: '/tutorials/shell-setup',
+    init: '/blog/zoxide-init-guide',
     fzf: '/tutorials/fzf-integration',
     advanced: '/tutorials/advanced-config',
-    troubleshooting: '/tutorials/troubleshooting',
+    troubleshooting: '/blog/zoxide-not-working',
     commandNotFound: '/blog/zoxide-command-not-found',
     noMatch: '/blog/troubleshooting-zoxide-no-match-found',
     doctor: '/tools/zoxide-doctor',

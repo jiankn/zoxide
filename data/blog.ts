@@ -12,6 +12,7 @@ export interface BlogPost {
   excerpt: string;
   content: string; // Markdown 格式
   date: string;
+  updated?: string; // 按实测重写后的更新日期
   author: string;
   category: string;
   // SEO 主关键词：每篇文章的核心搜索词，优先用于 meta keywords 第一位
@@ -1591,6 +1592,7 @@ j project
   {
     id: "4",
     slug: "zoxide-command-not-found",
+    updated: "2026-10-08",
     title: "zoxide command not found - How to Fix",
     excerpt:
       'Troubleshooting guide for "zoxide command not found" error. Learn how to fix PATH issues and verify installation.',
@@ -1794,6 +1796,7 @@ To avoid this issue in the future:
   {
     id: "5",
     slug: "zoxide-not-working",
+    updated: "2026-10-08",
     title: "zoxide not working - Troubleshooting Guide",
     excerpt:
       "Comprehensive troubleshooting guide for when zoxide is not working correctly. Fix common issues and get zoxide running again.",
@@ -2083,6 +2086,7 @@ If you're still experiencing issues:
   {
     id: "7",
     slug: "zoxide-alias-autocomplete",
+    updated: "2026-10-08",
     title: "提升终端效率：深入解析 Zoxide Alias 和 Autocomplete 功能",
     excerpt:
       "通过 zoxide alias 和 autocomplete（自动补全）深度优化终端导航体验，结合 fzf、Arch 与 NixOS 配置，构建高效、可重复的工作流。",
@@ -2099,6 +2103,7 @@ If you're still experiencing issues:
   {
     id: "8",
     slug: "troubleshooting-zoxide-no-match-found",
+    updated: "2026-10-08",
     title: 'Zoxide 故障排除：修复 "No Match Found" 和数据库错误',
     excerpt:
       'Zoxide 通常是一个"安装后即忘"的工具，但随着目录历史记录的增长，你可能会遇到特定问题。本指南涵盖了如何调试和修复 "No Match Found" 错误以及数据库相关问题。',
@@ -3703,7 +3708,7 @@ zoxide is explicitly inspired by \`z\` and modernizes the concept.
 
 ### 3) fasd
 
-**fasd** is an older but powerful tool that ranks files and directories (not just directories). If you want “jump + open files” style workflows, fasd can be attractive. However, some users find its behavior and setup less straightforward, and they prefer a dedicated directory jumper plus separate tools for files.
+**fasd** is an older tool that ranks files and directories (not just directories). If you want “jump + open files” style workflows, fasd can be attractive. However, some users find its behavior and setup less straightforward, and they prefer a dedicated directory jumper plus separate tools for files.
 
 ### 4) z.lua
 

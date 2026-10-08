@@ -754,7 +754,7 @@ Other behavior we observed:
 
 ## zsh: open the picker with Space and Tab
 
-In zsh with completion enabled (autoload -Uz compinit && compinit before the zoxide init line), typing z api followed by a space and Tab opened the same picker with the api matches:
+In zsh, typing z api followed by a space and Tab opened the same picker with the api matches. It worked with compinit enabled and, in a later test, without it:
 
 ~~~text
 >   < 3/3
@@ -1377,7 +1377,7 @@ eval "$(zoxide init bash)"   # ~/.zshrc では zsh
 
 zoxide は cd で移動するたびにそのディレクトリを記録します。_ZO_EXCLUDE_DIRS は記録しない glob パターンの一覧で、Linux と macOS ではコロン、Windows ではセミコロンで区切ります。既定値は $HOME なので、ホームディレクトリ自体は記録されません。
 
-各パターンは絶対パス全体と照合されます。よくある設定例が効かないのはこのためです。~/proj、~/proj/node_modules、~/proj/node_modules/pkg、~/proj/src、~/a/b/node_modules の 5 つを作成し、設定ごとにすべて追加してからデータベースを確認しました。
+各パターンは絶対パス全体と照合されます。よくある設定例が効かないのはこのためです。~/proj、\~/proj/node_modules、\~/proj/node_modules/pkg、\~/proj/src、\~/a/b/node_modules の 5 つを作成し、設定ごとにすべて追加してからデータベースを確認しました。
 
 | _ZO_EXCLUDE_DIRS | 記録されたディレクトリ |
 | --- | --- |
@@ -1603,7 +1603,7 @@ Enter で選択中のディレクトリへ移動し、pwd は /home/dev/projects
 
 ## zsh：スペースと Tab で選択画面を開く
 
-補完を有効にした zsh（zoxide の初期化行より前に autoload -Uz compinit && compinit）で z api と入力し、スペースと Tab を押すと、api に一致する候補で同じ選択画面が開きました。
+zsh で z api と入力し、スペースと Tab を押すと、api に一致する候補で同じ選択画面が開きました。compinit を有効にした状態で動作し、後のテストでは無効でも動作しました。
 
 ~~~text
 >   < 3/3
@@ -1812,7 +1812,7 @@ zoxide remove /full/path/to/old-project
 
   'install-ubuntu': String.raw`# Ubuntu 24.04 に zoxide をインストールする方法（クリーンなコンテナで検証）
 
-このガイドでは apt または公式インストールスクリプトで Ubuntu 24.04 に zoxide を入れ、Bash に組み込んだうえで、Ubuntu で問題が起きやすい点を確認します。apt 版の古さ、~/.local/bin と PATH、zoxide が 2 つ入った状態、シェルのフック、そして fzf です。以下の出力はすべて、新規の Ubuntu 24.04 での実際の実行結果です。
+このガイドでは apt または公式インストールスクリプトで Ubuntu 24.04 に zoxide を入れ、Bash に組み込んだうえで、Ubuntu で問題が起きやすい点を確認します。apt 版の古さ、\~/.local/bin と PATH、zoxide が 2 つ入った状態、シェルのフック、そして fzf です。以下の出力はすべて、新規の Ubuntu 24.04 での実際の実行結果です。
 
 ## テスト環境
 
@@ -2189,7 +2189,7 @@ macOS には今も bash 3.2.57 が /bin/bash として入っています。テ�
 | --- | --- |
 | zoxide query repo1500 src | 8.4 ms |
 | zoxide --version（プロセス起動のみ） | 4.7 ms |
-| zsh -i の起動、~/.zshrc が空 | 14.1 ms |
+| zsh -i の起動、\~/.zshrc が空 | 14.1 ms |
 | zsh -i の起動、zoxide の初期化あり | 27.1 ms |
 
 検索はプロセス起動そのものより数ミリ秒多いだけで、初期化行によるシェル起動の増加は約 13 ms でした。このテスト機では、zoxide はターミナルの遅さの主な原因ではありません。シェルの起動が遅い場合は、まず ~/.zshrc の他の設定を計測してください。
@@ -2316,7 +2316,7 @@ PowerShell 和 Nushell 见 [Shell 初始化指南](/zh/blog/zoxide-init-guide/)�
 
 ## zsh：用空格加 Tab 打开选择界面
 
-在启用了补全的 zsh 里（在 zoxide 初始化行之前加上 autoload -Uz compinit && compinit），输入 z api，再按空格和 Tab，就打开了同样的选择界面，里面是 api 的匹配项：
+在 zsh 里输入 z api，再按空格和 Tab，就打开了同样的选择界面，里面是 api 的匹配项。启用 compinit 时可以用，后来的测试表明不启用也可以：
 
 ~~~text
 >   < 3/3
@@ -2567,7 +2567,7 @@ winget uninstall --id ajeetdsouza.zoxide -e
 - [zoxide-doctor](/zh/tools/zoxide-doctor/)：自动检查你的配置`,
   'install-ubuntu': String.raw`# 在 Ubuntu 24.04 安装 zoxide（干净容器实测）
 
-本文用 apt 或官方安装脚本在 Ubuntu 24.04 上安装 zoxide，接入 Bash，然后逐一检查 Ubuntu 上最容易出问题的地方：apt 版本偏旧、~/.local/bin 与 PATH、同时装了两份 zoxide、Shell 钩子，以及 fzf。下面所有输出都来自一台全新 Ubuntu 24.04 系统上的真实运行。
+本文用 apt 或官方安装脚本在 Ubuntu 24.04 上安装 zoxide，接入 Bash，然后逐一检查 Ubuntu 上最容易出问题的地方：apt 版本偏旧、\~/.local/bin 与 PATH、同时装了两份 zoxide、Shell 钩子，以及 fzf。下面所有输出都来自一台全新 Ubuntu 24.04 系统上的真实运行。
 
 ## 测试环境
 
@@ -2998,7 +2998,7 @@ eval "$(zoxide init bash)"   # ~/.zshrc 里写 zsh
 
 每次 cd 进一个目录，zoxide 就记录它。_ZO_EXCLUDE_DIRS 是一组永远不记录的 glob 通配模式，Linux 和 macOS 用冒号分隔，Windows 用分号分隔。默认值是 $HOME，所以家目录本身不会被记录。
 
-每个模式都拿去和完整的绝对路径比较，这就是常见写法失效的原因。我们建了 ~/proj、~/proj/node_modules、~/proj/node_modules/pkg、~/proj/src、~/a/b/node_modules 五个目录，在不同设置下全部添加一遍，再看数据库里剩下什么：
+每个模式都拿去和完整的绝对路径比较，这就是常见写法失效的原因。我们建了 ~/proj、\~/proj/node_modules、\~/proj/node_modules/pkg、\~/proj/src、\~/a/b/node_modules 五个目录，在不同设置下全部添加一遍，再看数据库里剩下什么：
 
 | _ZO_EXCLUDE_DIRS | 被记录的目录 |
 | --- | --- |

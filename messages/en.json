@@ -478,8 +478,8 @@
         ]
       },
       "zoxide-alias-autocomplete": {
-        "title": "Boosting Terminal Efficiency: A Deep Dive into Zoxide Aliases and Autocomplete",
-        "excerpt": "Learn how to use zoxide aliases and autocomplete together with fzf on Arch, NixOS, and other platforms to build a fast, memory-based navigation workflow.",
+        "title": "zoxide alias and autocomplete: --cmd cd, zi and Tab completion",
+        "excerpt": "Tested in bash, zsh and fish: replace cd with --cmd cd, choose any command name, and open the zi picker with Space and Tab.",
         "category": "Tips",
         "author": "Jacky Jian",
         "tags": [
@@ -506,7 +506,7 @@
       },
       "troubleshooting-zoxide-no-match-found": {
         "title": "Troubleshooting Zoxide: Fixing \"No Match Found\" and Database Errors",
-        "excerpt": "Zoxide is generally a set-and-forget tool, but as your directory history grows, you might encounter specific issues. This guide covers how to debug and fix \"No Match Found\" errors and database-related problems.",
+        "excerpt": "Every cause of \"zoxide: no match found\" we reproduced, from the last-keyword rule to deleted and excluded directories, plus the database write error.",
         "category": "Troubleshooting",
         "author": "Jacky Jian",
         "tags": [
@@ -598,7 +598,7 @@
       },
       "zoxide-command-not-found": {
         "title": "zoxide command not found - How to Fix",
-        "excerpt": "Troubleshooting guide for \"zoxide command not found\" error. Learn how to fix PATH issues and verify installation.",
+        "excerpt": "Tested fixes for \"zoxide: command not found\" and \"z: command not found\" in bash, zsh, fish and PowerShell, including init-order mistakes.",
         "category": "Troubleshooting",
         "author": "Jacky Jian",
         "tags": [
@@ -611,7 +611,7 @@
       },
       "zoxide-not-working": {
         "title": "zoxide not working - Troubleshooting Guide",
-        "excerpt": "Comprehensive troubleshooting guide for when zoxide is not working correctly. Fix common issues and get zoxide running again.",
+        "excerpt": "A symptom-by-symptom guide built from real tests: configuration warnings, directories not being learned, wrong jumps and duplicate installs.",
         "category": "Troubleshooting",
         "author": "Jacky Jian",
         "tags": [
@@ -674,7 +674,7 @@
         "excerpt": "Understanding the Frecent algorithm behind zoxide and how it predicts your next directory jump with high accuracy."
       },
       "how-zoxide-works-en": {
-        "title": "How does zoxide change the directory? (The Internal Magic)",
+        "title": "How does zoxide change the directory? Shell functions explained",
         "excerpt": "How zoxide interacts with your shell to change directories, despite being a separate binary process."
       }
     }

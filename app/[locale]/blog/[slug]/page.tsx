@@ -8,7 +8,7 @@ import GuideLinks from "@/components/GuideLinks/GuideLinks";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, RefreshCw, User } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { generateArticleSchema } from "@/lib/seo/schema";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
@@ -225,7 +225,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     author,
     post.date,
     articleUrl,
-    post.date, // dateModified 使用发布日期（如果有更新日期可以单独设置）
+    post.updated || post.date, // dateModified：实测重写过的文章使用更新日期
   );
   // 仅对实际复核过的文章显示核验说明，未复核的文章不显示
   const verificationNote = slug === "zoxide-vs-autojump"
@@ -293,6 +293,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <Calendar className="h-4 w-4" />
                   <span>{post.date}</span>
                 </div>
+                {post.updated && (
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="h-4 w-4" />
+                    <span>
+                      {locale === "zh" ? "更新于 " : locale === "ja" ? "更新日 " : "Updated "}
+                      <time dateTime={post.updated}>{post.updated}</time>
+                    </span>
+                  </div>
+                )}
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
                   <span>

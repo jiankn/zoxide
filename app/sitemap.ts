@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'en:/tools/zoxide-doctor', 'zh:/tools/zoxide-doctor', 'ja:/tools/zoxide-doctor',
     'en:/tutorials/install-ubuntu', 'zh:/tutorials/install-ubuntu', 'ja:/tutorials/install-ubuntu',
     'en:/tutorials/fzf-integration', 'zh:/tutorials/fzf-integration', 'ja:/tutorials/fzf-integration',
+    'en:/blog/zoxide-command-not-found', 'zh:/blog/zoxide-command-not-found', 'ja:/blog/zoxide-command-not-found', 'en:/blog/troubleshooting-zoxide-no-match-found', 'zh:/blog/troubleshooting-zoxide-no-match-found', 'ja:/blog/troubleshooting-zoxide-no-match-found', 'en:/blog/zoxide-not-working', 'zh:/blog/zoxide-not-working', 'ja:/blog/zoxide-not-working', 'en:/blog/zoxide-alias-autocomplete', 'zh:/blog/zoxide-alias-autocomplete', 'ja:/blog/zoxide-alias-autocomplete', 'en:/blog/how-zoxide-works-en', 'ja:/blog/how-zoxide-works-ja', 'zh:/blog/zoxide-commands', 'ja:/blog/zoxide-commands',
   ]);
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([

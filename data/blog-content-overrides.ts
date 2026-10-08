@@ -1,3 +1,5 @@
+import { testedBlogContent } from './blog-tested-content';
+
 const comparisonContent: Record<string, string> = {
   en: String.raw`# zoxide vs autojump: a practical comparison
 
@@ -316,6 +318,9 @@ j 系コマンドが身についており、jo/jco が重要で、現在の統�
 };
 
 export function getBlogContentOverride(locale: string, slug: string): string | undefined {
+  const tested = testedBlogContent[slug]?.[locale];
+  if (tested) return tested;
+
   if (slug !== "zoxide-vs-autojump") {
     return undefined;
   }

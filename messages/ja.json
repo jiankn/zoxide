@@ -466,8 +466,8 @@
         ]
       },
       "zoxide-alias-autocomplete": {
-        "title": "ターミナル効率向上：Zoxideエイリアスとオートコンプリートの詳細ガイド",
-        "excerpt": "zoxideのエイリアスとオートコンプリートをfzfと組み合わせて、Arch、NixOSなどのプラットフォームで高速なメモリベースのナビゲーションワークフローを構築する方法を学びます。",
+        "title": "zoxide のエイリアスと自動補完：--cmd cd、zi、Tab 補完",
+        "excerpt": "bash・zsh・fish で検証：--cmd cd で cd を置き換える方法、任意のコマンド名、スペースと Tab で zi の選択画面を開く方法。",
         "category": "ヒント",
         "author": "Jacky Jian",
         "tags": [
@@ -495,7 +495,7 @@
       },
       "troubleshooting-zoxide-no-match-found": {
         "title": "Zoxideトラブルシューティング：「No Match Found」とデータベースエラーの修正",
-        "excerpt": "Zoxideは一度設定すれば忘れられるツールですが、ディレクトリ履歴が増えると特定の問題が発生することがあります。このガイドでは「No Match Found」エラーとデータベース関連の問題のデバッグと修正方法を説明します。",
+        "excerpt": "再現した「zoxide: no match found」の全原因：最後のキーワードの規則、削除・除外されたディレクトリ、データベースの書き込みエラー。",
         "category": "トラブルシューティング",
         "author": "Jacky Jian",
         "tags": [
@@ -587,7 +587,7 @@
       },
       "zoxide-command-not-found": {
         "title": "zoxide command not found - 修正方法",
-        "excerpt": "\"zoxide command not found\"エラーのトラブルシューティングガイド。PATHの問題を修正しインストールを確認する方法。",
+        "excerpt": "「zoxide: command not found」と「z: command not found」を bash・zsh・fish・PowerShell で検証した修正方法。初期化順の誤りも扱います。",
         "category": "トラブルシューティング",
         "author": "Jacky Jian",
         "tags": [
@@ -600,7 +600,7 @@
       },
       "zoxide-not-working": {
         "title": "zoxideが動作しない - トラブルシューティングガイド",
-        "excerpt": "zoxideが正しく動作しない場合の包括的なトラブルシューティングガイド。一般的な問題を修正してzoxideを再び動作させましょう。",
+        "excerpt": "実際のテストに基づく症状別ガイド：設定の警告、学習しない、違う場所へ移動する、二重インストール。",
         "category": "トラブルシューティング",
         "author": "Jacky Jian",
         "tags": [
@@ -612,7 +612,7 @@
         "content": "\n# zoxideが動作しない - トラブルシューティングガイド\n\nzoxideがインストールされているが期待通りに動作しない場合、このガイドで診断と修正を行います。\n\n## 一般的な問題\n\n### 問題1：zoxideコマンドが認識されない\n\n**症状：**\n- `z`コマンドが見つからない\n- `zi`コマンドが見つからない\n- **command not found**エラー\n\n**解決策：**\n\n1. **シェル設定が読み込まれているか確認：**\n```bash\n# zoxide initが設定にあるか確認\ngrep zoxide ~/.bashrc  # または ~/.zshrc\n```\n\n2. **シェル設定を再読み込み：**\n```bash\nsource ~/.bashrc  # または source ~/.zshrc\n```\n\n3. **zoxideバイナリが存在するか確認：**\n```bash\nwhich zoxide\nzoxide --version\n```\n\n### 問題2：zoxideがディレクトリを学習しない\n\n**症状：**\n- 訪問したディレクトリを記憶しない\n- `z`コマンドが常にディレクトリを見つけられない\n- 履歴が構築されない\n\n**解決策：**\n\n1. **データベースの場所を確認：**\n```bash\n# デフォルトの場所\nls -la ~/.zo\n```\n\n2. **手動でディレクトリを追加してテスト：**\n```bash\nzoxide add ~/Documents\nzoxide query Documents\n```\n\n### 問題3：パフォーマンスが遅い\n\n**症状：**\n- zoxideコマンドが遅い\n- `z`コマンド使用時に遅延\n\n**解決策：**\n\n1. **大きなディレクトリを除外：**\n```bash\nexport _ZO_EXCLUDE_DIRS=\"/tmp:/var:/node_modules\"\n```\n\n2. **データベースサイズを確認：**\n```bash\nls -lh ~/.zo\n```\n\n3. **最大エージを減らす：**\n```bash\nexport _ZO_MAXAGE=5000  # デフォルト10000から減らす\n```\n\n### 問題4：間違ったディレクトリが選択される\n\n**症状：**\n- `z project`が間違ったディレクトリに移動\n- 複数のマッチがあるが間違ったものが選ばれる\n\n**解決策：**\n\n1. **対話モードを使用：**\n```bash\nzi project  # 対話式選択\n```\n\n2. **最初にすべてのマッチをリスト：**\n```bash\nz -l project  # すべてのマッチをリスト\n```\n\n3. **より具体的に指定：**\n```bash\nz project/src  # より具体的なパス\n```\n\n## 診断ステップ\n\n問題を診断するためにこれらのコマンドを実行：\n\n```bash\n# 1. zoxideインストールを確認\nzoxide --version\n\n# 2. コマンドが利用可能か確認\ntype z\ntype zi\n\n# 3. データベースを確認\nls -la ~/.zo\n\n# 4. 基本機能をテスト\nzoxide add ~\nzoxide query ~\n\n# 5. 環境を確認\nenv | grep ZO\n```\n\n## プラットフォーム固有の問題\n\n### Linux\n\n**問題：権限が拒否された**\n```bash\n# 権限を修正\nchmod +x $(which zoxide)\nsudo chown $USER:$USER ~/.zo\n```\n\n### macOS\n\n**問題：Homebrewパスが見つからない**\n```bash\n# HomebrewをPATHに追加\necho 'eval \"$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zshrc\nsource ~/.zshrc\n```\n\n### Windows\n\n**問題：PowerShell実行ポリシー**\n```powershell\n# スクリプト実行を許可\nSet-ExecutionPolicy RemoteSigned -Scope CurrentUser\n```\n\n## zoxideをリセット\n\n何も動作しない場合、zoxideをリセットできます：\n\n```bash\n# 現在のデータベースをバックアップ\ncp ~/.zo ~/.zo.backup\n\n# データベースを削除（再作成されます）\nrm ~/.zo\n\n# シェル設定から一時的に削除\n# その後、初期化コマンドを再追加\n# 新規インストールをテスト\n```\n\n## 関連記事\n\n- [zoxide command not found](/blog/zoxide-command-not-found)\n- [インストールガイド](/tutorials)\n- [高度な設定](/tutorials/advanced-config)\n"
       },
       "zoxide-commands": {
-        "title": "Zoxideコマンド完全ガイド：ライトスピードでターミナルをナビゲート",
+        "title": "zoxide コマンド一覧：z、zi、query、add、remove、import",
         "excerpt": "初期化からデータベース管理まで、zoxideの各コマンドを解説します。ナビゲーションのデバッグ、履歴のクリーンアップ、ワークフローのスクリプト化、データ移行を実践的な例で学びます。",
         "category": "チュートリアル",
         "author": "Jacky Jian",
@@ -623,7 +623,7 @@
           "ガイド",
           "ナビゲーション"
         ],
-        "content": "\n# Zoxideコマンド完全ガイド：ライトスピードでターミナルをナビゲート\n\nターミナルで生活しているなら、`cd`コマンドは最も頻繁に使用するツールですが、同時に最も非効率的です。フルパスを入力し、タイプミスに対処し、複雑なディレクトリ構造を覚えるのは認知的な負担です。**Zoxide**は`z`や`autojump`にインスパイアされた**スマートcdコマンド**です。\n\n多くのユーザーは基本的な`z`エイリアスを使うだけです。残りの**zoxideコマンド**は、データベースそのものの追加、検索、削除、インポートを扱います。\n\n## ほかのコマンドを覚える理由\n\nZoxideは「frecency」アルゴリズムで動作します—**頻度**と**最新性**の加重組み合わせです。特定の**zoxideコマンド**を理解することで：\n\n1. **ナビゲーション問題のデバッグ**\n2. **履歴のクリーンアップ**\n3. **ワークフローのスクリプト化**\n4. **データの移行**\n\n---\n\n## 1. 初期化コマンド\n\nジャンプする前に、Zoxideをシェルに統合する必要があります。\n\n### 基本的なInit\n\n```bash\n# Bash用\neval \"$(zoxide init bash)\"\n\n# Zsh用\neval \"$(zoxide init zsh)\"\n\n# Fish用\nzoxide init fish | source\n```\n\n### `--cmd`フラグ（パワームーブ）\n\n`cd`を完全に置き換える最も強力な**zoxideコマンド**：\n\n```bash\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n`--cmd cd`を使用すると、Zoxideは標準の`cd`コマンドを置き換えます。すべてのナビゲーションイベントが記録され、データベースが非常に正確になります。\n\n---\n\n## 2. コアナビゲーションコマンド\n\n### ジャンプ：`z`\n\n```bash\nz work        # /home/user/workにジャンプ\nz pro py      # /home/user/projects/pythonにジャンプ\n```\n\nZoxideはファジーマッチングを処理できます。\n\n### 対話式ジャンプ：`zi`\n\n```bash\nzi\n```\n\n`fzf`（ファジーファインダー）を使用して選択可能なリストを表示します。最も便利な**zoxideコマンド**の1つです。\n\n---\n\n## 3. データベース管理コマンド\n\n### `zoxide add`\n\n手動でアルゴリズムをトレーニングできます：\n\n```bash\nzoxide add /path/to/new/project\n```\n\n### `zoxide remove`\n\nディレクトリを「忘れさせる」：\n\n```bash\nzoxide remove /path/to/dir\n```\n\n---\n\n## 4. 操作の頭脳：`zoxide query`\n\nスクリプターとパワーユーザー向けの最も重要なコマンドです。\n\n### 基本クエリ\n\n```bash\nzoxide query foo\n```\n\n`z foo`がジャンプする絶対パスを出力します。\n\n### マッチのリスト（`--list`）\n\n```bash\nzoxide query --list foo\n```\n\n### スコアリング（`--score`）\n\n```bash\nzoxide query --list --score\n```\n\n**出力例：**\n```text\n9000.0  /home/user/current-project\n250.0   /home/user/old-project\n```\n\n数値は「frecency」スコアを表します。\n\n---\n\n## 5. 移行コマンド：`zoxide import`\n\n`autojump`やオリジナルの`z`から移行する場合：\n\n```bash\nzoxide import --from z path/to/z/database\nzoxide import --from autojump path/to/autojump/db.txt\n```\n\n---\n\n## 6. スクリプトでのzoxideコマンド使用\n\n```bash\n#!/bin/bash\n\n# zoxideに'react'の最良マッチを問い合わせ\nTARGET_DIR=$(zoxide query react)\n\nif [ -d \"$TARGET_DIR\" ]; then\n    echo \"Opening $TARGET_DIR in VS Code...\"\n    code \"$TARGET_DIR\"\nelse\n    echo \"Project not found.\"\nfi\n```\n\n---\n\n## 結論\n\n**zoxideコマンド**を学ぶことで—特に`query`、`add`、`remove`—Zoxideを単なるユーティリティから生産性プラットフォームに変えます。\n\n初期化フラグで`cd`を置き換え、`zi`でビジュアルナビゲーションを使用し、`score`出力の読み方を理解することで、ターミナルが期待通りに動作することを確保できます。\n"
+        "content": "\n# Zoxideコマンド完全ガイド：ライトスピードでターミナルをナビゲート\n\nターミナルで生活しているなら、`cd`コマンドは最も頻繁に使用するツールですが、同時に最も非効率的です。フルパスを入力し、タイプミスに対処し、複雑なディレクトリ構造を覚えるのは認知的な負担です。**Zoxide**は`z`や`autojump`にインスパイアされた**スマートcdコマンド**です。\n\n多くのユーザーは基本的な`z`エイリアスを使うだけです。残りの**zoxideコマンド**は、データベースそのものの追加、検索、削除、インポートを扱います。\n\n## ほかのコマンドを覚える理由\n\nZoxideは「frecency」アルゴリズムで動作します—**頻度**と**最新性**の加重組み合わせです。特定の**zoxideコマンド**を理解することで：\n\n1. **ナビゲーション問題のデバッグ**\n2. **履歴のクリーンアップ**\n3. **ワークフローのスクリプト化**\n4. **データの移行**\n\n---\n\n## 1. 初期化コマンド\n\nジャンプする前に、Zoxideをシェルに統合する必要があります。\n\n### 基本的なInit\n\n```bash\n# Bash用\neval \"$(zoxide init bash)\"\n\n# Zsh用\neval \"$(zoxide init zsh)\"\n\n# Fish用\nzoxide init fish | source\n```\n\n### `--cmd`フラグ\n\n`cd`を完全に置き換える**zoxideコマンド**：\n\n```bash\neval \"$(zoxide init zsh --cmd cd)\"\n```\n\n`--cmd cd`を使用すると、Zoxideは標準の`cd`コマンドを置き換えます。すべてのナビゲーションイベントが記録され、データベースが非常に正確になります。\n\n---\n\n## 2. コアナビゲーションコマンド\n\n### ジャンプ：`z`\n\n```bash\nz work        # /home/user/workにジャンプ\nz pro py      # /home/user/projects/pythonにジャンプ\n```\n\nZoxideはファジーマッチングを処理できます。\n\n### 対話式ジャンプ：`zi`\n\n```bash\nzi\n```\n\n`fzf`（ファジーファインダー）を使用して選択可能なリストを表示します。最も便利な**zoxideコマンド**の1つです。\n\n---\n\n## 3. データベース管理コマンド\n\n### `zoxide add`\n\n手動でアルゴリズムをトレーニングできます：\n\n```bash\nzoxide add /path/to/new/project\n```\n\n### `zoxide remove`\n\nディレクトリを「忘れさせる」：\n\n```bash\nzoxide remove /path/to/dir\n```\n\n---\n\n## 4. 操作の頭脳：`zoxide query`\n\nスクリプターとパワーユーザー向けの最も重要なコマンドです。\n\n### 基本クエリ\n\n```bash\nzoxide query foo\n```\n\n`z foo`がジャンプする絶対パスを出力します。\n\n### マッチのリスト（`--list`）\n\n```bash\nzoxide query --list foo\n```\n\n### スコアリング（`--score`）\n\n```bash\nzoxide query --list --score\n```\n\n**出力例：**\n```text\n9000.0  /home/user/current-project\n250.0   /home/user/old-project\n```\n\n数値は「frecency」スコアを表します。\n\n---\n\n## 5. 移行コマンド：`zoxide import`\n\n`autojump`やオリジナルの`z`から移行する場合：\n\n```bash\nzoxide import --from z path/to/z/database\nzoxide import --from autojump path/to/autojump/db.txt\n```\n\n---\n\n## 6. スクリプトでのzoxideコマンド使用\n\n```bash\n#!/bin/bash\n\n# zoxideに'react'の最良マッチを問い合わせ\nTARGET_DIR=$(zoxide query react)\n\nif [ -d \"$TARGET_DIR\" ]; then\n    echo \"Opening $TARGET_DIR in VS Code...\"\n    code \"$TARGET_DIR\"\nelse\n    echo \"Project not found.\"\nfi\n```\n\n---\n\n## 結論\n\n**zoxideコマンド**を学ぶことで—特に`query`、`add`、`remove`—Zoxideを単なるユーティリティから生産性プラットフォームに変えます。\n\n初期化フラグで`cd`を置き換え、`zi`でビジュアルナビゲーションを使用し、`score`出力の読み方を理解することで、ターミナルが期待通りに動作することを確保できます。\n"
       },
       "zoxide-download-guide": {
         "title": "Zoxide Download Guide: Safe, Fast Install for macOS, Windows, and Linux",
@@ -676,7 +676,7 @@
         ]
       },
       "how-zoxide-works-ja": {
-        "title": "zoxideはどうやってディレクトリを変更するのか？（内部の魔法）",
+        "title": "zoxide はどうやってディレクトリを変更するのか？（シェル関数の仕組み）",
         "excerpt": "別のバイナリプロセスであるにもかかわらず、zoxideがシェルとどのように連携してディレクトリを変更するのかを深掘り。",
         "content": "\n# zoxideはどうやってディレクトリを変更するのか？（内部の魔法）\n\nUnixやLinuxの仕組みに詳しい方なら、zoxideの動作に違和感を覚えるかもしれません。「外部プロセス（バイナリ）は親プロセス（シェル）の作業ディレクトリを変更できないはずだ」と。それは100%正しいです。\n\nでは、なぜ `z` コマンドはディレクトリを移動できるのでしょうか？その背後にあるトリックを解説します。\n\n## 1. プロセスの壁\n\n通常、シェルからプログラム（例えば `ls` や `git`）を実行すると、それは**子プロセス**として起動します。子プロセスが自身のカレントディレクトリを変更しても（`chdir`）、その効果は子プロセス内だけで完結し、親であるシェルには影響しません。\n\nもし `zoxide` が単なるバイナリとして直接実行されたら、ディレクトリを検索して、自分自身の中で移動して、そのまま終了するだけです。あなたのシェルは元の場所に残されたままになります。\n\n## 2. 解決策：シェル関数ラッパー\n\n`zoxide init` が何を出力するか覚えていますか？それはシェルスクリプトです。そのスクリプトは `z` という名前の**シェル関数（またはエイリアス）**を定義しています。\n\nあなたが `z foo` と入力したとき、実際に実行されているのは以下のようなシェル関数です（簡略化したイメージ）：\n\n```bash\nfunction z() {\n    # 1. zoxideバイナリに「foo」にマッチするパスを問い合わせる\n    local target_dir=$(zoxide query \"$1\")\n\n    # 2. 結果が得られたら、シェル自身が cd コマンドを実行する\n    if [ -n \"$target_dir\" ]; then\n        cd \"$target_dir\"\n    fi\n}\n```\n\n## 3. ステップバイステップの動作フロー\n\n実際の流れは次のとおりです：\n\n1.  **ユーザー**：`z foo` と入力。\n2.  **シェル**：`z` 関数を実行。\n3.  **関数内**：`zoxide query foo` を呼び出す。これは外部バイナリ。\n4.  **zoxide**：データベースを検索し、最適なパス（例：`/var/www/foo`）を**標準出力（stdout）**にプリントして終了。\n5.  **シェル**：その出力を受け取り、組み込みコマンド `cd /var/www/foo` を実行。\n6.  **結果**：シェルのディレクトリが変更される。\n\nつまり、zoxideバイナリ自体はディレクトリを変更していません。**「どこに行くべきか」をシェルに教えているだけ**で、実際に移動しているのはシェル自身なのです。\n\n## 4. 学習の仕組み（The Hook）\n\n移動するだけでなく、データベースへの追加もシェル連携で行われます。\n\nシェルには「ディレクトリが変わるたびに実行する」フック（`chpwd` や `PROMPT_COMMAND`）があります。zoxide init はここに `zoxide add` を登録します。\n\nあなたが `cd` や `z` で移動するたびに、シェルは裏でこっそり `zoxide add /new/path` を実行し、データベースを更新しているのです。\n\n## 5. 結論\n\nzoxideは、高速な**Rustバイナリ**の計算力と、柔軟な**シェルスクリプト**の制御力を組み合わせることで、OSの制約を回避しながら、cd と同じ感覚で使える操作を実現しています。\n"
       }
