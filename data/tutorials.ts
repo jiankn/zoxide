@@ -8,6 +8,8 @@ export interface Tutorial {
   level: string;
   category: string;
   date: string;
+  // 正文按实测重写的日期；有值时页面显示“更新于”
+  updated?: string;
 }
 
 // 教程数据
@@ -478,6 +480,7 @@ z ~
     level: '中级',
     category: '进阶技巧',
     date: '2025-11-30',
+    updated: '2026-10-08',
     content: `# zoxide 高级配置
 
 本教程将介绍 zoxide 的高级配置选项，帮助你根据个人需求定制 zoxide 的行为。
@@ -909,6 +912,7 @@ fi
     level: '高级',
     category: '进阶技巧',
     date: '2025-11-30',
+    updated: '2026-10-08',
     content: `# zoxide 与 fzf 集成
 
 本教程将介绍如何将 zoxide 与 fzf（模糊查找器）结合使用，实现更强大的目录搜索和选择功能。
@@ -1506,6 +1510,7 @@ zsh -c "eval \\"\\$(zoxide init zsh)\\"; z --help"
     level: 'Beginner',
     category: '安装指南',
     date: '2025-12-01',
+    updated: '2026-10-08',
     content: `# How to Install zoxide on Ubuntu
 
 This guide will walk you through installing zoxide on Ubuntu and other Debian-based Linux distributions.
@@ -1677,6 +1682,7 @@ If you get permission errors:
     level: 'Beginner',
     category: '安装指南',
     date: '2025-12-01',
+    updated: '2026-09-30',
     content: `# How to Install zoxide on macOS
 
 This guide will help you install zoxide on macOS using the most common methods.
@@ -1863,6 +1869,7 @@ If you get permission errors:
     level: 'Beginner',
     category: '安装指南',
     date: '2025-12-01',
+    updated: '2026-09-30',
     content: `# How to Install zoxide on Windows
 
 This guide will help you install zoxide on Windows using various methods.

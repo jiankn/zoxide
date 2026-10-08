@@ -5,7 +5,7 @@ import { getTutorialBySlug, getAllTutorials } from "@/data/tutorials";
 
 import { createMarkdownComponents } from "@/components/Markdown/markdownComponents";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Calendar, Clock, BookOpen } from "lucide-react";
+import { Calendar, Clock, BookOpen, RefreshCw } from "lucide-react";
 import { generateMultilingualMetadata } from "@/lib/seo/metadata";
 import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 import { getTutorialContentOverride } from "@/data/tutorial-content-overrides";
@@ -137,6 +137,15 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
                 <Calendar className="h-4 w-4" />
                 <span>{tutorial.date}</span>
               </div>
+              {tutorial.updated && (
+                <div className="flex items-center gap-2">
+                  <RefreshCw className="h-4 w-4" />
+                  <span>
+                    {locale === "zh" ? "更新于 " : locale === "ja" ? "更新日 " : "Updated "}
+                    <time dateTime={tutorial.updated}>{tutorial.updated}</time>
+                  </span>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4" />
                 <span>{duration}</span>
