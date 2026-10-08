@@ -850,6 +850,161 @@ Enter jumped to /home/dev/projects/api-gateway. We did not test every key bindin
 - The wrong directory ranks first: see the [no-match and ranking guide](/blog/troubleshooting-zoxide-no-match-found/).
 
 To check zoxide, PATH, shell setup and fzf in one command, run [zoxide-doctor](/tools/zoxide-doctor/).`,
+
+  'advanced-config': String.raw`# Configure zoxide: environment variables and init flags, tested
+
+zoxide has six environment variables and three zoxide init flags. That is the whole configuration surface, and most of it you never need to touch. This page tests each one and shows the output, because two of the most copied tips get it wrong: excluding /node_modules excludes nothing inside your projects, and _ZO_MAXAGE is not a number of days.
+
+## Test environment
+
+| Item | Value |
+| --- | --- |
+| Tested on | October 8, 2026 |
+| System | Linux container, 4 vCPU (Intel Xeon 2.80 GHz) |
+| zoxide | 0.10.0, built with cargo install zoxide --locked |
+| Shell | GNU bash 5.2.21, interactive, started with --norc so no other config interfered |
+
+Every test started from an empty HOME directory. Paths in the output are shortened to /home/alice. Behavior was also checked against the zoxide 0.10.0 source (src/config.rs and src/db). zsh, fish and PowerShell were not tested here; the variables are read by the zoxide binary, not the shell, so they behave the same, but the line that sets them differs.
+
+## Set variables before zoxide init
+
+The README says the variables must be set before zoxide init runs. Put them above the init line:
+
+~~~bash
+# ~/.bashrc or ~/.zshrc
+export _ZO_EXCLUDE_DIRS="$HOME:*/node_modules:*/node_modules/*"
+eval "$(zoxide init bash)"   # use zsh in ~/.zshrc
+~~~
+
+Open a new terminal after editing. A variable exported later in the file, or only in another terminal, does not reach the z function you already loaded.
+
+## _ZO_EXCLUDE_DIRS: what it really matches
+
+zoxide records a directory each time you cd into it. _ZO_EXCLUDE_DIRS is a list of globs that are never recorded. On Linux and macOS the separator is a colon; on Windows it is a semicolon. The default value is $HOME, so your home directory itself is not recorded.
+
+Each glob is matched against the full absolute path. That is why the common tip fails. We created ~/proj, ~/proj/node_modules, ~/proj/node_modules/pkg, ~/proj/src and ~/a/b/node_modules, added all five with each setting, and listed the database:
+
+| _ZO_EXCLUDE_DIRS | Recorded |
+| --- | --- |
+| $HOME:/node_modules | All five. /node_modules only matches a folder at the root of the disk |
+| $HOME:*/node_modules | proj, proj/src, proj/node_modules/pkg |
+| $HOME:*/node_modules/* | proj, proj/src, proj/node_modules, a/b/node_modules |
+| $HOME:*/node_modules:*/node_modules/* | proj, proj/src |
+
+In zoxide's globs a * also matches the / character, so */node_modules catches a node_modules folder at any depth. You need both patterns to exclude the folder and everything inside it. The same applies to /tmp and /var from other guides: /tmp excludes only /tmp itself, not /tmp/build.
+
+The rule that surprised us most: a pattern ending in /* excludes the children but not the folder. With $HOME/tmp/* set we visited ~/tmp/build and then ~/tmp:
+
+~~~text
+$ export _ZO_EXCLUDE_DIRS="$HOME:$HOME/private/*:$HOME/tmp/*"
+$ eval "$(zoxide init bash)"
+$ cd ~/work/api
+$ cd ~/private/notes
+$ cd ~/tmp/build
+$ cd ~/tmp
+$ cd ~
+$ zoxide query --list
+/home/alice/tmp
+/home/alice/work/api
+~~~
+
+Two more points:
+
+- Setting the variable replaces the default. If you leave $HOME out of your list, your home directory starts being recorded.
+- Excluding a directory only stops zoxide from learning it. z ~/private/notes still works because z with a path behaves like cd.
+
+## _ZO_DATA_DIR: where the database lives
+
+zoxide keeps everything in one file, db.zo. If _ZO_DATA_DIR is not set, it lives in a zoxide folder inside the system data directory:
+
+| System | Default database file |
+| --- | --- |
+| Linux / BSD | $XDG_DATA_HOME/zoxide/db.zo, usually ~/.local/share/zoxide/db.zo |
+| macOS | ~/Library/Application Support/zoxide/db.zo |
+| Windows | %LOCALAPPDATA%\zoxide\db.zo |
+
+If you set _ZO_DATA_DIR, the file goes straight into that folder with no extra zoxide subfolder. The path must be absolute:
+
+~~~text
+$ _ZO_DATA_DIR=relative zoxide query --list
+zoxide: _ZO_DATA_DIR must be an absolute path
+$ export _ZO_DATA_DIR=$HOME/zdata
+$ zoxide add ~/work/web
+$ ls ~/zdata
+db.zo
+~~~
+
+The file is small. A database with 2,000 directories was 100,905 bytes in our test, so backing it up or moving it to a new machine is a plain file copy. Do it while no shell is changing directory. The docs say nothing about several users or machines writing to one file at the same time, so give each user their own database instead of pointing everyone at a shared path.
+
+## _ZO_MAXAGE: a score budget, not days
+
+Many guides say _ZO_MAXAGE=365 keeps about a year of history. It does not. zoxide gives every directory a rank, adds 1 each time you visit it, and keeps the sum of all ranks under _ZO_MAXAGE (default 10000). When a new visit pushes the sum over the limit, every rank is multiplied by 0.9 × limit ÷ sum, and directories that drop below 1 are deleted. Time plays no part in that step.
+
+We added 30 directories once each, visited one of them nine more times, then made one more add with a very low limit:
+
+~~~text
+$ zoxide query --list | wc -l
+30
+$ _ZO_MAXAGE=20 zoxide add ~/p/d2
+$ zoxide query --list --score
+  18.0 /home/alice/p/d1
+~~~
+
+The sum of ranks was 40, so every rank was multiplied by 0.45. Only d1, with rank 10, stayed above 1. The other 29 directories, including the one we had just added, were deleted.
+
+The score that query --score prints is not the stored rank. It is the rank multiplied by a recency factor: 4 if the directory was used in the last hour, 2 in the last day, 0.5 in the last week, and 0.25 after that. That is why d1 shows 18.0 (4.5 × 4).
+
+In practice: the default 10000 is roughly 10,000 visits of history. Lower it only if you want old projects to fade faster. Our database with 2,000 directories was still far below the default limit, and queries took 4 ms.
+
+## _ZO_ECHO, _ZO_RESOLVE_SYMLINKS and _ZO_FZF_OPTS
+
+_ZO_ECHO=1 makes z print the directory before it jumps, which helps when you are unsure which match won:
+
+~~~text
+$ export _ZO_ECHO=1
+$ eval "$(zoxide init bash)"
+$ z api
+/home/alice/work/api
+~~~
+
+_ZO_RESOLVE_SYMLINKS=1 stores the real path behind a symlink. With ~/apilink pointing to ~/work/api, a plain zoxide add ~/apilink stored /home/alice/apilink, and the same command with the variable set stored /home/alice/work/api. Turn it on if one project shows up twice under different paths.
+
+_ZO_FZF_OPTS replaces the options zi passes to fzf. Setting it drops all of zoxide's defaults, including the ones that keep results in score order. The [fzf guide](/tutorials/fzf-integration/) lists the defaults to copy.
+
+## zoxide init flags
+
+| Flag | Effect | Checked with |
+| --- | --- | --- |
+| --cmd j | Defines j and ji instead of z and zi | type -t j ji z: two functions, z not defined |
+| --cmd cd | Replaces cd and defines cdi | type -t, then cd api jumped to ~/work/api |
+| --no-cmd | Defines no commands; __zoxide_z and __zoxide_zi still exist | type -t |
+| --hook pwd | Default. Records a directory when you change into it | tests above |
+| --hook prompt | Records the current directory at every prompt | see below |
+| --hook none | Never records automatically | 0 entries after cd into two directories |
+
+--hook prompt counts time, not visits. We ran cd ~/work/api, two more commands in that directory, then cd ~. The directory got rank 3, one per prompt, and a score of 12.0. If you sit in one project all day, this mode will rank it far above everything else.
+
+## Clean up the database
+
+~~~bash
+zoxide query --list --score      # what zoxide knows, best match first
+zoxide remove /full/path         # forget one directory
+zoxide edit                      # interactive editor for scores and entries
+~~~
+
+zoxide remove needs the exact stored path; anything else prints zoxide: path not found in database. Directories you delete from disk are hidden from results but stay in the file for a while: after rmdir ~/gone, zoxide query --list printed nothing, while zoxide query --list --all still showed /home/alice/gone. You do not need to clean these up by hand.
+
+## Performance: nothing to tune
+
+With 2,000 directories in the database, zoxide query took 0.004 s and zoxide init bash took 0.002 s, in three runs each. Shell startup and match speed are not a reason to change any of these settings. If z feels slow, look at the rest of your shell startup, or run [zoxide-doctor](/tools/zoxide-doctor/) to check the install and init setup.
+
+## What we left out on purpose
+
+- Aliases such as alias zz='z' or alias zi='zi': zoxide init already defines z and zi, and --cmd renames them properly.
+- Hand-written zi functions built on zoxide query -l | fzf: they lose the ranking and preview that the built-in zi has.
+- Deleting the database to speed things up: the tests above show it is not slow to begin with.
+
+Sources: the zoxide README (Configuration section) and the zoxide 0.10.0 source code, checked against the output above.`,
 };
 
 const japaneseTutorialContent: Record<string, string> = {
@@ -1191,61 +1346,160 @@ zoxide query --list
 
 zoxide --version は動くのに z が見つからない場合、原因はほぼシェル初期化です。設定ファイルの場所、記述順、再読み込みの有無を確認してください。`,
 
-  'advanced-config': String.raw`# zoxide 高度な設定
+  'advanced-config': String.raw`# zoxide の設定を検証：環境変数と init フラグ
 
-環境変数は zoxide init より前に定義すると、生成されるシェル関数へ確実に反映できます。変更後は新しいシェルを開いて確認してください。
+zoxide の設定項目は環境変数 6 つと zoxide init のフラグ 3 つだけで、ほとんどは普段触る必要がありません。このページでは一つずつ実際に動かし、その出力を載せています。よく引用される 2 つの設定例が誤っているためです。/node_modules を除外してもプロジェクト内の node_modules は除外されず、_ZO_MAXAGE は日数ではありません。
 
-## 不要なディレクトリを除外
+## 検証環境
 
-ビルド出力や一時ディレクトリを学習対象から外すと、候補一覧のノイズを減らせます。
+| 項目 | 値 |
+| --- | --- |
+| 検証日 | 2026 年 10 月 8 日 |
+| システム | Linux コンテナ、4 vCPU（Intel Xeon 2.80 GHz） |
+| zoxide | 0.10.0（cargo install zoxide --locked でビルド） |
+| シェル | GNU bash 5.2.21、対話モード、他の設定の影響を避けるため --norc で起動 |
 
-~~~bash
-export _ZO_EXCLUDE_DIRS="/tmp:/var:/node_modules:/dist:/build"
-eval "$(zoxide init zsh)"
-~~~
+各テストは空の HOME ディレクトリから始め、出力中のパスは /home/alice に置き換えています。動作は zoxide 0.10.0 のソースコード（src/config.rs と src/db）とも照合しました。zsh、fish、PowerShell では検証していません。これらの変数はシェルではなく zoxide 本体が読むため動作は同じですが、設定する行の書き方は異なります。
 
-区切り方はプラットフォームに依存するため、利用中のバージョンの公式ドキュメントも確認してください。
+## 変数は zoxide init より前に設定する
 
-## データ保存先
-
-_ZO_DATA_DIR はデータディレクトリを変更します。
-
-~~~bash
-export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
-~~~
-
-zoxide のデータベースはユーザーごとに管理してください。複数ユーザーや複数プロセスで同じデータベースへ同時に書き込む運用は避け、移行時は停止中にバックアップします。
-
-## データベースの老化しきい値
-
-_ZO_MAXAGE は「保存日数」ではなく、老化アルゴリズムが使う合計 frecency スコアの上限です。
+README では、変数は zoxide init の実行前に設定する必要があるとされています。初期化の行より上に書きます。
 
 ~~~bash
-export _ZO_MAXAGE=5000
+# ~/.bashrc または ~/.zshrc
+export _ZO_EXCLUDE_DIRS="$HOME:*/node_modules:*/node_modules/*"
+eval "$(zoxide init bash)"   # ~/.zshrc では zsh
 ~~~
 
-値を下げると古く低スコアの項目が整理されやすくなります。変更前後で zoxide query --list と実際の検索結果を比較してください。
+編集後は新しいターミナルを開いてください。ファイルの後ろの方で export した変数や、別のターミナルだけで設定した変数は、すでに読み込まれた z 関数には反映されません。
 
-## コマンド名を変更
+## _ZO_EXCLUDE_DIRS が実際に一致させるもの
 
-標準の z 以外を使いたい場合:
+zoxide は cd で移動するたびにそのディレクトリを記録します。_ZO_EXCLUDE_DIRS は記録しない glob パターンの一覧で、Linux と macOS ではコロン、Windows ではセミコロンで区切ります。既定値は $HOME なので、ホームディレクトリ自体は記録されません。
+
+各パターンは絶対パス全体と照合されます。よくある設定例が効かないのはこのためです。~/proj、~/proj/node_modules、~/proj/node_modules/pkg、~/proj/src、~/a/b/node_modules の 5 つを作成し、設定ごとにすべて追加してからデータベースを確認しました。
+
+| _ZO_EXCLUDE_DIRS | 記録されたディレクトリ |
+| --- | --- |
+| $HOME:/node_modules | 5 つすべて。/node_modules はディスク直下のフォルダーにしか一致しない |
+| $HOME:*/node_modules | proj、proj/src、proj/node_modules/pkg |
+| $HOME:*/node_modules/* | proj、proj/src、proj/node_modules、a/b/node_modules |
+| $HOME:*/node_modules:*/node_modules/* | proj、proj/src |
+
+zoxide の glob では * が / にも一致するため、*/node_modules はどの階層の node_modules にも一致します。フォルダー自体と中身の両方を除外するには 2 つのパターンが必要です。他のガイドにある /tmp や /var も同じで、/tmp は /tmp そのものだけを除外し、/tmp/build は除外しません。
+
+意外だった点：/* で終わるパターンは子ディレクトリだけを除外し、フォルダー自体は除外しません。$HOME/tmp/* を設定して ~/tmp/build、続いて ~/tmp に移動しました。
+
+~~~text
+$ export _ZO_EXCLUDE_DIRS="$HOME:$HOME/private/*:$HOME/tmp/*"
+$ eval "$(zoxide init bash)"
+$ cd ~/work/api
+$ cd ~/private/notes
+$ cd ~/tmp/build
+$ cd ~/tmp
+$ cd ~
+$ zoxide query --list
+/home/alice/tmp
+/home/alice/work/api
+~~~
+
+ほかに 2 点あります。
+
+- この変数を設定すると既定値は置き換えられます。一覧に $HOME を入れないと、ホームディレクトリが記録されるようになります。
+- 除外は zoxide に学習させないだけです。z にパスを渡すと cd と同じように動くので、z ~/private/notes はそのまま使えます。
+
+## _ZO_DATA_DIR：データベースの場所
+
+zoxide のデータはすべて db.zo という 1 つのファイルにあります。_ZO_DATA_DIR が未設定の場合は、システムのデータディレクトリ内の zoxide フォルダーに置かれます。
+
+| システム | 既定のデータベースファイル |
+| --- | --- |
+| Linux / BSD | $XDG_DATA_HOME/zoxide/db.zo（通常は ~/.local/share/zoxide/db.zo） |
+| macOS | ~/Library/Application Support/zoxide/db.zo |
+| Windows | %LOCALAPPDATA%\zoxide\db.zo |
+
+_ZO_DATA_DIR を設定すると、zoxide サブフォルダーは作られず、そのフォルダーの直下にファイルが置かれます。パスは絶対パスでなければなりません。
+
+~~~text
+$ _ZO_DATA_DIR=relative zoxide query --list
+zoxide: _ZO_DATA_DIR must be an absolute path
+$ export _ZO_DATA_DIR=$HOME/zdata
+$ zoxide add ~/work/web
+$ ls ~/zdata
+db.zo
+~~~
+
+ファイルは小さく、2,000 ディレクトリのデータベースで 100,905 バイトでした。バックアップや新しいマシンへの移行はファイルのコピーで済みます。コピー中はシェルでディレクトリを移動しないでください。複数のユーザーやマシンが同じファイルに同時に書き込む場合の動作はドキュメントに記載がないため、共有パスを指定せず、ユーザーごとに別のデータベースを使ってください。
+
+## _ZO_MAXAGE：日数ではなくスコアの上限
+
+_ZO_MAXAGE=365 で約 1 年分の履歴を残せる、という説明をよく見かけますが誤りです。zoxide は各ディレクトリに rank を持たせ、訪問するたびに 1 を加え、すべての rank の合計を _ZO_MAXAGE（既定値 10000）以下に保ちます。訪問によって合計が上限を超えると、すべての rank に 0.9 × 上限 ÷ 合計 を掛け、1 未満になったディレクトリを削除します。この処理に時間は関係しません。
+
+30 個のディレクトリを 1 回ずつ追加し、そのうち 1 つをさらに 9 回訪問してから、非常に低い上限で 1 回追加しました。
+
+~~~text
+$ zoxide query --list | wc -l
+30
+$ _ZO_MAXAGE=20 zoxide add ~/p/d2
+$ zoxide query --list --score
+  18.0 /home/alice/p/d1
+~~~
+
+rank の合計は 40 だったので、すべての rank に 0.45 が掛けられました。1 を上回ったのは rank 10 の d1 だけで、追加したばかりの d2 を含む残り 29 個は削除されました。
+
+query --score が表示するのも保存された rank ではなく、rank に時間係数を掛けた値です。直近 1 時間以内なら 4 倍、1 日以内なら 2 倍、1 週間以内なら 0.5 倍、それより前なら 0.25 倍です。d1 が 18.0（4.5 × 4）と表示されるのはこのためです。
+
+実際には、既定値 10000 はおよそ 1 万回分の訪問履歴に相当します。古いプロジェクトを早く薄れさせたいときだけ下げてください。2,000 ディレクトリのデータベースでも既定の上限には遠く及ばず、検索は 4 ミリ秒でした。
+
+## _ZO_ECHO、_ZO_RESOLVE_SYMLINKS、_ZO_FZF_OPTS
+
+_ZO_ECHO=1 にすると、z は移動前に移動先を表示します。どの候補が選ばれたか確かめたいときに便利です。
+
+~~~text
+$ export _ZO_ECHO=1
+$ eval "$(zoxide init bash)"
+$ z api
+/home/alice/work/api
+~~~
+
+_ZO_RESOLVE_SYMLINKS=1 はシンボリックリンクの実体パスを記録します。~/apilink が ~/work/api を指している場合、zoxide add ~/apilink は /home/alice/apilink を記録し、この変数を設定すると同じコマンドで /home/alice/work/api を記録しました。同じプロジェクトが別のパスで二重に出てくるときに有効にしてください。
+
+_ZO_FZF_OPTS は zi が fzf に渡すオプションを置き換えます。設定するとスコア順を保つものも含め、zoxide の既定オプションはすべて無効になります。コピーすべき既定値は [fzf 連携ガイド](/ja/tutorials/fzf-integration/) にあります。
+
+## zoxide init のフラグ
+
+| フラグ | 効果 | 確認方法 |
+| --- | --- | --- |
+| --cmd j | z と zi の代わりに j と ji を定義 | type -t j ji z：関数 2 つ、z は未定義 |
+| --cmd cd | cd を置き換え、cdi を定義 | type -t で確認後、cd api で ~/work/api に移動 |
+| --no-cmd | コマンドを定義しない。__zoxide_z と __zoxide_zi は存在する | type -t |
+| --hook pwd | 既定値。ディレクトリに移動したときに記録 | 上記の各テスト |
+| --hook prompt | プロンプトが表示されるたびに現在のディレクトリを記録 | 下記参照 |
+| --hook none | 自動では記録しない | 2 つのディレクトリに cd した後も 0 件 |
+
+--hook prompt は訪問回数ではなく滞在時間を数えます。cd ~/work/api のあと同じディレクトリでコマンドを 2 つ実行し、cd ~ で戻りました。このディレクトリの rank はプロンプト 1 回につき 1 で 3 になり、スコアは 12.0 でした。1 日中同じプロジェクトにいると、このモードではそのディレクトリが他よりはるかに上位になります。
+
+## データベースの整理
 
 ~~~bash
-eval "$(zoxide init zsh --cmd j)"
+zoxide query --list --score      # zoxide が覚えているもの（上位から）
+zoxide remove /full/path         # 1 つのディレクトリを削除
+zoxide edit                      # スコアと項目の対話的な編集
 ~~~
 
-既存のエイリアスと衝突しないか type z や type j で確認します。
+zoxide remove には保存されているものと完全に同じパスが必要で、違うと zoxide: path not found in database と表示されます。ディスクから削除したディレクトリは結果に出なくなりますが、ファイルにはしばらく残ります。rmdir ~/gone の後、zoxide query --list には何も表示されず、zoxide query --list --all では /home/alice/gone が表示されました。手作業で整理する必要はありません。
 
-## 設定を検証する手順
+## パフォーマンス：調整する項目はない
 
-~~~bash
-zoxide --version
-type z
-zoxide query --list
-zoxide query --score project
-~~~
+データベースに 2,000 ディレクトリがある状態で、zoxide query は 0.004 秒、zoxide init bash は 0.002 秒でした（各 3 回計測）。シェルの起動速度や検索速度は、これらの設定を変える理由になりません。z が遅いと感じたら、シェル起動時の他の処理を確認するか、[zoxide-doctor](/ja/tools/zoxide-doctor/) でインストールと初期化設定を確認してください。
 
-設定を一度に増やさず、除外設定、保存先、コマンド名の順に一つずつ変更すると問題を切り分けやすくなります。`,
+## あえて載せなかったもの
+
+- alias zz='z' や alias zi='zi' などのエイリアス：zoxide init がすでに z と zi を定義しており、名前を変えるなら --cmd を使います。
+- zoxide query -l | fzf で自作した zi 関数：組み込みの zi が持つ並び順とプレビューが失われます。
+- 高速化のためのデータベース削除：上のテストのとおり、もともと遅くありません。
+
+参考：zoxide README の Configuration セクションと zoxide 0.10.0 のソースコード。上記の出力と一つずつ照合しました。`,
 
   'fzf-integration': String.raw`# zoxide と fzf の連携：zi の対話選択を実機で検証
 
@@ -2712,6 +2966,161 @@ brew uninstall zoxide
 - [命令参考](/zh/blog/zoxide-commands/)：z、zi、z - 与 query 参数
 - [高级配置](/zh/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS 等环境变量
 - [zoxide-doctor](/zh/tools/zoxide-doctor/)：自动检查你的配置`,
+
+  'advanced-config': String.raw`# zoxide 配置实测：环境变量与 init 参数
+
+zoxide 一共只有 6 个环境变量和 3 个 zoxide init 参数，这就是它全部的配置项，而且大部分平时用不到。本页逐个实测并贴出输出。之所以要实测，是因为网上流传最广的两条建议都是错的：排除 /node_modules 对项目里的 node_modules 毫无作用；_ZO_MAXAGE 也不是天数。
+
+## 测试环境
+
+| 项目 | 值 |
+| --- | --- |
+| 测试日期 | 2026 年 10 月 8 日 |
+| 系统 | Linux 容器，4 vCPU（Intel Xeon 2.80 GHz） |
+| zoxide | 0.10.0，通过 cargo install zoxide --locked 编译安装 |
+| Shell | GNU bash 5.2.21，交互模式，用 --norc 启动以排除其他配置干扰 |
+
+每项测试都从空的 HOME 目录开始，输出中的路径统一缩写为 /home/alice。行为同时对照了 zoxide 0.10.0 源码（src/config.rs 和 src/db）。本次没有测试 zsh、fish、PowerShell：这些变量由 zoxide 程序本身读取，与 Shell 无关，行为一致，只是设置变量的写法不同。
+
+## 变量要写在 zoxide init 之前
+
+官方 README 要求在 zoxide init 运行之前设置变量，所以放在初始化那一行的上面：
+
+~~~bash
+# ~/.bashrc 或 ~/.zshrc
+export _ZO_EXCLUDE_DIRS="$HOME:*/node_modules:*/node_modules/*"
+eval "$(zoxide init bash)"   # ~/.zshrc 里写 zsh
+~~~
+
+改完后新开一个终端。写在文件更后面、或者只在别的终端里 export 的变量，影响不到已经加载的 z 函数。
+
+## _ZO_EXCLUDE_DIRS：实际匹配的是什么
+
+每次 cd 进一个目录，zoxide 就记录它。_ZO_EXCLUDE_DIRS 是一组永远不记录的 glob 通配模式，Linux 和 macOS 用冒号分隔，Windows 用分号分隔。默认值是 $HOME，所以家目录本身不会被记录。
+
+每个模式都拿去和完整的绝对路径比较，这就是常见写法失效的原因。我们建了 ~/proj、~/proj/node_modules、~/proj/node_modules/pkg、~/proj/src、~/a/b/node_modules 五个目录，在不同设置下全部添加一遍，再看数据库里剩下什么：
+
+| _ZO_EXCLUDE_DIRS | 被记录的目录 |
+| --- | --- |
+| $HOME:/node_modules | 全部五个。/node_modules 只匹配磁盘根目录下的那个文件夹 |
+| $HOME:*/node_modules | proj、proj/src、proj/node_modules/pkg |
+| $HOME:*/node_modules/* | proj、proj/src、proj/node_modules、a/b/node_modules |
+| $HOME:*/node_modules:*/node_modules/* | proj、proj/src |
+
+在 zoxide 的 glob 里，* 也能匹配 / 字符，所以 */node_modules 能匹配任意深度的 node_modules 文件夹。要同时排除文件夹本身和它里面的内容，两条模式都要写。其他教程里的 /tmp、/var 也一样：/tmp 只排除 /tmp 这一个目录，不排除 /tmp/build。
+
+最出乎意料的一点：以 /* 结尾的模式只排除子目录，不排除文件夹本身。设置 $HOME/tmp/* 后，我们先进 ~/tmp/build 再进 ~/tmp：
+
+~~~text
+$ export _ZO_EXCLUDE_DIRS="$HOME:$HOME/private/*:$HOME/tmp/*"
+$ eval "$(zoxide init bash)"
+$ cd ~/work/api
+$ cd ~/private/notes
+$ cd ~/tmp/build
+$ cd ~/tmp
+$ cd ~
+$ zoxide query --list
+/home/alice/tmp
+/home/alice/work/api
+~~~
+
+另外两点：
+
+- 设置这个变量会覆盖默认值。列表里不写 $HOME，家目录就会开始被记录。
+- 排除只是让 zoxide 不再学习这个目录。z ~/private/notes 照样能用，因为给 z 传路径时它的行为和 cd 一样。
+
+## _ZO_DATA_DIR：数据库放在哪
+
+zoxide 的全部数据都在一个文件 db.zo 里。没设置 _ZO_DATA_DIR 时，它位于系统数据目录下的 zoxide 文件夹：
+
+| 系统 | 默认数据库文件 |
+| --- | --- |
+| Linux / BSD | $XDG_DATA_HOME/zoxide/db.zo，通常是 ~/.local/share/zoxide/db.zo |
+| macOS | ~/Library/Application Support/zoxide/db.zo |
+| Windows | %LOCALAPPDATA%\zoxide\db.zo |
+
+设置了 _ZO_DATA_DIR 后，文件直接放在该目录下，不会再多一层 zoxide 子目录。路径必须是绝对路径：
+
+~~~text
+$ _ZO_DATA_DIR=relative zoxide query --list
+zoxide: _ZO_DATA_DIR must be an absolute path
+$ export _ZO_DATA_DIR=$HOME/zdata
+$ zoxide add ~/work/web
+$ ls ~/zdata
+db.zo
+~~~
+
+这个文件很小，实测 2,000 个目录的数据库只有 100,905 字节，备份或迁移到新机器直接复制文件即可，复制时不要有 Shell 正在切换目录。官方文档没有说明多个用户或多台机器同时写同一个文件会怎样，所以每个用户用自己的数据库，不要让所有人指向同一个共享路径。
+
+## _ZO_MAXAGE：分数上限，不是天数
+
+很多教程说 _ZO_MAXAGE=365 表示保留一年记录，这是错的。zoxide 给每个目录一个 rank，每访问一次加 1，并让所有 rank 之和保持在 _ZO_MAXAGE 以下（默认 10000）。某次访问让总和超过上限时，所有 rank 都乘以 0.9 × 上限 ÷ 总和，低于 1 的目录被删除。这一步和时间无关。
+
+我们添加 30 个目录各一次，其中一个再访问 9 次，然后用一个很低的上限再添加一次：
+
+~~~text
+$ zoxide query --list | wc -l
+30
+$ _ZO_MAXAGE=20 zoxide add ~/p/d2
+$ zoxide query --list --score
+  18.0 /home/alice/p/d1
+~~~
+
+当时 rank 总和是 40，所以每个 rank 都乘以 0.45。只有 rank 为 10 的 d1 还高于 1，其余 29 个目录全被删除，包括刚刚添加的 d2。
+
+query --score 显示的也不是存储的 rank，而是 rank 乘以时间系数：最近 1 小时内用过乘 4，1 天内乘 2，1 周内乘 0.5，更早乘 0.25。所以 d1 显示 18.0（4.5 × 4）。
+
+实际意义：默认的 10000 大约相当于一万次访问的历史。只有想让旧项目更快淡出时才需要调低。我们 2,000 个目录的数据库离默认上限还很远，查询耗时 4 毫秒。
+
+## _ZO_ECHO、_ZO_RESOLVE_SYMLINKS 和 _ZO_FZF_OPTS
+
+_ZO_ECHO=1 让 z 在跳转前打印目标目录，不确定哪个匹配胜出时很有用：
+
+~~~text
+$ export _ZO_ECHO=1
+$ eval "$(zoxide init bash)"
+$ z api
+/home/alice/work/api
+~~~
+
+_ZO_RESOLVE_SYMLINKS=1 会记录符号链接背后的真实路径。~/apilink 指向 ~/work/api 时，直接 zoxide add ~/apilink 记录的是 /home/alice/apilink，设置该变量后同一条命令记录的是 /home/alice/work/api。同一个项目以两个路径出现时可以打开它。
+
+_ZO_FZF_OPTS 会替换 zi 传给 fzf 的参数。一旦设置，zoxide 的默认参数全部失效，包括保持按分数排序的那几项。需要照抄的默认值见 [fzf 集成教程](/zh/tutorials/fzf-integration/)。
+
+## zoxide init 参数
+
+| 参数 | 作用 | 验证方式 |
+| --- | --- | --- |
+| --cmd j | 定义 j 和 ji，代替 z 和 zi | type -t j ji z：两个函数，z 未定义 |
+| --cmd cd | 替换 cd，并定义 cdi | type -t 检查后，cd api 跳到了 ~/work/api |
+| --no-cmd | 不定义任何命令；__zoxide_z 和 __zoxide_zi 仍然存在 | type -t |
+| --hook pwd | 默认值，切换到目录时记录 | 上面各项测试 |
+| --hook prompt | 每次显示提示符时记录当前目录 | 见下文 |
+| --hook none | 从不自动记录 | cd 进两个目录后数据库仍为 0 条 |
+
+--hook prompt 统计的是停留时长而不是访问次数。我们执行 cd ~/work/api，在该目录再跑两条命令，然后 cd ~。这个目录的 rank 变成 3（每个提示符加 1），分数显示 12.0。如果你整天待在一个项目里，这种模式会让它的排名远远高于其他目录。
+
+## 清理数据库
+
+~~~bash
+zoxide query --list --score      # 查看 zoxide 记住了什么，最佳匹配在前
+zoxide remove /完整/路径          # 删除一个目录
+zoxide edit                      # 交互式编辑分数和条目
+~~~
+
+zoxide remove 需要与数据库中完全一致的路径，否则会提示 zoxide: path not found in database。从磁盘删掉的目录不会出现在结果里，但会在文件里保留一段时间：执行 rmdir ~/gone 后，zoxide query --list 没有任何输出，而 zoxide query --list --all 仍显示 /home/alice/gone。这类条目无需手动清理。
+
+## 性能：没什么可调的
+
+数据库里有 2,000 个目录时，zoxide query 耗时 0.004 秒，zoxide init bash 耗时 0.002 秒（各测 3 次）。Shell 启动速度和匹配速度都不是修改这些配置的理由。如果觉得 z 慢，应检查 Shell 启动中的其他部分，或者运行 [zoxide-doctor](/zh/tools/zoxide-doctor/) 检查安装和初始化配置。
+
+## 有意没写进来的内容
+
+- alias zz='z'、alias zi='zi' 之类的别名：zoxide init 已经定义了 z 和 zi，要改名请用 --cmd。
+- 用 zoxide query -l | fzf 手写的 zi 函数：会丢掉内置 zi 的排序和预览。
+- 为了提速删除数据库：上面的测试说明它本来就不慢。
+
+参考：zoxide README 的 Configuration 部分，以及 zoxide 0.10.0 源码，并与上面的实测输出逐项核对。`,
 };
 
 const localizedTutorialContent: Record<string, Record<string, string>> = {

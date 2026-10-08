@@ -21,7 +21,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const correctedPaths = new Set([
     'en:/download', 'zh:/download', 'ja:/download',
     'en:/tutorials/install-arch-nixos', 'zh:/tutorials/install-arch-nixos', 'ja:/tutorials/install-arch-nixos',
-    'en:/tutorials/advanced-config', 'zh:/tutorials/advanced-config',
+    'en:/tutorials/advanced-config', 'zh:/tutorials/advanced-config', 'ja:/tutorials/advanced-config',
+    'en:/blog/zoxide-alias-autocomplete', 'zh:/blog/zoxide-alias-autocomplete', 'ja:/blog/zoxide-alias-autocomplete',
+    'zh:/blog/zoxide-commands', 'ja:/blog/zoxide-commands', 'ja:/blog/zoxide-init-guide', 'ja:/blog/how-zoxide-works-ja',
+    'en:', 'zh:', 'ja:', 'en:/tutorials',
     'zh:/tutorials/troubleshooting', 'ja:/tutorials/troubleshooting',
     'en:/tutorials/quick-start',
     'zh:/blog/zoxide-init-guide', 'ja:/blog/zoxide-init-guide',

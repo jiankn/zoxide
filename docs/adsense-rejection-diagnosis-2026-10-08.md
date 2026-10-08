@@ -155,3 +155,15 @@ zoxide-doctor 是站长自己开发的开源工具，是全站最强的“独特
 - [Google Publisher Policies](https://support.google.com/adsense/answer/10502938)
 - [AdSense 内容和用户体验](https://support.google.com/adsense/answer/10015918)
 - [Google 网页搜索垃圾内容政策（含规模化内容滥用）](https://developers.google.com/search/docs/essentials/spam-policies)
+
+## 四、整改执行记录（2026-10-08 第二批）
+
+- 高级配置页（/tutorials/advanced-config，英中日三语）按 zoxide 0.10.0 实测重写，替换旧的模板内容。新增的独有内容：
+  - _ZO_EXCLUDE_DIRS 的匹配规则实测：/node_modules 什么都排除不了，要写 */node_modules:*/node_modules/*；以 /* 结尾的模式不排除文件夹本身。
+  - _ZO_MAXAGE 是 rank 总和上限，不是天数：用 _ZO_MAXAGE=20 实测衰减过程，并对照源码 src/db/mod.rs。
+  - --hook prompt 按提示符次数计分；--cmd、--no-cmd、--hook none 均在交互式 bash 中验证。
+  - 性能数据：2,000 个目录的数据库 100,905 字节，query 0.004 秒，init 0.002 秒。
+- 旧内容里被删掉的错误：把 _ZO_MAXAGE 当天数、/tmp:/var:/node_modules 排除写法、共享数据库（Team Collaboration）、手写 zi 函数和 alias zi='zi'。
+- 营销套话：清理仍在线页面正文中的 magic、mastering、deep dive、unlock、Blazing Fast，以及中文的“掌握/释放潜力/神奇”和日文的“マスター/魔法”。标题仍冻结到 2026-10-30，没有改。
+- 首页“速度”卡片改为实测数据（2,000 个目录查询 4 毫秒）。
+- sitemap 中以上页面的 lastmod 更新为 2026-10-08。

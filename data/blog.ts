@@ -2440,7 +2440,7 @@ zoxide --version
 
 The \`zoxide init\` command is a "set it and forget it" step, but understanding it gives you control over your terminal environment.
 
-Whether you stick to the standard \`z\` command or alias \`cd\` entirely, proper initialization is the key to unlocking that 10× navigation speed. Once you're set up, explore the [full list of zoxide commands](/blog/zoxide-commands/) to get the most out of it.
+Whether you stick to the standard \`z\` command or replace \`cd\` entirely, it only works once the init line runs in every new shell. Once you're set up, explore the [full list of zoxide commands](/blog/zoxide-commands/) to get the most out of it.
 
 Now, go edit that config file.`,
     date: "2025-12-20",
@@ -2581,7 +2581,7 @@ To learn how to set this up correctly, check out our [Installation Guide](/tutor
 Zoxide relies on a clever handshake: the binary handles the brain (database, ranking, matching), and the shell function handles the body (moving the user). This separation allows zoxide to be incredibly fast and portable while still feeling native to your terminal.`,
     date: "2026-01-08",
     author: "Jacky Jian",
-    category: "Deep Dive",
+    category: "How It Works",
     primaryKeyword: "how zoxide works",
     tags: ["how zoxide works", "shell", "internals", "bash", "zsh"],
     readTime: 5,
@@ -2633,7 +2633,7 @@ Zoxide relies on a clever handshake: the binary handles the brain (database, ran
 Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（数据库、排名、匹配），而 Shell 函数负责"身体"（移动用户）。这种分离设计使得 zoxide 既能保持极高的性能和移植性，又能像原生命令一样无缝融入你的终端体验。`,
     date: "2026-01-08",
     author: "Jacky Jian",
-    category: "深度解析",
+    category: "原理",
     primaryKeyword: "zoxide 工作原理",
     tags: ["zoxide 工作原理", "shell", "原理解析", "bash", "zsh"],
     readTime: 5,
@@ -2666,7 +2666,7 @@ Zoxide 依赖于一个巧妙的握手协议：二进制程序负责"大脑"（�
     content: "",
     date: "2026-01-08",
     author: "Jacky Jian",
-    category: "詳細解説",
+    category: "仕組み",
     primaryKeyword: "zoxide 仕組み",
     tags: ["zoxide 仕組み", "zoxide", "内部", "シェル", "フック"],
     readTime: 7,
@@ -2774,7 +2774,7 @@ If you’re new to zoxide, a simple plan is:
 2. Enable \`zoxide init\` in your shell config.
 3. Use your terminal normally for a day.
 4. Start using \`z <keyword>\` for your most common locations.
-5. Add fzf later to unlock \`zi\` (interactive selection) if you want a searchable list.
+5. Add fzf later to get \`zi\` (interactive selection) if you want a searchable list.
 
 ---
 

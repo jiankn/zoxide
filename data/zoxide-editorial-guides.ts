@@ -223,7 +223,7 @@ When a broad query returns too many directories, inspect the candidates instead 
 zoxide query --list --score project
 §§§
 
-The [getting started guide](/blog/mastering-terminal-navigation-zoxide-guide/) explains the normal §z§ workflow. The [command reference](/blog/zoxide-commands/) covers §query§, §remove§, and other subcommands. The behavior and version requirement on this page were checked against the [zoxide upstream documentation](https://github.com/ajeetdsouza/zoxide).`),
+The [getting started guide](/tutorials/quick-start/) explains the normal §z§ workflow. The [command reference](/blog/zoxide-commands/) covers §query§, §remove§, and other subcommands. The behavior and version requirement on this page were checked against the [zoxide upstream documentation](https://github.com/ajeetdsouza/zoxide).`),
     },
   },
   "zoxide-commands": {
