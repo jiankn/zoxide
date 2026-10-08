@@ -118,10 +118,10 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   // 仅对实际复核过的教程显示核验说明；Windows、macOS 教程正文自带测试环境表
   const verificationNote = slug === "install-ubuntu"
     ? locale === "zh"
-      ? "独立核验说明。本教程的 Ubuntu 24.04 软件包版本、上游安装方式与 fzf 要求已于 2026 年 8 月 6 日复核；安装时仍应查看本机候选版本。"
+      ? "实测说明。本教程于 2026 年 10 月 8 日在全新的官方 ubuntu:24.04 容器中逐条实测；软件包版本会随 Ubuntu 更新变化，安装时请以 apt-cache policy 的输出为准。"
       : locale === "ja"
-        ? "独立検証メモ：Ubuntu 24.04のパッケージ版、上流の導入方法、fzf要件は2026年8月6日に照合しました。導入時は手元の候補版も確認してください。"
-        : "Independent verification note: Ubuntu 24.04 package versions, upstream installation methods, and the fzf requirement were checked on August 6, 2026. Confirm the versions offered to your machine when installing."
+        ? "検証メモ：このガイドは 2026 年 10 月 8 日に新規の公式 ubuntu:24.04 コンテナで手順ごとに実行しました。パッケージ版は Ubuntu の更新で変わるため、導入時は apt-cache policy の出力を確認してください。"
+        : "Test note: every step in this guide was run on October 8, 2026 in a fresh official ubuntu:24.04 container. Package versions change with Ubuntu updates, so trust the output of apt-cache policy on your machine."
     : null;
 
   return (
