@@ -494,7 +494,7 @@ All three output lines in our run were /home/dev/projects/zoxide-demo: pwd confi
 
 fzf is optional. Plain z never uses it; zi uses fzf to show a picker. The upstream README states that the minimum supported fzf version is v0.51.0, and Ubuntu 24.04 ships 0.44.1, so apt's fzf is officially unsupported.
 
-What we measured: we ran zoxide's interactive query with fzf in filter mode, which accepts all the options zoxide passes but needs no terminal. fzf 0.44.1 from apt accepted them and returned the matching directories with both zoxide 0.10.0 and the apt zoxide 0.9.3. So zi is not guaranteed to fail with apt's fzf, but the picker itself was not tested and is outside the supported range. If zi misbehaves, install a current fzf with the upstream Git installer. We ran it with --bin, which only fetches the binary, and got 0.74.4, which worked the same way. Without --bin, the installer also offers to set up key bindings and completion:
+What we measured: we ran zoxide's interactive query with fzf in filter mode, which accepts all the options zoxide passes but needs no terminal. fzf 0.44.1 from apt accepted them and returned the matching directories with both zoxide 0.10.0 and the apt zoxide 0.9.3. So zi is not guaranteed to fail with apt's fzf. In a follow-up test in a real terminal, the picker itself also worked with 0.44.1; see the [fzf guide](/tutorials/fzf-integration/). It is still outside the supported range. If zi misbehaves, install a current fzf with the upstream Git installer. We ran it with --bin, which only fetches the binary, and got 0.74.4, which worked the same way. Without --bin, the installer also offers to set up key bindings and completion:
 
 ~~~bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -652,9 +652,22 @@ zoxide remove "$HOME/projects/old-api"
 
 Use full paths for maintenance commands so you change the intended entry. For flags, imports, scripting, and database diagnosis, continue with the [main command reference](/blog/zoxide-commands/).`,
 
-  'fzf-integration': String.raw`# Use zoxide with fzf and zi
+  'fzf-integration': String.raw`# Use zoxide with fzf and zi (tested in a real terminal)
 
-zoxide already provides the zi interactive command. You normally do not need to create a custom zi shell function. Install a compatible fzf release, initialize zoxide in the active shell, and zi will present matching directories for selection.
+zoxide already ships the zi command. It hands the directories zoxide knows to fzf, lets you pick one, and jumps there. You do not need to write your own zi function. This guide shows what zi actually does, which options zoxide passes to fzf, and why the most common customization advice quietly breaks the ranking.
+
+## Test environment
+
+| Item | Value |
+| --- | --- |
+| Tested on | October 8, 2026 |
+| System | Official ubuntu:24.04 container on a GitHub Actions runner |
+| zoxide | 0.10.0 (official install script) |
+| fzf | 0.74.4 (fzf Git installer) and 0.44.1 (Ubuntu apt package) |
+| Shells | GNU bash 5.2.21, zsh 5.9 |
+| Terminal | tmux 3.4, 110 × 30 characters |
+
+We drove a real terminal inside tmux, sent key presses, and captured the screen after each step. The captures below are trimmed to the prompt line and the candidate list: the outer border, empty rows and the empty preview box were removed. The test directories were empty, so the preview pane had nothing to show. To see exactly what zoxide passes to fzf, we put a small logging wrapper named fzf in front of the real fzf on PATH.
 
 ## Check both prerequisites
 
@@ -663,7 +676,7 @@ zoxide --version
 fzf --version
 ~~~
 
-The current zoxide documentation requires fzf 0.51.0 or newer for interactive selection. Package repositories can lag behind that minimum, so check the printed version rather than assuming that a successful package installation is sufficient.
+The zoxide README states that the minimum supported fzf version is v0.51.0. Ubuntu 24.04's apt package is 0.44.1. In our test it still worked for zi (see below), but it is outside the supported range, so prefer a current fzf when you can.
 
 ## Install fzf
 
@@ -673,9 +686,13 @@ brew install fzf
 
 # Arch Linux
 sudo pacman -S fzf
+
+# Any Linux, current release from the fzf repository
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 ~~~
 
-On Ubuntu 24.04, the distribution fzf package is older than the current zoxide requirement. Use a current method from the [fzf installation documentation](https://github.com/junegunn/fzf#installation), then open a new terminal and check fzf --version again.
+On Windows, install it with winget install --id junegunn.fzf -e (see the [Windows guide](/tutorials/install-windows/)). Open a new terminal afterwards and check fzf --version again.
 
 ## Initialize zoxide
 
@@ -692,37 +709,147 @@ eval "$(zoxide init zsh)"
 zoxide init fish | source
 ~~~
 
-For PowerShell and Nushell, use the exact placement shown in the [shell initialization guide](/blog/zoxide-init-guide/).
+For PowerShell and Nushell, see the [shell initialization guide](/blog/zoxide-init-guide/).
 
-## Use the built-in selector
+## What zi shows
 
-~~~bash
-zi
-zi api
-zi projects backend
+With five directories in the database, zi opened this list. The number on the left is the zoxide score; the list keeps zoxide's ranking order, highest first. 5/5 means five of five candidates are shown.
+
+~~~text
+>   < 5/5
+▌   12.0 /home/dev/projects/api-server
+▌    8.0 /home/dev/projects/zoxide-site
+▌    4.0 /home/dev/notes/2026
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
 ~~~
 
-Type to narrow the list, move to the desired directory, and press Enter. zoxide supplies candidates in ranking order while fzf handles the interactive interface.
+Below the list, a preview pane shows the contents of the highlighted directory using ls.
 
-## Customize the selector safely
+## Narrow, pick, cancel
 
-Use _ZO_FZF_OPTS for zoxide's selector instead of changing FZF_DEFAULT_OPTS for every fzf workflow.
+Typing api narrowed the list to three entries, still in score order:
+
+~~~text
+> api  < 3/5
+▌   12.0 /home/dev/projects/api-server
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+Pressing Enter jumped to the highlighted directory; pwd then printed /home/dev/projects/api-server. You can also pass keywords up front: zi api opened the picker with only those three candidates. (api-server now shows 16.0 because the previous jump raised its score.)
+
+~~~text
+>   < 3/3
+▌   16.0 /home/dev/projects/api-server
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+Other behavior we observed:
+
+- Esc closes the picker without moving and prints zoxide: no match found. A cancelled selection is reported the same way as a failed search.
+- With a single match (zi zoxide-site), the picker still opens and waits for Enter. It does not jump automatically.
+- With no match at all (zi nothing-here), the picker never appears; zoxide prints zoxide: no match found immediately.
+
+## zsh: open the picker with Space and Tab
+
+In zsh with completion enabled (autoload -Uz compinit && compinit before the zoxide init line), typing z api followed by a space and Tab opened the same picker with the api matches:
+
+~~~text
+>   < 3/3
+▌   16.0 /home/dev/projects/api-server
+▌    8.0 /home/dev/projects/api-gateway
+▌    4.0 /home/dev/work/api-docs
+~~~
+
+Choosing an entry replaced the command line with z /home/dev/work/api-docs, and Enter ran it.
+
+## Use the picker inside a command
+
+zoxide query -i prints the chosen path instead of jumping, so you can use the picker in your own commands. In our test this picked api-gateway:
+
+~~~bash
+dir="$(zoxide query -i api)"
+echo "picked: $dir"
+~~~
+
+~~~text
+picked: /home/dev/projects/api-gateway
+~~~
+
+It still needs a terminal. Without one (a cron job, CI, or a non-interactive SSH command), our [Ubuntu test](/tutorials/install-ubuntu/) got Failed to open /dev/tty and zoxide: fzf returned an error.
+
+## The options zoxide passes to fzf
+
+Our logging wrapper recorded every argument zoxide 0.10.0 passed to fzf:
+
+~~~text
+--delimiter=(tab)  --nth=2  --read0
+--exact  --no-sort  --bind=ctrl-z:ignore,btab:up,tab:down  --cycle  --keep-right
+--border=sharp  --height=45%  --info=inline  --layout=reverse  --tabstop=1  --exit-0
+--preview=\command -p ls -Cp --color=always --group-directories-first {2..}
+--preview-window=down,30%,sharp
+~~~
+
+The first three let fzf read zoxide's score-and-path lines. The rest are the defaults behind what you saw above: --exact matches your text literally instead of fuzzily, --no-sort keeps zoxide's ranking order, --exit-0 skips the picker when nothing matches, and --preview draws the ls pane. The --bind and --cycle options make Tab and Shift-Tab move down and up with wrap-around at the ends, and disable Ctrl-Z inside the picker; we read these from the options rather than testing each key.
+
+## Customizing the picker without breaking it
+
+### _ZO_FZF_OPTS replaces the defaults
+
+Many guides, including an earlier version of this page, suggest:
 
 ~~~bash
 export _ZO_FZF_OPTS="--height=60% --layout=reverse --border"
 ~~~
 
-Save the variable before the zoxide init line, open a new terminal, and run zi again.
+With _ZO_FZF_OPTS set, zoxide passed only --delimiter, --nth and --read0 on the command line and put your value in FZF_DEFAULT_OPTS. Every other default was gone: no preview pane, no exact matching, and no --no-sort. The last one matters most. After typing ap, fzf re-sorted the list by its own match score, and an 8.0 entry jumped above the 16.0 one:
+
+~~~text
+> ap
+  3/5
+▌    8.0  /home/dev/work/api-docs
+▌   16.0  /home/dev/projects/api-server
+▌    8.0  /home/dev/projects/api-gateway
+~~~
+
+### Copy the defaults, then change one thing
+
+To adjust a single option, start from the full default list. This kept the preview pane and the ranking order, and only changed the height to 60%:
+
+~~~bash
+export _ZO_FZF_OPTS="--exact --no-sort --bind=ctrl-z:ignore,btab:up,tab:down --cycle --keep-right --border=sharp --height=60% --info=inline --layout=reverse --tabstop=1 --exit-0 --preview='\command -p ls -Cp --color=always --group-directories-first {2..}' --preview-window=down,30%,sharp"
+~~~
+
+zoxide reads this variable each time zi runs, not when the init line runs. Setting it after the init line in the same session took effect immediately, so its position in your profile does not matter. These defaults are from zoxide 0.10.0; if a later release changes them, check the option list again before copying.
+
+### FZF_DEFAULT_OPTS does not change zi's layout
+
+Setting only FZF_DEFAULT_OPTS="--height=40% --layout=reverse" left zi unchanged: zoxide still passed its full option list on the command line, and fzf gives command-line options priority over FZF_DEFAULT_OPTS. Use FZF_DEFAULT_OPTS for your other fzf workflows and _ZO_FZF_OPTS for zi.
+
+## Ubuntu's fzf 0.44.1
+
+We repeated the picker test with only Ubuntu's apt fzf on PATH. The list, typing to narrow and Enter all worked. The visible difference was the pointer character:
+
+~~~text
+> gate  < 1/5
+>    4.0 /home/dev/projects/api-gateway
+~~~
+
+Enter jumped to /home/dev/projects/api-gateway. We did not test every key binding or preview behavior with this version, and it remains below the documented minimum.
 
 ## Troubleshoot by symptom
 
 - zoxide: command not found: fix the binary or PATH on the [installation page](/download/).
 - z: command not found: fix shell initialization with the [init guide](/blog/zoxide-init-guide/).
-- could not find fzf: check command -v fzf and fzf --version.
-- no useful candidates: visit directories normally or add one with zoxide add, then inspect zoxide query --list.
-- the wrong directory wins: use the [no-match and ranking guide](/blog/troubleshooting-zoxide-no-match-found/).
+- zoxide: could not find fzf, is it installed?: run command -v fzf in the same terminal; open a new terminal after installing fzf.
+- zi prints zoxide: no match found right away: nothing in the database matches; visit the directory or add it with zoxide add, then check zoxide query --list.
+- No preview pane, or results out of score order: _ZO_FZF_OPTS has replaced the defaults; copy the full list above.
+- Failed to open /dev/tty: zi or zoxide query -i ran without a terminal.
+- The wrong directory ranks first: see the [no-match and ranking guide](/blog/troubleshooting-zoxide-no-match-found/).
 
-The old standalone fzf articles have been consolidated into this page so installation, zi behavior, customization, and errors have one canonical answer.`,
+To check zoxide, PATH, shell setup and fzf in one command, run [zoxide-doctor](/tools/zoxide-doctor/).`,
 };
 
 const japaneseTutorialContent: Record<string, string> = {
@@ -1120,9 +1247,31 @@ zoxide query --score project
 
 設定を一度に増やさず、除外設定、保存先、コマンド名の順に一つずつ変更すると問題を切り分けやすくなります。`,
 
-  'fzf-integration': String.raw`# zoxide と fzf の連携
+  'fzf-integration': String.raw`# zoxide と fzf の連携：zi の対話選択を実機で検証
 
-fzf をインストールすると、zoxide init が用意する zi コマンドで候補を対話的に絞り込めます。まずは独自関数を作らず、標準の zi が動くことを確認するのが安全です。
+zoxide には zi コマンドが最初から含まれています。zoxide が記録したディレクトリを fzf に渡し、選んだ場所へ移動します。独自の zi 関数を書く必要はありません。このガイドでは、zi の実際の画面、zoxide が fzf に渡すオプション、そしてよくあるカスタマイズ方法がランキングを静かに崩す理由を示します。
+
+## テスト環境
+
+| 項目 | 値 |
+| --- | --- |
+| 検証日 | 2026 年 10 月 8 日 |
+| システム | GitHub Actions ランナー上の公式 ubuntu:24.04 コンテナ |
+| zoxide | 0.10.0（公式インストールスクリプト） |
+| fzf | 0.74.4（fzf の Git インストール）と 0.44.1（Ubuntu の apt パッケージ） |
+| シェル | GNU bash 5.2.21、zsh 5.9 |
+| ターミナル | tmux 3.4、110 × 30 文字 |
+
+tmux の中で実際のターミナルを動かし、キー入力を送り、各手順の後に画面を取得しました。以下の画面は入力行と候補一覧だけを残し、外枠、空行、空のプレビュー枠を取り除いています。テスト用ディレクトリは空だったため、プレビュー欄には何も表示されませんでした。zoxide が fzf に渡す内容を正確に見るため、PATH 上で本物の fzf の前に、引数を記録する小さなラッパーを置きました。
+
+## 前提を 2 つ確認する
+
+~~~bash
+zoxide --version
+fzf --version
+~~~
+
+zoxide の README は fzf の最低サポート版を v0.51.0 としています。Ubuntu 24.04 の apt パッケージは 0.44.1 です。テストでは zi は動作しましたが（後述）、サポート範囲外なので、可能なら新しい fzf を使ってください。
 
 ## fzf をインストール
 
@@ -1130,61 +1279,172 @@ fzf をインストールすると、zoxide init が用意する zi コマンド
 # macOS
 brew install fzf
 
-# Ubuntu / Debian
-sudo apt install fzf
-
 # Arch Linux
 sudo pacman -S fzf
+
+# 任意の Linux：fzf リポジトリから現行版
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 ~~~
 
-確認:
+Windows では winget install --id junegunn.fzf -e で導入できます（[Windows ガイド](/ja/tutorials/install-windows/)を参照）。導入後は新しいターミナルを開き、fzf --version を再確認してください。
+
+## zoxide を初期化
 
 ~~~bash
-fzf --version
-type zi
+# Bash：~/.bashrc
+eval "$(zoxide init bash)"
+
+# Zsh：~/.zshrc
+eval "$(zoxide init zsh)"
 ~~~
 
-## 基本操作
+~~~fish
+# Fish：~/.config/fish/config.fish
+zoxide init fish | source
+~~~
+
+PowerShell と Nushell は [シェル初期化ガイド](/ja/blog/zoxide-init-guide/) を参照してください。
+
+## zi の画面
+
+データベースに 5 つのディレクトリがある状態で、zi は次の一覧を開きました。左の数値は zoxide のスコアで、一覧は zoxide の順位どおり（スコアの高い順）に並びます。5/5 は 5 件中 5 件を表示していることを示します。
+
+~~~text
+>   < 5/5
+▌   12.0 /home/dev/projects/api-server
+▌    8.0 /home/dev/projects/zoxide-site
+▌    4.0 /home/dev/notes/2026
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+一覧の下には、選択中のディレクトリの中身を ls で表示するプレビュー欄があります。
+
+## 絞り込み、選択、キャンセル
+
+api と入力すると、スコア順のまま 3 件に絞り込まれました。
+
+~~~text
+> api  < 3/5
+▌   12.0 /home/dev/projects/api-server
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+Enter で選択中のディレクトリへ移動し、pwd は /home/dev/projects/api-server を表示しました。キーワードを最初から渡すこともできます。zi api では最初からこの 3 件だけが表示されました（直前の移動でスコアが上がったため、api-server は 16.0 になっています）。
+
+~~~text
+>   < 3/3
+▌   16.0 /home/dev/projects/api-server
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+ほかに確認した動作：
+
+- Esc で移動せずに閉じ、zoxide: no match found と表示されます。キャンセルも検索失敗と同じ表示になります。
+- 候補が 1 つだけ（zi zoxide-site）でも選択画面は開き、Enter を待ちます。自動では移動しません。
+- 候補がまったくない場合（zi nothing-here）、選択画面は表示されず、すぐに zoxide: no match found が出ます。
+
+## zsh：スペースと Tab で選択画面を開く
+
+補完を有効にした zsh（zoxide の初期化行より前に autoload -Uz compinit && compinit）で z api と入力し、スペースと Tab を押すと、api に一致する候補で同じ選択画面が開きました。
+
+~~~text
+>   < 3/3
+▌   16.0 /home/dev/projects/api-server
+▌    8.0 /home/dev/projects/api-gateway
+▌    4.0 /home/dev/work/api-docs
+~~~
+
+項目を選ぶとコマンドラインが z /home/dev/work/api-docs に置き換わり、Enter で実行されました。
+
+## コマンドの中で選択画面を使う
+
+zoxide query -i は移動せずに選んだパスを出力するため、独自のコマンドで選択画面を使えます。テストでは api-gateway を選びました。
 
 ~~~bash
-zi
-zi project
+dir="$(zoxide query -i api)"
+echo "picked: $dir"
 ~~~
 
-入力文字で候補を絞り込み、矢印キーまたはショートカットで選択し、Enter で移動します。候補が出ない場合は zoxide query --list で学習データを確認してください。
+~~~text
+picked: /home/dev/projects/api-gateway
+~~~
 
-## fzf の表示を調整
+これもターミナルが必要です。ターミナルがない場合（cron、CI、非対話の SSH コマンドなど）、[Ubuntu の検証](/ja/tutorials/install-ubuntu/)では Failed to open /dev/tty と zoxide: fzf returned an error が表示されました。
+
+## zoxide が fzf に渡すオプション
+
+ラッパーは zoxide 0.10.0 が fzf に渡したすべての引数を記録しました。
+
+~~~text
+--delimiter=(tab)  --nth=2  --read0
+--exact  --no-sort  --bind=ctrl-z:ignore,btab:up,tab:down  --cycle  --keep-right
+--border=sharp  --height=45%  --info=inline  --layout=reverse  --tabstop=1  --exit-0
+--preview=\command -p ls -Cp --color=always --group-directories-first {2..}
+--preview-window=down,30%,sharp
+~~~
+
+最初の 3 つは、zoxide が出力する「スコアとパス」の行を fzf が読むためのものです。残りが上で見た動作を支える既定値です。--exact は曖昧一致ではなく文字どおりに一致させ、--no-sort は zoxide の順位を保ち、--exit-0 は一致がないときに選択画面を省き、--preview は ls のプレビュー欄を描きます。--bind と --cycle により、Tab と Shift-Tab で上下に移動して端で折り返し、選択画面内の Ctrl-Z は無効になります。これらはオプションから読み取ったもので、キーごとには試していません。
+
+## 選択画面を壊さずにカスタマイズする
+
+### _ZO_FZF_OPTS は既定値を置き換える
+
+このページの以前の版を含め、多くの解説が次の設定を勧めています。
 
 ~~~bash
-export _ZO_FZF_OPTS="--height 45% --layout=reverse --border"
+export _ZO_FZF_OPTS="--height=60% --layout=reverse --border"
 ~~~
 
-この変数は zoxide init より前に設定します。一般的な FZF_DEFAULT_OPTS と競合する場合は、一時的に片方を外して動作を比較します。
+_ZO_FZF_OPTS を設定すると、zoxide はコマンドラインで --delimiter、--nth、--read0 だけを渡し、設定値を FZF_DEFAULT_OPTS に入れました。それ以外の既定値はすべて消えます。プレビュー欄も、完全一致も、--no-sort もなくなります。影響が最も大きいのは最後の点です。ap と入力すると fzf が独自の一致スコアで並べ替え、8.0 の項目が 16.0 の項目より上に来ました。
 
-## スクリプトで候補を使う
+~~~text
+> ap
+  3/5
+▌    8.0  /home/dev/work/api-docs
+▌   16.0  /home/dev/projects/api-server
+▌    8.0  /home/dev/projects/api-gateway
+~~~
 
-移動せずに選択したパスを別コマンドへ渡す例です。
+### 既定値をコピーしてから 1 つだけ変える
+
+1 つのオプションだけを調整したい場合は、既定値の一覧全体から始めます。次の設定ではプレビュー欄と順位を保ったまま、高さだけを 60% に変えられました。
 
 ~~~bash
-project_dir=$(zoxide query --list | fzf --prompt="project> ")
-[ -n "$project_dir" ] && code "$project_dir"
+export _ZO_FZF_OPTS="--exact --no-sort --bind=ctrl-z:ignore,btab:up,tab:down --cycle --keep-right --border=sharp --height=60% --info=inline --layout=reverse --tabstop=1 --exit-0 --preview='\command -p ls -Cp --color=always --group-directories-first {2..}' --preview-window=down,30%,sharp"
 ~~~
 
-プレビューを追加する場合:
+zoxide はこの変数を初期化行の実行時ではなく、zi を実行するたびに読み取ります。同じセッションで初期化の後に設定しても、すぐに反映されました。そのためプロファイル内の位置は関係ありません。この既定値は zoxide 0.10.0 のものです。今後のリリースで変わる可能性があるため、コピーする前に一覧を再確認してください。
 
-~~~bash
-project_dir=$(zoxide query --list | fzf --preview 'ls -la {}')
-[ -n "$project_dir" ] && cd "$project_dir"
+### FZF_DEFAULT_OPTS では zi のレイアウトは変わらない
+
+FZF_DEFAULT_OPTS="--height=40% --layout=reverse" だけを設定しても zi は変わりませんでした。zoxide は引き続きコマンドラインで全オプションを渡し、fzf ではコマンドラインのオプションが FZF_DEFAULT_OPTS より優先されるためです。FZF_DEFAULT_OPTS はほかの fzf の用途に、zi には _ZO_FZF_OPTS を使ってください。
+
+## Ubuntu の fzf 0.44.1
+
+PATH に Ubuntu の apt 版 fzf だけを置いて選択画面のテストを繰り返しました。一覧表示、入力による絞り込み、Enter での移動はすべて動作しました。目に見える違いはポインターの記号だけでした。
+
+~~~text
+> gate  < 1/5
+>    4.0 /home/dev/projects/api-gateway
 ~~~
 
-パスに空白が含まれる可能性があるため、変数は常に引用符で囲みます。eval で任意入力を実行する関数は、意図しないコマンド実行につながるため避けてください。
+Enter で /home/dev/projects/api-gateway に移動しました。この版ですべてのキー操作やプレビューの動作を試したわけではなく、公式の最低版を下回っている点は変わりません。
 
-## トラブルシューティング
+## 症状ごとのトラブルシューティング
 
-- zi が見つからない: シェル初期化を再読み込みする。
-- fzf が見つからない: PATH とインストール先を確認する。
-- 候補が空: 何度か対象ディレクトリへ移動し、zoxide query --list を確認する。
-- 表示が崩れる: _ZO_FZF_OPTS を一度外し、最小構成で再確認する。`,
+- zoxide: command not found：[インストールページ](/ja/download/)でバイナリや PATH を修正します。
+- z: command not found：[初期化ガイド](/ja/blog/zoxide-init-guide/)でシェルの初期化を修正します。
+- zoxide: could not find fzf, is it installed?：同じターミナルで command -v fzf を実行します。fzf の導入後は新しいターミナルを開きます。
+- zi がすぐに zoxide: no match found を表示する：データベースに一致がありません。そのディレクトリへ移動するか zoxide add で追加し、zoxide query --list で確認します。
+- プレビュー欄がない、または結果がスコア順でない：_ZO_FZF_OPTS が既定値を置き換えています。上の一覧全体をコピーしてください。
+- Failed to open /dev/tty：zi や zoxide query -i がターミナルのない環境で実行されています。
+- 1 位のディレクトリが期待と違う：[no match と順位のガイド](/ja/blog/troubleshooting-zoxide-no-match-found/)を参照してください。
+
+zoxide、PATH、シェル設定、fzf を 1 コマンドで確認するには [zoxide-doctor](/ja/tools/zoxide-doctor/) を実行してください。`,
 
   'performance': String.raw`# zoxide のパフォーマンス最適化
 
@@ -1479,7 +1739,7 @@ zoxide query --list
 
 fzf は任意です。通常の z は fzf を使わず、zi だけが選択画面に fzf を使います。上流の README は fzf の最低サポート版を v0.51.0 としており、Ubuntu 24.04 の fzf は 0.44.1 なので、apt 版 fzf は公式サポート外です。
 
-計測した内容：zoxide の対話検索を fzf のフィルターモードで実行しました。このモードは zoxide が渡すすべてのオプションを受け取りますが、ターミナルを必要としません。apt の fzf 0.44.1 はそれらを受け付け、zoxide 0.10.0 と apt の zoxide 0.9.3 のどちらでも該当ディレクトリを返しました。つまり apt の fzf で zi が必ず失敗するわけではありませんが、選択画面そのものは未検証で、サポート範囲外です。zi の動作がおかしい場合は、上流の Git 方式で現行の fzf を入れてください。--bin（バイナリだけを取得）で実行したところ 0.74.4 が入り、同様に動作しました。--bin なしではキーバインドや補完の設定も尋ねられます。
+計測した内容：zoxide の対話検索を fzf のフィルターモードで実行しました。このモードは zoxide が渡すすべてのオプションを受け取りますが、ターミナルを必要としません。apt の fzf 0.44.1 はそれらを受け付け、zoxide 0.10.0 と apt の zoxide 0.9.3 のどちらでも該当ディレクトリを返しました。つまり apt の fzf で zi が必ず失敗するわけではありません。その後、実際のターミナルで追加検証したところ、0.44.1 でも選択画面は動作しました（[fzf 連携ガイド](/ja/tutorials/fzf-integration/)を参照）。ただしサポート範囲外である点は変わりません。zi の動作がおかしい場合は、上流の Git 方式で現行の fzf を入れてください。--bin（バイナリだけを取得）で実行したところ 0.74.4 が入り、同様に動作しました。--bin なしではキーバインドや補完の設定も尋ねられます。
 
 ~~~bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -1700,6 +1960,204 @@ brew uninstall zoxide
 };
 
 const chineseTutorialContent: Record<string, string> = {
+  'fzf-integration': String.raw`# zoxide 与 fzf 集成：zi 交互选择实测
+
+zoxide 自带 zi 命令。它把 zoxide 记录的目录交给 fzf，让你选一个，然后跳过去，不需要自己写 zi 函数。本文展示 zi 实际的样子、zoxide 传给 fzf 的参数，以及为什么最常见的自定义写法会悄悄打乱排名。
+
+## 测试环境
+
+| 项目 | 值 |
+| --- | --- |
+| 测试日期 | 2026 年 10 月 8 日 |
+| 系统 | GitHub Actions 运行器上的官方 ubuntu:24.04 容器 |
+| zoxide | 0.10.0（官方安装脚本） |
+| fzf | 0.74.4（fzf Git 安装方式）和 0.44.1（Ubuntu apt 软件包） |
+| Shell | GNU bash 5.2.21、zsh 5.9 |
+| 终端 | tmux 3.4，110 × 30 字符 |
+
+我们在 tmux 里驱动一个真实终端，模拟按键，并在每一步之后截取屏幕内容。下面的截图只保留输入行和候选列表，去掉了外框、空行和空的预览框；测试目录都是空的，所以预览区没有内容可显示。为了看清 zoxide 到底传给 fzf 哪些参数，我们在 PATH 里真正的 fzf 前面放了一个会记录参数的小包装程序。
+
+## 先检查两个前提
+
+~~~bash
+zoxide --version
+fzf --version
+~~~
+
+zoxide 的 README 写明最低支持的 fzf 版本是 v0.51.0，而 Ubuntu 24.04 apt 提供的是 0.44.1。实测中 zi 仍然能用（见下文），但它在官方支持范围之外，条件允许时请用新版 fzf。
+
+## 安装 fzf
+
+~~~bash
+# macOS
+brew install fzf
+
+# Arch Linux
+sudo pacman -S fzf
+
+# 任意 Linux，从 fzf 仓库安装当前版本
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+~~~
+
+Windows 上可以用 winget install --id junegunn.fzf -e 安装（见 [Windows 教程](/zh/tutorials/install-windows/)）。装完后新开一个终端，再运行 fzf --version 确认。
+
+## 初始化 zoxide
+
+~~~bash
+# Bash：~/.bashrc
+eval "$(zoxide init bash)"
+
+# Zsh：~/.zshrc
+eval "$(zoxide init zsh)"
+~~~
+
+~~~fish
+# Fish：~/.config/fish/config.fish
+zoxide init fish | source
+~~~
+
+PowerShell 和 Nushell 见 [Shell 初始化指南](/zh/blog/zoxide-init-guide/)。
+
+## zi 显示的内容
+
+数据库里有 5 个目录时，zi 打开了下面这个列表。左边的数字是 zoxide 的得分，列表保持 zoxide 的排名顺序，得分高的在前。5/5 表示 5 个候选全部显示。
+
+~~~text
+>   < 5/5
+▌   12.0 /home/dev/projects/api-server
+▌    8.0 /home/dev/projects/zoxide-site
+▌    4.0 /home/dev/notes/2026
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+列表下方有一个预览区，用 ls 显示当前高亮目录里的内容。
+
+## 筛选、选择与取消
+
+输入 api 后，列表缩小到 3 项，顺序仍按得分：
+
+~~~text
+> api  < 3/5
+▌   12.0 /home/dev/projects/api-server
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+按回车就跳到了高亮的目录，之后 pwd 输出 /home/dev/projects/api-server。也可以一开始就带上关键词：zi api 打开的选择界面里只有这 3 个候选。（api-server 现在显示 16.0，是因为上一次跳转提高了它的得分。）
+
+~~~text
+>   < 3/3
+▌   16.0 /home/dev/projects/api-server
+▌    4.0 /home/dev/work/api-docs
+▌    4.0 /home/dev/projects/api-gateway
+~~~
+
+我们还观察到：
+
+- 按 Esc 会关闭选择界面、不跳转，并打印 zoxide: no match found。取消选择和查找失败的提示是一样的。
+- 只有一个匹配时（zi zoxide-site），选择界面照样打开，等你按回车，不会自动跳转。
+- 完全没有匹配时（zi nothing-here），选择界面不会出现，zoxide 直接打印 zoxide: no match found。
+
+## zsh：用空格加 Tab 打开选择界面
+
+在启用了补全的 zsh 里（在 zoxide 初始化行之前加上 autoload -Uz compinit && compinit），输入 z api，再按空格和 Tab，就打开了同样的选择界面，里面是 api 的匹配项：
+
+~~~text
+>   < 3/3
+▌   16.0 /home/dev/projects/api-server
+▌    8.0 /home/dev/projects/api-gateway
+▌    4.0 /home/dev/work/api-docs
+~~~
+
+选中一项后，命令行被替换成 z /home/dev/work/api-docs，按回车就执行了。
+
+## 在命令里使用选择界面
+
+zoxide query -i 会打印选中的路径，而不是直接跳转，所以可以把选择界面用在自己的命令里。实测中这里选的是 api-gateway：
+
+~~~bash
+dir="$(zoxide query -i api)"
+echo "picked: $dir"
+~~~
+
+~~~text
+picked: /home/dev/projects/api-gateway
+~~~
+
+它仍然需要终端。没有终端时（cron 任务、CI 或非交互的 SSH 命令），我们在 [Ubuntu 实测](/zh/tutorials/install-ubuntu/)里得到的是 Failed to open /dev/tty 和 zoxide: fzf returned an error。
+
+## zoxide 传给 fzf 的参数
+
+包装程序记录下了 zoxide 0.10.0 传给 fzf 的全部参数：
+
+~~~text
+--delimiter=(tab)  --nth=2  --read0
+--exact  --no-sort  --bind=ctrl-z:ignore,btab:up,tab:down  --cycle  --keep-right
+--border=sharp  --height=45%  --info=inline  --layout=reverse  --tabstop=1  --exit-0
+--preview=\command -p ls -Cp --color=always --group-directories-first {2..}
+--preview-window=down,30%,sharp
+~~~
+
+前三个让 fzf 能读懂 zoxide 输出的“得分 + 路径”行。其余就是上面那些效果背后的默认设置：--exact 按字面精确匹配而不是模糊匹配，--no-sort 保持 zoxide 的排名顺序，--exit-0 在没有匹配时跳过选择界面，--preview 绘制 ls 预览区。--bind 和 --cycle 让 Tab 和 Shift-Tab 上下移动并在首尾循环，同时在选择界面里禁用 Ctrl-Z；这几项是从参数读出来的，我们没有逐个按键测试。
+
+## 自定义选择界面而不弄坏它
+
+### _ZO_FZF_OPTS 会替换默认参数
+
+很多教程（包括本页的早期版本）都建议这样写：
+
+~~~bash
+export _ZO_FZF_OPTS="--height=60% --layout=reverse --border"
+~~~
+
+设置了 _ZO_FZF_OPTS 之后，zoxide 在命令行上只传 --delimiter、--nth 和 --read0，把你的设置放进 FZF_DEFAULT_OPTS，其余默认参数全部消失：没有预览区，没有精确匹配，也没有 --no-sort。最后一项影响最大：输入 ap 之后，fzf 按它自己的匹配分数重新排序，一个 8.0 的条目跑到了 16.0 的前面：
+
+~~~text
+> ap
+  3/5
+▌    8.0  /home/dev/work/api-docs
+▌   16.0  /home/dev/projects/api-server
+▌    8.0  /home/dev/projects/api-gateway
+~~~
+
+### 先复制默认参数，再只改一项
+
+想调整某一个选项，就从完整的默认参数开始。下面这样写保留了预览区和排名顺序，只把高度改成 60%：
+
+~~~bash
+export _ZO_FZF_OPTS="--exact --no-sort --bind=ctrl-z:ignore,btab:up,tab:down --cycle --keep-right --border=sharp --height=60% --info=inline --layout=reverse --tabstop=1 --exit-0 --preview='\command -p ls -Cp --color=always --group-directories-first {2..}' --preview-window=down,30%,sharp"
+~~~
+
+zoxide 是在每次运行 zi 时读取这个变量，而不是在执行初始化行时读取。我们在同一个会话里、初始化之后再设置它，也立即生效了，所以它在配置文件里的位置无关紧要。这些默认参数来自 zoxide 0.10.0；以后的版本如果有变化，复制前请重新查看参数列表。
+
+### FZF_DEFAULT_OPTS 改变不了 zi 的布局
+
+只设置 FZF_DEFAULT_OPTS="--height=40% --layout=reverse" 时，zi 没有任何变化：zoxide 照样在命令行上传入完整参数，而 fzf 中命令行参数的优先级高于 FZF_DEFAULT_OPTS。FZF_DEFAULT_OPTS 留给其他 fzf 用法，zi 用 _ZO_FZF_OPTS。
+
+## Ubuntu 的 fzf 0.44.1
+
+我们在 PATH 里只留 Ubuntu apt 的 fzf，重复了选择界面测试。列表显示、输入筛选和回车跳转都正常，肉眼可见的差别只有光标符号：
+
+~~~text
+> gate  < 1/5
+>    4.0 /home/dev/projects/api-gateway
+~~~
+
+按回车后跳到了 /home/dev/projects/api-gateway。我们没有用这个版本逐一测试所有快捷键和预览行为，而且它仍低于官方最低版本。
+
+## 按症状排查
+
+- zoxide: command not found：在[安装页](/zh/download/)修复程序或 PATH。
+- z: command not found：按[初始化指南](/zh/blog/zoxide-init-guide/)修复 Shell 初始化。
+- zoxide: could not find fzf, is it installed?：在同一个终端里运行 command -v fzf；装完 fzf 后要新开终端。
+- zi 一运行就打印 zoxide: no match found：数据库里没有匹配项；先访问该目录或用 zoxide add 添加，再用 zoxide query --list 检查。
+- 没有预览区，或结果不按得分排序：_ZO_FZF_OPTS 替换了默认参数；请复制上面的完整参数。
+- Failed to open /dev/tty：zi 或 zoxide query -i 在没有终端的环境里运行。
+- 排第一的目录不对：见[无匹配与排名指南](/zh/blog/troubleshooting-zoxide-no-match-found/)。
+
+想一条命令检查 zoxide、PATH、Shell 配置和 fzf，可以运行 [zoxide-doctor](/zh/tools/zoxide-doctor/)。`,
   'install-windows': String.raw`# 在 Windows 上安装 zoxide（PowerShell 7 实测）
 
 本文用 winget 在 Windows 上安装 zoxide，接入 PowerShell，然后逐一检查 Windows 上最容易出问题的三个环节：zoxide 程序是否在 PATH 里、z 命令是否存在、记录目录的 prompt 钩子是否在工作。下面所有命令和输出都来自一次真实测试，而不是照抄 README。
@@ -2036,7 +2494,7 @@ zoxide query --list
 
 fzf 是可选的。普通的 z 完全不用它，zi 才会用 fzf 显示选择界面。上游 README 写明最低支持的 fzf 版本是 v0.51.0，而 Ubuntu 24.04 提供的是 0.44.1，所以 apt 版 fzf 不在官方支持范围内。
 
-我们实测了什么：让 zoxide 的交互查询以 fzf 的过滤模式运行，这种模式会接收 zoxide 传入的全部参数，但不需要终端。apt 的 fzf 0.44.1 接受了这些参数，并且无论搭配 zoxide 0.10.0 还是 apt 的 zoxide 0.9.3，都返回了匹配的目录。所以 apt 的 fzf 并不一定会让 zi 失败，但选择界面本身没有测到，而且它在官方支持范围之外。如果 zi 表现异常，请用上游的 Git 方式安装当前版本的 fzf。我们用 --bin 参数运行（只下载程序文件），得到 0.74.4，表现相同；不加 --bin 时，安装程序还会询问是否配置快捷键和补全：
+我们实测了什么：让 zoxide 的交互查询以 fzf 的过滤模式运行，这种模式会接收 zoxide 传入的全部参数，但不需要终端。apt 的 fzf 0.44.1 接受了这些参数，并且无论搭配 zoxide 0.10.0 还是 apt 的 zoxide 0.9.3，都返回了匹配的目录。所以 apt 的 fzf 并不一定会让 zi 失败。后来我们在真实终端里补测，选择界面在 0.44.1 下也能正常使用，详见 [fzf 集成教程](/zh/tutorials/fzf-integration/)。不过它仍在官方支持范围之外。如果 zi 表现异常，请用上游的 Git 方式安装当前版本的 fzf。我们用 --bin 参数运行（只下载程序文件），得到 0.74.4，表现相同；不加 --bin 时，安装程序还会询问是否配置快捷键和补全：
 
 ~~~bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
