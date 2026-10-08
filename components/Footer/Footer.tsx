@@ -1,12 +1,14 @@
 'use client';
 
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { getPrimaryPaths } from '@/data/search-intents';
 import Logo from '@/components/Logo/Logo';
 import GoogleConsentSettings from '@/components/GoogleConsentSettings/GoogleConsentSettings';
 
 export default function Footer() {
   const t = useTranslations('footer');
+  const locale = useLocale();
 
   // 动态年份范围：起始年-当前年，如果相同只显示起始年
   const startYear = 2025;
@@ -15,9 +17,8 @@ export default function Footer() {
 
   const footerLinks = {
     product: [
-      { href: '/features', label: t('links.features') },
       { href: '/download', label: t('links.download') },
-      { href: '/changelog', label: t('links.changelog') },
+      { href: '/tools/zoxide-doctor', label: t('links.doctor') },
     ],
     resources: [
       { href: '/tutorials', label: t('links.tutorials') },
@@ -26,8 +27,7 @@ export default function Footer() {
     ],
     comparisons: [
       { href: '/blog/zoxide-vs-autojump', label: t('links.vsAutojump') },
-      { href: '/comparisons/z', label: t('links.vsZ') },
-      { href: '/comparisons/fasd', label: t('links.vsFasd') },
+      { href: getPrimaryPaths(locale).alternatives, label: t('links.alternatives') },
     ],
   };
 

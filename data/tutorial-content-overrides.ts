@@ -155,7 +155,7 @@ Then remove the init line from ~/.zshrc, otherwise every new terminal prints com
 
 ## Next steps
 
-- [Basic commands](/tutorials/basic-commands/) for z, zi, z - and query flags
+- [Command reference](/blog/zoxide-commands/) for z, zi, z - and query flags
 - [Advanced configuration](/tutorials/advanced-config/) for _ZO_EXCLUDE_DIRS and other variables
 - [zoxide-doctor](/tools/zoxide-doctor/) to check a setup automatically`,
   'install-windows': String.raw`# How to install zoxide on Windows (tested with PowerShell 7)
@@ -308,7 +308,7 @@ Also delete the init line from $PROFILE, otherwise every new window will print a
 
 ## Next steps
 
-- [Basic commands](/tutorials/basic-commands/) for z, zi, z - and query flags
+- [Command reference](/blog/zoxide-commands/) for z, zi, z - and query flags
 - [Advanced configuration](/tutorials/advanced-config/) for _ZO_EXCLUDE_DIRS and other variables
 - [zoxide-doctor](/tools/zoxide-doctor/) to check a setup automatically`,
   'install-ubuntu': String.raw`# How to install zoxide on Ubuntu 24.04
@@ -537,7 +537,7 @@ Once the installation is stable, compare [zoxide with autojump](/blog/zoxide-vs-
 
   'quick-start': String.raw`# Verify zoxide in five minutes
 
-This quick start assumes the zoxide binary is already installed. Its job is deliberately narrow: confirm the binary, shell initialization, learned database, and first smart jump. If you still need an installer, begin on the [download page](/download/). For a complete walkthrough of concepts and workflows, use the [full zoxide guide](/blog/mastering-zoxide-smarter-cd-command/).
+This quick start assumes the zoxide binary is already installed. Its job is deliberately narrow: confirm the binary, shell initialization, learned database, and first smart jump. If you still need an installer, begin on the [download page](/download/). For what zoxide is and how it ranks directories, read [what zoxide is](/blog/what-is-zoxide-smarter-cd/).
 
 ## 1. Confirm the binary
 
@@ -584,7 +584,7 @@ Plain z does not require fzf. The zi command does. If zi cannot find fzf or the 
 ## What to read next
 
 - Use the [command reference](/blog/zoxide-commands/) when you need query, add, remove, import, or scoring flags.
-- Use the [complete how-to guide](/blog/mastering-zoxide-smarter-cd-command/) for a full daily workflow.
+- Use the [command reference](/blog/zoxide-commands/) for z, zi, query, add, and remove.
 - Use [general troubleshooting](/blog/zoxide-not-working/) if the checks fail in more than one layer.`,
 
   'basic-commands': String.raw`# Practice the basic zoxide commands
@@ -858,7 +858,7 @@ $PROFILE の初期化行も削除してください。残っていると、新�
 
 ## 次のステップ
 
-- [基本コマンド](/ja/tutorials/basic-commands/)：z、zi、z - と query のオプション
+- [コマンドリファレンス](/ja/blog/zoxide-commands/)：z、zi、z - と query のオプション
 - [高度な設定](/ja/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS などの環境変数
 - [zoxide-doctor](/ja/tools/zoxide-doctor/)：設定を自動でチェック`,
   'quick-start': String.raw`# zoxide クイックスタート
@@ -1656,7 +1656,7 @@ brew uninstall zoxide
 
 ## 次のステップ
 
-- [基本コマンド](/ja/tutorials/basic-commands/)：z、zi、z - と query のオプション
+- [コマンドリファレンス](/ja/blog/zoxide-commands/)：z、zi、z - と query のオプション
 - [高度な設定](/ja/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS などの環境変数
 - [zoxide-doctor](/ja/tools/zoxide-doctor/)：設定を自動でチェック`,
 };
@@ -1812,7 +1812,7 @@ winget uninstall --id ajeetdsouza.zoxide -e
 
 ## 下一步
 
-- [基础命令](/zh/tutorials/basic-commands/)：z、zi、z - 与 query 参数
+- [命令参考](/zh/blog/zoxide-commands/)：z、zi、z - 与 query 参数
 - [高级配置](/zh/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS 等环境变量
 - [zoxide-doctor](/zh/tools/zoxide-doctor/)：自动检查你的配置`,
   'install-ubuntu': String.raw`# 在 Ubuntu 24.04 安装 zoxide
@@ -2193,7 +2193,7 @@ brew uninstall zoxide
 
 ## 下一步
 
-- [基础命令](/zh/tutorials/basic-commands/)：z、zi、z - 与 query 参数
+- [命令参考](/zh/blog/zoxide-commands/)：z、zi、z - 与 query 参数
 - [高级配置](/zh/tutorials/advanced-config/)：_ZO_EXCLUDE_DIRS 等环境变量
 - [zoxide-doctor](/zh/tools/zoxide-doctor/)：自动检查你的配置`,
 };

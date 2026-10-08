@@ -33,7 +33,7 @@ export default async function FAQPage({ params }: { params: Promise<{ locale: st
   const depthPaths = [
     primary.init,
     primary.download,
-    '/features',
+    primary.definition,
     primary.advanced,
     primary.commands,
   ];

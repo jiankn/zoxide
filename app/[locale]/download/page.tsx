@@ -238,6 +238,18 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
                 <p className="mt-3 leading-7 text-gray-700">
                   {t('releaseDownloads.description', { version: releaseVersion })}
                 </p>
+                {/* 原更新日志页已合并到这里：给出完整版本历史的官方入口 */}
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  {t('releaseDownloads.historyNote')}{' '}
+                  <a
+                    href="https://github.com/ajeetdsouza/zoxide/releases"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-blue-700 underline hover:text-blue-900"
+                  >
+                    {t('releaseDownloads.historyLink')}
+                  </a>
+                </p>
               </div>
               <div className="shrink-0 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">
                 <div className="font-semibold text-slate-950">zoxide {releaseTag}</div>

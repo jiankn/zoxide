@@ -81,13 +81,139 @@ const redirectRules: readonly RedirectRule[] = [
     target: '/tutorials/advanced-config',
     locales: ['en'],
   },
+  // 2026-10-08 内容合并：一个搜索意图只保留一个页面，见 docs/content-consolidation-plan-2026-10-08.md
+  {
+    source: '/tutorials/basic-commands',
+    target: '/blog/zoxide-commands',
+    locales: allLocales,
+  },
+  {
+    source: '/blog/mastering-terminal-navigation-zoxide-guide',
+    target: '/tutorials/quick-start',
+    locales: allLocales,
+  },
+  {
+    source: '/blog/zoxide-linux-en',
+    target: '/tutorials/install-arch-nixos',
+    locales: ['en'],
+  },
+  {
+    source: '/blog/zoxide-linux-zh',
+    target: '/tutorials/install-arch-nixos',
+    locales: ['zh'],
+  },
+  {
+    source: '/blog/zoxide-linux-ja',
+    target: '/tutorials/install-arch-nixos',
+    locales: ['ja'],
+  },
+  {
+    source: '/blog/advanced-zoxide-techniques',
+    target: '/blog/zoxide-alias-autocomplete',
+    locales: allLocales,
+  },
+  {
+    source: '/tutorials/performance',
+    target: '/tutorials/advanced-config',
+    locales: allLocales,
+  },
+  {
+    source: '/blog/zoxide-performance-en',
+    target: '/blog/how-zoxide-works-en',
+    locales: ['en'],
+  },
+  {
+    source: '/blog/zoxide-performance-zh',
+    target: '/blog/how-zoxide-works-zh',
+    locales: ['zh'],
+  },
+  {
+    source: '/blog/zoxide-performance-ja',
+    target: '/blog/how-zoxide-works-ja',
+    locales: ['ja'],
+  },
+  {
+    source: '/blog/stop-using-cd',
+    target: '/blog/what-is-zoxide-smarter-cd',
+    locales: ['en'],
+  },
+  {
+    source: '/blog/stop-using-cd',
+    target: '/blog/zoxide-shi-shenme-z-mingling-tidai-cd',
+    locales: ['zh'],
+  },
+  {
+    source: '/blog/stop-using-cd',
+    target: '/blog/zoxide-toha-cd-no-kawari',
+    locales: ['ja'],
+  },
+  {
+    source: '/features',
+    target: '/',
+    locales: allLocales,
+  },
+  {
+    source: '/comparisons',
+    target: '/blog/zoxide-alternatives-comparison-open-source',
+    locales: ['en'],
+  },
+  {
+    source: '/comparisons',
+    target: '/blog/zoxide-tidai-autojump-z-fasd-zlua',
+    locales: ['zh'],
+  },
+  {
+    source: '/comparisons',
+    target: '/blog/zoxide-daitai-autojump-z-fasd-zlua',
+    locales: ['ja'],
+  },
+  {
+    source: '/comparisons/z',
+    target: '/blog/zoxide-alternatives-comparison-open-source',
+    locales: ['en'],
+  },
+  {
+    source: '/comparisons/z',
+    target: '/blog/zoxide-tidai-autojump-z-fasd-zlua',
+    locales: ['zh'],
+  },
+  {
+    source: '/comparisons/z',
+    target: '/blog/zoxide-daitai-autojump-z-fasd-zlua',
+    locales: ['ja'],
+  },
+  {
+    source: '/comparisons/fasd',
+    target: '/blog/zoxide-alternatives-comparison-open-source',
+    locales: ['en'],
+  },
+  {
+    source: '/comparisons/fasd',
+    target: '/blog/zoxide-tidai-autojump-z-fasd-zlua',
+    locales: ['zh'],
+  },
+  {
+    source: '/comparisons/fasd',
+    target: '/blog/zoxide-daitai-autojump-z-fasd-zlua',
+    locales: ['ja'],
+  },
+  {
+    source: '/changelog',
+    target: '/download',
+    locales: allLocales,
+  },
+  {
+    source: '/tutorials/videos',
+    target: '/tutorials',
+    locales: allLocales,
+  },
 ] as const;
 
 const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
   en: {
     download: '/download',
     quickStart: '/tutorials/quick-start',
-    howTo: '/blog/mastering-zoxide-smarter-cd-command',
+    howTo: '/tutorials/quick-start',
     commands: '/blog/zoxide-commands',
     init: '/blog/zoxide-init-guide',
     fzf: '/tutorials/fzf-integration',
@@ -103,8 +229,8 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
   zh: {
     download: '/download',
     quickStart: '/tutorials/quick-start',
-    howTo: '/blog/mastering-zoxide-smarter-cd-command',
-    commands: '/tutorials/basic-commands',
+    howTo: '/tutorials/quick-start',
+    commands: '/blog/zoxide-commands',
     init: '/tutorials/shell-setup',
     fzf: '/tutorials/fzf-integration',
     advanced: '/tutorials/advanced-config',
@@ -119,7 +245,7 @@ const primaryPaths: Record<SupportedLocale, Record<IntentKey, string>> = {
   ja: {
     download: '/download',
     quickStart: '/tutorials/quick-start',
-    howTo: '/blog/mastering-zoxide-smarter-cd-command',
+    howTo: '/tutorials/quick-start',
     commands: '/blog/zoxide-commands',
     init: '/tutorials/shell-setup',
     fzf: '/tutorials/fzf-integration',

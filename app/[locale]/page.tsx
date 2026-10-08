@@ -14,7 +14,7 @@ const installGuidePaths = [
 
 const contextualLinkCopy = {
   en: {
-    features: 'See all zoxide features →',
+    features: 'Learn what zoxide is and how it ranks directories →',
     install: 'Open the full installation guide →',
     shell: 'Read the complete shell setup guide →',
     commands: 'Continue with the basic commands guide →',
@@ -23,7 +23,7 @@ const contextualLinkCopy = {
     faq: 'Read every FAQ and troubleshooting path →',
   },
   zh: {
-    features: '查看全部 zoxide 功能 →',
+    features: '了解 zoxide 是什么、如何给目录排序 →',
     install: '打开完整安装教程 →',
     shell: '阅读完整 Shell 配置教程 →',
     commands: '继续学习基础命令 →',
@@ -32,7 +32,7 @@ const contextualLinkCopy = {
     faq: '查看全部常见问题与排错入口 →',
   },
   ja: {
-    features: 'zoxide の機能をすべて見る →',
+    features: 'zoxide の仕組みと順位付けを見る →',
     install: '詳しいインストール手順へ →',
     shell: 'シェル設定ガイドを読む →',
     commands: '基本コマンドガイドへ進む →',
@@ -132,7 +132,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </div>
               ))}
             </div>
-            <Link href="/features" className="mt-6 inline-block font-semibold text-blue-700 hover:text-blue-900">
+            <Link href={primary.definition} className="mt-6 inline-block font-semibold text-blue-700 hover:text-blue-900">
               {linkCopy.features}
             </Link>
           </section>
@@ -235,7 +235,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               ))}
             </div>
             <p className="mt-6 max-w-4xl leading-7 text-gray-700">{guide.workflow.conclusion}</p>
-            <Link href="/comparisons" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+            <Link href={primary.alternatives} className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
               {linkCopy.compare}
             </Link>
           </section>
@@ -503,7 +503,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Link
-                href="/comparisons"
+                href={primary.autojump}
                 className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
               >
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">

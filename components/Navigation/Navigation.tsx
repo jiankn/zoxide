@@ -5,6 +5,7 @@ import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Globe, Github } from 'lucide-react';
 import { useTranslations, useLocale } from 'next-intl';
+import { getPrimaryPaths } from '@/data/search-intents';
 import Search from '@/components/Search/Search';
 import { routing } from '@/i18n/routing';
 import Logo from '@/components/Logo/Logo';
@@ -109,13 +110,12 @@ export default function Navigation() {
 
   const navItems = [
     { href: '/', label: t('home') },
-    { href: '/features', label: t('features') },
     { href: '/tutorials', label: t('tutorials') },
     { href: '/download', label: t('download') },
     { href: '/blog', label: t('blog') },
-    { href: '/changelog', label: t('changelog') },
     { href: '/faq', label: t('faq') },
-    { href: '/comparisons', label: t('comparisons') },
+    // 对比总览页已合并到替代品对比文章，各语言网址不同
+    { href: getPrimaryPaths(locale).alternatives, label: t('comparisons') },
   ];
 
   const switchLocale = async (newLocale: string) => {

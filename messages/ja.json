@@ -259,15 +259,13 @@
     "copyright": "© {yearRange} zoxide.org. ZoxideはMITライセンスで配布されるオープンソースソフトウェアです。すべての製品名、ロゴ、ブランドは各所有者の財産です。",
     "disclaimer": "このウェブサイトは情報提供のみを目的としており、ajeetdsouzaまたはAjeet D'Souza氏とは提携していません。",
     "links": {
-      "features": "機能",
       "download": "ダウンロード",
-      "changelog": "更新履歴",
       "tutorials": "チュートリアル",
       "blog": "ブログ",
       "faq": "よくある質問",
       "vsAutojump": "zoxide vs autojump",
-      "vsZ": "zoxide vs z",
-      "vsFasd": "zoxide vs fasd"
+      "doctor": "zoxide-doctor 診断ツール",
+      "alternatives": "zoxide の代替ツール比較"
     }
   },
   "seo": {
@@ -414,7 +412,7 @@
         "duration": "10分",
         "level": "中級",
         "category": "インストールガイド",
-        "content": "\n# Linux（Arch/NixOS）にZoxideをインストールする決定版ガイド\n\nLinuxユーザーはさまざまなディストリビューションを楽しめますが、ユニークなパッケージ管理スタイルで際立つのがArch LinuxとNixOSです。このガイドでは、**zoxide arch**と**zoxide nixos**パッケージを適切にセットアップする方法を探ります。\n\n## Arch Linuxへのインストール\n\nArch Linux愛好家にとって、**zoxide arch**パッケージは公式リポジトリで利用可能です。軽量で高速です：\n\n```bash\nsudo pacman -S zoxide\n# またはAURから開発版\nyay -S zoxide-git\n```\n\nインストール後、最も重要なステップはシェル設定に初期化行を追加することです。この行がないと、**zoxideエイリアス**コマンドが機能せず、ツールがディレクトリの移動を追跡できません。\n\nArchユーザーは、`exa`や`bat`などの他のRustベースのツールとZoxideを組み合わせて、モダンなターミナル体験を作成することがよくあります。\n\n## NixOSへのインストール\n\n一方、**zoxide nixos**ユーザーは異なる世界に住んでいます。NixOSは宣言的な設定ファイルに依存しているため、単にインストールコマンドを実行して永続化を期待することはできません。代わりに`home-manager`を使用する必要があります。\n\n以下は`home.nix`ファイルのスニペットで、完全な統合でZoxideを有効にします：\n\n```nix\nprograms.zoxide = {\n enable = true;\n enableBashIntegration = true;\n enableZshIntegration = true;\n options = [\n \"--cmd cd\"  # これはcdコマンドをzoxideに置き換えます\n ];\n};\n```\n\nこの宣言的な方法は、**zoxideオートコンプリート**を有効にするのを簡素化するため強力です。設定で`programs.fzf.enable`もtrueに設定されている場合、NixOSはそれらを自動的に連携させることがよくあります。\n\n## 「No Match Found」の対処\n\n両方のプラットフォームでユーザーが報告する頻繁な問題は、新しく作成したプロジェクトフォルダにジャンプしようとしたときの**zoxide no match found**エラーです。\n\nこれはバグではなく、データベースの動作方法の機能です。ディレクトリを少なくとも一度は「見る」必要があります。Zoxideをインストールしたばかりの場合、データベースは空です。\n\nこれを迅速に軽減するには、**zoxideエイリアス**が`cd`を置き換えるように設定されていることを確認してください（上記のNix設定に示すように）。これにより、最初のナビゲーションが記録されます。\n\n## インストールの確認\n\nセットアップ後、**zoxideオートコンプリート**とエイリアスが機能していることを確認：\n\n```bash\nzoxide --version\n# エイリアスがアクティブか確認\ntype z\n```\n\n最小限の**zoxide arch**セットアップを実行している場合でも、複雑な**zoxide nixos**flakeを実行している場合でも、これらの要素を適切に設定することで、パスの入力に費やす時間が減り、コーディングに費やす時間が増えます。\n"
+        "content": "\n# Linux（Arch/NixOS）にZoxideをインストールする決定版ガイド\n\nLinuxユーザーはさまざまなディストリビューションを楽しめますが、ユニークなパッケージ管理スタイルで際立つのがArch LinuxとNixOSです。このガイドでは、**zoxide arch**と**zoxide nixos**パッケージを適切にセットアップする方法を探ります。\n\n## Arch Linuxへのインストール\n\nArch Linux愛好家にとって、**zoxide arch**パッケージは公式リポジトリで利用可能です。軽量で高速です：\n\n```bash\nsudo pacman -S zoxide\n# またはAURから開発版\nyay -S zoxide-git\n```\n\nインストール後、最も重要なステップはシェル設定に初期化行を追加することです。この行がないと、**zoxideエイリアス**コマンドが機能せず、ツールがディレクトリの移動を追跡できません。\n\nArchユーザーは、`exa`や`bat`などの他のRustベースのツールとZoxideを組み合わせて、モダンなターミナル体験を作成することがよくあります。\n\n## NixOSへのインストール\n\n一方、**zoxide nixos**ユーザーは異なる世界に住んでいます。NixOSは宣言的な設定ファイルに依存しているため、単にインストールコマンドを実行して永続化を期待することはできません。代わりに`home-manager`を使用する必要があります。\n\n以下は`home.nix`ファイルのスニペットで、完全な統合でZoxideを有効にします：\n\n```nix\nprograms.zoxide = {\n enable = true;\n enableBashIntegration = true;\n enableZshIntegration = true;\n options = [\n \"--cmd cd\"  # これはcdコマンドをzoxideに置き換えます\n ];\n};\n```\n\nこの宣言的な方法は、**zoxideオートコンプリート**を有効にするのを簡素化するため強力です。設定で`programs.fzf.enable`もtrueに設定されている場合、NixOSはそれらを自動的に連携させることがよくあります。\n\n## その他のディストリビューション\n\n以下のコマンドは [zoxide 公式のインストール表](https://github.com/ajeetdsouza/zoxide#installation) に基づいています。ディストリビューションのパッケージは最新リリースより古い場合があるため、導入後に `zoxide --version` を確認してください。\n\n| ディストリビューション | コマンド |\n| --- | --- |\n| Fedora 32+ | `sudo dnf install zoxide` |\n| openSUSE Tumbleweed | `sudo zypper install zoxide` |\n| Alpine Linux 3.13+ | `sudo apk add zoxide` |\n| Gentoo | `sudo emerge app-shells/zoxide` |\n| Void Linux | `sudo xbps-install -S zoxide` |\n| Debian / Ubuntu | [Ubuntu 24.04 ガイド](/ja/tutorials/install-ubuntu/) |\n| 任意のディストリビューション | `curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh \\| sh` |\n\n## アンインストール\n\n導入に使ったパッケージマネージャーで削除します（例：`sudo dnf remove zoxide`、`sudo pacman -R zoxide`）。インストールスクリプトを使った場合は `~/.local/bin/zoxide` を削除します。その後、シェル設定ファイルの `eval \"$(zoxide init ...)\"` の行を削除してください。データベース `~/.local/share/zoxide/db.zo` は手動で削除するまで残ります。\n\n## 「No Match Found」の対処\n\n両方のプラットフォームでユーザーが報告する頻繁な問題は、新しく作成したプロジェクトフォルダにジャンプしようとしたときの**zoxide no match found**エラーです。\n\nこれはバグではなく、データベースの動作方法の機能です。ディレクトリを少なくとも一度は「見る」必要があります。Zoxideをインストールしたばかりの場合、データベースは空です。\n\nこれを迅速に軽減するには、**zoxideエイリアス**が`cd`を置き換えるように設定されていることを確認してください（上記のNix設定に示すように）。これにより、最初のナビゲーションが記録されます。\n\n## インストールの確認\n\nセットアップ後、**zoxideオートコンプリート**とエイリアスが機能していることを確認：\n\n```bash\nzoxide --version\n# エイリアスがアクティブか確認\ntype z\n```\n\n最小限の**zoxide arch**セットアップを実行している場合でも、複雑な**zoxide nixos**flakeを実行している場合でも、これらの要素を適切に設定することで、パスの入力に費やす時間が減り、コーディングに費やす時間が増えます。\n"
       }
     }
   },
@@ -728,7 +726,9 @@
       "verifyTitle": "シェル設定を編集する前にバイナリを確認",
       "verifyDescription": "新しいターミナルを開き、下のバージョン確認を実行します。バージョンが表示されれば PATH は正しく設定されています。失敗する場合は先にインストールを修正してください。シェル初期化では実行ファイルの欠落を解決できません。",
       "independentNote": "この独立ドキュメントサイトは zoxide バイナリをホストまたは再配布しません。アップグレード前に",
-      "upstreamInstallList": "最新の公式インストール一覧"
+      "upstreamInstallList": "最新の公式インストール一覧",
+      "historyNote": "変更履歴をお探しですか？すべてのリリースとリリースノートは公式ページにあります：",
+      "historyLink": "GitHub の zoxide 全リリース"
     }
   },
   "changelog": {

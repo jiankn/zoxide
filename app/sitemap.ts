@@ -16,6 +16,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const unofficialGuideLastModified = '2026-09-30';
   const unofficialGuidePaths = new Set(['', '/about']);
   const retestedTutorialSlugs = new Set(['install-windows', 'install-macos']);
+  // 2026-10-08：修正虚构内容、补充 Linux 发行版与下载页版本历史（按 语言:路径 记录实际改动的页面）
+  const correctionLastModified = '2026-10-08';
+  const correctedPaths = new Set([
+    'en:/download', 'zh:/download', 'ja:/download',
+    'en:/tutorials/install-arch-nixos', 'zh:/tutorials/install-arch-nixos', 'ja:/tutorials/install-arch-nixos',
+    'en:/tutorials/advanced-config', 'zh:/tutorials/advanced-config',
+    'zh:/tutorials/troubleshooting', 'ja:/tutorials/troubleshooting',
+    'en:/tutorials/quick-start',
+    'zh:/blog/zoxide-init-guide', 'ja:/blog/zoxide-init-guide',
+  ]);
   const updatedIntentHubs = new Set(['/blog', '/tutorials', '/comparisons']);
   const updatedEnglishTutorialSlugs = new Set([
     'quick-start',
@@ -54,6 +64,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 注意：routing.localePrefix 设置为 'as-needed'，默认语言（英文）不带前缀
   staticRoutes.forEach((route) => {
     locales.forEach((locale) => {
+      // 已合并到其他页面的静态页（features、changelog、comparisons）不进入 sitemap
+      if (route.path && isRedirectedContentPath(locale, route.path)) return;
       // 确保 URL 格式一致：所有路径都必须以斜杠结尾
       // next.config.ts 中配置了 trailingSlash: true
       // 默认语言（en）不带语言前缀，其他语言带前缀
@@ -64,7 +76,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: unofficialGuidePaths.has(route.path)
+        lastModified: correctedPaths.has(`${locale}:${route.path}`)
+          ? correctionLastModified
+          : unofficialGuidePaths.has(route.path)
           ? unofficialGuideLastModified
           : updatedIntentHubs.has(route.path)
           ? intentArchitectureLastModified
@@ -95,7 +109,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       blogPages.push({
         url,
-        lastModified: isDefaultLocale && updatedEnglishBlogSlugs.has(post.slug)
+        lastModified: correctedPaths.has(`${locale}:/blog/${post.slug}`)
+          ? correctionLastModified
+          : isDefaultLocale && updatedEnglishBlogSlugs.has(post.slug)
           ? priorityContentLastModified
           : post.date,
         changeFrequency: 'monthly' as const,
@@ -119,7 +135,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       tutorialPages.push({
         url,
-        lastModified: retestedTutorialSlugs.has(tutorial.slug)
+        lastModified: correctedPaths.has(`${locale}:/tutorials/${tutorial.slug}`)
+          ? correctionLastModified
+          : retestedTutorialSlugs.has(tutorial.slug)
           ? unofficialGuideLastModified
           : isDefaultLocale && updatedEnglishTutorialSlugs.has(tutorial.slug)
           ? intentArchitectureLastModified

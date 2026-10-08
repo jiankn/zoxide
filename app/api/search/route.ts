@@ -80,12 +80,6 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
   const pages = [
     {
       type: 'page' as const,
-      titleKey: 'features',
-      descriptionKey: 'features',
-      url: localizePath(locale, '/features'),
-    },
-    {
-      type: 'page' as const,
       titleKey: 'download',
       descriptionKey: 'download',
       url: localizePath(locale, '/download'),
@@ -95,18 +89,6 @@ async function getSearchDataForLocale(locale: string): Promise<SearchResult[]> {
       titleKey: 'faq',
       descriptionKey: 'faq',
       url: localizePath(locale, '/faq'),
-    },
-    {
-      type: 'page' as const,
-      titleKey: 'changelog',
-      descriptionKey: 'changelog',
-      url: localizePath(locale, '/changelog'),
-    },
-    {
-      type: 'page' as const,
-      titleKey: 'comparisons',
-      descriptionKey: 'comparisons',
-      url: localizePath(locale, '/comparisons'),
     },
     {
       type: 'page' as const,
