@@ -68,7 +68,8 @@ export function createMarkdownComponents(
         resolvedHref?.startsWith('/') && !resolvedHref.startsWith('//')
       );
       let href = resolvedHref;
-      if (resolvedHref && locale && isRootRelative) {
+      // Evidence files are shared static assets, with no locale prefix or trailing slash.
+      if (resolvedHref && locale && isRootRelative && !resolvedHref.startsWith('/evidence/')) {
         href = alreadyLocalized
           ? `${resolvedHref.replace(/\/+$/, '')}/`
           : localizePath(locale, resolvedHref);

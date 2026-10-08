@@ -1,0 +1,658 @@
+{
+  "test_date": "2026-10-08",
+  "archive_date": "2026-10-09",
+  "source_run_id": "37799809255",
+  "source_commit": "37eaf0235d5a03be0fb8b9edda336c24d08dab8e",
+  "scope": "Selected command outputs and terminal excerpts cited by the articles. Installation/download logs, duplicate captures, unrelated generated code and upstream author-contact headers are omitted. Prompt markers and unused blank terminal space are omitted from captures. These are recorded test results, not a new test run.",
+  "group": "alternatives",
+  "environment": [
+    {
+      "label": "id",
+      "command": "id",
+      "exit": 0,
+      "stdout": "uid=1001(tester) gid=1001(tester) groups=1001(tester)\n",
+      "stderr": ""
+    },
+    {
+      "label": "cat /etc/os-release",
+      "command": "cat /etc/os-release",
+      "exit": 0,
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nVERSION_ID=\"24.04\"\nID=ubuntu\n",
+      "stderr": ""
+    },
+    {
+      "label": "uname -m",
+      "command": "uname -m",
+      "exit": 0,
+      "stdout": "x86_64\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash --version",
+      "command": "bash --version",
+      "exit": 0,
+      "stdout": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\n",
+      "stderr": ""
+    },
+    {
+      "label": "tmux -V",
+      "command": "tmux -V",
+      "exit": 0,
+      "stdout": "tmux 3.4\n",
+      "stderr": ""
+    },
+    {
+      "label": "dpkg-query -W autojump fasd lua5.4",
+      "command": "dpkg-query -W autojump fasd lua5.4",
+      "exit": 0,
+      "stdout": "autojump\t22.5.1-1.1\nfasd\t1.0.1-3\nlua5.4\t5.4.6-3build2\n",
+      "stderr": ""
+    },
+    {
+      "label": "lua -v",
+      "command": "lua -v",
+      "exit": 0,
+      "stdout": "Lua 5.4.6  Copyright (C) 1994-2023 Lua.org, PUC-Rio\n",
+      "stderr": ""
+    }
+  ],
+  "installations": {
+    "zoxide": {
+      "installed": true,
+      "elapsed_seconds": 1.048,
+      "commands": [
+        [
+          "runuser",
+          "-u",
+          "tester",
+          "--",
+          "bash",
+          "-c",
+          "curl -fLsS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh -o /home/tester/install-zoxide.sh && bash /home/tester/install-zoxide.sh"
+        ]
+      ]
+    },
+    "autojump": {
+      "installed": true,
+      "elapsed_seconds": 2.201,
+      "commands": [
+        [
+          "apt-get",
+          "install",
+          "-y",
+          "-qq",
+          "autojump"
+        ]
+      ]
+    },
+    "fasd": {
+      "installed": true,
+      "elapsed_seconds": 0.984,
+      "commands": [
+        [
+          "apt-get",
+          "install",
+          "-y",
+          "-qq",
+          "fasd"
+        ]
+      ]
+    },
+    "z": {
+      "installed": true,
+      "elapsed_seconds": 0.349,
+      "commands": [
+        [
+          "runuser",
+          "-u",
+          "tester",
+          "--",
+          "git",
+          "clone",
+          "--depth",
+          "1",
+          "https://github.com/rupa/z.git",
+          "/home/tester/tools/z"
+        ]
+      ]
+    },
+    "z.lua": {
+      "installed": true,
+      "elapsed_seconds": 2.103,
+      "commands": [
+        [
+          "apt-get",
+          "install",
+          "-y",
+          "-qq",
+          "lua5.4"
+        ],
+        [
+          "runuser",
+          "-u",
+          "tester",
+          "--",
+          "git",
+          "clone",
+          "--depth",
+          "1",
+          "https://github.com/skywind3000/z.lua.git",
+          "/home/tester/tools/z.lua"
+        ]
+      ]
+    }
+  },
+  "tools": {
+    "zoxide": {
+      "version": "zoxide 0.10.0",
+      "initialization": "eval \"$(zoxide init bash)\"",
+      "data_file": "/home/tester/cases/zoxide-data/db.zo",
+      "training": [
+        "/home/tester/projects/api-server",
+        "/home/tester/projects/api-gateway",
+        "/home/tester/work/api-docs",
+        "/home/tester/work/web-app/src",
+        "/home/tester/projects/legacy/src",
+        "/home/tester/projects/api-server",
+        "/home/tester",
+        "/home/tester/projects/api-server",
+        "/home/tester"
+      ],
+      "learned": {
+        "command": "zoxide query --list --score",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "12.0 /home/tester/projects/api-server\n   4.0 /home/tester/projects/legacy/src\n   4.0 /home/tester/work/web-app/src\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-gateway"
+      },
+      "queries": [
+        {
+          "command": "z api",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "",
+          "keywords": "api"
+        },
+        {
+          "command": "z projects gateway",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-gateway",
+          "output": "",
+          "keywords": "projects gateway"
+        },
+        {
+          "command": "z api projects",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "zoxide: no match found",
+          "keywords": "api projects"
+        },
+        {
+          "command": "z web-app src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "web-app src"
+        },
+        {
+          "command": "z src web-app",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "zoxide: no match found",
+          "keywords": "src web-app"
+        },
+        {
+          "command": "z src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "src"
+        },
+        {
+          "command": "z apiserver",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "zoxide: no match found",
+          "keywords": "apiserver"
+        },
+        {
+          "command": "z zz-no-such-keyword-923",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "zoxide: no match found",
+          "keywords": "zz-no-such-keyword-923"
+        }
+      ]
+    },
+    "autojump": {
+      "version": "autojump v22.5.1",
+      "initialization": "source /usr/share/autojump/autojump.sh",
+      "data_file": "/home/tester/.local/share/autojump/autojump.txt",
+      "training": [
+        "/home/tester/projects/api-server",
+        "/home/tester/projects/api-gateway",
+        "/home/tester/work/api-docs",
+        "/home/tester/work/web-app/src",
+        "/home/tester/projects/legacy/src",
+        "/home/tester/projects/api-server",
+        "/home/tester",
+        "/home/tester/projects/api-server",
+        "/home/tester"
+      ],
+      "learned": {
+        "command": "autojump --stat",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "10.0:   /home/tester/projects/api-gateway\n10.0:   /home/tester/work/api-docs\n10.0:   /home/tester/work/web-app/src\n10.0:   /home/tester/projects/legacy/src\n17.3:   /home/tester/projects/api-server\n________________________________________\n\n57:      total weight\n5:       number of entries\n0.00:    current directory weight\n\ndata:    /home/tester/.local/share/autojump/autojump.txt"
+      },
+      "queries": [
+        {
+          "command": "j api",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "/home/tester/projects/api-server",
+          "keywords": "api"
+        },
+        {
+          "command": "j projects gateway",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-gateway",
+          "output": "/home/tester/projects/api-gateway",
+          "keywords": "projects gateway"
+        },
+        {
+          "command": "j api projects",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": ".",
+          "keywords": "api projects"
+        },
+        {
+          "command": "j web-app src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "/home/tester/work/web-app/src",
+          "keywords": "web-app src"
+        },
+        {
+          "command": "j src web-app",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": ".",
+          "keywords": "src web-app"
+        },
+        {
+          "command": "j src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "/home/tester/work/web-app/src",
+          "keywords": "src"
+        },
+        {
+          "command": "j apiserver",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "/home/tester/projects/api-server",
+          "keywords": "apiserver"
+        },
+        {
+          "command": "j zz-no-such-keyword-923",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": ".",
+          "keywords": "zz-no-such-keyword-923"
+        }
+      ]
+    },
+    "z": {
+      "version": "d37a763a6a30e1b32766fecc3b8ffd6127f8a0fd",
+      "initialization": "source /home/tester/tools/z/z.sh",
+      "data_file": "/home/tester/.z",
+      "training": [
+        "/home/tester/projects/api-server",
+        "/home/tester/projects/api-gateway",
+        "/home/tester/work/api-docs",
+        "/home/tester/work/web-app/src",
+        "/home/tester/projects/legacy/src",
+        "/home/tester/projects/api-server",
+        "/home/tester",
+        "/home/tester/projects/api-server",
+        "/home/tester"
+      ],
+      "learned": {
+        "command": "z -l",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "29988      /home/tester/projects/api-gateway\n29988      /home/tester/work/api-docs\n29990      /home/tester/work/web-app/src\n29992      /home/tester/projects/legacy/src\n89992      /home/tester/projects/api-server"
+      },
+      "queries": [
+        {
+          "command": "z api",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "",
+          "keywords": "api"
+        },
+        {
+          "command": "z projects gateway",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-gateway",
+          "output": "",
+          "keywords": "projects gateway"
+        },
+        {
+          "command": "z api projects",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "api projects"
+        },
+        {
+          "command": "z web-app src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "web-app src"
+        },
+        {
+          "command": "z src web-app",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "src web-app"
+        },
+        {
+          "command": "z src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "src"
+        },
+        {
+          "command": "z apiserver",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "apiserver"
+        },
+        {
+          "command": "z zz-no-such-keyword-923",
+          "exit": 1,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "zz-no-such-keyword-923"
+        }
+      ]
+    },
+    "fasd": {
+      "version": "1.0.1",
+      "initialization": "eval \"$(fasd --init auto)\"",
+      "data_file": "/home/tester/.fasd",
+      "training": [
+        "/home/tester/projects/api-server",
+        "/home/tester/projects/api-gateway",
+        "/home/tester/work/api-docs",
+        "/home/tester/work/web-app/src",
+        "/home/tester/projects/legacy/src",
+        "/home/tester/projects/api-server",
+        "/home/tester",
+        "/home/tester/projects/api-server",
+        "/home/tester"
+      ],
+      "learned": {
+        "command": "fasd -ld",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "/home/tester/projects/api-gateway\n/home/tester/projects/legacy/src\n/home/tester/work/api-docs\n/home/tester/work/web-app/src\n/home/tester\n/home/tester/projects/api-server"
+      },
+      "queries": [
+        {
+          "command": "z api",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "",
+          "keywords": "api"
+        },
+        {
+          "command": "z projects gateway",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-gateway",
+          "output": "",
+          "keywords": "projects gateway"
+        },
+        {
+          "command": "z api projects",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "api projects"
+        },
+        {
+          "command": "z web-app src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "web-app src"
+        },
+        {
+          "command": "z src web-app",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "src web-app"
+        },
+        {
+          "command": "z src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "src"
+        },
+        {
+          "command": "z apiserver",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "",
+          "keywords": "apiserver"
+        },
+        {
+          "command": "z zz-no-such-keyword-923",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "zz-no-such-keyword-923"
+        }
+      ],
+      "file_lookup": {
+        "read": {
+          "command": "cat /home/tester/work/api-docs/notes.txt",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "Fasd file lookup test."
+        },
+        "query": {
+          "command": "f notes",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "6          /home/tester/work/api-docs/notes.txt"
+        }
+      }
+    },
+    "z.lua": {
+      "version": "86a9fc5b308b66197720811d295e3812b1c73325",
+      "initialization": "eval \"$(lua /home/tester/tools/z.lua/z.lua --init bash)\"",
+      "data_file": "/home/tester/.zlua",
+      "training": [
+        "/home/tester/projects/api-server",
+        "/home/tester/projects/api-gateway",
+        "/home/tester/work/api-docs",
+        "/home/tester/work/web-app/src",
+        "/home/tester/projects/legacy/src",
+        "/home/tester/projects/api-server",
+        "/home/tester",
+        "/home/tester/projects/api-server",
+        "/home/tester"
+      ],
+      "learned": {
+        "command": "z -l",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "4          /home/tester/projects/legacy/src\n4          /home/tester/projects/api-gateway\n4          /home/tester/work/api-docs\n4          /home/tester/work/web-app/src\n12         /home/tester/projects/api-server"
+      },
+      "queries": [
+        {
+          "command": "z api",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-server",
+          "output": "",
+          "keywords": "api"
+        },
+        {
+          "command": "z projects gateway",
+          "exit": 0,
+          "pwd": "/home/tester/projects/api-gateway",
+          "output": "",
+          "keywords": "projects gateway"
+        },
+        {
+          "command": "z api projects",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "api projects"
+        },
+        {
+          "command": "z web-app src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "web-app src"
+        },
+        {
+          "command": "z src web-app",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "src web-app"
+        },
+        {
+          "command": "z src",
+          "exit": 0,
+          "pwd": "/home/tester/work/web-app/src",
+          "output": "",
+          "keywords": "src"
+        },
+        {
+          "command": "z apiserver",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "apiserver"
+        },
+        {
+          "command": "z zz-no-such-keyword-923",
+          "exit": 0,
+          "pwd": "/home/tester",
+          "output": "",
+          "keywords": "zz-no-such-keyword-923"
+        }
+      ]
+    }
+  },
+  "imports": {
+    "autojump": {
+      "tested": true,
+      "source_file": "/home/tester/.local/share/autojump/autojump.txt",
+      "before": "",
+      "old_syntax_exit": 2,
+      "old_syntax_stderr": "error: unexpected argument '--from' found\n\nUsage: zoxide import [OPTIONS] <COMMAND>\n\nFor more information, try '--help'.\n",
+      "correct_exit": 0,
+      "after": "   0.2 /home/tester/projects/api-server\n   0.2 /home/tester/work/web-app/src\n   0.2 /home/tester/projects/api-gateway\n   0.2 /home/tester/work/api-docs\n   0.2 /home/tester/projects/legacy/src\n"
+    },
+    "z": {
+      "tested": true,
+      "source_file": "/home/tester/.z",
+      "before": "",
+      "old_syntax_exit": 2,
+      "old_syntax_stderr": "error: unexpected argument '--from' found\n\nUsage: zoxide import [OPTIONS] <COMMAND>\n\nFor more information, try '--help'.\n",
+      "correct_exit": 0,
+      "after": "  16.0 /home/tester/projects/api-server\n  12.0 /home/tester/work/web-app/src\n   8.0 /home/tester/projects/api-gateway\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/legacy/src\n"
+    }
+  },
+  "deletion": {
+    "zoxide": {
+      "operation": "zoxide remove /home/tester/projects/api-gateway",
+      "result": {
+        "command": "zoxide remove /home/tester/projects/api-gateway",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": ""
+      },
+      "after": {
+        "command": "zoxide query --list --score",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "16.0 /home/tester/projects/api-server\n  12.0 /home/tester/work/web-app/src\n   4.0 /home/tester/projects/legacy/src\n   4.0 /home/tester/work/api-docs"
+      }
+    },
+    "z": {
+      "operation": "cd /home/tester/projects/api-gateway; z -x; cd /home/tester",
+      "result": {
+        "command": "cd /home/tester/projects/api-gateway; z -x; cd /home/tester",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "29840      /home/tester/work/api-docs\n29844      /home/tester/projects/legacy/src\n89612      /home/tester/work/web-app/src\n119417     /home/tester/projects/api-server"
+      },
+      "after": {
+        "command": "z -l",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "29837      /home/tester/work/api-docs\n29842      /home/tester/projects/legacy/src\n89605      /home/tester/work/web-app/src\n119407     /home/tester/projects/api-server"
+      }
+    },
+    "fasd": {
+      "operation": "fasd -D /home/tester/projects/api-gateway",
+      "result": {
+        "command": "fasd -D /home/tester/projects/api-gateway",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": ""
+      },
+      "after": {
+        "command": "fasd -ld",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "/home/tester/projects\n/home/tester/projects/legacy/src\n/home/tester/work/api-docs\n/home/tester/work/web-app/src\n/home/tester/projects/api-server\n/home/tester"
+      }
+    },
+    "z.lua": {
+      "operation": "z -x /home/tester/projects/api-gateway",
+      "result": {
+        "command": "z -x /home/tester/projects/api-gateway",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": ""
+      },
+      "after": {
+        "command": "z -l",
+        "exit": 0,
+        "pwd": "/home/tester",
+        "output": "4          /home/tester/projects/legacy/src\n4          /home/tester/work/api-docs\n12         /home/tester/work/web-app/src\n16         /home/tester/projects/api-server"
+      }
+    },
+    "autojump": {
+      "rejected_remove_exit": 2,
+      "rejected_remove_stderr": "usage: autojump [-h] [-a DIRECTORY] [-i [WEIGHT]] [-d [WEIGHT]] [--complete]\n                [--purge] [-s] [-v]\n                [DIRECTORY [DIRECTORY ...]]\nautojump: error: unrecognized arguments: --remove\n",
+      "backup": "/home/tester/.local/share/autojump/autojump.txt.before-manual-delete",
+      "offline_removed_rows": [
+        "14.142135623730951\t/home/tester/projects/api-gateway\n"
+      ],
+      "after_offline_edit": "10.0:\t/home/tester/work/api-docs\n10.0:\t/home/tester/projects/legacy/src\n17.3:\t/home/tester/work/web-app/src\n22.4:\t/home/tester/projects/api-server\n________________________________________\n\n59:\t total weight\n4:\t number of entries\n0.00:\t current directory weight\n\ndata:\t /home/tester/.local/share/autojump/autojump.txt\n",
+      "purge_exit": 0,
+      "after_purge": "10.0:\t/home/tester/projects/legacy/src\n17.3:\t/home/tester/work/web-app/src\n22.4:\t/home/tester/projects/api-server\n________________________________________\n\n49:\t total weight\n3:\t number of entries\n0.00:\t current directory weight\n\ndata:\t /home/tester/.local/share/autojump/autojump.txt\n"
+    }
+  },
+  "real_source_data": {
+    "autojump-data-before-delete.txt": "22.360679774997898\t/home/tester/projects/api-server\n14.142135623730951\t/home/tester/projects/api-gateway\n10.0\t/home/tester/work/api-docs\n17.320508075688775\t/home/tester/work/web-app/src\n10.0\t/home/tester/projects/legacy/src",
+    "z-data-before-delete.txt": "/home/tester/work/web-app/src|3|1791472866\n/home/tester/projects/api-server|4|1791472859\n/home/tester/projects/legacy/src|1|1791472855\n/home/tester/projects/api-gateway|2|1791472861\n/home/tester/work/api-docs|1|1791472853"
+  }
+}

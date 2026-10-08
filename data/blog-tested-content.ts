@@ -21,7 +21,7 @@ Recording happens through shell hooks. This matters when interpreting a score: B
 | Method | GitHub Actions; tmux 3.4 interactive shells, 120 × 30; separate startup files and _ZO_DATA_DIR for each case |
 | fzf | Not installed; interactive selection was not tested in this run |
 
-The [test log](https://github.com/jiankn/zoxide/actions/runs/37785045934) contains generated shell code, captured terminals and queries from outside those terminals. The artifact contains the full captures and results.json. We abbreviate /home/tester as ~ in output below. Terminal excerpts omit completion markers and blank space; generated-code excerpts are explicitly cropped.
+The [archived test evidence](/evidence/2026-10-08/definition.json) contains the command results, shell-code excerpts and terminal excerpts cited here. Installation logs and duplicate captures are omitted. We abbreviate /home/tester as ~ in output below. Terminal excerpts omit completion markers and blank space; generated-code excerpts are explicitly cropped.
 
 ## Why z can change the current shell's directory
 
@@ -194,7 +194,7 @@ zoxide 把目录记录到数据库里，让你用短关键词找到路径。终�
 | 方法 | GitHub Actions + tmux 3.4，120 × 30 交互终端；每个案例使用独立启动文件和 _ZO_DATA_DIR |
 | fzf | 本轮未安装，也未测试交互式选择 |
 
-[本次测试日志](https://github.com/jiankn/zoxide/actions/runs/37785045934)包含初始化代码、终端抓屏和终端外部的数据库查询；附件保留了完整抓屏与 results.json。下文输出把 /home/tester 缩写为 ~，删去了测试完成标记和空白行；初始化代码的节选会单独注明。
+[测试证据存档](/evidence/2026-10-08/definition.json)保留了本文引用的命令结果、初始化代码节选与终端片段，省略安装流水和重复抓屏。下文输出把 /home/tester 缩写为 ~，删去了测试完成标记和空白行；初始化代码的节选会单独注明。
 
 ## z 为什么能改变当前 Shell 的目录
 
@@ -367,7 +367,7 @@ zoxide はディレクトリをデータベースに記録し、短いキーワ�
 | 方法 | GitHub Actions、tmux 3.4 の対話端末、120 × 30。ケースごとに起動ファイルと _ZO_DATA_DIR を分離 |
 | fzf | 今回は未インストール。対話選択も未テスト |
 
-[テストログ](https://github.com/jiankn/zoxide/actions/runs/37785045934)には生成コード、端末のキャプチャ、端末外からのデータベース検索を記録しています。添付アーティファクトには完全なキャプチャと results.json があります。以下の出力では /home/tester を ~ に短縮し、完了マーカーと空行を省きました。生成コードの抜粋もその都度明示します。
+[テスト証拠のアーカイブ](/evidence/2026-10-08/definition.json)には、本文で参照したコマンド結果、生成コードの抜粋、端末の抜粋を保存しています。インストールログと重複した取得結果は省いています。以下の出力では /home/tester を ~ に短縮し、完了マーカーと空行を省きました。生成コードの抜粋もその都度明示します。
 
 ## z が現在のシェルのディレクトリを変える流れ
 
@@ -536,7 +536,7 @@ zoxide init generates shell code. Loading that code defines navigation commands 
 | fzf | 0.74.4 (a140afeb), installed from its upstream clone with --bin |
 | Method | GitHub Actions; tmux 3.4 interactive terminals, 120 × 30; isolated startup files and _ZO_DATA_DIR |
 
-The [test run](https://github.com/jiankn/zoxide/actions/runs/37778722771) includes generated initialization code, terminal captures and database queries. Output paths here abbreviate /home/tester as ~. Screen excerpts omit completion markers, empty space and parts of function definitions. These were Linux tests, including PowerShell; this run did not test Windows or macOS profiles.
+The [archived test results](/evidence/2026-10-08/command-init.json) retain the generated-code excerpts, terminal excerpts and database queries cited in this guide. Installation logs and duplicate captures are omitted. Output paths here abbreviate /home/tester as ~. Screen excerpts omit completion markers, empty space and parts of function definitions. These were Linux tests, including PowerShell; this run did not test Windows or macOS profiles.
 
 ## Initialize Bash, Zsh or Fish, then check z
 
@@ -722,7 +722,7 @@ zoxide init 会生成 Shell 代码。加载这段代码后，导航命令被定�
 | fzf | 0.74.4（a140afeb），克隆上游仓库后用 --bin 安装 |
 | 方法 | GitHub Actions；tmux 3.4 交互终端，120 × 30；独立启动文件和 _ZO_DATA_DIR |
 
-[测试运行](https://github.com/jiankn/zoxide/actions/runs/37778722771)保存了初始化输出、终端抓取和数据库查询。本文输出中的 ~ 代表 /home/tester，屏幕摘录省略自动化完成标记、空白和部分函数定义。PowerShell 也运行在 Linux 上；本轮没有测试 Windows、macOS 的配置文件。
+[测试结果存档](/evidence/2026-10-08/command-init.json)保留了本文引用的初始化代码节选、终端片段和数据库查询，省略安装流水和重复抓屏。本文输出中的 ~ 代表 /home/tester，屏幕摘录省略自动化完成标记、空白和部分函数定义。PowerShell 也运行在 Linux 上；本轮没有测试 Windows、macOS 的配置文件。
 
 ## Bash、Zsh、Fish：加载初始化代码，再检查 z
 
@@ -908,7 +908,7 @@ zoxide init はシェルコードを生成します。そのコードを読み�
 | fzf | 0.74.4（a140afeb）。上流 clone から --bin で導入 |
 | 方法 | GitHub Actions、tmux 3.4 の対話端末、120 × 30。独立した起動ファイルと _ZO_DATA_DIR |
 
-[テスト実行](https://github.com/jiankn/zoxide/actions/runs/37778722771)に生成コード、端末キャプチャ、データベースの検索結果を保存しました。出力では /home/tester を ~ に短縮しています。画面から完了マーカー、空白、関数定義の一部を省きました。PowerShell も Linux 上で実行しています。Windows と macOS のプロファイルは今回未テストです。
+[テスト結果のアーカイブ](/evidence/2026-10-08/command-init.json)に、本文で参照した生成コードの抜粋、端末の抜粋、データベースの検索結果を保存しています。インストールログと重複した取得結果は省いています。出力では /home/tester を ~ に短縮しています。画面から完了マーカー、空白、関数定義の一部を省きました。PowerShell も Linux 上で実行しています。Windows と macOS のプロファイルは今回未テストです。
 
 ## Bash、Zsh、Fish：初期化してから z を確認する
 
@@ -1096,7 +1096,7 @@ The zoxide commands below were run against version 0.10.0. The distinction that 
 | fzf | 0.74.4 (a140afeb), cloned from the upstream repository and installed with --bin |
 | Method | GitHub Actions, tmux 3.4, 120 × 30 terminal; separate _ZO_DATA_DIR for each case |
 
-The [test run and terminal captures](https://github.com/jiankn/zoxide/actions/runs/37778722771) contain the original outputs. On this page, ~ in output replaces /home/tester. Terminal excerpts omit automation completion markers, unused screen space and some function bodies. Import fixtures retain absolute paths because they are file contents, not shell expressions.
+The [archived command results and terminal excerpts](/evidence/2026-10-08/command-init.json) retain the evidence cited below. Installation logs and duplicate captures are omitted. On this page, ~ in output replaces /home/tester. Terminal excerpts omit automation completion markers, unused screen space and some function bodies. Import fixtures retain absolute paths because they are file contents, not shell expressions.
 
 For the navigation tests we initialized Bash with --hook none, then populated a separate database using add. That kept the scores stable while testing jumps. Our starting list was:
 
@@ -1299,7 +1299,7 @@ For daily zoxide commands, start with z and query --list --score. The [init guid
 | fzf | 0.74.4（a140afeb），克隆上游仓库后运行 --bin 安装 |
 | 方法 | GitHub Actions，tmux 3.4，120 × 30 终端；每组用例使用独立的 _ZO_DATA_DIR |
 
-[测试运行与终端抓取](https://github.com/jiankn/zoxide/actions/runs/37778722771)保留了原始输出。本文输出中的 ~ 代表 /home/tester；终端摘录省略了自动化完成标记、空白屏幕和部分函数体。导入文件中的路径保留绝对形式，因为文件里的 ~ 不会由 Shell 展开。
+[命令结果与终端片段存档](/evidence/2026-10-08/command-init.json)保留了下文引用的测试证据，省略安装流水和重复抓屏。本文输出中的 ~ 代表 /home/tester；终端摘录省略了自动化完成标记、空白屏幕和部分函数体。导入文件中的路径保留绝对形式，因为文件里的 ~ 不会由 Shell 展开。
 
 跳转测试先用 --hook none 初始化 Bash，再用 add 填充独立数据库，避免测试过程中分数继续变化。起始列表如下：
 
@@ -1502,7 +1502,7 @@ query 是用来检查数据库的二进制命令。要改变当前 Shell 的目�
 | fzf | 0.74.4（a140afeb）。上流リポジトリを clone し、--bin で導入 |
 | 方法 | GitHub Actions、tmux 3.4、120 × 30 の端末。ケースごとに独立した _ZO_DATA_DIR |
 
-[テスト実行と端末キャプチャ](https://github.com/jiankn/zoxide/actions/runs/37778722771)に元の出力があります。このページでは、出力の ~ を /home/tester の省略形として使います。端末の抜粋から自動化用の完了マーカー、空白、関数本体の一部を省きました。インポート元ファイルはシェル式ではないため、絶対パスのまま掲載しています。
+[コマンド結果と端末の抜粋のアーカイブ](/evidence/2026-10-08/command-init.json)には、以下で参照したテスト証拠があります。インストールログと重複した取得結果は省いています。このページでは、出力の ~ を /home/tester の省略形として使います。端末の抜粋から自動化用の完了マーカー、空白、関数本体の一部を省きました。インポート元ファイルはシェル式ではないため、絶対パスのまま掲載しています。
 
 移動テストでは --hook none で Bash を初期化し、add で別のデータベースを作りました。移動中にスコアが変わらない構成です。開始時の一覧は次のとおりでした。
 
@@ -2868,7 +2868,7 @@ All five tools learned our five test directories. The useful differences appeare
 | Shell and terminal | Bash 5.2.21, tmux 3.4; interactive Bash driven with send-keys and capture-pane |
 | User | tester, UID 1001; HOME=/home/tester for every tool |
 | Isolation | One tool initialized per Bash session, separate shell histories; the same directories and visit sequence |
-| Evidence | [Complete test run and downloadable terminal captures](https://github.com/jiankn/zoxide/actions/runs/37799809255) |
+| Evidence | [Archived command results and cited terminal outputs](/evidence/2026-10-08/alternatives.json) |
 
 Output excerpts omit the prompt and the test driver's exit-status markers. In examples, ~ means /home/tester. The result table uses the directory labels defined below; its numbers are shell exit statuses, not scores. These are observations from this configuration and sequence.
 
@@ -3050,7 +3050,7 @@ We did not benchmark 2,000 directories, compare query latency, use fzf or comple
 | Shell 与终端 | Bash 5.2.21、tmux 3.4，用 send-keys 输入交互命令，再用 capture-pane 抓取结果 |
 | 用户 | tester，UID 1001，所有工具的 HOME 都是 /home/tester |
 | 隔离方式 | 每个 Bash 会话只初始化一种工具，Shell 历史分开；目录和访问顺序一致 |
-| 原始证据 | [完整测试运行及可下载的终端记录](https://github.com/jiankn/zoxide/actions/runs/37799809255) |
+| 测试证据 | [命令结果与引用输出存档](/evidence/2026-10-08/alternatives.json) |
 
 下面的输出省略了提示符和测试脚本的退出码标记，~ 都代表 /home/tester。跳转表用字母缩写目录，括号内是 Shell 退出码，不是评分。结果只对应本次配置和命令顺序。
 
@@ -3238,7 +3238,7 @@ fasd 适合同时需要目录跳转和文件查询的使用场景，本次在一
 | シェルと端末 | Bash 5.2.21、tmux 3.4。send-keys で対話コマンドを送り、capture-pane で取得 |
 | ユーザー | tester、UID 1001。すべて HOME=/home/tester |
 | 分離方法 | Bash セッションごとに 1 種類だけ初期化し、シェル履歴も分離。同じディレクトリと訪問順を使用 |
-| 検証記録 | [テスト実行とダウンロードできる端末記録](https://github.com/jiankn/zoxide/actions/runs/37799809255) |
+| 検証記録 | [コマンド結果と参照した出力のアーカイブ](/evidence/2026-10-08/alternatives.json) |
 
 掲載した出力からはプロンプトとテスト用の終了コードマーカーを省いています。例の ~ は /home/tester です。結果表では下記のディレクトリ記号を使い、括弧内にシェルの終了コードを記載します。スコアではありません。結果の範囲は、この設定とコマンド順序に限ります。
 

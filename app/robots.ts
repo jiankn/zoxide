@@ -16,6 +16,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
         disallow: [
           '/api/',
+          '/evidence/',
           // 排除代码示例中的路径模式（防止 Google 误抓取）
           '/home/',
           '/tmp:',
@@ -49,6 +50,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
         disallow: [
           '/api/',
+          '/evidence/',
           '/home/',
           '/tmp:',
           '/var:',

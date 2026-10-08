@@ -1,0 +1,28 @@
+{
+  "archive_date": "2026-10-09",
+  "test_date": "2026-10-08",
+  "selection": "Only evidence cited by the articles; no full CI logs or executable test scripts.",
+  "files": [
+    {
+      "file": "command-init.json",
+      "bytes": 40574,
+      "sha256": "e1dcbb52d94990f7058889f8b997a6dfce0723256e6065a47e17bd64b3272c9f",
+      "source_run_id": "37778722771",
+      "source_commit": "3a5e02460cd8f17313c9ea9c5f13f8b2c6e573b3"
+    },
+    {
+      "file": "definition.json",
+      "bytes": 15296,
+      "sha256": "4d2f07646e4db895de3890a5d710546678a14ee06ce70d176cab486b280fc8d1",
+      "source_run_id": "37785045934",
+      "source_commit": "29414d6541fd70bf49bab5caa274c0eddf1ac259"
+    },
+    {
+      "file": "alternatives.json",
+      "bytes": 21533,
+      "sha256": "20cac4d70a6d245dce03ff8f71f4b6959f9f3df22ff3f760893b3efc3a6a7f6d",
+      "source_run_id": "37799809255",
+      "source_commit": "37eaf0235d5a03be0fb8b9edda336c24d08dab8e"
+    }
+  ]
+}

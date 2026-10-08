@@ -1,0 +1,668 @@
+{
+  "test_date": "2026-10-08",
+  "archive_date": "2026-10-09",
+  "source_run_id": "37778722771",
+  "source_commit": "3a5e02460cd8f17313c9ea9c5f13f8b2c6e573b3",
+  "scope": "Selected command outputs and terminal excerpts cited by the articles. Installation/download logs, duplicate captures, unrelated generated code and upstream author-contact headers are omitted. Prompt markers and unused blank terminal space are omitted from captures. These are recorded test results, not a new test run.",
+  "group": "command-init",
+  "commands": [
+    {
+      "label": "id",
+      "command": "id",
+      "exit": 0,
+      "stdout": "uid=1001(tester) gid=1001(tester) groups=1001(tester)\n",
+      "stderr": ""
+    },
+    {
+      "label": "cat /etc/os-release",
+      "command": "cat /etc/os-release",
+      "exit": 0,
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nVERSION_ID=\"24.04\"\nID=ubuntu\n",
+      "stderr": ""
+    },
+    {
+      "label": "uname -m",
+      "command": "uname -m",
+      "exit": 0,
+      "stdout": "x86_64\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash --version",
+      "command": "bash --version",
+      "exit": 0,
+      "stdout": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\n",
+      "stderr": ""
+    },
+    {
+      "label": "zsh --version",
+      "command": "zsh --version",
+      "exit": 0,
+      "stdout": "zsh 5.9 (x86_64-ubuntu-linux-gnu)\n",
+      "stderr": ""
+    },
+    {
+      "label": "fish --version",
+      "command": "fish --version",
+      "exit": 0,
+      "stdout": "fish, version 3.7.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "tmux -V",
+      "command": "tmux -V",
+      "exit": 0,
+      "stdout": "tmux 3.4\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide --version",
+      "command": "zoxide --version",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "fzf --version",
+      "command": "fzf --version",
+      "exit": 0,
+      "stdout": "0.74.4 (a140afeb)\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide query --help",
+      "command": "zoxide query --help",
+      "exit": 0,
+      "stdout": "zoxide-query 0.10.0\nhttps://github.com/ajeetdsouza/zoxide\n\nSearch for a directory in the database\n\nUsage:\n  zoxide query [OPTIONS] [KEYWORDS]...\n\nArguments:\n  [KEYWORDS]...  \n\nOptions:\n  -a, --all              Show unavailable directories\n  -i, --interactive      Use interactive selection\n  -l, --list             List all matching directories\n  -s, --score            Print score with results\n      --exclude <path>   Exclude the current directory\n      --base-dir <path>  Only search within this directory\n  -h, --help             Print help\n  -V, --version          Print version\n\nEnvironment variables:\n  _ZO_DATA_DIR          Path for zoxide data files\n  _ZO_ECHO              Print the matched directory before navigating to it when set to 1\n  _ZO_EXCLUDE_DIRS      List of directory globs to be excluded\n  _ZO_FZF_OPTS          Custom flags to pass to fzf\n  _ZO_MAXAGE            Maximum total age after which entries start getting deleted\n  _ZO_RESOLVE_SYMLINKS  Resolve symlinks when storing paths\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide import --help",
+      "command": "zoxide import --help",
+      "exit": 0,
+      "stdout": "zoxide-import 0.10.0\nhttps://github.com/ajeetdsouza/zoxide\n\nImport entries from another application\n\nUsage:\n  zoxide import [OPTIONS] <COMMAND>\n\nCommands:\n  atuin     Import from atuin\n  autojump  Import from autojump\n  fasd      Import from fasd\n  z         Import from z\n  z.lua     Import from z.lua\n  zsh-z     Import from zsh-z\n\nOptions:\n      --merge    Merge into existing database\n  -h, --help     Print help\n  -V, --version  Print version\n\nEnvironment variables:\n  _ZO_DATA_DIR          Path for zoxide data files\n  _ZO_ECHO              Print the matched directory before navigating to it when set to 1\n  _ZO_EXCLUDE_DIRS      List of directory globs to be excluded\n  _ZO_FZF_OPTS          Custom flags to pass to fzf\n  _ZO_MAXAGE            Maximum total age after which entries start getting deleted\n  _ZO_RESOLVE_SYMLINKS  Resolve symlinks when storing paths\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide init --help",
+      "command": "zoxide init --help",
+      "exit": 0,
+      "stdout": "zoxide-init 0.10.0\nhttps://github.com/ajeetdsouza/zoxide\n\nGenerate shell configuration\n\nUsage:\n  zoxide init [OPTIONS] <SHELL>\n\nArguments:\n  <SHELL>  [possible values: bash, elvish, fish, nushell, posix, powershell, tcsh, xonsh, zsh]\n\nOptions:\n      --no-cmd       Prevents zoxide from defining the `z` and `zi` commands\n      --cmd <CMD>    Changes the prefix of the `z` and `zi` commands [default: z]\n      --hook <HOOK>  Changes how often zoxide increments a directory's score [default: pwd] [possible values: none, prompt, pwd]\n  -h, --help         Print help\n  -V, --version      Print version\n\nEnvironment variables:\n  _ZO_DATA_DIR          Path for zoxide data files\n  _ZO_ECHO              Print the matched directory before navigating to it when set to 1\n  _ZO_EXCLUDE_DIRS      List of directory globs to be excluded\n  _ZO_FZF_OPTS          Custom flags to pass to fzf\n  _ZO_MAXAGE            Maximum total age after which entries start getting deleted\n  _ZO_RESOLVE_SYMLINKS  Resolve symlinks when storing paths\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide import autojump --help",
+      "command": "zoxide import autojump --help",
+      "exit": 0,
+      "stdout": "Import from autojump\n\nUsage: zoxide import autojump [OPTIONS]\n\nOptions:\n      --merge    Merge into existing database\n  -h, --help     Print help\n  -V, --version  Print version\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide import z --help",
+      "command": "zoxide import z --help",
+      "exit": 0,
+      "stdout": "Import from z\n\nUsage: zoxide import z [OPTIONS]\n\nOptions:\n      --merge    Merge into existing database\n  -h, --help     Print help\n  -V, --version  Print version\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-gateway",
+      "command": "zoxide add /home/tester/projects/api-gateway",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-gateway",
+      "command": "zoxide add /home/tester/projects/api-gateway",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add /home/tester/work/api-docs",
+      "command": "zoxide add /home/tester/work/api-docs",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add /home/tester/work/web-app/src",
+      "command": "zoxide add /home/tester/work/web-app/src",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide add '/home/tester/projects/space project'",
+      "command": "zoxide add '/home/tester/projects/space project'",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query --list --score",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n   8.0 /home/tester/projects/api-gateway\n   4.0 /home/tester/projects/space project\n   4.0 /home/tester/work/web-app/src\n   4.0 /home/tester/work/api-docs\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query api",
+      "command": "zoxide query api",
+      "exit": 0,
+      "stdout": "/home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query projects gateway",
+      "command": "zoxide query projects gateway",
+      "exit": 0,
+      "stdout": "/home/tester/projects/api-gateway\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query api projects",
+      "command": "zoxide query api projects",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query --list api",
+      "command": "zoxide query --list api",
+      "exit": 0,
+      "stdout": "/home/tester/projects/api-server\n/home/tester/projects/api-gateway\n/home/tester/work/api-docs\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query --score api",
+      "command": "zoxide query --score api",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query --exclude /home/tester/projects/api-server api",
+      "command": "zoxide query --exclude /home/tester/projects/api-server api",
+      "exit": 0,
+      "stdout": "/home/tester/projects/api-gateway\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query --list --base-dir /home/tester/projects api",
+      "command": "zoxide query --list --base-dir /home/tester/projects api",
+      "exit": 0,
+      "stdout": "/home/tester/projects/api-server\n/home/tester/projects/api-gateway\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query apiserver",
+      "command": "zoxide query apiserver",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "zoxide query no-such-keyword",
+      "command": "zoxide query no-such-keyword",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "data_directory": "/home/tester/cases/query-db"
+    },
+    {
+      "label": "before add",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after one add",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after three adds",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide remove api-server",
+      "command": "zoxide remove api-server",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: path not found in database: api-server\n",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after substring remove attempt",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide remove /home/tester/projects/api-server",
+      "command": "zoxide remove /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after full path remove",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-gateway /home/tester/work/api-docs",
+      "command": "zoxide add /home/tester/projects/api-gateway /home/tester/work/api-docs",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after multi-path add",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-gateway\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide remove /home/tester/projects/api-gateway /home/tester/work/api-docs",
+      "command": "zoxide remove /home/tester/projects/api-gateway /home/tester/work/api-docs",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after multi-path remove",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide add --score 3 /home/tester/projects/api-server",
+      "command": "zoxide add --score 3 /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "after add --score 3",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/add-remove-db"
+    },
+    {
+      "label": "zoxide add /home/tester/scratch/deleted",
+      "command": "zoxide add /home/tester/scratch/deleted",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/deleted-db"
+    },
+    {
+      "label": "deleted path with --all before normal query",
+      "command": "zoxide query --list --score --all",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/scratch/deleted\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/deleted-db"
+    },
+    {
+      "label": "normal query hides deleted path",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/deleted-db"
+    },
+    {
+      "label": "--all after normal query",
+      "command": "zoxide query --list --score --all",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/scratch/deleted\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/deleted-db"
+    },
+    {
+      "label": "autojump import before",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump requested --from syntax",
+      "command": "zoxide import --from autojump /home/tester/.local/share/autojump/autojump.txt",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "error: unexpected argument '--from' found\n\nUsage: zoxide import [OPTIONS] <COMMAND>\n\nFor more information, try '--help'.\n",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump unexpected file argument",
+      "command": "zoxide import autojump /home/tester/.local/share/autojump/autojump.txt",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "error: unexpected argument '/home/tester/.local/share/autojump/autojump.txt' found\n\nUsage: zoxide import autojump [OPTIONS]\n\nFor more information, try '--help'.\n",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump positional syntax",
+      "command": "zoxide import autojump",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump import after",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "   0.2 /home/tester/projects/api-server\n   0.2 /home/tester/work/api-docs\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump second import without --merge",
+      "command": "zoxide import autojump",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: current database is not empty, specify --merge to continue anyway\n",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump second import with --merge",
+      "command": "zoxide import --merge autojump",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "autojump after merge",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "   0.5 /home/tester/projects/api-server\n   0.4 /home/tester/work/api-docs\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-autojump"
+    },
+    {
+      "label": "z import before",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z requested --from syntax",
+      "command": "zoxide import --from z /home/tester/.z",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "error: unexpected argument '--from' found\n\nUsage: zoxide import [OPTIONS] <COMMAND>\n\nFor more information, try '--help'.\n",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z unexpected file argument",
+      "command": "zoxide import z /home/tester/.z",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "error: unexpected argument '/home/tester/.z' found\n\nUsage: zoxide import z [OPTIONS]\n\nFor more information, try '--help'.\n",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z positional syntax",
+      "command": "zoxide import z",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z import after",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-gateway\n   8.0 /home/tester/work/web-app/src\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z second import without --merge",
+      "command": "zoxide import z",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: current database is not empty, specify --merge to continue anyway\n",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z second import with --merge",
+      "command": "zoxide import --merge z",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "z after merge",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "  24.0 /home/tester/projects/api-gateway\n  16.0 /home/tester/work/web-app/src\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/import-z"
+    },
+    {
+      "label": "pwsh --version",
+      "command": "pwsh --version",
+      "exit": 0,
+      "stdout": "PowerShell 7.6.6\n",
+      "stderr": ""
+    },
+    {
+      "label": "pwsh default after cd",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/pwsh-default"
+    },
+    {
+      "label": "nu --version",
+      "command": "nu --version",
+      "exit": 0,
+      "stdout": "0.116.1\n",
+      "stderr": ""
+    },
+    {
+      "label": "nu default after cd",
+      "command": "zoxide query -ls",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/nu-default"
+    }
+  ],
+  "hooks": [
+    {
+      "shell": "bash",
+      "mode": "prompt",
+      "before": "",
+      "after_single": "   8.0 /home/tester/projects/api-server\n",
+      "after_same": "  12.0 /home/tester/projects/api-server\n",
+      "after_compound": "  12.0 /home/tester/projects/api-server\n   8.0 /home/tester/work/api-docs\n"
+    },
+    {
+      "shell": "bash",
+      "mode": "pwd",
+      "before": "",
+      "after_single": "   4.0 /home/tester/projects/api-server\n",
+      "after_same": "   4.0 /home/tester/projects/api-server\n",
+      "after_compound": "   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-server\n"
+    },
+    {
+      "shell": "bash",
+      "mode": "none",
+      "before": "",
+      "after_single": "",
+      "after_same": "",
+      "after_compound": ""
+    },
+    {
+      "shell": "zsh",
+      "mode": "prompt",
+      "before": "",
+      "after_single": "   8.0 /home/tester/projects/api-server\n",
+      "after_same": "  12.0 /home/tester/projects/api-server\n",
+      "after_compound": "  12.0 /home/tester/projects/api-server\n   8.0 /home/tester/work/api-docs\n"
+    },
+    {
+      "shell": "zsh",
+      "mode": "pwd",
+      "before": "",
+      "after_single": "   4.0 /home/tester/projects/api-server\n",
+      "after_same": "   8.0 /home/tester/projects/api-server\n",
+      "after_compound": "   8.0 /home/tester/projects/api-server\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-gateway\n"
+    },
+    {
+      "shell": "zsh",
+      "mode": "none",
+      "before": "",
+      "after_single": "",
+      "after_same": "",
+      "after_compound": ""
+    },
+    {
+      "shell": "fish",
+      "mode": "prompt",
+      "before": "",
+      "after_single": "   8.0 /home/tester/projects/api-server\n",
+      "after_same": "  12.0 /home/tester/projects/api-server\n",
+      "after_compound": "  12.0 /home/tester/projects/api-server\n   8.0 /home/tester/work/api-docs\n"
+    },
+    {
+      "shell": "fish",
+      "mode": "pwd",
+      "before": "",
+      "after_single": "   4.0 /home/tester/projects/api-server\n",
+      "after_same": "   8.0 /home/tester/projects/api-server\n",
+      "after_compound": "   8.0 /home/tester/projects/api-server\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-gateway\n"
+    },
+    {
+      "shell": "fish",
+      "mode": "none",
+      "before": "",
+      "after_single": "",
+      "after_same": "",
+      "after_compound": ""
+    }
+  ],
+  "generated_code_excerpts": {
+    "bash": "__zoxide_oldpwd=\"$(__zoxide_pwd)\"\n    if [[ ${__zoxide_oldpwd} != \"${pwd_tmp}\" ]]; then\n        __zoxide_oldpwd=\"${pwd_tmp}\"\n            \\command zoxide add -- \"${__zoxide_oldpwd}\"\nif [[ ${PROMPT_COMMAND:=} != *'__zoxide_hook'* ]]; then\n    if [[ \"$(declare -p PROMPT_COMMAND 2>&1)\" == \"declare -a\"* ]]; then\n        PROMPT_COMMAND=(\"${PROMPT_COMMAND[@]}\" __zoxide_hook)\n        PROMPT_COMMAND=\"${PROMPT_COMMAND%\"${PROMPT_COMMAND##*[![:space:];]}\"}\"\n        PROMPT_COMMAND=\"${PROMPT_COMMAND:+${PROMPT_COMMAND};}__zoxide_hook\"\n    [[ ${PROMPT_COMMAND[@]:-} == *'__zoxide_hook'* ]] && return 0\nfunction z() {\n    __zoxide_z \"$@\"\n}",
+    "zsh": "\\builtin typeset -ga chpwd_functions\nchpwd_functions=(\"${(@)chpwd_functions:#__zoxide_hook}\")\nchpwd_functions+=(__zoxide_hook)\n    [[ ${chpwd_functions[(Ie)__zoxide_hook]:-} -eq 0 ]] || return 0",
+    "fish": "function __zoxide_hook --on-variable PWD",
+    "powershell": "$global:__zoxide_oldpwd = __zoxide_pwd\n    if ($result -ne $global:__zoxide_oldpwd) {\n        $global:__zoxide_oldpwd = $result\n    function global:prompt {",
+    "nushell": "    $env.config.hooks.env_change.PWD | any { try { get __zoxide_hook } catch { false } }\n    $env.config.hooks.env_change.PWD = ($env.config.hooks.env_change.PWD | append {\nexport def --env --wrapped __zoxide_z [...rest: directory] {\nexport def --env --wrapped __zoxide_zi [...rest: string] {"
+  },
+  "terminal_excerpts": {
+    "navigation-final.txt": "B> pwd; printf '%s\\n' DONE_navigation_1\n/home/tester\nB> type z; printf '%s\\n' DONE_navigation_2\nz is a function\nz ()\n{\n    __zoxide_z \"$@\"\n}\nB> z api; printf '%s\\n' DONE_navigation_3\nB> pwd; printf '%s\\n' DONE_navigation_4\n/home/tester/projects/api-server\nB> z projects gateway; printf '%s\\n' DONE_navigation_5\nB> pwd; printf '%s\\n' DONE_navigation_6\n/home/tester/projects/api-gateway\nB> z ..; printf '%s\\n' DONE_navigation_7\nB> pwd; printf '%s\\n' DONE_navigation_8\n/home/tester/projects\nB> z -; printf '%s\\n' DONE_navigation_9\nB> pwd; printf '%s\\n' DONE_navigation_10\n/home/tester/projects/api-gateway\nB> z /home/tester/scratch/unlearned-child; printf '%s\\n' DONE_navigation_11\nB> pwd; printf '%s\\n' DONE_navigation_12\n/home/tester/scratch/unlearned-child\nB> z; printf '%s\\n' DONE_navigation_13\nB> pwd; printf '%s\\n' DONE_navigation_14\n/home/tester\nB> z projects /; printf '%s\\n' DONE_navigation_15\nB> pwd; printf '%s\\n' DONE_navigation_16\n/home/tester/projects/api-server\nB> cd /home/tester; printf '%s\\n' DONE_navigation_17\nB> zi api\nB> pwd; printf '%s\\n' DONE_navigation_18\n/home/tester/projects/api-gateway\nB> cd /home/tester; printf '%s\\n' DONE_navigation_19\nB> zoxide query --interactive api\n/home/tester/projects/api-server\nB> pwd; printf '%s\\n' DONE_navigation_20\n/home/tester\nB> zoxide query --interactive api\nB> echo \"cancel exit: $?\"; printf '%s\\n' DONE_navigation_21\ncancel exit: 130\nB> zoxide edit\nB> zoxide query --list --score; printf '%s\\n' DONE_navigation_22\n  12.0 /home/tester/projects/api-server\n   8.0 /home/tester/projects/api-gateway\n   4.0 /home/tester/projects/space project\n   4.0 /home/tester/work/web-app/src\n   4.0 /home/tester/work/api-docs\nB>",
+    "bash-cmd-cd-final.txt": "B> pwd; printf '%s\\n' DONE_bash_cmd_cd_1\n/home/tester\nB> type cd; type cdi; type z; type zi; printf '%s\\n' DONE_bash_cmd_cd_2\ncd is a function\ncd ()\n{\n    __zoxide_z \"$@\"\n}\ncdi is a function\ncdi ()\n{\n    __zoxide_zi \"$@\"\n}\nbash: type: z: not found\nbash: type: zi: not found\nB> cd /home/tester/projects/api-server; printf '%s\\n' DONE_bash_cmd_cd_3\nB> cd /home/tester/projects/api-gateway; cd /home/tester/work/api-docs; printf '%s\\n' DONE_bash_cmd_cd_4\nB> zoxide query --list --score; printf '%s\\n' DONE_bash_cmd_cd_5\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-server\nB>",
+    "bash-custom-final.txt": "B> pwd; printf '%s\\n' DONE_bash_custom_1\n/home/tester\nB> type z; type zi; type j; type ji; type __zoxide_z; printf '%s\\n' DONE_bash_custom_2\nbash: type: z: not found\nbash: type: zi: not found\nj is a function\nj ()\n{\n    __zoxide_z \"$@\"\n}\nji is a function\nji ()\n{\n    __zoxide_zi \"$@\"\n}\n__zoxide_z is a function\n__zoxide_z ()\n{\n    __zoxide_doctor;\n    if [[ $# -eq 0 ]]; then\n        __zoxide_cd ~;\n    else\n        if [[ $# -eq 1 && $1 == '-' ]]; then\n            __zoxide_cd \"${OLDPWD}\";\n        else\n            if [[ $# -eq 1 ]] && ( \\builtin cd -- \"$1\" ) &> /dev/null; then\n                __zoxide_cd \"$1\";\n            else\n                if [[ $# -eq 2 && $1 == '--' ]]; then\n                    __zoxide_cd \"$2\";\n                else\n                    if [[ ${@: -1} == \"${__zoxide_z_prefix}\"?* ]]; then\n                        \\builtin local result=\"${@: -1}\";\n                        __zoxide_cd \"${result:${#__zoxide_z_prefix}}\";\n                    else\n                        \\builtin local result;\n                        result=\"$(\\command zoxide query --exclude \"$(__zoxide_pwd)\" -- \"$@\")\" && __zoxide_cd \"${result}\"\n;\n                    fi;\n                fi;\n            fi;\n        fi;\n    fi\n}\nB> cd /home/tester/projects/api-server; printf '%s\\n' DONE_bash_custom_3\nB> zoxide query --list --score; printf '%s\\n' DONE_bash_custom_4\n   4.0 /home/tester/projects/api-server\nB>",
+    "bash-no-command-final.txt": "B> pwd; printf '%s\\n' DONE_bash_no_command_1\n/home/tester\nB> type z; type zi; type j; type ji; type __zoxide_z; printf '%s\\n' DONE_bash_no_command_2\nbash: type: z: not found\nbash: type: zi: not found\nbash: type: j: not found\nbash: type: ji: not found\n__zoxide_z is a function\n__zoxide_z ()\n{\n    __zoxide_doctor;\n    if [[ $# -eq 0 ]]; then\n        __zoxide_cd ~;\n    else\n        if [[ $# -eq 1 && $1 == '-' ]]; then\n            __zoxide_cd \"${OLDPWD}\";\n        else\n            if [[ $# -eq 1 ]] && ( \\builtin cd -- \"$1\" ) &> /dev/null; then\n                __zoxide_cd \"$1\";\n            else\n                if [[ $# -eq 2 && $1 == '--' ]]; then\n                    __zoxide_cd \"$2\";\n                else\n                    if [[ ${@: -1} == \"${__zoxide_z_prefix}\"?* ]]; then\n                        \\builtin local result=\"${@: -1}\";\n                        __zoxide_cd \"${result:${#__zoxide_z_prefix}}\";\n                    else\n                        \\builtin local result;\n                        result=\"$(\\command zoxide query --exclude \"$(__zoxide_pwd)\" -- \"$@\")\" && __zoxide_cd \"${result}\"\n;\n                    fi;\n                fi;\n            fi;\n        fi;\n    fi\n}\nB> cd /home/tester/projects/api-server; printf '%s\\n' DONE_bash_no_command_3\nB> zoxide query --list --score; printf '%s\\n' DONE_bash_no_command_4\n   4.0 /home/tester/projects/api-server\nB>",
+    "fish-custom-final.txt": "Welcome to fish, the friendly interactive shell\nType help for instructions on how to use fish\nF> pwd; printf '%s\\n' DONE_fish_custom_1\n/home/tester\nF> type z; type zi; type j; type ji; type __zoxide_z; printf '%s\\n' DONE_fish_custom_2\ntype: Could not find 'z'\ntype: Could not find 'zi'\nj is a function with definition\n# Defined via `source`\nfunction j --wraps=__zoxide_z --description 'alias j=__zoxide_z'\n  __zoxide_z $argv\n\nend\nji is a function with definition\n# Defined via `source`\nfunction ji --wraps=__zoxide_zi --description 'alias ji=__zoxide_zi'\n  __zoxide_zi $argv\n\nend\n__zoxide_z is a function with definition\n# Defined via `source`\nfunction __zoxide_z\n    set -l argc (builtin count $argv)\n    if test $argc -eq 0\n        __zoxide_cd $HOME\n    else if test \"$argv\" = -\n        __zoxide_cd -\n    else if test $argc -eq 1 -a -d $argv[1]\n        __zoxide_cd $argv[1]\n    else if test $argc -eq 2 -a $argv[1] = --\n        __zoxide_cd -- $argv[2]\n    else\n        set -l result (command zoxide query --exclude (__zoxide_pwd) -- $argv)\n        and __zoxide_cd $result\n    end\nend\nF> cd /home/tester/projects/api-server; printf '%s\\n' DONE_fish_custom_3\nF> zoxide query --list --score; printf '%s\\n' DONE_fish_custom_4\n   4.0 /home/tester/projects/api-server\nF>",
+    "fish-no-command-final.txt": "Welcome to fish, the friendly interactive shell\nType help for instructions on how to use fish\nF> pwd; printf '%s\\n' DONE_fish_no_command_1\n/home/tester\nF> type z; type zi; type j; type ji; type __zoxide_z; printf '%s\\n' DONE_fish_no_command_2\ntype: Could not find 'z'\ntype: Could not find 'zi'\ntype: Could not find 'j'\ntype: Could not find 'ji'\n__zoxide_z is a function with definition\n# Defined via `source`\nfunction __zoxide_z\n    set -l argc (builtin count $argv)\n    if test $argc -eq 0\n        __zoxide_cd $HOME\n    else if test \"$argv\" = -\n        __zoxide_cd -\n    else if test $argc -eq 1 -a -d $argv[1]\n        __zoxide_cd $argv[1]\n    else if test $argc -eq 2 -a $argv[1] = --\n        __zoxide_cd -- $argv[2]\n    else\n        set -l result (command zoxide query --exclude (__zoxide_pwd) -- $argv)\n        and __zoxide_cd $result\n    end\nend\nF> cd /home/tester/projects/api-server; printf '%s\\n' DONE_fish_no_command_3\nF> zoxide query --list --score; printf '%s\\n' DONE_fish_no_command_4\n   4.0 /home/tester/projects/api-server\nF>",
+    "zsh-custom-final.txt": "Z> pwd; printf '%s\\n' DONE_zsh_custom_1\n/home/tester\nZ> type z; type zi; type j; type ji; type __zoxide_z; printf '%s\\n' DONE_zsh_custom_2\nz not found\nzi not found\nj is a shell function from /home/tester/cases/zsh-custom-zsh/.zshrc\nji is a shell function from /home/tester/cases/zsh-custom-zsh/.zshrc\n__zoxide_z is a shell function from /home/tester/cases/zsh-custom-zsh/.zshrc\nZ> cd /home/tester/projects/api-server; printf '%s\\n' DONE_zsh_custom_3\nZ> zoxide query --list --score; printf '%s\\n' DONE_zsh_custom_4\n   4.0 /home/tester/projects/api-server\nZ>",
+    "zsh-no-command-final.txt": "Z> pwd; printf '%s\\n' DONE_zsh_no_command_1\n/home/tester\nZ> type z; type zi; type j; type ji; type __zoxide_z; printf '%s\\n' DONE_zsh_no_command_2\nz not found\nzi not found\nj not found\nji not found\n__zoxide_z is a shell function from /home/tester/cases/zsh-no-command-zsh/.zshrc\nZ> cd /home/tester/projects/api-server; printf '%s\\n' DONE_zsh_no_command_3\nZ> zoxide query --list --score; printf '%s\\n' DONE_zsh_no_command_4\n   4.0 /home/tester/projects/api-server\nZ>",
+    "pwsh-default-final.txt": "P> (Get-Location).Path; Write-Output DONE_pwsh_default_1\n/home/tester\nP> Get-Command z,zi | Format-Table CommandType,Name -AutoSize; Write-Output DONE_pwsh_default_2\n\nCommandType Name\n----------- ----\n      Alias z\n      Alias zi\n\nP> zoxide query --list --score; Write-Output DONE_pwsh_default_3\nP> Set-Location /home/tester/projects/api-server; Write-Output DONE_pwsh_default_4\nP> zoxide query --list --score; Write-Output DONE_pwsh_default_5\n   4.0 /home/tester/projects/api-server\nP> z ..; Write-Output DONE_pwsh_default_6\nP> (Get-Location).Path; Write-Output DONE_pwsh_default_7\n/home/tester/projects\nP>",
+    "nu-default-final.txt": "__  ,\n .--()°'.' Welcome to Nushell,\n'|, . ,'   based on the nu language,\n !_-(_\\    where all data is structured!\n\nVersion: 0.116.1 (x86_64-unknown-linux-gnu)\nPlease join our Discord community at https://discord.gg/NtAbbGn\nOur GitHub repository is at https://github.com/nushell/nushell\nOur Documentation is located at https://nushell.sh\nAnd the Latest Nushell News at https://nushell.sh/blog/\nLearn how to remove this at: https://nushell.sh/book/configuration.html#remove-welcome-message\n\nIt's been this long since Nushell's first commit:\n7yrs 4months 27days 19hrs 45mins 19secs 271ms 661µs 966ns\n\n\nStartup Time: 13ms 23µs 799ns\n\nN> > pwd\n/home/tester\nN> > print DONE_nu_default_1\nN> > help z\nAlias for __zoxide_z\n\nAlias: z\n\nExpansion:\n  __zoxide_z\n\nJump to a directory using only keywords.\n\nUsage:\n  > __zoxide_z ...(rest)\n\nCommand Type:\n  > custom\n\nParameters:\n  ...rest <directory>\n\nInput/output types:\n  ╭───┬───────┬────────╮\n  │ # │ input │ output │\n  ├───┼───────┼────────┤\n  │ 0 │ any   │ any    │\n  ╰───┴───────┴────────╯\n\n\nN> > print DONE_nu_default_2\nN> > help zi\nAlias for __zoxide_zi\n\nAlias: zi\n\nExpansion:\n  __zoxide_zi\n\nJump to a directory using interactive search.\n\nUsage:\n  > __zoxide_zi ...(rest)\n\nCommand Type:\n  > custom\n\nParameters:\n  ...rest <string>\n\nInput/output types:\n  ╭───┬───────┬────────╮\n  │ # │ input │ output │\n  ├───┼───────┼────────┤\n  │ 0 │ any   │ any    │\n  ╰───┴───────┴────────╯\n\n\nN> > print DONE_nu_default_3\nN> > zoxide query --list --score\nN> > print DONE_nu_default_4\nN> > cd /home/tester/projects/api-server\nN> > print DONE_nu_default_5\nN> > zoxide query --list --score\n   4.0 /home/tester/projects/api-server\nN> > print DONE_nu_default_6\nN> > z ..\nN> > print DONE_nu_default_7\nN> > print (pwd)\n/home/tester/projects\nN> > print DONE_nu_default_8\nN> >"
+  },
+  "picker_excerpts": {
+    "navigation-zi-picker.txt": "/home/tester/projects/api-server\n/home/tester/projects/api-gateway\n/home/tester/projects/api-gateway\n/home/tester/projects/api-server\nB> zi api\n│ >   < 3/3 ─────────────────────────────────────────────────────────────────────────────────────────────────────────  │\n│ ▌   12.0 /home/tester/projects/api-server                                                                            │\n│ ▌    8.0 /home/tester/projects/api-gateway                                                                           │\n│ ▌    4.0 /home/tester/work/api-docs                                                                                  │",
+    "navigation-query-picker.txt": "/home/tester/projects/api-server\n/home/tester/projects/api-gateway\n/home/tester/projects/api-gateway\n/home/tester/projects/api-server\nB> zi api\n/home/tester/projects/api-gateway\nB> zoxide query --interactive api\n│ >   < 3/3 ─────────────────────────────────────────────────────────────────────────────────────────────────────────  │\n│ ▌   12.0 /home/tester/projects/api-server                                                                            │\n│ ▌    8.0 /home/tester/projects/api-gateway                                                                           │\n│ ▌    4.0 /home/tester/work/api-docs                                                                                  │",
+    "navigation-edit-picker.txt": "/home/tester/projects/api-server\n/home/tester/projects/api-gateway\n/home/tester/projects/api-gateway\n│ >   < 5/5 ─────────────────────────────────────────────────────────────────────────────────────────────────────────  │\n│   ctrl-r:reload    ctrl-d:delete                                                                                     │\n│   ctrl-w:increment ctrl-s:decrement                                                                                  │\n│    SCORE PATH                                                                                                        │\n│ ▌   12.0 /home/tester/projects/api-server                                                                            │\n│ ▌    8.0 /home/tester/projects/api-gateway                                                                           │\n│ ▌    4.0 /home/tester/projects/space project                                                                         │\n│ ▌    4.0 /home/tester/work/web-app/src                                                                               │\n│ ▌    4.0 /home/tester/work/api-docs                                                                                  │"
+  }
+}

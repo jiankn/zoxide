@@ -1,0 +1,339 @@
+{
+  "test_date": "2026-10-08",
+  "archive_date": "2026-10-09",
+  "source_run_id": "37785045934",
+  "source_commit": "29414d6541fd70bf49bab5caa274c0eddf1ac259",
+  "scope": "Selected command outputs and terminal excerpts cited by the articles. Installation/download logs, duplicate captures, unrelated generated code and upstream author-contact headers are omitted. Prompt markers and unused blank terminal space are omitted from captures. These are recorded test results, not a new test run.",
+  "group": "definition",
+  "commands": [
+    {
+      "label": "id",
+      "command": "id",
+      "exit": 0,
+      "stdout": "uid=1001(tester) gid=1001(tester) groups=1001(tester)\n",
+      "stderr": ""
+    },
+    {
+      "label": "cat /etc/os-release",
+      "command": "cat /etc/os-release",
+      "exit": 0,
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nVERSION_ID=\"24.04\"\nID=ubuntu\n",
+      "stderr": ""
+    },
+    {
+      "label": "uname -m",
+      "command": "uname -m",
+      "exit": 0,
+      "stdout": "x86_64\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash --version",
+      "command": "bash --version",
+      "exit": 0,
+      "stdout": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\n",
+      "stderr": ""
+    },
+    {
+      "label": "zsh --version",
+      "command": "zsh --version",
+      "exit": 0,
+      "stdout": "zsh 5.9 (x86_64-ubuntu-linux-gnu)\n",
+      "stderr": ""
+    },
+    {
+      "label": "tmux -V",
+      "command": "tmux -V",
+      "exit": 0,
+      "stdout": "tmux 3.4\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide --version",
+      "command": "zoxide --version",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide init --help",
+      "command": "zoxide init --help",
+      "exit": 0,
+      "stdout": "zoxide-init 0.10.0\nhttps://github.com/ajeetdsouza/zoxide\n\nGenerate shell configuration\n\nUsage:\n  zoxide init [OPTIONS] <SHELL>\n\nArguments:\n  <SHELL>  [possible values: bash, elvish, fish, nushell, posix, powershell, tcsh, xonsh, zsh]\n\nOptions:\n      --no-cmd       Prevents zoxide from defining the `z` and `zi` commands\n      --cmd <CMD>    Changes the prefix of the `z` and `zi` commands [default: z]\n      --hook <HOOK>  Changes how often zoxide increments a directory's score [default: pwd] [possible values: none, prompt, pwd]\n  -h, --help         Print help\n  -V, --version      Print version\n\nEnvironment variables:\n  _ZO_DATA_DIR          Path for zoxide data files\n  _ZO_ECHO              Print the matched directory before navigating to it when set to 1\n  _ZO_EXCLUDE_DIRS      List of directory globs to be excluded\n  _ZO_FZF_OPTS          Custom flags to pass to fzf\n  _ZO_MAXAGE            Maximum total age after which entries start getting deleted\n  _ZO_RESOLVE_SYMLINKS  Resolve symlinks when storing paths\n",
+      "stderr": ""
+    },
+    {
+      "label": "explicit add: initially empty",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "explicit add: same directory 1 times",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "explicit add: same directory 2 times",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   8.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "explicit add: same directory 3 times",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/explicit-add"
+    },
+    {
+      "label": "bash: before visits",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "bash: after first visit and returned prompt",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "bash: after cd . and returned prompt",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "bash: after leaving and returning",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   8.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "bash: after leaving and returning again",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "bash: after child script cd",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "bash: external query after compound command prompt",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n   4.0 /home/tester/work/api-docs\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/bash-default"
+    },
+    {
+      "label": "zsh: before visits",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "zsh: after first visit and returned prompt",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "zsh: after cd . and returned prompt",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   8.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "zsh: after leaving and returning",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "zsh: after leaving and returning again",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  16.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "zsh: after child script cd",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  16.0 /home/tester/projects/api-server\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "zsh: external query after compound command prompt",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  16.0 /home/tester/projects/api-server\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-gateway\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/zsh-default"
+    },
+    {
+      "label": "noninteractive Bash with initialization: cd and pwd",
+      "command": "bash -c 'eval \"$(zoxide init bash)\"; cd /home/tester/scratch/script-only; pwd'",
+      "exit": 0,
+      "stdout": "/home/tester/scratch/script-only\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/noninteractive-bash"
+    },
+    {
+      "label": "noninteractive Bash after cd",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/noninteractive-bash"
+    },
+    {
+      "label": "zoxide add /home/tester/projects/api-server",
+      "command": "zoxide add /home/tester/projects/api-server",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/navigation"
+    },
+    {
+      "label": "before navigation to an unlearned real path",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n   4.0 /home/tester/projects\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/navigation"
+    },
+    {
+      "label": "after navigation to an unlearned child",
+      "command": "zoxide query --list --score",
+      "exit": 0,
+      "stdout": "  12.0 /home/tester/projects/api-server\n   4.0 /home/tester/scratch/unlearned-child\n   4.0 /home/tester/scratch\n   4.0 /home/tester/projects\n",
+      "stderr": "",
+      "data_directory": "/home/tester/cases/navigation"
+    }
+  ],
+  "hooks": [
+    {
+      "shell": "bash",
+      "mode": "default pwd",
+      "baseline": {},
+      "first": {
+        "/home/tester/projects/api-server": 4
+      },
+      "cd_dot": {
+        "/home/tester/projects/api-server": 4
+      },
+      "second_return": {
+        "/home/tester/projects/api-server": 8
+      },
+      "third_return": {
+        "/home/tester/projects/api-server": 12
+      },
+      "after_child_script": {
+        "/home/tester/projects/api-server": 12
+      },
+      "after_compound": {
+        "/home/tester/projects/api-server": 12,
+        "/home/tester/work/api-docs": 4
+      }
+    },
+    {
+      "shell": "zsh",
+      "mode": "default pwd",
+      "baseline": {},
+      "first": {
+        "/home/tester/projects/api-server": 4
+      },
+      "cd_dot": {
+        "/home/tester/projects/api-server": 8
+      },
+      "second_return": {
+        "/home/tester/projects/api-server": 12
+      },
+      "third_return": {
+        "/home/tester/projects/api-server": 16
+      },
+      "after_child_script": {
+        "/home/tester/projects/api-server": 16
+      },
+      "after_compound": {
+        "/home/tester/projects/api-server": 16,
+        "/home/tester/work/api-docs": 4,
+        "/home/tester/projects/api-gateway": 4
+      }
+    }
+  ],
+  "generated_bash_excerpts": [
+    "function __zoxide_cd() {\n    # shellcheck disable=SC2164\n    \\builtin cd -- \"$@\"\n}",
+    "        result=\"$(\\command zoxide query --exclude \"$(__zoxide_pwd)\" -- \"$@\")\" &&",
+    "    result=\"$(\\command zoxide query --interactive -- \"$@\")\" && __zoxide_cd \"${result}\"",
+    "function z() {\n    __zoxide_z \"$@\"\n}",
+    "            if __zoxide_result=\"$(\\command zoxide query --exclude \"$(__zoxide_pwd)\" --interactive -- \"${COMP_WORDS[@]:1:${#COMP_WORDS[@]}-2}\" 2>/dev/null)\"; then"
+  ],
+  "terminal_excerpts": {
+    "bash-default-compound-before-and-after-prompt.txt": "B> pwd; printf '%s\\n' DONE_bash_default_1\n/home/tester\nB> type z; printf '%s\\n' DONE_bash_default_2\nz is a function\nz ()\n{\n    __zoxide_z \"$@\"\n}\nB> declare -p PROMPT_COMMAND; printf '%s\\n' DONE_bash_default_3\ndeclare -- PROMPT_COMMAND=\"__zoxide_hook\"\nB> cd /home/tester/projects/api-server; printf '%s\\n' DONE_bash_default_4\nB> cd .; printf '%s\\n' DONE_bash_default_5\nB> cd /home/tester; printf '%s\\n' DONE_bash_default_6\nB> cd /home/tester/projects/api-server; printf '%s\\n' DONE_bash_default_7\nB> cd /home/tester; printf '%s\\n' DONE_bash_default_8\nB> cd /home/tester/projects/api-server; printf '%s\\n' DONE_bash_default_9\nB> bash /home/tester/cases/visit-script.sh; pwd; printf '%s\\n' DONE_bash_default_10\n/home/tester/scratch/script-only\n/home/tester/projects/api-server\nB> cd /home/tester/projects/api-gateway; cd /home/tester/work/api-docs; zoxide query --list --score; printf '%s\\n' DONE_\nbash_default_11\n  12.0 /home/tester/projects/api-server\nB>",
+    "zsh-default-compound-before-and-after-prompt.txt": "Z> pwd; printf '%s\\n' DONE_zsh_default_1\n/home/tester\nZ> type z; printf '%s\\n' DONE_zsh_default_2\nz is a shell function from /home/tester/cases/zsh-default-zsh/.zshrc\nZ> typeset -p chpwd_functions; printf '%s\\n' DONE_zsh_default_3\ntypeset -a chpwd_functions=( __zoxide_hook )\nZ> cd /home/tester/projects/api-server; printf '%s\\n' DONE_zsh_default_4\nZ> cd .; printf '%s\\n' DONE_zsh_default_5\nZ> cd /home/tester; printf '%s\\n' DONE_zsh_default_6\nZ> cd /home/tester/projects/api-server; printf '%s\\n' DONE_zsh_default_7\nZ> cd /home/tester; printf '%s\\n' DONE_zsh_default_8\nZ> cd /home/tester/projects/api-server; printf '%s\\n' DONE_zsh_default_9\nZ> bash /home/tester/cases/visit-script.sh; pwd; printf '%s\\n' DONE_zsh_default_10\n/home/tester/scratch/script-only\n/home/tester/projects/api-server\nZ> cd /home/tester/projects/api-gateway; cd /home/tester/work/api-docs; zoxide query --list --score; printf '%s\\n' DONE_\nzsh_default_11\n  16.0 /home/tester/projects/api-server\n   4.0 /home/tester/work/api-docs\n   4.0 /home/tester/projects/api-gateway\nZ>",
+    "navigation-binary-query-keeps-shell-directory.txt": "B> pwd; printf '%s\\n' DONE_navigation_1\n/home/tester\nB> pwd; zoxide query api; pwd; printf '%s\\n' DONE_navigation_2\n/home/tester\n/home/tester/projects/api-server\n/home/tester\nB>",
+    "navigation-function-changes-shell-directory.txt": "B> pwd; printf '%s\\n' DONE_navigation_1\n/home/tester\nB> pwd; zoxide query api; pwd; printf '%s\\n' DONE_navigation_2\n/home/tester\n/home/tester/projects/api-server\n/home/tester\nB> z api; pwd; printf '%s\\n' DONE_navigation_3\n/home/tester/projects/api-server\nB>",
+    "navigation-real-paths-parent-previous-child.txt": "B> pwd; printf '%s\\n' DONE_navigation_1\n/home/tester\nB> pwd; zoxide query api; pwd; printf '%s\\n' DONE_navigation_2\n/home/tester\n/home/tester/projects/api-server\n/home/tester\nB> z api; pwd; printf '%s\\n' DONE_navigation_3\n/home/tester/projects/api-server\nB> z ..; pwd; printf '%s\\n' DONE_navigation_4\n/home/tester/projects\nB> z -; pwd; printf '%s\\n' DONE_navigation_5\n/home/tester/projects/api-server\nB> z /home/tester/scratch; pwd; printf '%s\\n' DONE_navigation_6\n/home/tester/scratch\nB> z unlearned-child; pwd; printf '%s\\n' DONE_navigation_7\n/home/tester/scratch/unlearned-child\nB>"
+  }
+}
