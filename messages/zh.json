@@ -388,7 +388,7 @@
       },
       "install-windows": {
         "title": "zoxide 安装 Windows",
-        "excerpt": "在 Windows 上使用 Scoop 或 Cargo 安装 zoxide 的指南。",
+        "excerpt": "用 winget 在 Windows 上安装 zoxide，把初始化行加进 PowerShell 配置文件，再逐项检查 PATH、z 命令和目录记录。在 Windows 11 + PowerShell 7 上实测。",
         "duration": "5 分钟",
         "level": "初级",
         "category": "安装指南",

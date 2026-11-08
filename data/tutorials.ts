@@ -1866,7 +1866,7 @@ If you get permission errors:
   {
     slug: 'install-windows',
     title: 'zoxide install Windows',
-    excerpt: 'Complete guide to installing zoxide on Windows using Scoop, Cargo, or pre-built binaries.',
+    excerpt: 'Install zoxide on Windows with winget, add it to your PowerShell profile, and check PATH, z and directory learning. Tested on Windows 11 with PowerShell 7.',
     duration: '5 min',
     level: 'Beginner',
     category: '安装指南',

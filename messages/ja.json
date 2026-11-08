@@ -404,7 +404,7 @@
       },
       "install-windows": {
         "title": "zoxideインストール Windows",
-        "excerpt": "Scoop、Cargo、またはビルド済みバイナリを使用してWindowsにzoxideをインストールする完全ガイド。",
+        "excerpt": "winget で Windows に zoxide をインストールし、PowerShell のプロファイルに初期化行を追加して、PATH・z コマンド・ディレクトリ記録を確認します。Windows 11 と PowerShell 7 で検証済み。",
         "duration": "5分",
         "level": "初心者",
         "category": "インストールガイド",
