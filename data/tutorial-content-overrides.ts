@@ -1,6 +1,8 @@
 import { linuxInstallationContent } from '@/data/linux-installation-content';
+import { uninstallContent } from '@/data/uninstall-content';
 
 const englishTutorialContent: Record<string, string> = {
+  'uninstall-zoxide': uninstallContent.en,
   'install-arch-nixos': linuxInstallationContent.en,
   'install-macos': String.raw`# How to install zoxide on macOS (tested with Homebrew and zsh)
 
@@ -155,7 +157,7 @@ By default the database is ~/Library/Application Support/zoxide/db.zo. Our first
 brew uninstall zoxide
 ~~~
 
-Then remove the init line from ~/.zshrc, otherwise every new terminal prints command not found: zoxide.
+Delete the init line from ~/.zshrc as well, otherwise every new terminal prints command not found: zoxide. The database stays behind; [How to uninstall zoxide completely](/tutorials/uninstall-zoxide/) covers the order, every install method and where db.zo lives.
 
 ## Next steps
 
@@ -309,7 +311,7 @@ By default the database is %LOCALAPPDATA%\zoxide\db.zo. Set the _ZO_DATA_DIR env
 winget uninstall --id ajeetdsouza.zoxide -e
 ~~~
 
-Also delete the init line from $PROFILE, otherwise every new window will print an error that zoxide cannot be found.
+Also delete the init line from $PROFILE, otherwise every new window will print an error that zoxide cannot be found. For Scoop, Cargo and the database left in %LOCALAPPDATA%\zoxide, see [How to uninstall zoxide completely](/tutorials/uninstall-zoxide/).
 
 ## Next steps
 
@@ -542,7 +544,7 @@ Run type -a zoxide. Remove the one you do not want with the method that installe
 
 ## Uninstalling
 
-We removed both copies in turn. sudo apt remove zoxide removed /usr/bin/zoxide and left the script version in place. Deleting ~/.local/bin/zoxide removed the other one, after which type -a zoxide reported not found. In both cases the database stayed at ~/.local/share/zoxide/db.zo; delete that folder too if you want a clean slate, and remove the init line from ~/.bashrc.
+We removed both copies in turn. sudo apt remove zoxide removed /usr/bin/zoxide and left the script version in place. Deleting ~/.local/bin/zoxide removed the other one, after which type -a zoxide reported not found. In both cases the database stayed at ~/.local/share/zoxide/db.zo; delete that folder too if you want a clean slate, and remove the init line from ~/.bashrc. The full checklist, with the error you see if the init line stays, is in [How to uninstall zoxide completely](/tutorials/uninstall-zoxide/).
 
 ## Updating and choosing the next step
 
@@ -1014,6 +1016,7 @@ Sources: the zoxide README (Configuration section) and the zoxide 0.10.0 source 
 };
 
 const japaneseTutorialContent: Record<string, string> = {
+  'uninstall-zoxide': uninstallContent.ja,
   'install-arch-nixos': linuxInstallationContent.ja,
   'install-windows': String.raw`# Windows に zoxide をインストールする方法（PowerShell 7 で検証）
 
@@ -1162,7 +1165,7 @@ z 自体は fzf を必要としません。選択画面の調整は [fzf 連携�
 winget uninstall --id ajeetdsouza.zoxide -e
 ~~~
 
-$PROFILE の初期化行も削除してください。残っていると、新しいウィンドウを開くたびに zoxide が見つからないというエラーが出ます。
+$PROFILE の初期化行も削除してください。残っていると、新しいウィンドウを開くたびに zoxide が見つからないというエラーが出ます。Scoop・Cargo の場合や %LOCALAPPDATA%\zoxide に残るデータベースは[zoxide を完全にアンインストールする方法](/ja/tutorials/uninstall-zoxide/)を参照してください。
 
 ## 次のステップ
 
@@ -2044,7 +2047,7 @@ type -a zoxide を実行します。不要な方を、入れたときと同じ�
 
 ## アンインストール
 
-2 つのコピーを順に削除しました。sudo apt remove zoxide で /usr/bin/zoxide は消え、スクリプト版はそのまま残りました。続けて ~/.local/bin/zoxide を削除すると、type -a zoxide は not found になりました。どちらの場合もデータベースは ~/.local/share/zoxide/db.zo に残ります。完全に消したい場合はこのフォルダーも削除し、\~/.bashrc の初期化行も削除してください。
+2 つのコピーを順に削除しました。sudo apt remove zoxide で /usr/bin/zoxide は消え、スクリプト版はそのまま残りました。続けて ~/.local/bin/zoxide を削除すると、type -a zoxide は not found になりました。どちらの場合もデータベースは ~/.local/share/zoxide/db.zo に残ります。完全に消したい場合はこのフォルダーも削除し、\~/.bashrc の初期化行も削除してください。初期化行を残したときのエラーを含む全手順は[zoxide を完全にアンインストールする方法](/ja/tutorials/uninstall-zoxide/)にまとめています。
 
 ## 更新後の進み方
 
@@ -2214,7 +2217,7 @@ macOS には今も bash 3.2.57 が /bin/bash として入っています。テ�
 brew uninstall zoxide
 ~~~
 
-その後 ~/.zshrc の初期化行を削除してください。残っていると、新しいターミナルを開くたびに command not found: zoxide と表示されます。
+~/.zshrc の初期化行も削除してください。残っていると、新しいターミナルを開くたびに command not found: zoxide と表示されます。データベースは残ります。順番、ほかの導入方法、db.zo の場所は[zoxide を完全にアンインストールする方法](/ja/tutorials/uninstall-zoxide/)にあります。
 
 ## 次のステップ
 
@@ -2224,6 +2227,7 @@ brew uninstall zoxide
 };
 
 const chineseTutorialContent: Record<string, string> = {
+  'uninstall-zoxide': uninstallContent.zh,
   'install-arch-nixos': linuxInstallationContent.zh,
   'fzf-integration': String.raw`# zoxide 与 fzf 集成：zi 交互选择实测
 
@@ -2570,7 +2574,7 @@ z 本身不依赖 fzf。选择器的调优见 [fzf 集成教程](/zh/tutorials/f
 winget uninstall --id ajeetdsouza.zoxide -e
 ~~~
 
-同时要删掉 $PROFILE 里的初始化行，否则每个新窗口都会报找不到 zoxide。
+同时要删掉 $PROFILE 里的初始化行，否则每个新窗口都会报找不到 zoxide。Scoop、Cargo 安装的卸载方法，以及留在 %LOCALAPPDATA%\zoxide 的数据库，见[如何彻底卸载 zoxide](/zh/tutorials/uninstall-zoxide/)。
 
 ## 下一步
 
@@ -2803,7 +2807,7 @@ zi 是在没有终端的环境里启动的，比如在脚本中。请在交互�
 
 ## 卸载
 
-我们依次删掉了两份。sudo apt remove zoxide 删除了 /usr/bin/zoxide，脚本版保持不变；再删除 ~/.local/bin/zoxide 后，type -a zoxide 显示找不到。两种情况下数据库都还留在 ~/.local/share/zoxide/db.zo；想彻底清理就把这个目录也删掉，并删除 ~/.bashrc 里的初始化行。
+我们依次删掉了两份。sudo apt remove zoxide 删除了 /usr/bin/zoxide，脚本版保持不变；再删除 ~/.local/bin/zoxide 后，type -a zoxide 显示找不到。两种情况下数据库都还留在 ~/.local/share/zoxide/db.zo；想彻底清理就把这个目录也删掉，并删除 ~/.bashrc 里的初始化行。完整步骤（包括不删初始化行会看到的报错）见[如何彻底卸载 zoxide](/zh/tutorials/uninstall-zoxide/)。
 
 ## 后续更新与阅读
 
@@ -2973,7 +2977,7 @@ macOS 仍然自带 bash 3.2.57（/bin/bash）。实测中 eval "$(zoxide init ba
 brew uninstall zoxide
 ~~~
 
-然后删掉 ~/.zshrc 里的初始化行，否则每个新终端都会提示 command not found: zoxide。
+同时删掉 ~/.zshrc 里的初始化行，否则每个新终端都会提示 command not found: zoxide。数据库会留下来；卸载顺序、其他安装方式和 db.zo 的位置见[如何彻底卸载 zoxide](/zh/tutorials/uninstall-zoxide/)。
 
 ## 下一步
 

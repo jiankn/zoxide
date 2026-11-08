@@ -258,6 +258,7 @@
     "disclaimer": "与 zoxide 项目及作者 Ajeet D'Souza 无关联。",
     "officialLink": "zoxide 官方项目（GitHub）",
     "links": {
+      "uninstall": "卸载 zoxide",
       "download": "下载",
       "tutorials": "教程",
       "blog": "全部指南",
@@ -394,6 +395,13 @@
         "excerpt": "实测 Arch 官方仓库安装、NixOS 系统模块与 Home Manager 配置，检查 Bash/Zsh 目录记录、跳转及卸载后的数据库保留。",
         "duration": "10 分钟",
         "level": "中级",
+        "category": "安装指南"
+      },
+      "uninstall-zoxide": {
+        "title": "如何彻底卸载 zoxide",
+        "excerpt": "先删 Shell 配置里的初始化行，再用 brew、winget、scoop、cargo、apt 或 pacman 卸载，最后决定数据库留不留。macOS、Windows、Linux 实测。",
+        "duration": "5 分钟",
+        "level": "初级",
         "category": "安装指南"
       },
       "videos": {

@@ -20,6 +20,13 @@
       "bytes": 7718,
       "sha256": "0f3f7492b443fc28b1be53b2adde2e6d8c739f6874e4da22b89433a919986307",
       "source": "local"
+    },
+    {
+      "file": "uninstall.json",
+      "bytes": 17346,
+      "sha256": "6899bcab431bdb093f685d6e3c9e01630f73665f017e09f366b4b941135b89ac",
+      "source_run_id": "42456771436",
+      "source_commit": "9592f450dc8bb80fdab5fb25e2de42a1f969e7f5"
     }
   ]
 }

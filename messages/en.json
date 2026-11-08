@@ -258,6 +258,7 @@
     "disclaimer": "Not affiliated with the zoxide project or its author, Ajeet D'Souza.",
     "officialLink": "Official zoxide project on GitHub",
     "links": {
+      "uninstall": "Uninstall zoxide",
       "download": "Download",
       "tutorials": "Tutorials",
       "blog": "All guides",
@@ -410,6 +411,13 @@
         "excerpt": "Install zoxide with pacman or NixOS modules, configure Bash and Zsh, and verify directory learning, jumps and removal with recorded test results.",
         "duration": "10 min",
         "level": "Intermediate",
+        "category": "Installation Guide"
+      },
+      "uninstall-zoxide": {
+        "title": "How to uninstall zoxide completely",
+        "excerpt": "Delete the init line first, then uninstall with brew, winget, scoop, cargo, apt or pacman and decide what to do with the database. Tested on macOS, Windows and Linux.",
+        "duration": "5 min",
+        "level": "Beginner",
         "category": "Installation Guide"
       }
     }

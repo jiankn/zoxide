@@ -43,6 +43,7 @@ export default function Footer() {
       links: [
         { href: '/download', label: t('links.download') },
         { href: '/tools/zoxide-doctor', label: t('links.doctor') },
+        { href: '/tutorials/uninstall-zoxide', label: t('links.uninstall') },
       ],
     },
     {

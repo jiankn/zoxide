@@ -1,0 +1,357 @@
+{
+  "test_date": "2026-11-08",
+  "test_timezone": "UTC",
+  "source": "GitHub Actions hosted runners",
+  "source_run_id": "42456771436",
+  "source_commit": "9592f450dc8bb80fdab5fb25e2de42a1f969e7f5",
+  "script": ".ci/uninstall/uninstall_evidence.py",
+  "workflow": ".github/workflows/uninstall-evidence.yml",
+  "method": "Each job installs zoxide, records two directories so a database exists, writes the init line into a shell profile, uninstalls, then checks the binary, the database and what a new shell prints while the init line is still there. Ubuntu jobs run in the official ubuntu:24.04 container: the install script as an ordinary user, apt as root. ANSI colour codes and apt progress lines are removed; nothing else is edited.",
+  "methods": {
+    "macos-brew": {
+      "executed_at_utc": "2026-11-08T06:57:10.405765+00:00",
+      "runner_image": "macos26 20261102.0473.1",
+      "commands": [
+        {
+          "label": "sw_vers; uname -m; brew --version",
+          "command": "sw_vers; uname -m; brew --version",
+          "exit": 0,
+          "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t26.7.2\nBuildVersion:\t\t25G332\narm64\nHomebrew 7.0.11",
+          "stderr": ""
+        },
+        {
+          "label": "install: brew install zoxide",
+          "command": "brew install zoxide",
+          "exit": 0,
+          "stdout": "==> Pouring zoxide--0.10.0.arm64_tahoe.bottle.tar.gz\n🍺  /opt/homebrew/Cellar/zoxide/0.10.0: 18 files, 1.1MB\n==> Caveats\nBash completion has been installed to:\n  /opt/homebrew/etc/bash_completion.d",
+          "stderr": "==> Downloading bottle manifests\n✔︎ Bottle Manifest zoxide (0.10.0)\n==> Fetching downloads for: zoxide\n✔︎ Bottle zoxide (0.10.0)"
+        },
+        {
+          "label": "files installed by Homebrew",
+          "command": "brew list zoxide",
+          "exit": 0,
+          "stdout": "/opt/homebrew/Cellar/zoxide/0.10.0/INSTALL_RECEIPT.json\n/opt/homebrew/Cellar/zoxide/0.10.0/LICENSE\n/opt/homebrew/Cellar/zoxide/0.10.0/bin/zoxide\n/opt/homebrew/Cellar/zoxide/0.10.0/CHANGELOG.md\n/opt/homebrew/Cellar/zoxide/0.10.0/.brew/zoxide.rb\n/opt/homebrew/Cellar/zoxide/0.10.0/.crates.toml\n/opt/homebrew/Cellar/zoxide/0.10.0/etc/bash_completion.d/zoxide\n/opt/homebrew/Cellar/zoxide/0.10.0/.crates2.json\n/opt/homebrew/Cellar/zoxide/0.10.0/sbom.spdx.json\n/opt/homebrew/Cellar/zoxide/0.10.0/README.md\n/opt/homebrew/Cellar/zoxide/0.10.0/share/man/man1/zoxide-query.1\n/opt/homebrew/Cellar/zoxide/0.10.0/share/man/man1/zoxide-import.1\n/opt/homebrew/Cellar/zoxide/0.10.0/share/man/man1/zoxide.1\n/opt/homebrew/Cellar/zoxide/0.10.0/share/man/man1/zoxide-add.1\n/opt/homebrew/Cellar/zoxide/0.10.0/share/man/man1/zoxide-init.1\n/opt/homebrew/Cellar/zoxide/0.10.0/share/man/man1/zoxide-remove.1\n/opt/homebrew/Cellar/zoxide/0.10.0/share/zsh/site-functions/_zoxide\n/opt/homebrew/Cellar/zoxide/0.10.0/share/fish/vendor_completions.d/zoxide.fish",
+          "stderr": ""
+        },
+        {
+          "label": "use once: zoxide add",
+          "command": "zoxide add /tmp && zoxide add /usr",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "database location before uninstall",
+          "command": "ls -l \"/Users/runner/Library/Application Support/zoxide/db.zo\"",
+          "exit": 0,
+          "stdout": "-rw-r--r--  1 runner  staff  68 Nov  8 06:57 /Users/runner/Library/Application Support/zoxide/db.zo",
+          "stderr": ""
+        },
+        {
+          "label": "uninstall: brew uninstall zoxide",
+          "command": "brew uninstall zoxide",
+          "exit": 0,
+          "stdout": "Uninstalling /opt/homebrew/Cellar/zoxide/0.10.0... (18 files, 1.1MB)",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: command -v zoxide",
+          "command": "command -v zoxide",
+          "exit": 1,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: database still there?",
+          "command": "ls -l \"/Users/runner/Library/Application Support/zoxide/db.zo\"",
+          "exit": 0,
+          "stdout": "-rw-r--r--  1 runner  staff  68 Nov  8 06:57 /Users/runner/Library/Application Support/zoxide/db.zo",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall, init line still in ~/.zshrc: open a new zsh",
+          "command": "zsh -i -c 'true'",
+          "exit": 0,
+          "stdout": "",
+          "stderr": "/Users/runner/.zshrc:1: command not found: zoxide"
+        },
+        {
+          "label": "after removing the init line: open a new zsh",
+          "command": "zsh -i -c 'true'",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "delete the database folder",
+          "command": "rm -rf \"/Users/runner/Library/Application Support/zoxide\" && test ! -e \"/Users/runner/Library/Application Support/zoxide\"",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    "ubuntu-script": {
+      "executed_at_utc": "2026-11-08T06:57:09.036652+00:00",
+      "runner_image": "ubuntu:24.04 container on ubuntu-24.04",
+      "commands": [
+        {
+          "label": "cat /etc/os-release | head -2; id -un",
+          "command": "cat /etc/os-release | head -2; id -un",
+          "exit": 0,
+          "stdout": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\ndev",
+          "stderr": ""
+        },
+        {
+          "label": "install: official install script",
+          "command": "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh",
+          "exit": 0,
+          "stdout": "Detected architecture: x86_64-unknown-linux-musl\nDownloaded package: zoxide.tar.gz\nInstalled zoxide to /home/dev/.local/bin\nInstalled manpages to /home/dev/.local/share/man\n\nzoxide is installed!\nNote: /home/dev/.local/bin is not on your $PATH. zoxide will not work unless it is added to $PATH.",
+          "stderr": ""
+        },
+        {
+          "label": "files installed by the script",
+          "command": "find ~/.local -path \"*zoxide*\" -type f | sort",
+          "exit": 0,
+          "stdout": "/home/dev/.local/bin/zoxide\n/home/dev/.local/share/man/man1/zoxide-add.1\n/home/dev/.local/share/man/man1/zoxide-import.1\n/home/dev/.local/share/man/man1/zoxide-init.1\n/home/dev/.local/share/man/man1/zoxide-query.1\n/home/dev/.local/share/man/man1/zoxide-remove.1\n/home/dev/.local/share/man/man1/zoxide.1",
+          "stderr": ""
+        },
+        {
+          "label": "use once: zoxide add",
+          "command": "~/.local/bin/zoxide add /tmp && ~/.local/bin/zoxide add /usr",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "database location before uninstall",
+          "command": "ls -l \"/home/dev/.local/share/zoxide/db.zo\"",
+          "exit": 0,
+          "stdout": "-rw-rw-r-- 1 dev dev 68 Nov  8 06:57 /home/dev/.local/share/zoxide/db.zo",
+          "stderr": ""
+        },
+        {
+          "label": "uninstall: delete the binary and man pages",
+          "command": "rm ~/.local/bin/zoxide ~/.local/share/man/man1/zoxide*.1",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: command -v zoxide (login shell)",
+          "command": "bash -lc 'command -v zoxide'",
+          "exit": 1,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: what is left under ~/.local",
+          "command": "find ~/.local -path \"*zoxide*\" | sort",
+          "exit": 0,
+          "stdout": "/home/dev/.local/share/zoxide\n/home/dev/.local/share/zoxide/db.zo",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall, init line still in ~/.bashrc: open a new bash",
+          "command": "bash -i -c 'true'",
+          "exit": 0,
+          "stdout": "",
+          "stderr": "bash: cannot set terminal process group (2060): Inappropriate ioctl for device\nbash: no job control in this shell\nbash: zoxide: command not found"
+        },
+        {
+          "label": "after removing the init line: open a new bash",
+          "command": "bash -i -c 'true'",
+          "exit": 0,
+          "stdout": "",
+          "stderr": "bash: cannot set terminal process group (2060): Inappropriate ioctl for device\nbash: no job control in this shell"
+        },
+        {
+          "label": "delete the database folder",
+          "command": "rm -rf \"/home/dev/.local/share/zoxide\" && test ! -e \"/home/dev/.local/share/zoxide\"",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    "ubuntu-apt": {
+      "executed_at_utc": "2026-11-08T06:57:12.822396+00:00",
+      "runner_image": "ubuntu:24.04 container on ubuntu-24.04",
+      "commands": [
+        {
+          "label": "cat /etc/os-release | head -2",
+          "command": "cat /etc/os-release | head -2",
+          "exit": 0,
+          "stdout": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"",
+          "stderr": ""
+        },
+        {
+          "label": "install: apt install zoxide",
+          "command": "apt-get install -y -qq zoxide > /dev/null && zoxide --version",
+          "exit": 0,
+          "stdout": "zoxide 0.9.3",
+          "stderr": "debconf: delaying package configuration, since apt-utils is not installed"
+        },
+        {
+          "label": "files installed by the package",
+          "command": "dpkg -L zoxide | grep -v \"/$\" | sort",
+          "exit": 0,
+          "stdout": "/.\n/usr\n/usr/bin\n/usr/bin/zoxide\n/usr/share\n/usr/share/doc\n/usr/share/doc/zoxide\n/usr/share/doc/zoxide/changelog.Debian.gz\n/usr/share/doc/zoxide/copyright\n/usr/share/man\n/usr/share/man/man1\n/usr/share/man/man1/zoxide.1.gz",
+          "stderr": ""
+        },
+        {
+          "label": "use once: zoxide add",
+          "command": "zoxide add /tmp && zoxide add /usr",
+          "exit": 0,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "uninstall: apt remove zoxide",
+          "command": "apt-get remove -y zoxide 2>&1 | tail -n 4",
+          "exit": 0,
+          "stdout": "0 upgraded, 0 newly installed, 1 to remove and 3 not upgraded.\nAfter this operation, 1163 kB disk space will be freed.\n(Reading database ... \n(Reading database ... 6339 files and directories currently installed.)\nRemoving zoxide (0.9.3-1) ...",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: command -v zoxide",
+          "command": "command -v zoxide",
+          "exit": 1,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: package state",
+          "command": "dpkg -l zoxide | tail -n 1",
+          "exit": 0,
+          "stdout": "",
+          "stderr": "dpkg-query: no packages found matching zoxide"
+        },
+        {
+          "label": "after uninstall: database still there?",
+          "command": "ls -l \"/root/.local/share/zoxide/db.zo\"",
+          "exit": 0,
+          "stdout": "-rw-r--r-- 1 root root 68 Nov  8 06:57 /root/.local/share/zoxide/db.zo",
+          "stderr": ""
+        }
+      ]
+    },
+    "cargo": {
+      "executed_at_utc": "2026-11-08T06:57:26.009308+00:00",
+      "runner_image": "ubuntu24 20261101.360.1",
+      "commands": [
+        {
+          "label": "cargo --version",
+          "command": "cargo --version",
+          "exit": 0,
+          "stdout": "cargo 1.99.1 (5f94df478 2026-08-27)",
+          "stderr": ""
+        },
+        {
+          "label": "install: cargo install zoxide --locked",
+          "command": "cargo install zoxide --locked 2>&1 | tail -n 3",
+          "exit": 0,
+          "stdout": "Finished `release` profile [optimized] target(s) in 28.62s\n  Installing /home/runner/.cargo/bin/zoxide\n   Installed package `zoxide v0.10.0` (executable `zoxide`)",
+          "stderr": ""
+        },
+        {
+          "label": "file installed by Cargo",
+          "command": "ls -l ~/.cargo/bin/zoxide",
+          "exit": 0,
+          "stdout": "-rwxr-xr-x 1 runner runner 1114528 Nov  8 06:57 /home/runner/.cargo/bin/zoxide",
+          "stderr": ""
+        },
+        {
+          "label": "uninstall: cargo uninstall zoxide",
+          "command": "cargo uninstall zoxide 2>&1",
+          "exit": 0,
+          "stdout": "Removing /home/runner/.cargo/bin/zoxide",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: ~/.cargo/bin/zoxide",
+          "command": "ls ~/.cargo/bin/zoxide",
+          "exit": 2,
+          "stdout": "",
+          "stderr": "ls: cannot access '/home/runner/.cargo/bin/zoxide': No such file or directory"
+        }
+      ]
+    },
+    "windows-scoop": {
+      "executed_at_utc": "2026-11-08T06:57:27.303654+00:00",
+      "runner_image": "win25-vs2026 20261103.298.1",
+      "commands": [
+        {
+          "label": "[System.Environment]::OSVersion.VersionString; $PSVersionTable.PSVersion.ToString()",
+          "command": "[System.Environment]::OSVersion.VersionString; $PSVersionTable.PSVersion.ToString()",
+          "exit": 0,
+          "stdout": "Microsoft Windows NT 10.0.26100.0\n7.6.9",
+          "stderr": ""
+        },
+        {
+          "label": "prerequisite: install Scoop",
+          "command": "irm get.scoop.sh -outfile $env:TEMP\\install-scoop.ps1; & $env:TEMP\\install-scoop.ps1 -RunAsAdmin | Select-Object -Last 2",
+          "exit": 0,
+          "stdout": "Scoop was installed successfully!\nType 'scoop help' for instructions.",
+          "stderr": ""
+        },
+        {
+          "label": "install: scoop install zoxide",
+          "command": "$env:Path = \"$env:USERPROFILE\\scoop\\shims;$env:Path\"; scoop install zoxide | Select-Object -Last 3",
+          "exit": 0,
+          "stdout": "Downloading https://github.com/ajeetdsouza/zoxide/releases/download/v0.10.0/zoxide-0.10.0-x86_64-pc-windows-msvc.zip (532.9 KB)...\nChecking hash of zoxide-0.10.0-x86_64-pc-windows-msvc.zip... OK.\nExtracting zoxide-0.10.0-x86_64-pc-windows-msvc.zip... Done.\nLinking ~\\scoop\\apps\\zoxide\\current => ~\\scoop\\apps\\zoxide\\0.10.0\n'zoxide' (0.10.0) was installed successfully!\n-----\n_ZO_DATA_DIR is located at '$env:LOCALAPPDATA\\zoxide' by default\n-----",
+          "stderr": ""
+        },
+        {
+          "label": "use once: version, location, zoxide add",
+          "command": "$env:Path = \"$env:USERPROFILE\\scoop\\shims;$env:Path\"; zoxide --version; (Get-Command zoxide).Source; zoxide add $env:TEMP; zoxide add $env:SystemRoot",
+          "exit": 0,
+          "stdout": "zoxide 0.10.0\nC:\\Users\\runneradmin\\scoop\\shims\\zoxide.exe",
+          "stderr": ""
+        },
+        {
+          "label": "database location before uninstall",
+          "command": "Get-Item \"$env:LOCALAPPDATA\\zoxide\\db.zo\" | Select-Object FullName, Length | Format-List",
+          "exit": 0,
+          "stdout": "FullName : C:\\Users\\runneradmin\\AppData\\Local\\zoxide\\db.zo\nLength   : 106",
+          "stderr": ""
+        },
+        {
+          "label": "uninstall: scoop uninstall zoxide",
+          "command": "$env:Path = \"$env:USERPROFILE\\scoop\\shims;$env:Path\"; scoop uninstall zoxide",
+          "exit": 0,
+          "stdout": "Uninstalling 'zoxide' (0.10.0).\nRemoving shim 'zoxide.shim'.\nRemoving shim 'zoxide.exe'.\nUnlinking ~\\scoop\\apps\\zoxide\\current\n'zoxide' was uninstalled.",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: Get-Command zoxide",
+          "command": "$env:Path = \"$env:USERPROFILE\\scoop\\shims;$env:Path\"; Get-Command zoxide -ErrorAction SilentlyContinue; \"found=\" + [bool](Get-Command zoxide -ErrorAction SilentlyContinue)",
+          "exit": 0,
+          "stdout": "found=False",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall: database still there?",
+          "command": "Test-Path \"$env:LOCALAPPDATA\\zoxide\\db.zo\"",
+          "exit": 0,
+          "stdout": "True",
+          "stderr": ""
+        },
+        {
+          "label": "after uninstall, init line still in the profile: load the profile",
+          "command": ". 'C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\zo-profile.ps1'",
+          "exit": 0,
+          "stdout": "",
+          "stderr": "zoxide: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\zo-profile.ps1:1\nLine |\n   1 |  Invoke-Expression (& { (zoxide init powershell | Out-String) })\n     |                          ~~~~~~\n     | The term 'zoxide' is not recognized as a name of a cmdlet, function, script file, or executable program. Check\n     | the spelling of the name, or if a path was included, verify that the path is correct and try again.\nInvoke-Expression: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\zo-profile.ps1:1\nLine |\n   1 |  Invoke-Expression (& { (zoxide init powershell | Out-String) })\n     |                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Cannot bind argument to parameter 'Command' because it is null."
+        },
+        {
+          "label": "delete the database folder",
+          "command": "Remove-Item -Recurse -Force \"$env:LOCALAPPDATA\\zoxide\"; Test-Path \"$env:LOCALAPPDATA\\zoxide\"",
+          "exit": 0,
+          "stdout": "False",
+          "stderr": ""
+        }
+      ]
+    }
+  }
+}

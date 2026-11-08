@@ -15,6 +15,7 @@ export function taskGroups(locale: string) {
       { href: '/tutorials/install-ubuntu', title: 'Ubuntu · Bash' },
       { href: '/tutorials/install-arch-nixos', title: 'Arch Linux · NixOS' },
       { href: p.init, title: t('Shell profiles and initialization', 'Shell 配置文件与初始化', '設定ファイルと初期化') },
+      { href: '/tutorials/uninstall-zoxide', title: t('Uninstall zoxide', '卸载 zoxide', 'zoxide のアンインストール') },
     ] },
     { title: t('Fix a problem', '故障排查', '問題を解決'), description: t('Start with the message you see, then verify one layer at a time.', '从实际报错开始，逐层验证原因。', '実際の症状から、一段ずつ確認します。'), links: [
       { href: p.troubleshooting, title: t('Choose a symptom', '按症状开始排查', '症状から調べる') },

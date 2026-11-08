@@ -258,6 +258,7 @@
     "disclaimer": "zoxide プロジェクトおよび作者 Ajeet D'Souza 氏とは関係ありません。",
     "officialLink": "zoxide 公式プロジェクト（GitHub）",
     "links": {
+      "uninstall": "zoxide のアンインストール",
       "download": "ダウンロード",
       "tutorials": "チュートリアル",
       "blog": "ガイド一覧",
@@ -410,6 +411,13 @@
         "excerpt": "Arch の pacman と NixOS・Home Manager の設定を検証。Bash/Zsh でのディレクトリ記録、移動、削除後のデータ保持を確認します。",
         "duration": "10分",
         "level": "中級",
+        "category": "インストールガイド"
+      },
+      "uninstall-zoxide": {
+        "title": "zoxide を完全にアンインストールする方法",
+        "excerpt": "まず初期化行を消し、brew・winget・scoop・cargo・apt・pacman で本体を削除してから、データベースの扱いを決めます。macOS・Windows・Linux で実測。",
+        "duration": "5分",
+        "level": "初級",
         "category": "インストールガイド"
       }
     }

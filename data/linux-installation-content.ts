@@ -133,7 +133,7 @@ Our package removal exited with status 0. A new login's command -v zoxide exited
 
 On NixOS or Home Manager, disable programs.zoxide.enable in the configuration that enabled it, apply that configuration and open a new terminal. We tested this by switching each VM to a prebuilt specialisation with its zoxide module disabled. Both switches succeeded, a fresh login could no longer find zoxide, and the test databases remained. This checked removal through configuration activation, without an in-guest rebuild or garbage collection.
 
-On Linux, the usual database location is ~/.local/share/zoxide/db.zo; XDG_DATA_HOME or _ZO_DATA_DIR can change it. Our files were under the isolated directories listed in the evidence. Removing the program did not delete those files. The [configuration guide](/tutorials/advanced-config/) explains the data-directory settings; [Ubuntu installation](/tutorials/install-ubuntu/) has its own distribution-specific test.`,
+On Linux, the usual database location is ~/.local/share/zoxide/db.zo; XDG_DATA_HOME or _ZO_DATA_DIR can change it. Our files were under the isolated directories listed in the evidence. Removing the program did not delete those files. The [configuration guide](/tutorials/advanced-config/) explains the data-directory settings; [Ubuntu installation](/tutorials/install-ubuntu/) has its own distribution-specific test. For every other install method and the error a leftover init line prints, see [How to uninstall zoxide completely](/tutorials/uninstall-zoxide/).`,
   zh: String.raw`# 在 Arch Linux 和 NixOS 上安装与配置 zoxide
 
 Arch Linux 可以安装官方仓库的软件包，再给 Shell 加初始化行。NixOS 可以用系统模块同时安装程序并生成初始化配置；如果你已经用 Home Manager 管理用户配置，也可以走这条路线。
@@ -268,7 +268,7 @@ sudo pacman -R zoxide
 
 NixOS 或 Home Manager 用户在原先启用它的配置里禁用 programs.zoxide.enable，应用配置后打开新终端。我们分别切换到预构建的 specialisation，其中对应模块已禁用。两次切换均成功，新登录会话找不到 zoxide，测试数据库仍在。这验证的是配置激活后的移除，没有在虚拟机中重建，也没有运行垃圾回收。
 
-Linux 的常见数据库路径是 ~/.local/share/zoxide/db.zo，XDG_DATA_HOME 或 _ZO_DATA_DIR 可以改变它。本轮使用证据中列出的隔离目录，移除程序没有删除这些文件。目录设置见[高级配置](/zh/tutorials/advanced-config/)；Ubuntu 用户可看另有发行版实测的[安装教程](/zh/tutorials/install-ubuntu/)。`,
+Linux 的常见数据库路径是 ~/.local/share/zoxide/db.zo，XDG_DATA_HOME 或 _ZO_DATA_DIR 可以改变它。本轮使用证据中列出的隔离目录，移除程序没有删除这些文件。目录设置见[高级配置](/zh/tutorials/advanced-config/)；Ubuntu 用户可看另有发行版实测的[安装教程](/zh/tutorials/install-ubuntu/)。其他安装方式的卸载、以及残留初始化行会报什么错，见[如何彻底卸载 zoxide](/zh/tutorials/uninstall-zoxide/)。`,
   ja: String.raw`# Arch Linux と NixOS で zoxide を導入・設定する
 
 Arch Linux では公式リポジトリのパッケージを入れ、シェルに初期化行を追加します。NixOS ではシステムモジュールでパッケージと初期化を設定できます。すでにユーザー設定を Home Manager で管理している場合は、そのモジュールも使えます。
@@ -403,5 +403,5 @@ sudo pacman -R zoxide
 
 NixOS または Home Manager では、有効にした側の programs.zoxide.enable を無効にし、設定適用後に新しい端末を開きます。検証では、各モジュールを無効にしたビルド済み specialisation へ VM を切り替えました。両方で切り替えが成功し、新しいログインは zoxide を見つけず、テスト用データベースは残りました。設定のアクティベーションによる削除を確認したもので、ゲスト内の再ビルドやガベージコレクションは行っていません。
 
-Linux の通常の保存先は ~/.local/share/zoxide/db.zo ですが、XDG_DATA_HOME または _ZO_DATA_DIR で変わります。今回の保存先は証拠に記載した分離ディレクトリで、プログラムの削除ではファイルは消えませんでした。保存先の設定は[高度な設定](/ja/tutorials/advanced-config/)、Ubuntu の導入は別のディストリビューション検証を記録した[Ubuntu ガイド](/ja/tutorials/install-ubuntu/)を参照してください。`,
+Linux の通常の保存先は ~/.local/share/zoxide/db.zo ですが、XDG_DATA_HOME または _ZO_DATA_DIR で変わります。今回の保存先は証拠に記載した分離ディレクトリで、プログラムの削除ではファイルは消えませんでした。保存先の設定は[高度な設定](/ja/tutorials/advanced-config/)、Ubuntu の導入は別のディストリビューション検証を記録した[Ubuntu ガイド](/ja/tutorials/install-ubuntu/)を参照してください。ほかの導入方法の削除や、初期化行を残したときのエラーは[zoxide を完全にアンインストールする方法](/ja/tutorials/uninstall-zoxide/)にまとめています。`,
 };

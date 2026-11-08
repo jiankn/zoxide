@@ -126,6 +126,7 @@ export default function SetupBuilder({ locale, initial = defaultChoice, variant 
     { href: primary.noMatch, title: <code className="font-mono text-[14px]">no match found</code>, text: t('The database has not seen that folder yet', '数据库还没记住那个目录', 'まだそのディレクトリを記録していません') },
     { href: '/tools/ranking-simulator', title: t('z opens the wrong folder', 'z 跳到了别的目录', 'z が別の場所へ移動する'), text: t('See how the ranking picked it', '看看排名是怎么选的', '順位の決まり方を見る') },
     { href: primary.doctor, title: <>{t('Run', '运行', '実行：')} <code className="font-mono text-[14px]">npx zoxide-doctor</code></>, text: t('Checks PATH, hook and profile in one go', '一次检查 PATH、hook 和配置文件', 'PATH・hook・設定ファイルをまとめて確認') },
+    { href: '/tutorials/uninstall-zoxide', title: t('Remove zoxide', '卸载 zoxide', 'zoxide を削除'), text: t('Init line, program and database, in that order', '按顺序删初始化行、程序和数据库', '初期化行・本体・データベースの順に削除') },
   ];
 
   return (

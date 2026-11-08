@@ -1,0 +1,54 @@
+name: Uninstall evidence
+on:
+  push:
+    branches: [claude/uninstall-evidence-20261108]
+permissions:
+  contents: read
+jobs:
+  macos-brew:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir -p evidence && python3 .ci/uninstall/uninstall_evidence.py macos-brew evidence/macos-brew.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: macos-brew, path: evidence/ }
+  ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install script (as user dev) and apt (as root) in the official container
+        run: |
+          mkdir -p evidence && chmod 777 evidence
+          docker run --rm -v "$PWD:/work" -w /work ubuntu:24.04 bash -c '
+            set -e
+            apt-get update -qq
+            DEBIAN_FRONTEND=noninteractive apt-get install -y -qq curl ca-certificates python3 > /dev/null
+            useradd -m -s /bin/bash dev
+            su - dev -c "python3 /work/.ci/uninstall/uninstall_evidence.py ubuntu-script /tmp/ubuntu-script.json"
+            cp /tmp/ubuntu-script.json /work/evidence/
+            python3 .ci/uninstall/uninstall_evidence.py ubuntu-apt /work/evidence/ubuntu-apt.json'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: ubuntu, path: evidence/ }
+  cargo:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir -p evidence && python3 .ci/uninstall/uninstall_evidence.py cargo evidence/cargo.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: cargo, path: evidence/ }
+  windows-scoop:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: mkdir evidence; python .ci/uninstall/uninstall_evidence.py windows-scoop evidence/windows-scoop.json
+        shell: pwsh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: windows-scoop, path: evidence/ }

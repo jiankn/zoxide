@@ -1,4 +1,5 @@
 import { linuxInstallationContent } from '@/data/linux-installation-content';
+import { uninstallContent } from '@/data/uninstall-content';
 
 // 教程数据类型
 export interface Tutorial {
@@ -2049,6 +2050,17 @@ If you get permission errors:
     date: '2025-12-04',
     updated: '2026-10-09',
     content: linuxInstallationContent.en,
+  },
+  {
+    slug: 'uninstall-zoxide',
+    title: 'How to uninstall zoxide completely',
+    excerpt: 'Delete the init line first, then uninstall with brew, winget, scoop, cargo, apt or pacman and decide what to do with the database. Tested on macOS, Windows and Linux.',
+    duration: '5 min',
+    level: 'Beginner',
+    category: '安装指南',
+    date: '2026-11-08',
+    updated: '2026-11-08',
+    content: uninstallContent.en,
   },
 ];
 
