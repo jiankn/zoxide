@@ -1,7 +1,7 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- 线路图站点标记：海军蓝底上的绿色站环 -->
-  <rect x="32" y="32" width="448" height="448" rx="112" fill="#14213d"/>
-  <rect x="96" y="226" width="320" height="60" rx="30" fill="#00985f"/>
-  <circle cx="256" cy="256" r="118" fill="#ffffff" stroke="#00985f" stroke-width="56"/>
-  <circle cx="256" cy="256" r="40" fill="#14213d"/>
+  <!-- 线路图站点标记：铺满画布的海军蓝底，绿色线路，白色站环 -->
+  <rect width="512" height="512" rx="112" fill="#14213d"/>
+  <rect x="0" y="216" width="512" height="80" fill="#00985f"/>
+  <circle cx="256" cy="256" r="152" fill="#ffffff" stroke="#00985f" stroke-width="70"/>
+  <circle cx="256" cy="256" r="60" fill="#14213d"/>
 </svg>

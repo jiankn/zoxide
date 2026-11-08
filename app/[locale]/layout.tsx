@@ -5,7 +5,6 @@ import { routing } from '@/i18n/routing';
 import { Providers } from "../providers";
 import Navigation from "@/components/Navigation/Navigation";
 import Footer from "@/components/Footer/Footer";
-import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
 import { Overpass, JetBrains_Mono } from "next/font/google"; // Moved from root layout
@@ -132,7 +131,6 @@ export default async function LocaleLayout({
       <body className={`${overpass.variable} ${jetbrainsMono.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <DisclaimerBanner />
             <Navigation />
             <main className="min-h-screen">{children}</main>
             <Footer />

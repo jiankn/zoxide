@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Globe, Github } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { useTranslations, useLocale } from 'next-intl';
 import { getPrimaryPaths } from '@/data/search-intents';
 import Search from '@/components/Search/Search';
@@ -183,11 +183,11 @@ export default function Navigation() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-ink text-white">
       <div className="container mx-auto max-w-7xl px-4 md:px-7">
-        <div className="flex h-[60px] items-center justify-between gap-4">
+        <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo - 防止压缩，在中等屏幕时缩小 */}
-          <Link href="/" className="flex items-center gap-2 group flex-shrink-0 min-w-0">
-            <Logo size={30} className="group-hover:opacity-85 transition-opacity" />
-            <span className="whitespace-nowrap text-[19px] font-extrabold tracking-[-0.01em] text-white">
+          <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0 min-w-0">
+            <Logo size={40} className="group-hover:opacity-85 transition-opacity" />
+            <span className="whitespace-nowrap text-[22px] font-extrabold tracking-[-0.01em] text-white">
               {t('brandName')}
             </span>
           </Link>
@@ -218,21 +218,10 @@ export default function Navigation() {
 
           {/* 右侧操作区 */}
           <div className="flex items-center space-x-2 flex-shrink-0">
-            {/* 桌面端：搜索 / GitHub / 语言 - 在md断点显示 */}
+            {/* 桌面端：搜索 / 语言 - 在md断点显示 */}
             <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
               {/* 搜索功能（桌面端显示） */}
               <Search />
-
-              {/* GitHub 链接（桌面端显示） */}
-              <a
-                href="https://github.com/ajeetdsouza/zoxide"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg p-2 text-[#c9d2e3] hover:bg-white/10 hover:text-white transition-colors"
-                aria-label={t('github')}
-              >
-                <Github className="h-5 w-5" />
-              </a>
 
               {/* 语言切换（桌面端显示） */}
               <div className="relative" ref={langMenuRef}>
@@ -285,7 +274,7 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* 移动端菜单：包含搜索 / GitHub / 语言 + 导航链接（lg以下显示） */}
+        {/* 移动端菜单：包含搜索 / 语言 + 导航链接（xl以下显示） */}
         {isOpen && (
           <div className="xl:hidden border-t border-white/15 py-4 space-y-4">
             {/* 搜索（移动端放在汉堡菜单内） */}
@@ -293,20 +282,8 @@ export default function Navigation() {
               <Search />
             </div>
 
-            {/* GitHub / 语言（移动端放在汉堡菜单内） */}
-            <div className="flex items-center justify-between px-4">
-              {/* GitHub */}
-              <a
-                href="https://github.com/ajeetdsouza/zoxide"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
-                aria-label={t('github')}
-              >
-                <Github className="mr-2 h-4 w-4" />
-                <span className="truncate">GitHub</span>
-              </a>
-
+            {/* 语言（移动端放在汉堡菜单内） */}
+            <div className="flex items-center px-4">
               {/* 语言切换（移动端） */}
               <div className="relative" ref={langMenuRef}>
                 <button

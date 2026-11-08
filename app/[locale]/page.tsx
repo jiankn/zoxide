@@ -93,11 +93,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {home('title')}
             </h1>
             <p className="text-[15px] leading-6 text-ink-soft">
-              {home('description')}{' '}
-              <span className="block pt-1.5">
-                {home('independentNote')}{' '}
-                <a href="https://github.com/ajeetdsouza/zoxide" className="font-semibold text-ink underline">{home('officialProject')}</a>
-              </span>
+              {home('description')}
             </p>
           </div>
           <p className="mb-6 mt-4 max-w-[60ch] text-lg leading-7 text-ink">

@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { getPrimaryPaths } from '@/data/search-intents';
 import Logo from '@/components/Logo/Logo';
 import GoogleConsentSettings from '@/components/GoogleConsentSettings/GoogleConsentSettings';
+import { Github } from 'lucide-react';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -44,6 +45,19 @@ export default function Footer() {
             <p className="text-sm text-white/80">
               {t('description')}
             </p>
+            {/* 非官方声明：服务端渲染进每页 HTML，避免被误认为 zoxide 官方网站 */}
+            <p className="text-sm text-white/80">
+              <span className="font-semibold text-white">{t('unofficialLabel')}</span> {t('disclaimer')}
+            </p>
+            <a
+              href="https://github.com/ajeetdsouza/zoxide"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:underline"
+            >
+              <Github className="h-4 w-4" aria-hidden="true" />
+              {t('officialLink')}
+            </a>
           </div>
 
           {/* 链接区 */}

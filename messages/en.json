@@ -52,8 +52,6 @@
     "quickInstall": "Install & set up",
     "quickTroubleshoot": "Fix a problem",
     "quickCommands": "Find a command",
-    "independentNote": "Independent, unofficial guide.",
-    "officialProject": "Official project on GitHub",
     "features": {
       "title": "Why choose zoxide?",
       "smart": {
@@ -245,12 +243,6 @@
       }
     ]
   },
-  "disclaimer": {
-    "label": "Unofficial guide:",
-    "message": "zoxide.org is an independent website, not the official zoxide project. It is not affiliated with or endorsed by zoxide's author, Ajeet D'Souza.",
-    "closeLabel": "Close",
-    "officialLink": "Official project on GitHub"
-  },
   "footer": {
     "description": "A smarter cd command alternative that makes directory navigation faster and more efficient.",
     "product": "Product",
@@ -261,7 +253,9 @@
     "termsOfService": "Terms of Service",
     "contact": "Contact Us",
     "copyright": "© {yearRange} zoxide.org. Zoxide is open-source software distributed under the MIT License. All product names, logos, and brands are property of their respective owners.",
-    "disclaimer": "This website is informational only, not affiliated with ajeetdsouza or Ajeet D'Souza.",
+    "unofficialLabel": "Unofficial guide.",
+    "disclaimer": "Not affiliated with the zoxide project or its author, Ajeet D'Souza.",
+    "officialLink": "Official zoxide project on GitHub",
     "links": {
       "download": "Download",
       "tutorials": "Tutorials",

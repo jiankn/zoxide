@@ -52,8 +52,6 @@
     "quickInstall": "安装与配置",
     "quickTroubleshoot": "解决问题",
     "quickCommands": "查找命令",
-    "independentNote": "独立维护的非官方指南。",
-    "officialProject": "GitHub 官方项目",
     "features": {
       "title": "为什么选择 zoxide？",
       "smart": {
@@ -245,12 +243,6 @@
       }
     ]
   },
-  "disclaimer": {
-    "label": "非官方指南：",
-    "message": "zoxide.org 是独立网站，不是 zoxide 官方项目，与 zoxide 作者 Ajeet D'Souza 没有任何关联，也未获其认可。",
-    "closeLabel": "关闭提示",
-    "officialLink": "官方项目（GitHub）"
-  },
   "footer": {
     "description": "一个更智能的 cd 命令替代工具，让目录导航更快更高效。",
     "product": "产品",
@@ -261,7 +253,9 @@
     "termsOfService": "服务条款",
     "contact": "联系我们",
     "copyright": "© {yearRange} zoxide.org. Zoxide 是基于 MIT 协议分发的开源软件。所有产品名称、Logo 和品牌均为其各自所有者的财产。",
-    "disclaimer": "本网站为信息性网站，与 ajeetdsouza 或 Ajeet D'Souza 无关联。",
+    "unofficialLabel": "非官方指南。",
+    "disclaimer": "与 zoxide 项目及作者 Ajeet D'Souza 无关联。",
+    "officialLink": "zoxide 官方项目（GitHub）",
     "links": {
       "download": "下载",
       "tutorials": "教程",

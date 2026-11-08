@@ -52,8 +52,6 @@
     "quickInstall": "導入・設定",
     "quickTroubleshoot": "問題を解決",
     "quickCommands": "コマンドを探す",
-    "independentNote": "独立して運営する非公式ガイドです。",
-    "officialProject": "GitHub の公式プロジェクト",
     "features": {
       "title": "なぜzoxideを選ぶのか？",
       "smart": {
@@ -245,12 +243,6 @@
       }
     ]
   },
-  "disclaimer": {
-    "label": "非公式ガイド:",
-    "message": "zoxide.org は独立したサイトであり、公式の zoxide プロジェクトではありません。作者 Ajeet D'Souza 氏とは提携しておらず、承認も受けていません。",
-    "closeLabel": "閉じる",
-    "officialLink": "公式プロジェクト（GitHub）"
-  },
   "footer": {
     "description": "よりスマートなcdコマンド代替ツール。ディレクトリナビゲーションをより高速かつ効率的にします。",
     "product": "製品",
@@ -261,7 +253,9 @@
     "termsOfService": "利用規約",
     "contact": "お問い合わせ",
     "copyright": "© {yearRange} zoxide.org. ZoxideはMITライセンスで配布されるオープンソースソフトウェアです。すべての製品名、ロゴ、ブランドは各所有者の財産です。",
-    "disclaimer": "このウェブサイトは情報提供のみを目的としており、ajeetdsouzaまたはAjeet D'Souza氏とは提携していません。",
+    "unofficialLabel": "非公式ガイドです。",
+    "disclaimer": "zoxide プロジェクトおよび作者 Ajeet D'Souza 氏とは関係ありません。",
+    "officialLink": "zoxide 公式プロジェクト（GitHub）",
     "links": {
       "download": "ダウンロード",
       "tutorials": "チュートリアル",
