@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://zoxide.org';
   // Keep lastmod tied to a real content release instead of changing it on every build.
   const staticContentLastModified = '2026-08-07';
+  const homeContentLastModified = '2026-11-08';
   const priorityContentLastModified = '2026-08-09';
   const downloadContentLastModified = '2026-08-14';
   const intentArchitectureLastModified = '2026-08-15';
@@ -18,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const retestedTutorialSlugs = new Set(['install-windows', 'install-macos']);
   // 2026-10-08：修正虚构内容、补充 Linux 发行版与下载页版本历史（按 语言:路径 记录实际改动的页面）
   const correctionLastModified = '2026-10-08';
+  const taskRestructureDate = '2026-11-08';
+  const taskRestructurePaths = new Set(['/download', '/tutorials', '/blog', '/tools/zoxide-doctor', '/about', '/blog/zoxide-not-working']);
   const correctedPaths = new Set([
     // 2026-10-08：命令参考与初始化指南完成三语实测重写；中日路径已列在下方。
     'en:/blog/zoxide-commands', 'en:/blog/zoxide-init-guide',
@@ -93,7 +96,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: correctedPaths.has(`${locale}:${route.path}`)
+        lastModified: taskRestructurePaths.has(route.path)
+          ? taskRestructureDate
+          : route.path === ''
+          ? homeContentLastModified
+          : correctedPaths.has(`${locale}:${route.path}`)
           ? correctionLastModified
           : unofficialGuidePaths.has(route.path)
           ? unofficialGuideLastModified
@@ -126,7 +133,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       blogPages.push({
         url,
-        lastModified: correctedPaths.has(`${locale}:/blog/${post.slug}`)
+        lastModified: post.slug === 'zoxide-not-working'
+          ? taskRestructureDate
+          : correctedPaths.has(`${locale}:/blog/${post.slug}`)
           ? correctionLastModified
           : isDefaultLocale && updatedEnglishBlogSlugs.has(post.slug)
           ? priorityContentLastModified

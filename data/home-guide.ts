@@ -151,7 +151,7 @@ const homeGuides: Record<string, HomeGuideContent> = {
         },
       ],
       verification:
-        "Open a new terminal after saving the profile. Then run z --help. If zoxide --version works but z does not, the binary is fine and the profile line was either added to the wrong file, did not run, or was overwritten by a later alias or plugin.",
+        "Open a new terminal after saving the profile. Run type z in Bash, Zsh or Fish, or Get-Command z in PowerShell, and check that z is a shell function. If zoxide --version works but z does not, the binary is fine and the profile line was either added to the wrong file, did not run, or was overwritten by a later alias or plugin.",
     },
     firstSession: {
       title: "Step 3: complete a first zoxide session",
@@ -265,8 +265,8 @@ const homeGuides: Record<string, HomeGuideContent> = {
       description:
         "Once the basic jump works, use a focused page for platform-specific details or a problem you can reproduce. These guides add depth without making the first setup more complicated.",
       links: [
-        { href: "/tutorials/install-ubuntu", title: "Install on Ubuntu 24.04", description: "Choose apt or the upstream installer, then verify PATH and shell setup." },
-        { href: "/blog/zoxide-command-not-found", title: "Fix command not found", description: "A step-by-step diagnostic path for every major shell." },
+        { href: "/tutorials/install-arch-nixos", title: "Install on Arch Linux and NixOS", description: "Choose the package and shell configuration for your Linux distribution." },
+        { href: "/tutorials/advanced-config", title: "Configure zoxide", description: "Set directory exclusions, database location, command names, and hook behavior." },
         { href: "/tools/zoxide-doctor", title: "Run zoxide-doctor", description: "Check PATH, shell initialization, profile setup, and optional fzf support with one local command." },
         { href: "/tutorials/fzf-integration", title: "Add fzf selection", description: "Set up interactive directory picking after z works." },
         { href: "/blog/zoxide-vs-autojump", title: "Compare with autojump", description: "Choose a tool and plan a low-risk migration." },
@@ -324,7 +324,7 @@ const homeGuides: Record<string, HomeGuideContent> = {
         { name: "PowerShell", profile: "添加到 $PROFILE 显示的文件", command: "Invoke-Expression (& { (zoxide init powershell | Out-String) })" },
       ],
       verification:
-        "保存后打开新终端，运行 z --help。如果 zoxide --version 正常、但 z 不存在，说明二进制没有问题；通常是配置写错文件、配置未被加载，或后面的别名/插件覆盖了 z。",
+        "保存后打开新终端。Bash、Zsh、Fish 运行 type z，PowerShell 运行 Get-Command z，确认 z 是 Shell 函数。如果 zoxide --version 正常、但 z 不存在，说明二进制没有问题；通常是配置写错文件、配置未被加载，或后面的别名/插件覆盖了 z。",
     },
     firstSession: {
       title: "第三步：完成一次真实的 zoxide 使用流程",
@@ -384,8 +384,8 @@ const homeGuides: Record<string, HomeGuideContent> = {
       title: "继续阅读针对性指南",
       description: "基础跳转正常后，再根据操作系统或可以稳定复现的问题进入专题页。这样能增加必要深度，又不会让第一次安装过度复杂。",
       links: [
-        { href: "/tutorials/install-ubuntu", title: "Ubuntu 24.04 安装", description: "选择 apt 或上游脚本，再检查 PATH 和 Shell 配置。" },
-        { href: "/blog/zoxide-command-not-found", title: "修复 command not found", description: "覆盖主要 Shell 的逐步诊断流程。" },
+        { href: "/tutorials/install-arch-nixos", title: "在 Arch Linux 与 NixOS 上安装", description: "按 Linux 发行版选择软件包与 Shell 配置方法。" },
+        { href: "/tutorials/advanced-config", title: "配置 zoxide", description: "设置目录排除、数据库位置、命令名称与 hook 行为。" },
         { href: "/tools/zoxide-doctor", title: "运行 zoxide-doctor", description: "用一条本地命令检查 PATH、Shell 初始化、配置文件和可选 fzf。" },
         { href: "/tutorials/fzf-integration", title: "添加 fzf 交互选择", description: "确认 z 可用后再配置目录选择器。" },
         { href: "/blog/zoxide-vs-autojump", title: "与 autojump 比较", description: "选择工具并规划低风险迁移。" },
@@ -439,7 +439,7 @@ const homeGuides: Record<string, HomeGuideContent> = {
         { name: "Fish", profile: "~/.config/fish/config.fish に追加", command: "zoxide init fish | source" },
         { name: "PowerShell", profile: "$PROFILE が示すファイルに追加", command: "Invoke-Expression (& { (zoxide init powershell | Out-String) })" },
       ],
-      verification: "保存後に新しいターミナルを開き、z --help を実行します。zoxide --version は動くのに z がない場合は、設定ファイルが違う、読み込まれていない、後続のエイリアスやプラグインに上書きされた、のいずれかです。",
+      verification: "保存後に新しいターミナルを開きます。Bash・Zsh・Fish は type z、PowerShell は Get-Command z を実行し、z がシェル関数になっていることを確認します。zoxide --version は動くのに z がない場合は、設定ファイルが違う、読み込まれていない、後続のエイリアスやプラグインに上書きされた、のいずれかです。",
     },
     firstSession: {
       title: "手順3：最初の zoxide セッションを完了",
@@ -499,8 +499,8 @@ const homeGuides: Record<string, HomeGuideContent> = {
       title: "目的別ガイドへ進む",
       description: "基本ジャンプが動いたら、OS 固有の詳細や再現できる問題に合わせて個別ガイドを利用してください。初回設定を複雑にせず、必要な深さだけ追加できます。",
       links: [
-        { href: "/tutorials/install-ubuntu", title: "Ubuntu 24.04 への導入", description: "apt と上流スクリプトを選び、PATH とシェル設定を確認。" },
-        { href: "/blog/zoxide-command-not-found", title: "command not found を直す", description: "主要シェル向けの段階的な診断。" },
+        { href: "/tutorials/install-arch-nixos", title: "Arch Linux・NixOS への導入", description: "Linux ディストリビューションに合ったパッケージとシェル設定を選びます。" },
+        { href: "/tutorials/advanced-config", title: "zoxide を設定する", description: "除外ディレクトリ、データベースの場所、コマンド名、hook の動作を設定します。" },
         { href: "/tools/zoxide-doctor", title: "zoxide-doctor を実行", description: "PATH、シェル初期化、プロファイル、任意の fzf を1つのローカルコマンドで確認。" },
         { href: "/tutorials/fzf-integration", title: "fzf 選択を追加", description: "z の動作確認後に対話選択を設定。" },
         { href: "/blog/zoxide-vs-autojump", title: "autojump と比較", description: "ツール選択と安全な移行を検討。" },

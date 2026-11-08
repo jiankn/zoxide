@@ -1,7 +1,6 @@
 import Hero from '@/components/Hero/Hero';
 import { Link } from '@/i18n/routing';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Zap, Search, Brain } from 'lucide-react';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { getHomeGuide } from '@/data/home-guide';
 import { getPrimaryPaths } from '@/data/search-intents';
@@ -48,7 +47,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   // 根据语言设置不同的描述（优化长度：155-160字符）
   const description = locale === 'en'
-    ? 'zoxide is a smarter cd command for instant directory navigation. Get installation guides for Ubuntu, macOS, Windows, and tutorials for fzf and Neovim integration.'
+    ? 'Install zoxide on Ubuntu, macOS and Windows. Configure your shell and fzf, learn directory jumping, and fix common setup errors with this unofficial guide.'
     : 'zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。';
 
   // 生成多语言 SEO 元数据（包括 canonical 和 hreflang）
@@ -69,7 +68,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   // 启用静态渲染 (SSG)
   setRequestLocale(locale);
 
-  const t = await getTranslations('home');
+  const t = (en: string, zh: string, ja: string) => locale === 'zh' ? zh : locale === 'ja' ? ja : en;
   const guide = getHomeGuide(locale);
   const linkCopy = contextualLinkCopy[locale === 'zh' || locale === 'ja' ? locale : 'en'];
   const primary = getPrimaryPaths(locale);
@@ -87,17 +86,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Hero />
 
       {/* 主内容区域 */}
-      <div className="container mx-auto max-w-6xl px-4 py-12">
-        <main className="space-y-16">
+      <div className="container mx-auto max-w-6xl px-5 pb-16 pt-8">
+        <div className="space-y-16">
           <section className="rounded-2xl border border-blue-100 bg-blue-50/60 p-6 md:p-10">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">
-              {guide.eyebrow}
-            </p>
-            <h2 className="max-w-4xl text-3xl font-bold tracking-tight text-gray-950 md:text-4xl">
+            <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-gray-950 md:text-4xl">
               {guide.title}
             </h2>
-            <div className="mt-6 max-w-4xl space-y-4 text-lg leading-8 text-gray-700">
-              {guide.introduction.map((paragraph) => (
+            <div className="mt-6 max-w-3xl space-y-4 text-lg leading-8 text-gray-700">
+              {guide.introduction.slice(1).map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
@@ -119,14 +115,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
           <section id="what-zoxide-does" className="scroll-mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">{guide.overview.title}</h2>
-            <div className="max-w-4xl space-y-4 text-lg leading-8 text-gray-700">
+            <div className="max-w-3xl space-y-4 text-lg leading-8 text-gray-700">
               {guide.overview.paragraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {guide.overview.points.map((point) => (
-                <div key={point.title} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div key={point.title} className="rounded-xl border border-gray-200 bg-white p-5">
                   <h3 className="text-lg font-semibold text-gray-900">{point.title}</h3>
                   <p className="mt-2 leading-7 text-gray-600">{point.text}</p>
                 </div>
@@ -139,10 +135,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
           <section id="install-zoxide" className="scroll-mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.install.title}</h2>
-            <p className="max-w-4xl text-lg leading-8 text-gray-700">{guide.install.introduction}</p>
+            <p className="max-w-3xl text-lg leading-8 text-gray-700">{guide.install.introduction}</p>
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
               {guide.install.methods.map((method, index) => (
-                <article key={method.title} className="min-w-0 flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <article key={method.title} className="min-w-0 flex flex-col rounded-xl border border-gray-200 bg-white p-6">
                   <h3 className="text-xl font-semibold text-gray-900">{method.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-gray-600">{method.bestFor}</p>
                   <pre className="mt-5 max-w-full overflow-x-auto rounded-lg bg-gray-950 p-4 text-sm text-gray-100"><code>{method.command}</code></pre>
@@ -153,20 +149,21 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </article>
               ))}
             </div>
-            <p className="mt-6 rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 leading-7 text-gray-700">
+            <p className="mt-6 rounded-lg bg-blue-50 p-4 leading-7 text-gray-700">
               {guide.install.verification}
             </p>
+            <Link href="/download" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">{t('Choose commands for your system and shell →', '按系统与 Shell 选择安装步骤 →', 'OS・シェルに合う手順を選ぶ →')}</Link>
           </section>
 
           <section id="activate-zoxide" className="scroll-mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.activate.title}</h2>
-            <p className="max-w-4xl text-lg leading-8 text-gray-700">{guide.activate.introduction}</p>
+            <p className="max-w-3xl text-lg leading-8 text-gray-700">{guide.activate.introduction}</p>
             <div className="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-white">
               {guide.activate.shells.map((shell, index) => (
-                <div key={shell.name} className={`min-w-0 grid gap-3 p-5 md:grid-cols-[9rem_1fr_1.4fr] md:items-center ${index ? 'border-t border-gray-200' : ''}`}>
+                <div key={shell.name} className={`min-w-0 grid gap-3 p-5 md:grid-cols-[7rem_minmax(0,1fr)_minmax(0,1.4fr)] md:items-center ${index ? 'border-t border-gray-200' : ''}`}>
                   <h3 className="font-semibold text-gray-900">{shell.name}</h3>
-                  <p className="text-sm leading-6 text-gray-600">{shell.profile}</p>
-                  <code className="block max-w-full overflow-x-auto rounded-md bg-gray-100 px-3 py-2 text-sm text-gray-900">{shell.command}</code>
+                  <p className="min-w-0 break-words text-sm leading-6 text-gray-600">{shell.profile}</p>
+                  <code className="block min-w-0 max-w-full overflow-x-auto rounded-md bg-gray-100 px-3 py-2 text-sm text-gray-900">{shell.command}</code>
                 </div>
               ))}
             </div>
@@ -178,22 +175,46 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
           <section id="first-zoxide-session" className="scroll-mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.firstSession.title}</h2>
-            <div className="max-w-4xl space-y-4 text-lg leading-8 text-gray-700">
+            <div className="max-w-3xl space-y-4 text-lg leading-8 text-gray-700">
               {guide.firstSession.introduction.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-gray-900">{t('Try a repeatable first jump', '先验证一次真实跳转', '最初のジャンプを確認する')}</h3>
+              <p className="mt-3 max-w-3xl leading-7 text-gray-700">{t('After activating your shell, these examples create a zoxide-home-demo directory in your home folder, add it to the database and jump to it. The final path should end in zoxide-home-demo. Use only the block for your shell.', '完成 Shell 初始化后，下面的示例会在主目录创建 zoxide-home-demo，将它加入数据库并跳转过去。最后显示的路径应以 zoxide-home-demo 结尾。只运行与你的 Shell 对应的一组命令。', 'シェル設定後、ホームに zoxide-home-demo を作成し、履歴へ追加して移動します。最後のパスが zoxide-home-demo で終わることを確認してください。利用中のシェルに合う方だけ実行します。')}</p>
+              <div className="mt-5 grid gap-5 lg:grid-cols-2">
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-gray-900">Bash / Zsh / Fish</h4>
+                  <pre className="mt-3 max-w-full overflow-x-auto rounded-lg bg-gray-950 p-4 text-sm text-gray-100"><code>{`mkdir -p ~/zoxide-home-demo
+cd ~
+zoxide add ~/zoxide-home-demo
+zoxide query zoxide-home-demo
+z zoxide-home-demo
+pwd`}</code></pre>
+                </div>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-gray-900">PowerShell</h4>
+                  <pre className="mt-3 max-w-full overflow-x-auto rounded-lg bg-gray-950 p-4 text-sm text-gray-100"><code>{`New-Item -ItemType Directory -Force -Path "$HOME/zoxide-home-demo" | Out-Null
+Set-Location $HOME
+zoxide add "$HOME/zoxide-home-demo"
+zoxide query zoxide-home-demo
+z zoxide-home-demo
+Get-Location`}</code></pre>
+                </div>
+              </div>
+            </div>
             <div className="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-white">
               {guide.firstSession.commands.map((item, index) => (
-                <div key={item.command} className={`min-w-0 grid gap-3 p-5 md:grid-cols-[17rem_1fr] md:items-center ${index ? 'border-t border-gray-200' : ''}`}>
-                  <code className="block max-w-full overflow-x-auto rounded-md bg-gray-950 px-3 py-2 text-sm text-gray-100">{item.command}</code>
+                <div key={item.command} className={`min-w-0 grid gap-3 p-5 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] md:items-center ${index ? 'border-t border-gray-200' : ''}`}>
+                  <code className="block min-w-0 max-w-full overflow-x-auto rounded-md bg-gray-950 px-3 py-2 text-sm text-gray-100">{item.command}</code>
                   <p className="leading-7 text-gray-700">{item.purpose}</p>
                 </div>
               ))}
             </div>
             <div className="mt-8 rounded-xl bg-gray-50 p-6">
               <h3 className="text-xl font-semibold text-gray-900">{guide.firstSession.learningTitle}</h3>
-              <div className="mt-3 max-w-4xl space-y-3 leading-7 text-gray-700">
+              <div className="mt-3 max-w-3xl space-y-3 leading-7 text-gray-700">
                 {guide.firstSession.learning.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -202,14 +223,31 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {linkCopy.commands}
               </Link>
             </div>
+            <div className="mt-10 border-t border-gray-200 pt-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">{guide.workflow.title}</h3>
+              <p className="max-w-3xl text-lg leading-8 text-gray-700">{guide.workflow.introduction}</p>
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {guide.workflow.choices.map((choice) => (
+                  <article key={choice.title} className="min-w-0">
+                    <h4 className="text-lg font-semibold text-gray-900">{choice.title}</h4>
+                    <p className="mt-2 leading-7 text-gray-600">{choice.text}</p>
+                  </article>
+                ))}
+              </div>
+              <p className="mt-6 max-w-3xl leading-7 text-gray-700">{guide.workflow.conclusion}</p>
+              <Link href={primary.alternatives} className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
+                {linkCopy.compare}
+              </Link>
+            </div>
+
           </section>
 
           <section id="zoxide-troubleshooting" className="scroll-mt-24">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.troubleshooting.title}</h2>
-            <p className="max-w-4xl text-lg leading-8 text-gray-700">{guide.troubleshooting.introduction}</p>
+            <p className="max-w-3xl text-lg leading-8 text-gray-700">{guide.troubleshooting.introduction}</p>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {guide.troubleshooting.items.map((item, index) => (
-                <article key={item.title} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <article key={item.title} className="rounded-xl border border-gray-200 bg-white p-6">
                   <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
                   <p className="mt-2 leading-7 text-gray-600">{item.text}</p>
                   {item.command && (
@@ -223,21 +261,27 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </section>
 
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{guide.workflow.title}</h2>
-            <p className="max-w-4xl text-lg leading-8 text-gray-700">{guide.workflow.introduction}</p>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {guide.workflow.choices.map((choice) => (
-                <article key={choice.title} className="rounded-xl border border-gray-200 bg-white p-6">
-                  <h3 className="text-lg font-semibold text-gray-900">{choice.title}</h3>
-                  <p className="mt-2 leading-7 text-gray-600">{choice.text}</p>
-                </article>
-              ))}
+          <section id="tested-findings" className="scroll-mt-24 border-t border-gray-200 pt-10">
+            <h2 className="font-serif text-3xl font-bold">{t('What our tests can help you catch', '实测能帮你发现什么', '実測から分かった落とし穴')}</h2>
+            <p className="mt-4 max-w-3xl leading-7 text-gray-600">{t('These findings come from the October 2026 tests documented in our guides. Follow each link for the environment, commands, output and limitations.', '以下结论来自教程中记录的 2026 年 10 月测试。链接内保留环境、命令、输出与适用边界。', '2026年10月のガイド内の検証に基づく結果です。環境・コマンド・出力・制限は各リンク先で確認できます。')}</p>
+            <div className="mt-8 grid gap-8 md:grid-cols-2">
+              <article className="min-w-0">
+                <h3 className="text-xl font-semibold">{t('A healthy report can still miss a broken hook', 'healthy 报告也可能漏掉失效的 hook', 'healthy でも hook の問題は残る')}</h3>
+                <pre className="mt-4 overflow-x-auto rounded-lg bg-gray-950 p-4 text-sm text-white"><code>{`zoxide-doctor: healthy
+# Does a new directory appear in history?
+zoxide query --list`}</code></pre>
+                <p className="mt-4 leading-7">{t('Our Windows 11 / PowerShell 7.6.6 test reproduced a theme replacing the prompt after zoxide. The CLI found the init line, but directory learning stopped.', 'Windows 11 / PowerShell 7.6.6 实测复现了主题在 zoxide 后覆盖 prompt：CLI 能找到初始化行，但目录学习停止。', 'Windows 11 / PowerShell 7.6.6 で、テーマが後から prompt を上書きするケースを再現。初期化行はあっても学習が止まりました。')}</p>
+                <Link href={primary.doctor} className="mt-3 inline-block text-blue-700 underline">{t('Read the report and its limits', '查看报告与能力限制', 'レポートと制限を読む')}</Link>
+              </article>
+              <article className="min-w-0">
+                <h3 className="text-xl font-semibold">{t('A saved path can still return No match found', '有历史记录，仍可能 No match found', '履歴があっても一致しない理由')}</h3>
+                <pre className="mt-4 overflow-x-auto rounded-lg bg-gray-950 p-4 text-sm text-white"><code>{`~/work/web-app/src
+# Last directory component: src`}</code></pre>
+                <p className="mt-4 leading-7">{t('The final keyword must match the last directory component. A query ending in web does not select web-app/src. Check keyword order and the current directory before resetting history.', '最后一个关键词必须匹配末级目录，结尾为 web 的查询不能选中 web-app/src。重置历史前先查关键词顺序与当前目录。', '最後の語は末尾のディレクトリ名に一致する必要があります。末尾が web の検索語では web-app/src を選べません。履歴削除前に語順と現在地を確認。')}</p>
+                <Link href={primary.noMatch} className="mt-3 inline-block text-blue-700 underline">{t('Check the matching cases', '查看匹配问题实测', 'マッチの検証を読む')}</Link>
+              </article>
             </div>
-            <p className="mt-6 max-w-4xl leading-7 text-gray-700">{guide.workflow.conclusion}</p>
-            <Link href={primary.alternatives} className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">
-              {linkCopy.compare}
-            </Link>
+            <Link href="/about" className="mt-6 inline-block font-semibold text-blue-700 hover:text-blue-900">{t('How we test and maintain these guides', '我们如何测试与维护指南', 'ガイドの検証・更新方針')}</Link>
           </section>
 
           <section id="zoxide-faq" className="scroll-mt-24">
@@ -245,10 +289,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="divide-y divide-gray-200 overflow-hidden rounded-xl border border-gray-200 bg-white">
               {guide.faq.items.map((item) => (
                 <details key={item.question} className="group p-6 open:bg-gray-50">
-                  <summary className="cursor-pointer list-none text-lg font-semibold text-gray-900 marker:hidden">
+                  <summary className="cursor-pointer text-lg font-semibold text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700">
                     {item.question}
                   </summary>
-                  <p className="mt-3 max-w-4xl leading-7 text-gray-700">{item.answer}</p>
+                  <p className="mt-3 max-w-3xl leading-7 text-gray-700">{item.answer}</p>
                 </details>
               ))}
             </div>
@@ -270,291 +314,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </section>
 
-          {/* 功能亮点卡片 */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              {t('features.title')}
-            </h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-                <Zap className="h-8 w-8 text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t('features.fast.title')}
-                </h3>
-                <p className="text-gray-600">
-                  {t('features.fast.description')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-                <Search className="h-8 w-8 text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t('features.fuzzy.title')}
-                </h3>
-                <p className="text-gray-600">
-                  {t('features.fuzzy.description')}
-                </p>
-              </div>
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-                <Brain className="h-8 w-8 text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t('features.smart.title')}
-                </h3>
-                <p className="text-gray-600">
-                  {t('features.smart.description')}
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* 安装指南 */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              {t('installation.title')}
-            </h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <Link
-                href="/tutorials/install-macos"
-                className="min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('installation.macos')}
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  {t('installation.macosDesc')}
-                </p>
-                <code className="block overflow-x-auto whitespace-nowrap text-sm text-gray-800 bg-white p-3 rounded">
-                  brew install zoxide
-                </code>
-              </Link>
-              <Link
-                href="/tutorials/install-windows"
-                className="min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('installation.windows')}
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  {t('installation.windowsDesc')}
-                </p>
-                <code className="block overflow-x-auto whitespace-nowrap text-sm text-gray-800 bg-white p-3 rounded">
-                  scoop install zoxide
-                </code>
-              </Link>
-              <Link
-                href="/tutorials/install-ubuntu"
-                className="min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('installation.linux')}
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  {t('installation.linuxDesc')}
-                </p>
-                <code className="block overflow-x-auto whitespace-nowrap text-sm text-gray-800 bg-white p-3 rounded">
-                  {t('installation.ubuntuCommand')}
-                </code>
-              </Link>
-            </div>
-          </section>
-
-          {/* 教程推荐 */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              {t('tutorials.title')}
-            </h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <Link
-                href="/tutorials/quick-start"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('tutorials.quickStart')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('tutorials.quickStartDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/advanced-config"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('tutorials.advanced')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('tutorials.advancedDesc')}
-                </p>
-              </Link>
-              <Link
-                href={primary.init}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('tutorials.shellIntegration')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('tutorials.shellIntegrationDesc')}
-                </p>
-              </Link>
-            </div>
-          </section>
-
-          {/* 常见问题/快速链接 */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              {t('quickLinks.title')}
-            </h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Link
-                href="/blog/zoxide-command-not-found"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.commandNotFound')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.commandNotFoundDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/install-ubuntu"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.installUbuntu')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.installUbuntuDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/install-arch-nixos"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.installLinux')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.installLinuxDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/install-windows"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.installWindows')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.installWindowsDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/install-macos"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.installMacos')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.installMacosDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/download"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.download')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.downloadDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/fzf-integration"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.fzfIntegration')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.fzfIntegrationDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/advanced-config"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('quickLinks.nvimIntegration')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('quickLinks.nvimIntegrationDesc')}
-                </p>
-              </Link>
-            </div>
-          </section>
-
-          {/* 相关工具 */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">
-              {t('relatedTools.title')}
-            </h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Link
-                href={primary.autojump}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('relatedTools.autojump')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('relatedTools.autojumpDesc')}
-                </p>
-              </Link>
-              <Link
-                href="/tutorials/fzf-integration"
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {t('relatedTools.fzf')}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {t('relatedTools.fzfDesc')}
-                </p>
-              </Link>
-            </div>
-          </section>
-
-          {/* CTA 区域 */}
-          <section className="rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center text-white">
-            <h2 className="text-2xl font-bold mb-4">
-              {t('cta.title')}
-            </h2>
-            <p className="mb-6 text-blue-100">
-              {t('cta.description')}
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/download"
-                className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-blue-600 transition-all hover:bg-gray-100"
-              >
-                {t('cta.install')}
-              </Link>
-              <a
-                href="https://github.com/ajeetdsouza/zoxide"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block rounded-lg border-2 border-white px-6 py-3 font-semibold text-white transition-all hover:bg-white/10"
-              >
-                {t('cta.github')}
-              </a>
-            </div>
-          </section>
-        </main>
+        </div>
       </div>
     </div>
   );
 }
-

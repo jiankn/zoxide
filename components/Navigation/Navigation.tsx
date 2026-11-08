@@ -108,16 +108,18 @@ export default function Navigation() {
     }
   }, [langMenuOpen]);
 
+  const primary = getPrimaryPaths(locale);
+  const navCopy = locale === 'zh'
+    ? ['安装设置', '故障排查', '命令参考', '工具对比']
+    : locale === 'ja' ? ['導入・設定', 'トラブル解決', 'コマンド', 'ツール比較']
+    : ['Install & set up', 'Troubleshoot', 'Commands', 'Compare'];
   const navItems = [
-    { href: '/', label: t('home') },
-    { href: '/tutorials', label: t('tutorials') },
-    { href: '/download', label: t('download') },
-    { href: '/blog', label: t('blog') },
-    { href: '/faq', label: t('faq') },
-    // 对比总览页已合并到替代品对比文章，各语言网址不同
-    { href: getPrimaryPaths(locale).alternatives, label: t('comparisons') },
+    { href: '/download', label: navCopy[0] },
+    { href: primary.troubleshooting, label: navCopy[1] },
+    { href: primary.commands, label: navCopy[2] },
+    { href: primary.alternatives, label: navCopy[3] },
+    { href: primary.doctor, label: 'zoxide-doctor' },
   ];
-
   const switchLocale = async (newLocale: string) => {
     const currentPath = pathname || '/';
 

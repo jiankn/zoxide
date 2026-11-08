@@ -1,3 +1,4 @@
+import DiagnosticJourney from '@/components/TaskGuides/DiagnosticJourney';
 import { Link, routing } from '@/i18n/routing';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { setRequestLocale } from 'next-intl/server';
@@ -488,6 +489,8 @@ export default async function ZoxideDoctorPage({ params }: { params: Promise<{ l
           <p className="mt-5 max-w-4xl rounded-lg border-l-4 border-amber-500 bg-amber-50 p-4 text-sm leading-6 text-gray-700">{content.disclaimer}</p>
           <p className="mt-4 max-w-4xl text-sm leading-6 text-gray-600">{content.testedNote}</p>
         </header>
+
+        <DiagnosticJourney locale={locale} />
 
         <section>
           <h2 className="text-3xl font-bold text-gray-900">{content.runTitle}</h2>

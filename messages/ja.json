@@ -4,7 +4,7 @@
     "features": "機能",
     "tutorials": "チュートリアル",
     "download": "ダウンロード",
-    "blog": "ブログ",
+    "blog": "ガイド一覧",
     "changelog": "更新履歴",
     "faq": "よくある質問",
     "comparisons": "比較",
@@ -45,9 +45,15 @@
   "home": {
     "title": "zoxide 非公式ガイド：よりスマートなcdコマンド",
     "subtitle": "よく使うディレクトリへ数文字で移動",
-    "description": "zoxideは、ディレクトリ間を瞬時にジャンプできるスマートなcdコマンドです。Ubuntu、macOS、Windowsへのインストールガイド、「zoxide command not found」エラーの解決方法、fzfやNeovimとの連携方法を紹介します。",
+    "description": "zoxide は訪れたディレクトリを記憶し、短いキーワードで戻れるスマートな cd コマンドです。このページでインストール、シェル設定、最初のジャンプ、よくある問題の解決まで進めます。コマンドやトラブル解決は下の入口からも探せます。",
     "getStarted": "始める",
     "viewDocs": "ドキュメントを見る",
+    "quickLinksLabel": "目的から選ぶ",
+    "quickInstall": "導入・設定",
+    "quickTroubleshoot": "問題を解決",
+    "quickCommands": "コマンドを探す",
+    "independentNote": "独立して運営する非公式ガイドです。",
+    "officialProject": "GitHub の公式プロジェクト",
     "features": {
       "title": "なぜzoxideを選ぶのか？",
       "smart": {
@@ -89,9 +95,7 @@
       "download": "zoxideダウンロード",
       "downloadDesc": "お使いのプラットフォーム用にダウンロード",
       "fzfIntegration": "fzf zoxide統合",
-      "fzfIntegrationDesc": "fzf で候補を絞り込み、移動先を選択",
-      "nvimIntegration": "zoxide nvimセットアップ",
-      "nvimIntegrationDesc": "Neovimワークフロー用にzoxideを設定"
+      "fzfIntegrationDesc": "fzf で候補を絞り込み、移動先を選択"
     },
     "relatedTools": {
       "title": "関連ツールと代替品",
@@ -170,7 +174,7 @@
       "tutorials": "チュートリアル: 初心者から上級者まで完全なチュートリアル",
       "blog": "ブログ: 使い方のヒント、パフォーマンス最適化、比較記事など",
       "download": "ダウンロードガイド: 各プラットフォームのインストール方法と設定手順",
-      "changelog": "更新履歴: zoxideバージョンの更新履歴",
+      "changelog": "版の履歴：導入ガイドから公式リリースへ",
       "faq": "よくある質問: よくある質問とトラブルシューティングガイド"
     },
     "opensource": {
@@ -261,7 +265,7 @@
     "links": {
       "download": "ダウンロード",
       "tutorials": "チュートリアル",
-      "blog": "ブログ",
+      "blog": "ガイド一覧",
       "faq": "よくある質問",
       "vsAutojump": "zoxide vs autojump",
       "doctor": "zoxide-doctor 診断ツール",
@@ -269,7 +273,7 @@
     }
   },
   "seo": {
-    "main": "zoxide インストール, zoxide install Ubuntu, zoxide command not found, zoxide nvim, zoxide ダウンロード, fzf zoxide, brew zoxide, command zoxide not found, autojump, スマートcdコマンド, cd代替, zoxideチュートリアル, zoxideの使い方, Linux zoxideインストール方法, Windows zoxideインストール方法, macOS zoxideインストール方法",
+    "main": "zoxide インストール, zoxide install Ubuntu, zoxide command not found, zoxide ダウンロード, fzf zoxide, brew zoxide, command zoxide not found, autojump, スマートcdコマンド, cd代替, zoxideチュートリアル, zoxideの使い方, Linux zoxideインストール方法, Windows zoxideインストール方法, macOS zoxideインストール方法",
     "install": "zoxide インストール, zoxide install Ubuntu, zoxideのインストール方法, Linux zoxideインストール方法, Windows zoxideインストール方法, macOS zoxideインストール方法, zoxideインストールガイド, ubuntu zoxide, mac zoxide, windows zoxide, brew zoxide, zoxideダウンロード",
     "features": "zoxide機能, zoxide特徴, スマートcdコマンド, zoxideパフォーマンス, 最高のcd代替",
     "tutorial": "zoxideチュートリアル, zoxideクイックスタート, zoxideの使い方, zoxideセットアップガイド, zoxide設定, zoxideシェル統合",

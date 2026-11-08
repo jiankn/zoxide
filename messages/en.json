@@ -4,7 +4,7 @@
     "features": "Features",
     "tutorials": "Tutorials",
     "download": "Download",
-    "blog": "Blog",
+    "blog": "All guides",
     "changelog": "Changelog",
     "faq": "FAQ",
     "comparisons": "Comparisons",
@@ -45,9 +45,15 @@
   "home": {
     "title": "zoxide guide: the smarter cd command, explained",
     "subtitle": "Jump to the directories you use most",
-    "description": "zoxide is a smarter cd command that helps you jump between directories instantly. Follow our guides to install zoxide on Ubuntu, macOS, Windows and more, fix common \"zoxide command not found\" issues, and integrate it with tools like fzf and Neovim for a faster terminal workflow.",
+    "description": "zoxide is a smarter cd command that remembers directories you visit. Jump back with a short keyword instead of typing the full path. This guide helps you install it, connect your shell, make your first jump, and fix common setup problems.",
     "getStarted": "Get Started",
     "viewDocs": "View Docs",
+    "quickLinksLabel": "Choose a task",
+    "quickInstall": "Install & set up",
+    "quickTroubleshoot": "Fix a problem",
+    "quickCommands": "Find a command",
+    "independentNote": "Independent, unofficial guide.",
+    "officialProject": "Official project on GitHub",
     "features": {
       "title": "Why choose zoxide?",
       "smart": {
@@ -89,9 +95,7 @@
       "download": "zoxide download",
       "downloadDesc": "Download zoxide for your platform",
       "fzfIntegration": "fzf zoxide integration",
-      "fzfIntegrationDesc": "Use fzf to filter and select directory matches",
-      "nvimIntegration": "zoxide nvim setup",
-      "nvimIntegrationDesc": "Configure zoxide for Neovim workflows"
+      "fzfIntegrationDesc": "Use fzf to filter and select directory matches"
     },
     "relatedTools": {
       "title": "Related Tools & Alternatives",
@@ -170,7 +174,7 @@
       "tutorials": "Tutorials: Complete tutorials from beginner to advanced",
       "blog": "Blog: Usage tips, performance optimization, comparison articles, etc.",
       "download": "Download Guide: Installation methods and configuration instructions for each platform",
-      "changelog": "Changelog: zoxide version update history",
+      "changelog": "Release history: official releases linked from the download guide",
       "faq": "FAQ: Frequently asked questions and troubleshooting guide"
     },
     "opensource": {
@@ -261,7 +265,7 @@
     "links": {
       "download": "Download",
       "tutorials": "Tutorials",
-      "blog": "Blog",
+      "blog": "All guides",
       "faq": "FAQ",
       "vsAutojump": "zoxide vs autojump",
       "doctor": "zoxide-doctor",
@@ -269,7 +273,7 @@
     }
   },
   "seo": {
-    "main": "zoxide install, zoxide install Ubuntu, zoxide command not found, zoxide nvim, zoxide download, fzf zoxide, brew zoxide, command zoxide not found, autojump, smart cd command, cd alternative, zoxide tutorial, how to use zoxide, How to install Zoxide on Linux, How to install Zoxide on Windows, How to install Zoxide on macOS",
+    "main": "zoxide install, zoxide install Ubuntu, zoxide command not found, zoxide download, fzf zoxide, brew zoxide, command zoxide not found, autojump, smart cd command, cd alternative, zoxide tutorial, how to use zoxide, How to install Zoxide on Linux, How to install Zoxide on Windows, How to install Zoxide on macOS",
     "install": "zoxide install, zoxide install Ubuntu, how to install zoxide, How to install Zoxide on Linux, How to install Zoxide on Windows, How to install Zoxide on macOS, zoxide installation guide, install zoxide on ubuntu, install zoxide on mac, install zoxide on windows, brew zoxide, zoxide download",
     "features": "zoxide features, zoxide capabilities, smart cd command, zoxide performance, best cd replacement",
     "tutorial": "zoxide tutorial, zoxide quick start, how to use zoxide, zoxide setup guide, zoxide configuration, zoxide shell integration",

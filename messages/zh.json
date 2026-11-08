@@ -4,7 +4,7 @@
     "features": "功能特性",
     "tutorials": "教程",
     "download": "下载",
-    "blog": "博客",
+    "blog": "全部指南",
     "changelog": "更新日志",
     "faq": "FAQ",
     "comparisons": "对比",
@@ -45,9 +45,15 @@
   "home": {
     "title": "zoxide 非官方指南：更智能的 cd 命令",
     "subtitle": "用几个字符，跳到最常用的目录",
-    "description": "zoxide 是一个智能的目录跳转工具，使用 Rust 编写，性能卓越。支持模糊搜索、学习你的使用习惯，让终端导航变得轻松高效。",
+    "description": "zoxide 会记住你访问过的目录，让你用简短关键词跳回目标位置。本页依次说明安装、Shell 初始化、第一次跳转和常见故障；熟悉工具的用户也可以从快捷入口直接查命令或排错。",
     "getStarted": "快速开始",
     "viewDocs": "查看文档",
+    "quickLinksLabel": "选择要完成的任务",
+    "quickInstall": "安装与配置",
+    "quickTroubleshoot": "解决问题",
+    "quickCommands": "查找命令",
+    "independentNote": "独立维护的非官方指南。",
+    "officialProject": "GitHub 官方项目",
     "features": {
       "title": "为什么选择 zoxide？",
       "smart": {
@@ -89,9 +95,7 @@
       "download": "下载 zoxide",
       "downloadDesc": "为您的平台下载 zoxide",
       "fzfIntegration": "fzf zoxide 集成",
-      "fzfIntegrationDesc": "用 fzf 筛选并选择匹配的目录",
-      "nvimIntegration": "zoxide nvim 配置",
-      "nvimIntegrationDesc": "为 Neovim 工作流配置 zoxide"
+      "fzfIntegrationDesc": "用 fzf 筛选并选择匹配的目录"
     },
     "relatedTools": {
       "title": "相关工具与替代方案",
@@ -170,7 +174,7 @@
       "tutorials": "教程：从入门到高级的完整教程",
       "blog": "博客：使用技巧、性能优化、对比分析等文章",
       "download": "下载指南：各平台安装方法和配置说明",
-      "changelog": "更新日志：zoxide 版本更新历史",
+      "changelog": "版本历史：下载指南中提供官方发布记录",
       "faq": "常见问题：FAQ 和故障排除指南"
     },
     "opensource": {
@@ -261,7 +265,7 @@
     "links": {
       "download": "下载",
       "tutorials": "教程",
-      "blog": "博客",
+      "blog": "全部指南",
       "faq": "FAQ",
       "vsAutojump": "zoxide vs autojump",
       "doctor": "zoxide-doctor 诊断工具",

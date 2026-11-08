@@ -1,3 +1,4 @@
+import DiagnosticJourney from '@/components/TaskGuides/DiagnosticJourney';
 import { notFound, permanentRedirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -326,6 +327,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 }
               />
             </header>
+
+            {slug === 'zoxide-not-working' && <DiagnosticJourney locale={locale} />}
 
             <article className="markdown-content max-w-3xl mx-auto">
               <ReactMarkdown

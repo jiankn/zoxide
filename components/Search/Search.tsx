@@ -186,7 +186,8 @@ export default function Search() {
 
   // 获取语言标签
   const getLocaleLabel = (resultLocale: string) => {
-    return resultLocale === 'zh' ? '中文' : 'English';
+    const labels: Record<string, string> = { en: 'English', zh: '中文', ja: '日本語' };
+    return labels[resultLocale] || resultLocale;
   };
 
   // 按语言分组结果
