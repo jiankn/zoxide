@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zoxide.org 改版方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&family=Libre+Franklin:wght@400;600;800&family=Courier+Prime:wght@400;700&family=Archivo:wght@500;700;800&family=Spectral:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============ 外壳：方案说明区（中文） ============ */
+:root{
+  --ink:#1b1f24; --muted:#5a636e; --line:#d9dde2; --ground:#f3f4f6; --card:#fff; --accent:#1f5fbf;
+  --cn: "PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.7 var(--cn)}
+pre,code,pre *{font-variant-ligatures:none !important;font-feature-settings:"calt" 0,"liga" 0 !important}
+::selection{background:#cfe0fb}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+.intro{padding:40px 0 8px}
+.intro h1{font-size:30px;line-height:1.3;margin:0 0 12px}
+.intro p{max-width:72ch;margin:0 0 10px;color:#333a42}
+.truths{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0 8px}
+.truth{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.truth b{display:block;margin-bottom:4px}
+.truth span{color:var(--muted);font-size:15px}
+.warn{background:#fff7e6;border:1px solid #f0d49a;border-radius:12px;padding:14px 18px;margin:18px 0 6px;font-size:15px}
+.switch{position:sticky;top:0;z-index:20;background:rgba(243,244,246,.94);backdrop-filter:saturate(1.4) blur(6px);border-bottom:1px solid var(--line);margin-top:22px}
+.switch .wrap{display:flex;gap:8px;padding-top:10px;padding-bottom:10px;overflow-x:auto}
+.switch button{flex:0 0 auto;font:600 15px var(--cn);border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 16px;border-radius:999px;cursor:pointer}
+.switch button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.switch button:focus-visible{outline:3px solid #8db4f0;outline-offset:2px}
+.plan{display:none;padding:26px 0 40px}
+.plan.on{display:block}
+.brief{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:16px;margin-bottom:22px}
+.brief section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.brief h2{font-size:22px;margin:0 0 6px;line-height:1.35}
+.brief h3{font-size:15px;margin:0 0 6px;color:var(--muted)}
+.brief p,.brief li{font-size:15px;margin:0 0 6px}
+.brief ul{padding-left:18px;margin:0}
+.meter{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;margin-top:8px;color:var(--muted)}
+.meter b{color:var(--ink)}
+.frame{border-radius:12px;overflow:hidden;border:1px solid #c9ced5;box-shadow:0 10px 30px -12px rgba(20,30,45,.28);background:#fff}
+.bar{display:flex;align-items:center;gap:8px;background:#e6e8eb;padding:8px 12px;font:13px var(--mono);color:#59616b}
+.bar i{width:10px;height:10px;border-radius:50%;background:#c4c8cd;display:inline-block}
+.bar span{margin-left:8px;background:#fff;border-radius:6px;padding:2px 10px}
+.note{font-size:14px;color:var(--muted);margin:10px 2px 0}
+.compare{padding:10px 0 60px}
+.compare h2{font-size:24px}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+.tbl th,.tbl td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{background:#eceef1;font-weight:600}
+.tblwrap{overflow-x:auto}
+.rec{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:18px 20px;margin-top:18px}
+.rec h3{margin:0 0 6px;font-size:19px}
+@media (max-width:900px){
+  .truths,.brief{grid-template-columns:1fr}
+  .intro h1{font-size:24px}
+}
+
+/* 代码块与复制按钮（三个方案共用的基础行为） */
+.copy{font:600 12px var(--mono);cursor:pointer;border-radius:6px;padding:4px 9px}
+
+/* ============ 方案 A：安装配置生成器 · 地铁线路图 ============ */
+.A{--a-ink:#14213d;--a-ground:#f7f8fa;--a-rail:#14213d;--a-line:#00985f;--a-muted:#55607a;--a-rule:#dfe3ea;
+  font-family:"Overpass",system-ui,sans-serif;color:var(--a-ink);background:var(--a-ground)}
+.A ::selection{background:color-mix(in srgb,var(--a-line) 30%,white)}
+.A .nav{display:flex;align-items:center;gap:22px;background:var(--a-rail);color:#fff;padding:0 28px;height:58px}
+.A .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.01em}
+.A .logo svg{flex:none}
+.A .logo small{font-weight:400;font-size:12px;color:#b9c3d8;letter-spacing:.02em}
+.A .nav a{color:#dfe5f1;text-decoration:none;font-size:15px;font-weight:600}
+.A .nav a.cur{color:#fff;box-shadow:inset 0 -3px 0 var(--a-line);padding:18px 0 15px}
+.A .nav .sp{flex:1}
+.A .hero{display:grid;grid-template-columns:1fr 340px;gap:36px;padding:34px 28px 10px}
+.A h1{font-size:44px;line-height:1.08;letter-spacing:-.025em;margin:0 0 10px;font-weight:800;max-width:17ch}
+.A .lede{color:var(--a-muted);font-size:18px;margin:0 0 22px;max-width:56ch}
+.A .pick{display:grid;grid-template-columns:auto 1fr;gap:12px 16px;align-items:center}
+.A .pick label{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--a-muted)}
+.A .seg{display:flex;flex-wrap:wrap;gap:6px}
+.A .seg button{font:600 15px "Overpass",sans-serif;border:1.5px solid var(--a-rule);background:#fff;color:var(--a-ink);padding:7px 14px;border-radius:8px;cursor:pointer}
+.A .seg button:hover{border-color:#9aa6bd}
+.A .seg button[aria-pressed="true"]{background:var(--a-ink);border-color:var(--a-ink);color:#fff}
+.A .seg button:focus-visible,.A .opt input:focus-visible{outline:3px solid var(--a-line);outline-offset:2px}
+.A .opt{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+.A .opt label{text-transform:none;letter-spacing:0;font-size:15px;color:var(--a-ink);font-weight:600;display:flex;gap:8px;align-items:center;cursor:pointer}
+.A .opt input{accent-color:var(--a-line);width:17px;height:17px}
+.A .route{display:grid;grid-template-columns:1fr 340px;gap:36px;padding:18px 28px 34px}
+.A .stops{position:relative;margin:0;padding:0;list-style:none}
+.A .stops::before{content:"";position:absolute;left:15px;top:14px;bottom:20px;width:8px;border-radius:4px;background:var(--a-line);transition:background .35s}
+.A .stop{position:relative;padding:0 0 22px 56px}
+.A .stop .dot{position:absolute;left:5px;top:2px;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid var(--a-ink)}
+.A .stop h3{margin:0 0 2px;font-size:19px;font-weight:800}
+.A .stop p{margin:0 0 8px;color:var(--a-muted);font-size:15px}
+.A pre{margin:0;background:#0f1729;color:#e8edf7;border-radius:10px;padding:12px 14px;font:14px/1.6 var(--mono);overflow-x:auto;position:relative}
+.A pre .copy{position:absolute;right:8px;top:8px;background:#26314a;color:#cfd8ea;border:0}
+.A pre .copy:hover{background:#34405c}
+.A .flag{display:inline-block;margin-top:8px;font-size:14px;background:#fff4d6;border:1px solid #ecd28a;border-radius:8px;padding:6px 10px;color:#5b4710}
+.A .receipt{background:#fff;border:1.5px solid var(--a-rule);border-radius:14px;padding:18px 18px 16px;align-self:start;position:sticky;top:70px}
+.A .receipt h4{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--a-muted)}
+.A .status{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;margin-bottom:12px}
+.A .status i{width:14px;height:14px;border-radius:50%;background:var(--a-line);display:inline-block}
+.A .status.untested i{background:#c98a12}
+.A dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0 0 14px;font-size:15px}
+.A dt{color:var(--a-muted)}
+.A dd{margin:0;font-family:var(--mono);font-size:13.5px;font-variant-numeric:tabular-nums}
+.A .receipt a{color:var(--a-ink);font-weight:700}
+.A .side{border-left:1.5px solid var(--a-rule);padding-left:20px}
+.A .side h4{margin:4px 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--a-muted)}
+.A .side ul{list-style:none;margin:0;padding:0}
+.A .side li{padding:9px 0;border-bottom:1px solid var(--a-rule);font-size:15px;font-weight:600}
+.A .side li span{display:block;font-weight:400;font-size:13.5px;color:var(--a-muted)}
+.A .disc{font-size:13px;color:var(--a-muted);padding:0 28px 22px}
+@media (max-width:900px){
+  .A .nav{gap:14px;padding:0 16px;overflow-x:auto}.A .nav a:not(.cur){display:none}
+  .A .hero,.A .route{grid-template-columns:1fr;padding-left:16px;padding-right:16px}
+  .A h1{font-size:32px}
+  .A .pick{grid-template-columns:1fr}
+  .A .side{border-left:0;padding-left:0}
+  .A .receipt{position:static}
+}
+
+/* ============ 方案 B：排名模拟器 + 排错 · 图书借阅卡 ============ */
+.B{--b-ink:#1f2430;--b-wall:#2f4a43;--b-card:#efe6cf;--b-rule:#c6b996;--b-stamp:#5a3fa6;--b-due:#b23a2c;--b-muted:#5e6472;
+  font-family:"Libre Franklin",system-ui,sans-serif;color:var(--b-ink);background:#f4f2ec}
+.B ::selection{background:#d9cff2}
+.B .nav{display:flex;align-items:center;gap:24px;padding:0 28px;height:58px;background:var(--b-wall);color:#eef2ee}
+.B .nav b{font-weight:800;font-size:18px}
+.B .nav b small{font-weight:400;font-size:12px;color:#b9cbc4;margin-left:8px}
+.B .nav a{color:#d6e2dc;text-decoration:none;font-weight:600;font-size:15px}
+.B .nav a.cur{color:#fff;text-decoration:underline;text-decoration-color:#e8c46a;text-decoration-thickness:3px;text-underline-offset:8px}
+.B .nav .sp{flex:1}
+.B .top{padding:30px 28px 6px;display:flex;justify-content:space-between;gap:30px;align-items:end;flex-wrap:wrap}
+.B h1{font-size:42px;line-height:1.08;letter-spacing:-.025em;font-weight:800;margin:0;max-width:16ch}
+.B .lede{margin:8px 0 0;color:var(--b-muted);font-size:17px;max-width:58ch}
+.B .play{display:grid;grid-template-columns:300px 1fr;gap:28px;padding:20px 28px 28px}
+.B .panel h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--b-muted);margin:0 0 10px}
+.B .visits{display:grid;gap:8px;margin-bottom:20px}
+.B .visits button,.B .clock button{font:600 14px var(--mono);text-align:left;border:1.5px solid #d4d0c4;background:#fff;border-radius:8px;padding:8px 12px;cursor:pointer;color:var(--b-ink)}
+.B .visits button:hover,.B .clock button:hover{border-color:var(--b-stamp)}
+.B button:focus-visible,.B input:focus-visible{outline:3px solid #9b86d9;outline-offset:2px}
+.B .clock{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.B .clock button{font-family:"Libre Franklin",sans-serif}
+.B .now{font:14px var(--mono);color:var(--b-muted)}
+.B .query{display:flex;align-items:center;gap:0;margin:0 0 16px;border:2px solid var(--b-ink);border-radius:10px;overflow:hidden;background:#fff;max-width:520px}
+.B .query span{font:600 18px var(--mono);padding:10px 12px;background:var(--b-ink);color:#fff}
+.B .query input{flex:1;border:0;font:600 18px var(--mono);padding:10px 12px;min-width:0;color:var(--b-ink);background:#fff}
+.B .query input:focus{outline:none}
+.B .answer{font-size:16px;margin:0 0 16px;min-height:26px}
+.B .answer code{font:700 15px var(--mono);background:#e9e3f7;color:var(--b-stamp);padding:2px 6px;border-radius:5px}
+.B .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.B .lc{background:var(--b-card);border-radius:4px 4px 10px 10px;padding:12px 14px 12px;box-shadow:0 6px 14px -8px rgba(40,30,10,.45);position:relative;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s}
+.B .lc.dim{opacity:.55}
+.B .lc.win{transform:translateY(-6px);box-shadow:0 16px 28px -14px rgba(60,30,120,.55);outline:3px solid var(--b-stamp)}
+.B .lc .path{font:700 15px "Courier Prime",monospace;border-bottom:1.5px solid var(--b-rule);padding-bottom:6px;margin-bottom:6px;word-break:break-all}
+.B .lc .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:6px 4px;min-height:52px;align-content:start}
+.B .stamp{font:700 12px "Courier Prime",monospace;color:var(--b-stamp);border:1.5px solid var(--b-stamp);border-radius:3px;padding:1px 3px;text-align:center;transform:rotate(var(--r,0deg));opacity:.85;animation:thump .35s cubic-bezier(.16,1,.3,1)}
+@keyframes thump{from{transform:scale(1.5) rotate(var(--r,0deg));opacity:0}to{transform:scale(1) rotate(var(--r,0deg));opacity:.85}}
+.B .lc .math{display:flex;justify-content:space-between;font:14px var(--mono);margin-top:8px;font-variant-numeric:tabular-nums;color:#4a4536}
+.B .lc .math b{color:var(--b-ink)}
+.B .lc .tag{position:absolute;right:10px;top:-10px;background:var(--b-stamp);color:#fff;font:700 12px "Libre Franklin",sans-serif;padding:3px 8px;border-radius:999px}
+.B .rule{font-size:14px;color:var(--b-muted);margin-top:14px;max-width:70ch}
+.B .fix{background:#fff;border-top:1px solid #e0dccf;padding:22px 28px 26px}
+.B .fix h2{font-size:24px;margin:0 0 12px;letter-spacing:-.015em}
+.B .sym{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.B .sym button{font:600 14px var(--mono);text-align:left;background:#f7f5ef;border:1.5px solid #ddd6c4;border-radius:10px;padding:12px;cursor:pointer;color:var(--b-due)}
+.B .sym button[aria-pressed="true"]{border-color:var(--b-ink);background:#fff}
+.B .sym button span{display:block;font:400 13px "Libre Franklin",sans-serif;color:var(--b-muted);margin-top:4px}
+.B .cure{margin-top:14px;background:#f7f5ef;border-radius:10px;padding:14px 16px;font-size:15px}
+.B .cure pre{margin:8px 0 0;background:#1f2430;color:#eceadf;border-radius:8px;padding:10px 12px;font:13.5px/1.6 var(--mono);overflow-x:auto}
+@media (max-width:900px){
+  .B .nav{padding:0 16px}.B .nav a:not(.cur){display:none}
+  .B .top,.B .play,.B .fix{padding-left:16px;padding-right:16px}
+  .B h1{font-size:30px}
+  .B .play{grid-template-columns:1fr}
+  .B .cards{grid-template-columns:1fr}
+  .B .sym{grid-template-columns:1fr 1fr}
+}
+
+/* ============ 方案 C：终端效率实测手册 · 分隔页索引手册 ============ */
+.C{--c-ink:#171a1f;--c-leaf:#fbfbf8;--c-muted:#5b5f66;--sec:#0f8b8d;
+  font-family:"Spectral",Georgia,serif;color:var(--c-ink);background:var(--sec);transition:background .25s steps(2)}
+.C ::selection{background:rgba(0,0,0,.14)}
+.C .nav{display:flex;align-items:center;gap:22px;padding:0 24px;height:56px;background:var(--c-ink);color:#fff;font-family:"Archivo",sans-serif}
+.C .nav b{font-weight:800;font-size:18px;letter-spacing:-.01em}
+.C .nav b small{font-weight:500;font-size:12px;color:#aab0ba;margin-left:8px}
+.C .nav a{color:#d3d7de;font-weight:500;font-size:15px;text-decoration:none}
+.C .nav .sp{flex:1}
+.C .book{display:grid;grid-template-columns:1fr 132px;min-height:520px}
+.C .leaf{background:var(--c-leaf);margin:22px 0 22px 24px;border-radius:6px 0 0 6px;padding:28px 34px 30px;box-shadow:0 4px 12px -6px rgba(0,0,0,.35)}
+.C .chap{font-family:"Archivo",sans-serif;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--c-ink);padding-bottom:12px;margin-bottom:16px}
+.C .chap h1{font-size:40px;line-height:1.05;letter-spacing:-.025em;margin:0;font-weight:800}
+.C .chap span{font-size:15px;color:var(--c-muted)}
+.C .cols{display:grid;grid-template-columns:1.25fr 1fr;gap:34px}
+.C .cols p{font-size:17.5px;line-height:1.6;margin:0 0 12px;max-width:62ch}
+.C h2{font-family:"Archivo",sans-serif;font-size:21px;letter-spacing:-.01em;margin:18px 0 8px}
+.C pre{background:#16191e;color:#eef0f2;border-radius:8px;padding:12px 14px;font:14px/1.6 var(--mono);overflow-x:auto;margin:0 0 12px}
+.C .lab{font-family:"Archivo",sans-serif;width:100%;border-collapse:collapse;font-size:14px}
+.C .lab th{text-align:left;font-weight:700;border-bottom:2px solid var(--c-ink);padding:6px 6px}
+.C .lab td{border-bottom:1px solid #dcdcd4;padding:7px 6px;font-variant-numeric:tabular-nums}
+.C .lab td.v{font-family:var(--mono);font-size:13px}
+.C .ok{color:#17703a;font-weight:700}
+.C .warnc{color:#9a5b00;font-weight:700}
+.C tr.changed td{background:#fff1b8}
+.C .chg{font-family:"Archivo",sans-serif;font-size:13px;background:#fff1b8;border-radius:6px;padding:8px 10px;margin-top:10px}
+.C .rail{display:flex;flex-direction:column;padding:22px 0;gap:0}
+.C .tab{font-family:"Archivo",sans-serif;text-align:left;border:0;cursor:pointer;color:#fff;font-weight:700;font-size:15px;padding:10px 12px;border-radius:0 8px 8px 0;margin-right:22px;transition:margin .09s steps(2);display:flex;flex-direction:column;justify-content:flex-start}
+.C .tab small{font-weight:500;font-size:12px;opacity:.85}
+.C .tab[aria-selected="true"]{margin-right:0;box-shadow:inset 6px 0 0 rgba(0,0,0,.18)}
+.C .tab:focus-visible{outline:3px solid #fff;outline-offset:-4px}
+.C .soon{font-family:"Archivo",sans-serif;background:#fff;border:1.5px dashed #9aa0a8;border-radius:8px;padding:12px 14px;font-size:14px;color:var(--c-muted)}
+@media (max-width:900px){
+  .C .nav{padding:0 16px}.C .nav a{display:none}
+  .C .book{grid-template-columns:1fr}
+  .C .rail{flex-direction:row;overflow-x:auto;padding:12px 16px 0;order:-1}
+  .C .tab{border-radius:8px 8px 0 0;margin:8px 4px 0 0;min-height:auto !important;min-width:120px}
+  .C .tab[aria-selected="true"]{margin-top:0}
+  .C .leaf{margin:0 0 16px;border-radius:0;padding:20px 16px}
+  .C .cols{grid-template-columns:1fr;gap:6px}
+  .C .chap h1{font-size:30px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="wrap intro">
+  <h1>zoxide.org 改版：三个方案</h1>
+  <p>先说一句实话：AdSense 拒的是“低价值内容”，它不看页面好不好看，看的是<b>这个站有没有别处拿不到的东西</b>。所以三个方案都不是换皮，而是让每个方案的首页都变成一个<b>能用的工具</b>，现有的实测文章退到“配套说明”的位置。</p>
+  <p>下面三个效果都能点。网站里的文字保持英文（面向用户），说明部分用中文。</p>
+  <div class="truths">
+    <div class="truth"><b>访客是谁</b><span>电脑前开着终端的开发者（92% 用电脑访问），从 Google 搜 “zoxide install / fzf / not working” 进来。</span></div>
+    <div class="truth"><b>访客要什么</b><span>几分钟内拿到<em>适合自己系统和 shell</em>、能直接粘贴的命令，并确认 <code>z</code> 真的生效；坏了能马上知道为什么。</span></div>
+    <div class="truth"><b>官方 README 给不了什么</b><span>按“系统 × shell × 选项”定制的命令、每条命令的实测记录、“为什么跳到了那个目录”的可视解释、诊断工具。</span></div>
+  </div>
+  <div class="warn">⚠ 有一件事改版解决不了：域名用的是别人开源项目的名字。改版能把“独特价值”做足，但不能保证一定通过。效果图里的测试记录、版本号来自站里已有的实测（zoxide 0.10.0、Ubuntu 24.04、bash 5.2.21、zsh 5.9、fish 3.7.0、PowerShell 7.6.6、apt 的 fzf 0.44.1），具体哪些组合测过需要正式做时逐一核对。</div>
+</div>
+
+<nav class="switch" aria-label="方案切换">
+  <div class="wrap" role="tablist">
+    <button role="tab" aria-selected="true" data-plan="pa">方案 A · 安装配置生成器</button>
+    <button role="tab" aria-selected="false" data-plan="pb">方案 B · 排名模拟器 + 排错</button>
+    <button role="tab" aria-selected="false" data-plan="pc">方案 C · 终端效率实测手册</button>
+    <button role="tab" aria-selected="false" data-plan="cmp">对比与推荐</button>
+  </div>
+</nav>
+
+<!-- ======================= 方案 A ======================= -->
+<div class="wrap plan on" id="pa" role="tabpanel">
+  <div class="brief">
+    <section>
+      <h2>A. 首页就是“配置生成器”</h2>
+      <p>访客选系统、shell、要不要接 fzf，页面立刻给出四步命令：安装 → 接入 shell → 验证 → 第一次跳转。右侧一张“测试回执”说明这套组合在哪测的、什么版本、日志在哪。</p>
+      <div class="meter"><span>工作量 <b>中</b></span><span>对审核帮助 <b>高</b></span><span>SEO 风险 <b>低</b></span></div>
+    </section>
+    <section>
+      <h3>访客路径</h3>
+      <ul>
+        <li>搜 “zoxide install mac” → 落地即预选 macOS + zsh</li>
+        <li>复制四步命令 → 看到 “Tested” 回执，放心粘贴</li>
+        <li>没测过的组合明确标 “Not tested yet”，不装懂</li>
+        <li>出问题 → 右栏直达排错</li>
+      </ul>
+    </section>
+    <section>
+      <h3>为什么能帮过审</h3>
+      <ul>
+        <li>首页从“文章”变成“工具”，审核要求里的“工具或服务”直接命中</li>
+        <li>40+ 种组合的定制输出，README 里没有</li>
+        <li>测试回执把已有实测证据摆到台前</li>
+      </ul>
+      <p style="margin-top:8px;color:#5a636e">视觉：地铁线路图。安装步骤画成一条线路，每一步是一个站。</p>
+    </section>
+  </div>
+
+  <div class="frame">
+    <div class="bar"><i></i><i></i><i></i><span>zoxide.org</span></div>
+    <div class="A" id="appA">
+      <div class="nav">
+        <div class="logo">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="10" fill="none" stroke="#00985f" stroke-width="5"/><circle cx="13" cy="13" r="3.5" fill="#fff"/></svg>
+          <span>zoxide.org <small>Unofficial guide</small></span>
+        </div>
+        <a class="cur" href="#">Setup builder</a><a href="#">Fix a problem</a><a href="#">Commands</a><a href="#">Test lab</a><a href="#">zoxide-doctor</a>
+        <span class="sp"></span><a href="#">EN</a>
+      </div>
+
+      <div class="hero">
+        <div>
+          <h1>A zoxide setup that works on your machine</h1>
+          <p class="lede">Pick your system and shell. You get the exact commands to paste, in order, and a record of where we ran them.</p>
+          <div class="pick">
+            <label id="lab-os">System</label>
+            <div class="seg" data-key="os" role="group" aria-labelledby="lab-os">
+              <button aria-pressed="true" data-v="mac">macOS</button>
+              <button aria-pressed="false" data-v="ubuntu">Ubuntu / WSL</button>
+              <button aria-pressed="false" data-v="win">Windows</button>
+              <button aria-pressed="false" data-v="arch">Arch</button>
+              <button aria-pressed="false" data-v="nix">NixOS</button>
+            </div>
+            <label id="lab-sh">Shell</label>
+            <div class="seg" data-key="sh" role="group" aria-labelledby="lab-sh">
+              <button aria-pressed="true" data-v="zsh">zsh</button>
+              <button aria-pressed="false" data-v="bash">bash</button>
+              <button aria-pressed="false" data-v="fish">fish</button>
+              <button aria-pressed="false" data-v="pwsh">PowerShell</button>
+            </div>
+            <label>Options</label>
+            <div class="opt">
+              <label><input type="checkbox" id="optCd"> Replace <code>cd</code></label>
+              <label><input type="checkbox" id="optFzf"> Interactive picker (fzf)</label>
+            </div>
+          </div>
+        </div>
+        <aside class="side">
+          <h4>Already installed?</h4>
+          <ul>
+            <li><code>z: command not found</code><span>The init line did not run in this shell</span></li>
+            <li><code>no match found</code><span>The database has not seen that folder yet</span></li>
+            <li>z opens the wrong folder<span>See how the ranking picked it</span></li>
+            <li>Run <code>npx zoxide-doctor</code><span>Checks PATH, hook and profile in one go</span></li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="route">
+        <ol class="stops" id="stops"></ol>
+        <aside class="receipt" id="receipt" aria-live="polite"></aside>
+      </div>
+      <p class="disc">Independent guide, not affiliated with the zoxide project. Official source: github.com/ajeetdsouza/zoxide</p>
+    </div>
+  </div>
+  <p class="note">试着点 System / Shell / Options：线路颜色跟着 shell 变，命令和右侧回执实时更新；选 macOS + PowerShell 这类没测过的组合，回执会变成黄色 “Not tested yet”。</p>
+</div>
+
+<!-- ======================= 方案 B ======================= -->
+<div class="wrap plan" id="pb" role="tabpanel">
+  <div class="brief">
+    <section>
+      <h2>B. 首页是“排名模拟器”，看懂 z 为什么跳到那里</h2>
+      <p>在浏览器里模拟一个 zoxide 数据库：点目录记一次访问，拨动时间，输入关键词，就能看到每个目录的得分怎么算出来、谁赢了。下面接一个按症状排错的入口。</p>
+      <div class="meter"><span>工作量 <b>中</b></span><span>对审核帮助 <b>高</b></span><span>SEO 风险 <b>中</b></span></div>
+    </section>
+    <section>
+      <h3>访客路径</h3>
+      <ul>
+        <li>“z 跳错目录 / no match found” → 进来直接动手试</li>
+        <li>看到得分公式：访问次数 × 时间系数（1 小时内 ×4、1 天内 ×2、1 周内 ×½、更早 ×¼）</li>
+        <li>点症状 → 拿到修复命令 + <code>npx zoxide-doctor</code></li>
+      </ul>
+    </section>
+    <section>
+      <h3>为什么能帮过审</h3>
+      <ul>
+        <li>全网没有第二个可以玩的 zoxide 排名演示，独特性最强</li>
+        <li>停留时间、互动次数会明显上升（“用户热度”）</li>
+        <li>弱点：安装类搜索（流量最大）落地后不是第一需求</li>
+      </ul>
+      <p style="margin-top:8px;color:#5a636e">视觉：图书馆借阅卡。每次访问在卡片上盖一个日期章，正好就是 zoxide 记录访问的方式。</p>
+    </section>
+  </div>
+
+  <div class="frame">
+    <div class="bar"><i></i><i></i><i></i><span>zoxide.org</span></div>
+    <div class="B" id="appB">
+      <div class="nav"><b>zoxide.org<small>Unofficial guide</small></b><a class="cur" href="#">How z decides</a><a href="#">Install</a><a href="#">Fix a problem</a><a href="#">Commands</a><span class="sp"></span><a href="#">EN</a></div>
+      <div class="top">
+        <div>
+          <h1>See why <code style="font-family:var(--mono)">z</code> picked that folder</h1>
+          <p class="lede">zoxide keeps a card for every directory you visit. Visit a few folders, move the clock, type a query, and watch the scores decide.</p>
+        </div>
+      </div>
+      <div class="play">
+        <div class="panel">
+          <h3>1 · Visit directories</h3>
+          <div class="visits" id="visits"></div>
+          <h3>2 · Move the clock</h3>
+          <div class="clock">
+            <button data-h="1">+1 hour</button><button data-h="24">+1 day</button><button data-h="168">+1 week</button><button data-h="0" id="resetB">Reset</button>
+          </div>
+          <div class="now" id="nowB"></div>
+        </div>
+        <div>
+          <h3 style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--b-muted);margin:0 0 10px">3 · Type a query</h3>
+          <div class="query"><span>z</span><input id="qB" value="api" aria-label="zoxide query" autocomplete="off" spellcheck="false"></div>
+          <p class="answer" id="ansB" aria-live="polite"></p>
+          <div class="cards" id="cardsB"></div>
+          <p class="rule">Score = visits × recency (within an hour ×4, a day ×2, a week ×½, older ×¼). A folder only matches when your last keyword appears in its last path segment. Simplified from zoxide 0.10.0's documented algorithm; demo data.</p>
+        </div>
+      </div>
+      <div class="fix">
+        <h2>Something not working?</h2>
+        <div class="sym" id="symB">
+          <button aria-pressed="true" data-k="nf">z: command not found<span>after installing</span></button>
+          <button aria-pressed="false" data-k="nm">zoxide: no match found<span>folder exists</span></button>
+          <button aria-pressed="false" data-k="wr">jumps to the wrong folder<span>two similar names</span></button>
+          <button aria-pressed="false" data-k="zi">zi opens nothing<span>fzf missing or too old</span></button>
+        </div>
+        <div class="cure" id="cureB" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">试着点左边的目录记访问，再按 “+1 day / +1 week” 拨时间，看卡片上的得分和谁赢；改输入框里的关键词（比如 <code>api docs</code>、<code>dot</code>）。下面四个症状也能点。</p>
+</div>
+
+<!-- ======================= 方案 C ======================= -->
+<div class="wrap plan" id="pc" role="tabpanel">
+  <div class="brief">
+    <section>
+      <h2>C. 扩成“终端效率实测手册”</h2>
+      <p>zoxide 仍是第一章，再加 fzf、shell 配置、历史搜索等章节，每章右侧一个彩色索引标签。每章末尾一张“实测记录表”，版本更新后重测，变动的行高亮。</p>
+      <div class="meter"><span>工作量 <b>高</b></span><span>对审核帮助 <b>中高</b></span><span>SEO 风险 <b>中</b></span></div>
+    </section>
+    <section>
+      <h3>访客路径</h3>
+      <ul>
+        <li>搜 zoxide 进来 → 读到 zoxide 章节</li>
+        <li>章节里自然带出 fzf、shell 配置的配套用法</li>
+        <li>实测记录表持续更新，给人“这个站一直有人维护”的感觉</li>
+      </ul>
+    </section>
+    <section>
+      <h3>为什么能帮过审 / 风险</h3>
+      <ul>
+        <li>内容面更宽，持续更新的证据最明显</li>
+        <li>但每个新工具都要重新实测，否则又回到“低价值”</li>
+        <li>主题变散，可能稀释 zoxide 关键词的排名</li>
+      </ul>
+      <p style="margin-top:8px;color:#5a636e">视觉：老式软件手册的彩色分隔页 + 侧边索引标签，切换章节时整页底色跟着变。</p>
+    </section>
+  </div>
+
+  <div class="frame">
+    <div class="bar"><i></i><i></i><i></i><span>zoxide.org</span></div>
+    <div class="C" id="appC">
+      <div class="nav"><b>zoxide.org<small>Field-tested shell handbook · unofficial</small></b><a href="#">Chapters</a><a href="#">Test lab</a><a href="#">Changelog</a><span class="sp"></span><a href="#">EN</a></div>
+      <div class="book">
+        <article class="leaf" id="leafC" aria-live="polite"></article>
+        <div class="rail" role="tablist" aria-label="Chapters" id="railC"></div>
+      </div>
+    </div>
+  </div>
+  <p class="note">点右侧彩色标签切换章节（手机上标签在顶部）。fzf 章节的实测表里有一行黄色高亮，表示“这次重测有变化”。shell history 章节演示“还没测，不上线”的占位状态。章节篇幅、配方编号、fzf 各版本对应的平台是示意，正式做时按实测日志填。</p>
+</div>
+
+<!-- ======================= 对比 ======================= -->
+<div class="wrap plan" id="cmp" role="tabpanel">
+  <div class="compare">
+    <h2>三个方案对比</h2>
+    <div class="tblwrap">
+    <table class="tbl">
+      <tr><th></th><th>A 配置生成器</th><th>B 排名模拟器 + 排错</th><th>C 实测手册</th></tr>
+      <tr><td>首页给访客的东西</td><td>按自己环境定制的四步命令</td><td>可动手的排名演示 + 症状排错</td><td>分章节的实测手册</td></tr>
+      <tr><td>接住现有流量</td><td>最好：安装类搜索占大头</td><td>一般：排错类进来最合适</td><td>一般：zoxide 词照旧</td></tr>
+      <tr><td>独特性（审核最看重）</td><td>高</td><td>最高</td><td>中高（取决于新章节实测）</td></tr>
+      <tr><td>持续维护的信号</td><td>中：回执日期会更新</td><td>中</td><td>高：每章实测表</td></tr>
+      <tr><td>开发量</td><td>中：一个生成器 + 组合数据</td><td>中：模拟器 + 排错树</td><td>高：每个新工具都要实测和写作</td></tr>
+      <tr><td>现有页面怎么办</td><td>安装教程并入生成器，其余变配套文章</td><td>原理和排错文章并入模拟器页</td><td>全部重排成章节，URL 变动最多</td></tr>
+    </table>
+    </div>
+    <div class="rec">
+      <h3>我的推荐：A 为主，B 的模拟器做第二个工具</h3>
+      <p>A 最贴合现在的流量（安装类搜索最多），开发量可控，而且把站里已有的实测证据变成访客一眼能看到的“测试回执”。B 的排名模拟器独特性最强，适合挂在 “Fix a problem / z 跳错目录” 下面，作为第二个工具，不用当首页。C 的方向可以以后再做：等 A 上线、AdSense 过了，再按 fzf 这类有搜索量的工具逐章扩，每章都先实测再上线。</p>
+      <p style="margin-bottom:0">三个方案都只是方向样稿。选定后我再按正式流程出完整设计，并对照现有代码列出改动清单。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- 方案切换 ---------- */
+document.querySelectorAll('.switch button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.switch button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    document.querySelectorAll('.plan').forEach(p=>p.classList.toggle('on',p.id===b.dataset.plan));
+  });
+});
+function copyBtn(text){
+  const btn=document.createElement('button');btn.className='copy';btn.type='button';btn.textContent='Copy';
+  btn.addEventListener('click',()=>{try{navigator.clipboard.writeText(text)}catch(e){}btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)});
+  return btn;
+}
+function pre(text){const p=document.createElement('pre');const c=document.createElement('code');c.textContent=text;p.append(c,copyBtn(text));return p;}
+
+/* ---------- 方案 A：配置生成器 ---------- */
+const A={os:'mac',sh:'zsh'};
+const lineColor={zsh:'#00985f',bash:'#d6402b',fish:'#e8a317',pwsh:'#2f6fd6'};
+const install={
+  mac:'brew install zoxide',
+  ubuntu:'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh',
+  win:'winget install ajeetdsouza.zoxide',
+  arch:'sudo pacman -S zoxide',
+  nix:'nix profile install nixpkgs#zoxide'
+};
+const fzfInstall={mac:'brew install fzf',ubuntu:'sudo apt install fzf',win:'winget install junegunn.fzf',arch:'sudo pacman -S fzf',nix:'nix profile install nixpkgs#fzf'};
+const profile={zsh:'~/.zshrc',bash:'~/.bashrc',fish:'~/.config/fish/config.fish',pwsh:'$PROFILE'};
+/* 测试回执：取自站内已有实测；未覆盖的组合显示“未测” */
+const tested={
+  'mac/zsh':{where:'GitHub Actions · macos-latest',shell:'zsh 5.9',date:'2026-09-30'},
+  'mac/bash':{where:'GitHub Actions · macos-latest',shell:'bash (system)',date:'2026-09-30'},
+  'ubuntu/bash':{where:'GitHub Actions · ubuntu:24.04 container',shell:'bash 5.2.21',date:'2026-10-08'},
+  'ubuntu/zsh':{where:'GitHub Actions · ubuntu:24.04 container',shell:'zsh 5.9',date:'2026-10-08'},
+  'ubuntu/fish':{where:'GitHub Actions · ubuntu:24.04 container',shell:'fish 3.7.0',date:'2026-10-08'},
+  'win/pwsh':{where:'Windows 11 · local machine',shell:'PowerShell 7.6.6',date:'2026-09-30'},
+  'arch/bash':{where:'Booted Arch Linux system',shell:'bash',date:'2026-10-09'},
+  'nix/bash':{where:'Booted NixOS system',shell:'bash',date:'2026-10-09'}
+};
+function initLine(sh,cd){
+  const flag=cd?' --cmd cd':'';
+  if(sh==='fish') return `zoxide init${flag} fish | source`;
+  if(sh==='pwsh') return `Invoke-Expression (& { (zoxide init${flag} powershell | Out-String) })`;
+  return `eval "$(zoxide init${flag} ${sh})"`;
+}
+function renderA(){
+  const cd=document.getElementById('optCd').checked, fz=document.getElementById('optFzf').checked;
+  const root=document.getElementById('appA');
+  root.style.setProperty('--a-line',lineColor[A.sh]);
+  const z=cd?'cd':'z', zi=cd?'cdi':'zi';
+  const stops=document.getElementById('stops');stops.innerHTML='';
+  const addStop=(title,desc,code,extra)=>{
+    const li=document.createElement('li');li.className='stop';
+    li.innerHTML=`<span class="dot"></span><h3>${title}</h3><p>${desc}</p>`;
+    li.append(pre(code));
+    if(extra){const f=document.createElement('div');f.className='flag';f.textContent=extra;li.append(f);}
+    stops.append(li);
+  };
+  addStop('Install the binary','Puts the zoxide program on your PATH.',install[A.os]+(fz?'\n'+fzfInstall[A.os]:''),
+    fz&&A.os==='ubuntu'?'Ubuntu 24.04 apt ships fzf 0.44.1, older than the 0.51.0 zoxide asks for. In our run the zi picker still opened; install fzf from GitHub releases if it does not.':null);
+  const addTo = `Add this line to the end of ${profile[A.sh]}`+(A.sh==='zsh'?' (after compinit if you use completions)':'')+':';
+  addStop('Hook it into '+({zsh:'zsh',bash:'bash',fish:'fish',pwsh:'PowerShell'}[A.sh]), addTo, initLine(A.sh,cd));
+  addStop('Check it loaded','Open a new terminal first. You should see that '+z+' is a function.', A.sh==='pwsh'?`zoxide --version\nGet-Command ${z}`:`zoxide --version\ntype ${z}`);
+  addStop('Make your first jump', cd?'With --cmd cd, cd learns as you go and jumps by keyword.':'Teach it one folder, then jump there by keyword.',
+    A.sh==='pwsh'?`zoxide add "$HOME/projects/api"\n${z} api\nGet-Location`+(fz?`\n${zi}   # pick from a list`:''):`zoxide add ~/projects/api\n${z} api\npwd`+(fz?`\n${zi}   # pick from a list`:''));
+  const t=tested[A.os+'/'+A.sh], r=document.getElementById('receipt');
+  if(t){
+    r.innerHTML=`<h4>Test receipt</h4><div class="status"><i></i>Tested · all 4 steps passed</div>
+      <dl><dt>Where</dt><dd>${t.where}</dd><dt>zoxide</dt><dd>0.10.0</dd><dt>Shell</dt><dd>${t.shell}</dd><dt>Run on</dt><dd>${t.date}</dd>${fz?'<dt>fzf</dt><dd>'+(A.os==='ubuntu'?'0.44.1 (apt)':'latest at run time')+'</dd>':''}</dl>
+      <a href="#">View the raw terminal log →</a>`;
+    r.querySelector('.status').classList.remove('untested');
+  }else{
+    r.innerHTML=`<h4>Test receipt</h4><div class="status untested"><i></i>Not tested yet</div>
+      <p style="margin:0 0 12px;font-size:15px;color:#55607a">These commands follow the upstream README. We have not run this exact combination, so we will not claim it works.</p>
+      <a href="#">Ask us to test it →</a>`;
+  }
+}
+document.querySelectorAll('#appA .seg').forEach(g=>{
+  g.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    A[g.dataset.key]=b.dataset.v;
+    if(g.dataset.key==='os'){ /* 换系统时给出合理的默认 shell */
+      const def={mac:'zsh',ubuntu:'bash',win:'pwsh',arch:'bash',nix:'bash'}[b.dataset.v];
+      A.sh=def;document.querySelectorAll('#appA [data-key="sh"] button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===def));
+    }
+    renderA();
+  });
+});
+['optCd','optFzf'].forEach(id=>document.getElementById(id).addEventListener('change',renderA));
+renderA();
+
+/* ---------- 方案 B：排名模拟器 ---------- */
+const dirs=['~/work/api','~/work/api-docs','~/work/client-portal','~/dotfiles','~/notes/api-design'];
+let nowH, db;
+function resetB(){
+  nowH=0;
+  /* 演示数据：api-docs 很久前常去，api 最近去过一次 */
+  db={'~/work/api':[-2],'~/work/api-docs':[-400,-390,-380,-370,-200,-190],'~/work/client-portal':[-30,-20],'~/dotfiles':[-900],'~/notes/api-design':[-60]};
+}
+function mult(age){return age<1?4:age<24?2:age<168?0.5:0.25;}
+function scoreOf(d){const v=db[d];if(!v.length)return 0;const last=Math.max(...v);return v.length*mult(nowH-last);}
+function matches(d,q){
+  const kws=q.toLowerCase().trim().split(/\s+/).filter(Boolean);if(!kws.length)return false;
+  const p=d.toLowerCase();let i=0;
+  for(const k of kws){const j=p.indexOf(k,i);if(j<0)return false;i=j+k.length;}
+  const lastSeg=p.split('/').pop();return lastSeg.includes(kws[kws.length-1]);
+}
+function ago(h){if(h<1)return'just now';if(h<24)return Math.round(h)+'h ago';const d=Math.round(h/24);return d+' day'+(d>1?'s':'')+' ago';}
+function renderB(){
+  document.getElementById('nowB').textContent='Clock: '+(nowH===0?'now':'+'+ago(nowH).replace(' ago',''));
+  const q=document.getElementById('qB').value;
+  const list=dirs.map(d=>({d,s:scoreOf(d),m:matches(d,q)}));
+  const cands=list.filter(x=>x.m&&x.s>0).sort((a,b)=>b.s-a.s);
+  const win=cands[0];
+  document.getElementById('ansB').innerHTML=q.trim()?(win?`<code>z ${q.trim()}</code> → <b>${win.d}</b> (score ${win.s.toFixed(2)})`:`<code>z ${q.trim()}</code> → <b style="color:#b23a2c">zoxide: no match found</b>`):'Type a keyword.';
+  const wrap=document.getElementById('cardsB');wrap.innerHTML='';
+  list.sort((a,b)=>(b.m-a.m)||(b.s-a.s)).forEach(x=>{
+    const v=db[x.d], last=v.length?Math.max(...v):null;
+    const c=document.createElement('div');c.className='lc'+(win&&x.d===win.d?' win':'')+(x.m?'':' dim');
+    c.innerHTML=(win&&x.d===win.d?'<span class="tag">z goes here</span>':'')+
+      `<div class="path">${x.d}</div><div class="grid">${v.slice(-8).map((h,i)=>`<span class="stamp" style="--r:${((i*37)%7)-3}deg">${ago(nowH-h).replace(' ago','')}</span>`).join('')}</div>
+      <div class="math"><span>${v.length} visit${v.length!==1?'s':''} × ${last===null?'–':mult(nowH-last)}</span><b>${x.s.toFixed(2)}</b></div>`;
+    wrap.append(c);
+  });
+}
+const vb=document.getElementById('visits');
+dirs.forEach(d=>{const b=document.createElement('button');b.textContent='cd '+d;b.addEventListener('click',()=>{db[d].push(nowH);renderB();});vb.append(b);});
+document.querySelectorAll('#appB .clock button').forEach(b=>b.addEventListener('click',()=>{const h=+b.dataset.h;if(h===0)resetB();else nowH+=h;renderB();}));
+document.getElementById('qB').addEventListener('input',renderB);
+const cures={
+  nf:{t:'The zoxide binary is installed, but the init line never ran in this shell. Check which profile your shell reads and that the line is at the end.',c:'zoxide --version        # works? then it is the hook\ngrep -n "zoxide init" ~/.zshrc ~/.bashrc\nnpx zoxide-doctor       # checks PATH, hook and profile'},
+  nm:{t:'zoxide only knows folders it has seen. A fresh install has an empty database. Visit the folder once with cd, or add it directly.',c:'zoxide add ~/work/api\nzoxide query --list | head'},
+  wr:{t:'Two folders match and the one with the higher score wins. Add a second keyword, or remove the stale entry. Try it in the simulator above.',c:'zoxide query -ls api    # show scores\nz work api              # more specific\nzoxide remove ~/work/api-docs'},
+  zi:{t:'zi needs fzf 0.51.0 or newer on PATH. Ubuntu 24.04 apt ships 0.44.1, which opened in our test, but older builds may not.',c:'fzf --version\n# if missing or too old:\nsudo apt install fzf    # or a release from github.com/junegunn/fzf'}
+};
+function renderCure(k){const x=cures[k];const el=document.getElementById('cureB');el.innerHTML=`<p style="margin:0">${x.t}</p>`;const p=document.createElement('pre');p.textContent=x.c;el.append(p);}
+document.getElementById('symB').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#symB button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderCure(b.dataset.k);});
+resetB();renderB();renderCure('nf');
+
+/* ---------- 方案 C：分章节手册 ---------- */
+const chapters=[
+  {id:'zox',name:'zoxide',sub:'Jump by keyword',hue:'#0f8b8d',pages:42,
+   html:`<div class="chap"><h1>1 · zoxide</h1><span>12 recipes · last re-tested 2026-10-09</span></div>
+   <div class="cols"><div>
+   <p>zoxide replaces long <code>cd</code> paths with a keyword. It learns from the folders you actually visit, so the first week is about letting it watch you work.</p>
+   <h2>Recipe 1.3 · Keep cd, add z</h2>
+   <p>The default init gives you <code>z</code> and <code>zi</code> and leaves <code>cd</code> alone. Scripts that call <code>cd</code> keep working.</p>
+   <pre>eval "$(zoxide init zsh)"</pre>
+   <h2>Recipe 1.4 · Replace cd entirely</h2>
+   <pre>eval "$(zoxide init --cmd cd zsh)"</pre>
+   </div><div>
+   <h2 style="margin-top:0">Lab record</h2>
+   <table class="lab"><tr><th>Setup</th><th>zoxide</th><th>Result</th></tr>
+   <tr><td>Ubuntu 24.04 · bash 5.2.21</td><td class="v">0.10.0</td><td class="ok">pass</td></tr>
+   <tr><td>Ubuntu 24.04 · zsh 5.9</td><td class="v">0.10.0</td><td class="ok">pass</td></tr>
+   <tr><td>Ubuntu 24.04 · fish 3.7.0</td><td class="v">0.10.0</td><td class="ok">pass</td></tr>
+   <tr><td>macOS (Actions) · zsh 5.9</td><td class="v">0.10.0</td><td class="ok">pass</td></tr>
+   <tr><td>Windows 11 · PowerShell 7.6.6</td><td class="v">0.10.0</td><td class="ok">pass</td></tr></table>
+   </div></div>`},
+  {id:'fzf',name:'fzf',sub:'Pick from a list',hue:'#d9480f',pages:30,
+   html:`<div class="chap"><h1>2 · fzf</h1><span>8 recipes · last re-tested 2026-10-08</span></div>
+   <div class="cols"><div>
+   <p><code>zi</code> hands zoxide's ranked list to fzf, so you can pick a folder by eye. zoxide passes its own 13 fzf options; setting <code>_ZO_FZF_OPTS</code> replaces all of them, which drops the preview and the ranking order.</p>
+   <h2>Recipe 2.2 · Change one fzf option safely</h2>
+   <p>Copy zoxide's defaults first, then edit the one you want. Starting from an empty value is what breaks the order.</p>
+   <pre>export _ZO_FZF_OPTS="--no-sort --height=40% ..."</pre>
+   </div><div>
+   <h2 style="margin-top:0">Lab record</h2>
+   <table class="lab"><tr><th>Setup</th><th>fzf</th><th>zi</th></tr>
+   <tr class="changed"><td>Ubuntu 24.04 · apt</td><td class="v">0.44.1</td><td class="warnc">opens · below min</td></tr>
+   <tr><td>Ubuntu 24.04 · release</td><td class="v">0.74.4</td><td class="ok">pass</td></tr>
+   <tr><td>macOS · Homebrew</td><td class="v">0.74.3</td><td class="ok">pass</td></tr></table>
+   <div class="chg">Changed on re-test: apt fzf is older than zoxide's 0.51.0 minimum, yet the picker opened in a real tmux session. Kept as a warning, not a failure.</div>
+   </div></div>`},
+  {id:'sh',name:'Shell setup',sub:'Profiles & hooks',hue:'#b8860b',pages:24,
+   html:`<div class="chap"><h1>3 · Shell setup</h1><span>6 recipes · last re-tested 2026-10-08</span></div>
+   <div class="cols"><div>
+   <p>Most broken installs are not zoxide's fault. The init line sits in a file your shell never reads, or a plugin later redefines <code>z</code>.</p>
+   <h2>Recipe 3.1 · Which file does my shell read?</h2>
+   <pre>bash  → ~/.bashrc
+zsh   → ~/.zshrc
+fish  → ~/.config/fish/config.fish
+pwsh  → $PROFILE</pre>
+   </div><div>
+   <h2 style="margin-top:0">How each shell records a visit</h2>
+   <table class="lab"><tr><th>Shell</th><th>Hook</th></tr>
+   <tr><td>bash</td><td>prompt command</td></tr><tr><td>zsh</td><td>chpwd</td></tr><tr><td>PowerShell</td><td>prompt function</td></tr></table>
+   </div></div>`},
+  {id:'hist',name:'Shell history',sub:'Not tested yet',hue:'#3b5bdb',pages:12,
+   html:`<div class="chap"><h1>4 · Shell history</h1><span>planned</span></div>
+   <div class="soon">This chapter is not published yet. Every chapter goes live only after its recipes have been run on real systems and the logs are archived. Until then, this tab stays empty on purpose.</div>`}
+];
+let curC='zox';
+function renderC(){
+  const ch=chapters.find(c=>c.id===curC);
+  document.getElementById('appC').style.setProperty('--sec',ch.hue);
+  document.getElementById('leafC').innerHTML=ch.html;
+  const rail=document.getElementById('railC');rail.innerHTML='';
+  chapters.forEach(c=>{
+    const b=document.createElement('button');b.className='tab';b.setAttribute('role','tab');b.setAttribute('aria-selected',c.id===curC);
+    b.style.background=c.hue;b.style.minHeight=(c.pages*3.2)+'px';   /* 标签高度按章节篇幅 */
+    b.innerHTML=`${c.name}<small>${c.sub}</small>`;
+    b.addEventListener('click',()=>{curC=c.id;renderC();});
+    rail.append(b);
+  });
+}
+renderC();
+</script>
+</body>
+</html>

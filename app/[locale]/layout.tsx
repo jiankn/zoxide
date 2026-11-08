@@ -8,20 +8,22 @@ import Footer from "@/components/Footer/Footer";
 import DisclaimerBanner from "@/components/DisclaimerBanner/DisclaimerBanner";
 import GoogleAnalytics from "@/components/GoogleAnalytics/GoogleAnalytics";
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/seo/schema";
-import { Geist, Geist_Mono } from "next/font/google"; // Moved from root layout
+import { Overpass, JetBrains_Mono } from "next/font/google"; // Moved from root layout
 import { Metadata } from 'next'; // Moved from root layout
 import "@/app/globals.css"; // Moved from root layout
 
-// Font configurations
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// 字体：界面与标题用 Overpass（公路标志字体的开源版），命令与数据用 JetBrains Mono
+const overpass = Overpass({
+  variable: "--font-overpass",
   subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  weight: ["400", "600"],
   display: "swap",
 });
 
@@ -127,7 +129,7 @@ export default async function LocaleLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${overpass.variable} ${jetbrainsMono.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <DisclaimerBanner />

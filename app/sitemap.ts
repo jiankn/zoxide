@@ -21,6 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const correctionLastModified = '2026-10-08';
   const taskRestructureDate = '2026-11-08';
   const taskRestructurePaths = new Set(['/download', '/tutorials', '/blog', '/tools/zoxide-doctor', '/about', '/blog/zoxide-not-working']);
+  // 2026-11-08 改版：首页配置生成器、新增排名模拟器
+  const redesignDate = '2026-11-08';
+  const redesignPaths = new Set(['', '/download', '/tools/ranking-simulator']);
   const correctedPaths = new Set([
     // 2026-10-08：命令参考与初始化指南完成三语实测重写；中日路径已列在下方。
     'en:/blog/zoxide-commands', 'en:/blog/zoxide-init-guide',
@@ -70,6 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/tutorials', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/download', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/tools/zoxide-doctor', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/tools/ranking-simulator', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/blog', priority: 0.8, changeFrequency: 'daily' as const },
     { path: '/changelog', priority: 0.7, changeFrequency: 'weekly' as const },
     { path: '/faq', priority: 0.7, changeFrequency: 'monthly' as const },
@@ -96,7 +100,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       staticPages.push({
         url,
-        lastModified: taskRestructurePaths.has(route.path)
+        lastModified: redesignPaths.has(route.path)
+          ? redesignDate
+          : taskRestructurePaths.has(route.path)
           ? taskRestructureDate
           : route.path === ''
           ? homeContentLastModified

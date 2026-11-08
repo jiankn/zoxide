@@ -17,6 +17,7 @@ This guide installs zoxide on macOS with Homebrew, connects it to zsh (the defau
 | Homebrew | 6.0.22, prefix /opt/homebrew |
 | zoxide | 0.10.0 (Homebrew bottle) |
 | fzf | 0.74.3 (Homebrew) |
+| Re-tested | November 8, 2026: macOS 26.7.2, Homebrew 7.0.11, zoxide 0.10.0, interactive zsh and bash sessions ([raw record](/evidence/2026-11-08/macos.json)) |
 
 We used a clean virtual Mac so that no earlier configuration could hide a problem. Timings on your own Mac will differ, but the behavior described here is the same.
 
@@ -129,7 +130,7 @@ That installed fzf 0.74.3. zi's picker needs a real interactive terminal, so our
 
 ## What about bash on macOS?
 
-macOS still ships bash 3.2.57 as /bin/bash. In our test, eval "$(zoxide init bash)" loaded without errors under that version and defined the z function. We did not run a full interactive bash session, so if you use bash as your daily shell, check with zoxide query -ls after a few directory changes. Since zsh is the default shell on current macOS, zsh is the path this guide recommends.
+macOS still ships bash 3.2.57 as /bin/bash. In our test, eval "$(zoxide init bash)" loaded without errors under that version and defined the z function. Our September run stopped there. In the November re-run we drove a real interactive bash 3.2 login shell with the init line in ~/.bash_profile: it recorded each directory change, and z jumped as expected. Since zsh is the default shell on current macOS, zsh is the path this guide recommends.
 
 ## Does zoxide slow down zsh?
 
@@ -174,6 +175,7 @@ This guide installs zoxide on Windows with winget, wires it into PowerShell, and
 | Shell | PowerShell 7.6.6 |
 | zoxide | 0.10.0, installed with winget |
 | CPU | Intel Core i5-1135G7 laptop |
+| Re-tested | November 8, 2026: same machine, PowerShell 7.6.9, winget 1.29, every step below repeated ([raw record](/evidence/2026-11-08/windows.json)) |
 
 The test machine uses a Chinese Windows display language, so PowerShell's own error messages appeared in Chinese. Where that happened, this page shows the standard English wording of the same message. zoxide's own messages are always English.
 
@@ -192,7 +194,7 @@ zoxide --version
 (Get-Command zoxide).Source
 ~~~
 
-Our run printed zoxide 0.10.0 and C:\Users\YourName\AppData\Local\Microsoft\WinGet\Links\zoxide.exe. If zoxide --version fails only in an old window, the install is fine and the window is stale.
+Our September run printed zoxide 0.10.0 and C:\Users\YourName\AppData\Local\Microsoft\WinGet\Links\zoxide.exe. The November re-run with winget 1.29 printed a path under WinGet\Packages\ajeetdsouza.zoxide_Microsoft.Winget.Source_8wekyb3d8bbwe instead. Either location is fine. If zoxide --version fails only in an old window, the install is fine and the window is stale.
 
 ### Other install methods
 
@@ -328,6 +330,7 @@ This guide installs zoxide on Ubuntu 24.04 with apt or with the official install
 | Shell | GNU bash 5.2.21 |
 | apt packages | zoxide 0.9.3-1, fzf 0.44.1-1ubuntu0.3 |
 | Upstream | zoxide 0.10.0 from the official script; fzf 0.74.4 from the fzf Git installer |
+| Re-tested | November 8, 2026: official script as a normal user, interactive bash and zsh sessions ([raw record](/evidence/2026-11-08/ubuntu.json)) |
 
 apt commands ran as root inside the container, so the sudo you see below was not needed there. The official script ran as a normal user named dev. A container has no desktop and no terminal window, so we could not open the interactive zi picker; the fzf section says exactly what was and was not tested.
 
@@ -1025,6 +1028,7 @@ const japaneseTutorialContent: Record<string, string> = {
 | シェル | PowerShell 7.6.6 |
 | zoxide | 0.10.0（winget でインストール） |
 | CPU | Intel Core i5-1135G7 ノート PC |
+| 再検証 | 2026 年 11 月 8 日：同じマシン、PowerShell 7.6.9、winget 1.29 で以下の手順をすべて再実行（[生の記録](/evidence/2026-11-08/windows.json)） |
 
 テスト機の表示言語は中国語のため、PowerShell 自体のエラーは中国語で表示されました。本ページでは同じメッセージの英語版を載せています。zoxide 自身のメッセージは常に英語です。
 
@@ -1043,7 +1047,7 @@ zoxide --version
 (Get-Command zoxide).Source
 ~~~
 
-テストでは zoxide 0.10.0 と C:\Users\ユーザー名\AppData\Local\Microsoft\WinGet\Links\zoxide.exe が表示されました。古いウィンドウでだけ失敗する場合、インストールは正常でウィンドウが古いだけです。
+9 月のテストでは zoxide 0.10.0 と C:\Users\ユーザー名\AppData\Local\Microsoft\WinGet\Links\zoxide.exe が表示されました。11 月に winget 1.29 で再実行したときは WinGet\Packages\ajeetdsouza.zoxide_Microsoft.Winget.Source_8wekyb3d8bbwe 配下のパスでした。どちらでも問題ありません。古いウィンドウでだけ失敗する場合、インストールは正常でウィンドウが古いだけです。
 
 ### その他のインストール方法
 
@@ -1828,6 +1832,7 @@ zoxide remove /full/path/to/old-project
 | シェル | GNU bash 5.2.21 |
 | apt パッケージ | zoxide 0.9.3-1、fzf 0.44.1-1ubuntu0.3 |
 | 上流版 | 公式スクリプトの zoxide 0.10.0、fzf の Git インストールで得た fzf 0.74.4 |
+| 再検証 | 2026 年 11 月 8 日：一般ユーザーで公式スクリプトを実行し、対話型の bash と zsh で確認（[生の記録](/evidence/2026-11-08/ubuntu.json)） |
 
 コンテナ内の apt コマンドは root で実行したため、以下の sudo はそこでは不要でした。公式スクリプトは dev という一般ユーザーで実行しました。コンテナにはデスクトップもターミナルもないため、zi の対話選択画面は開けませんでした。何を検証し何を検証していないかは fzf の節で明記します。
 
@@ -2071,6 +2076,7 @@ apt 版は通常の Ubuntu 更新で、スクリプト版はインストーラ�
 | Homebrew | 6.0.22、プレフィックス /opt/homebrew |
 | zoxide | 0.10.0（Homebrew のビルド済みパッケージ） |
 | fzf | 0.74.3（Homebrew） |
+| 再検証 | 2026 年 11 月 8 日：macOS 26.7.2、Homebrew 7.0.11、zoxide 0.10.0、対話型の zsh と bash で確認（[生の記録](/evidence/2026-11-08/macos.json)） |
 
 既存の設定が問題を隠さないよう、クリーンな仮想 Mac を使いました。お使いの Mac では時間が異なりますが、ここで説明する動作は同じです。
 
@@ -2183,7 +2189,7 @@ brew install fzf
 
 ## macOS の bash は？
 
-macOS には今も bash 3.2.57 が /bin/bash として入っています。テストでは、このバージョンで eval "$(zoxide init bash)" がエラーなく読み込まれ、z 関数が定義されました。完全な対話型 bash セッションは実行していないため、普段 bash を使う場合は、何度かディレクトリを移動した後に zoxide query -ls で確認してください。現在の macOS の既定シェルは zsh なので、このガイドでは zsh を推奨します。
+macOS には今も bash 3.2.57 が /bin/bash として入っています。テストでは、このバージョンで eval "$(zoxide init bash)" がエラーなく読み込まれ、z 関数が定義されました。9 月のテストはそこまででした。11 月の再検証では、~/.bash_profile に初期化行を入れた bash 3.2 の対話型ログインシェルを実際に操作し、ディレクトリ移動が記録され、z で期待どおり移動できることを確認しました。現在の macOS の既定シェルは zsh なので、このガイドでは zsh を推奨します。
 
 ## zoxide で zsh は遅くなる？
 
@@ -2430,6 +2436,7 @@ zoxide 是在每次运行 zi 时读取这个变量，而不是在执行初始化
 | Shell | PowerShell 7.6.6 |
 | zoxide | 0.10.0，通过 winget 安装 |
 | CPU | Intel Core i5-1135G7 笔记本 |
+| 复测 | 2026 年 11 月 8 日：同一台机器，PowerShell 7.6.9、winget 1.29，下面每一步都重跑了一遍（[原始记录](/evidence/2026-11-08/windows.json)） |
 
 测试机的 Windows 显示语言是中文，所以 PowerShell 自身的报错是中文；zoxide 自己输出的信息始终是英文。
 
@@ -2448,7 +2455,7 @@ zoxide --version
 (Get-Command zoxide).Source
 ~~~
 
-我们的输出是 zoxide 0.10.0 和 C:\Users\你的用户名\AppData\Local\Microsoft\WinGet\Links\zoxide.exe。如果只有旧窗口里 zoxide --version 失败，说明安装没问题，只是窗口没刷新。
+9 月那次的输出是 zoxide 0.10.0 和 C:\Users\你的用户名\AppData\Local\Microsoft\WinGet\Links\zoxide.exe。11 月用 winget 1.29 复测时，路径变成了 WinGet\Packages\ajeetdsouza.zoxide_Microsoft.Winget.Source_8wekyb3d8bbwe 下面。两个位置都正常。如果只有旧窗口里 zoxide --version 失败，说明安装没问题，只是窗口没刷新。
 
 ### 其他安装方式
 
@@ -2584,6 +2591,7 @@ winget uninstall --id ajeetdsouza.zoxide -e
 | Shell | GNU bash 5.2.21 |
 | apt 软件包 | zoxide 0.9.3-1，fzf 0.44.1-1ubuntu0.3 |
 | 上游版本 | 官方脚本安装的 zoxide 0.10.0；fzf Git 安装方式得到的 fzf 0.74.4 |
+| 复测 | 2026 年 11 月 8 日：普通用户运行官方脚本，交互式 bash 和 zsh 都跑过（[原始记录](/evidence/2026-11-08/ubuntu.json)） |
 
 容器里的 apt 命令以 root 身份运行，所以下文中的 sudo 在那里并不需要；官方脚本以名为 dev 的普通用户运行。容器没有桌面和终端窗口，因此无法打开 zi 的交互选择界面，fzf 一节会写明哪些测了、哪些没测。
 
@@ -2827,6 +2835,7 @@ apt 安装的随 Ubuntu 正常更新；脚本安装的重新运行一次安装�
 | Homebrew | 6.0.22，安装前缀 /opt/homebrew |
 | zoxide | 0.10.0（Homebrew 预编译包） |
 | fzf | 0.74.3（Homebrew） |
+| 复测 | 2026 年 11 月 8 日：macOS 26.7.2、Homebrew 7.0.11、zoxide 0.10.0，交互式 zsh 和 bash 都跑过（[原始记录](/evidence/2026-11-08/macos.json)） |
 
 我们用的是一台干净的虚拟 Mac，避免已有配置掩盖问题。你自己电脑上的耗时会不同，但本文描述的行为是一样的。
 
@@ -2939,7 +2948,7 @@ brew install fzf
 
 ## macOS 上的 bash 呢？
 
-macOS 仍然自带 bash 3.2.57（/bin/bash）。实测中 eval "$(zoxide init bash)" 在这个版本下加载没有报错，并定义了 z 函数。我们没有跑完整的交互式 bash 会话，所以如果你日常用 bash，请在切换几个目录后用 zoxide query -ls 确认一下。由于当前 macOS 默认 Shell 是 zsh，本文推荐走 zsh 这条路。
+macOS 仍然自带 bash 3.2.57（/bin/bash）。实测中 eval "$(zoxide init bash)" 在这个版本下加载没有报错，并定义了 z 函数。9 月那次只测到这里。11 月复测时，我们把初始化行放进 ~/.bash_profile，真实操作了一个 bash 3.2 交互式登录 shell：每次切换目录都被记录，z 也能正常跳转。由于当前 macOS 默认 Shell 是 zsh，本文推荐走 zsh 这条路。
 
 ## zoxide 会拖慢 zsh 吗？
 

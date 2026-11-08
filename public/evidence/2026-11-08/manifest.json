@@ -1,0 +1,25 @@
+{
+  "test_date": "2026-11-08",
+  "files": [
+    {
+      "file": "macos.json",
+      "bytes": 14663,
+      "sha256": "852832e03a48d1e5102040956ae2e5f2b66d4881ea4a7bf86f23f22da5054474",
+      "source_run_id": "42446427141",
+      "source_commit": "997f2526f5e0e2f7fc4728b5c58b1b92e4ecaae6"
+    },
+    {
+      "file": "ubuntu.json",
+      "bytes": 14427,
+      "sha256": "5e23581b58d9828cdb4579719c0abcba7799f69064f133158a0d5f690a985b29",
+      "source_run_id": "42446427141",
+      "source_commit": "997f2526f5e0e2f7fc4728b5c58b1b92e4ecaae6"
+    },
+    {
+      "file": "windows.json",
+      "bytes": 7718,
+      "sha256": "0f3f7492b443fc28b1be53b2adde2e6d8c739f6874e4da22b89433a919986307",
+      "source": "local"
+    }
+  ]
+}

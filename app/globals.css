@@ -1,11 +1,26 @@
 @import "tailwindcss";
 
-/* Notion 风格 CSS 变量 - 亮色模式 */
+/* 线路图视觉系统：白色地面、海军蓝墨色，每个 Shell 一种线路色。
+   命令块深色，其余浅色（访客白天对着显示器、旁边开着终端）。 */
 :root {
-  --background: #ffffff;
-  --foreground: #37352f;
-  --muted: #f7f6f3;
-  --border: #e9e9e7;
+  --background: #f7f8fa;
+  --foreground: #14213d;
+  --muted: #eef1f5;
+  --border: #dfe3ea;
+  --ink: #14213d;
+  --ink-soft: #55607a;
+  --rule: #dfe3ea;
+  --paper: #ffffff;
+  --code-bg: #0f1729;
+  --code-fg: #e8edf7;
+  --line-zsh: #00985f;
+  --line-bash: #d6402b;
+  --line-fish: #e8a317;
+  --line-fish-text: #8a5a00;
+  --line-powershell: #2f6fd6;
+  --state-caution: #c98a12;
+  --state-untested: #8a94a6;
+  --line: var(--line-zsh);
 }
 
 @theme inline {
@@ -13,16 +28,100 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  /* 衬线字体：使用系统默认衬线字体栈 */
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-rule: var(--rule);
+  --color-paper: var(--paper);
+  --font-sans: var(--font-overpass), "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans CJK SC", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, Consolas, monospace;
+  /* 旧页面的 font-serif 标题统一换成界面字，避免两套标题字体 */
+  --font-serif: var(--font-overpass), "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
+}
+
+/* 把旧页面大量使用的 blue / gray 色阶换成线路图世界的海军蓝与冷灰，
+   这样未逐个改写的文章页也自动进入新视觉 */
+@theme {
+  --color-blue-50: #eef3fb;
+  --color-blue-100: #dce6f6;
+  --color-blue-200: #b9cdee;
+  --color-blue-300: #8eaee2;
+  --color-blue-400: #5f88cf;
+  --color-blue-500: #3b68b8;
+  --color-blue-600: #27509c;
+  --color-blue-700: #1f4185;
+  --color-blue-800: #18326a;
+  --color-blue-900: #14213d;
+  --color-blue-950: #0d1628;
+  --color-gray-50: #f7f8fa;
+  --color-gray-100: #eef1f5;
+  --color-gray-200: #dfe3ea;
+  --color-gray-300: #c6ccd7;
+  --color-gray-400: #9aa3b5;
+  --color-gray-500: #6f7a90;
+  --color-gray-600: #55607a;
+  --color-gray-700: #3c4762;
+  --color-gray-800: #26314a;
+  --color-gray-900: #172038;
+  --color-gray-950: #0f1729;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Heiti SC", Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
   /* 禁止整页横向滚动，移动端更稳定 */
   overflow-x: hidden;
+}
+
+::selection {
+  background: #c9e7da;
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--line-powershell);
+  outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+/* 命令里的 -- 不能被字体连字成破折号 */
+code,
+pre,
+kbd,
+samp {
+  font-variant-ligatures: none;
+  font-feature-settings: "calt" 0, "liga" 0;
+}
+
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #34405c;
+  border-radius: 4px;
+}
+
+/* 排名模拟器：访问记录落章 */
+@keyframes stamp {
+  from {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

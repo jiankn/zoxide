@@ -1,0 +1,66 @@
+{
+  "test_date": "2026-11-08",
+  "test_timezone": "UTC",
+  "executed_at_utc": "2026-11-08T04:19:11.9413556Z",
+  "source": "Local machine (the same laptop as the 2026-09-30 test)",
+  "script": ".ci/windows/windows-evidence.ps1",
+  "display_language": "Chinese (Simplified). PowerShell and winget messages are in Chinese; zoxide messages are English.",
+  "scope": "All steps as printed. The user name in paths is replaced with YourName.",
+  "method": "Local Windows machine. Each step runs in a fresh pwsh -NoProfile process with the user PATH re-read, as a new window would. The init line lives in a temporary profile file that each session dot-sources. PowerShell records directories from its prompt function, so the session calls the prompt function after each Set-Location, which is what pressing Enter in a window does. User home is shown as C:\\Users\\YourName.",
+  "commands": [
+    {
+      "label": "environment",
+      "command": "Get-CimInstance Win32_OperatingSystem; $PSVersionTable",
+      "exit": 0,
+      "output": "Microsoft Windows 11 专业版 10.0.22631 build 22631 (DisplayVersion 23H2)\nPowerShell 7.6.9\nwinget v1.29.380\nCPU 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz"
+    },
+    {
+      "label": "before install: zoxide on PATH?",
+      "command": "$env:Path = [Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [Environment]::GetEnvironmentVariable(\"Path\",\"User\")\nGet-Command zoxide -ErrorAction SilentlyContinue; 'found=' + [bool](Get-Command zoxide -ErrorAction SilentlyContinue)",
+      "exit": 0,
+      "output": "found=False"
+    },
+    {
+      "label": "install",
+      "command": "winget install --id ajeetdsouza.zoxide -e",
+      "exit": 0,
+      "output": "已找到 zoxide [ajeetdsouza.zoxide] 版本 0.10.0\r\n此应用程序由其所有者授权给你。\r\nMicrosoft 对第三方程序包概不负责，也不向第三方程序包授予任何许可证。\r\n正在下载 https://github.com/ajeetdsouza/zoxide/releases/download/v0.10.0/zoxide-0.10.0-x86_64-pc-windows-msvc.zip\r\n已成功验证安装程序哈希\r\n正在提取存档...\r\n已成功提取存档\r\n正在启动程序包安装...\r\n已修改路径环境变量；重启 shell 以使用新值。\r\n添加了命令行别名： \"zoxide\"\r\n已成功安装\r"
+    },
+    {
+      "label": "new window: version and location",
+      "command": "$env:Path = [Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [Environment]::GetEnvironmentVariable(\"Path\",\"User\")\nzoxide --version\n(Get-Command zoxide).Source",
+      "exit": 0,
+      "output": "zoxide 0.10.0\r\nC:\\Users\\YourName\\AppData\\Local\\Microsoft\\WinGet\\Packages\\ajeetdsouza.zoxide_Microsoft.Winget.Source_8wekyb3d8bbwe\\zoxide.exe"
+    },
+    {
+      "label": "new window before init: z",
+      "command": "$env:Path = [Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [Environment]::GetEnvironmentVariable(\"Path\",\"User\")\ntry { Get-Command z -ErrorAction Stop } catch { $_.Exception.Message; exit 1 }",
+      "exit": 1,
+      "output": "术语 'z' 不会被识别为 cmdlet、函数、脚本文件或可执行程序的名称。\r\n请检查名称的拼写或验证路径是否正确(如果包含路径)，然后重试。"
+    },
+    {
+      "label": "session with the profile line (prompt drawn after each visit)",
+      "command": "$env:Path = [Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [Environment]::GetEnvironmentVariable(\"Path\",\"User\")\n$env:_ZO_DATA_DIR = 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\data'\n. 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\Microsoft.PowerShell_profile.ps1'\nfunction Visit($p) { Set-Location $p; $null = & $function:prompt }   # 模拟回车后重绘提示符\n'--- Get-Command z, zi'\nGet-Command z, zi | Format-Table CommandType, Name, Definition -AutoSize | Out-String -Width 200\n'--- database before visits'\nzoxide query -ls\nVisit 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\web-app\\src'\nVisit 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo'\nVisit 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\web-app\\src'\nVisit 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\notes\\2026'\nVisit 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\api-server'\n'--- zoxide query -ls'\nzoxide query -ls | Where-Object { $_ -like '*zo-demo\\*\\*' }\nSet-Location 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo'\n'--- z web'\nz web 2>&1 | Out-String\n'--- z web src'\nz web src; (Get-Location).Path\nSet-Location 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo'\n'--- z proj api'\nz proj api; (Get-Location).Path\n'--- zi (fzf on PATH: ' + [bool](Get-Command fzf -ErrorAction SilentlyContinue) + ')'",
+      "exit": 0,
+      "output": "--- Get-Command z, zi\r\n\r\nCommandType Name Definition\r\n----------- ---- ----------\r\n      Alias z    __zoxide_z\r\n      Alias zi   __zoxide_zi\r\n\r\n\r\n--- database before visits\r\n--- zoxide query -ls\r\n   8.0 C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\web-app\\src\r\n   4.0 C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\api-server\r\n   4.0 C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\notes\\2026\r\n--- z web\r\nzoxide: no match found\r\n\r\n--- z web src\r\nC:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\web-app\\src\r\n--- z proj api\r\nC:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\api-server\r\n--- zi (fzf on PATH: False)"
+    },
+    {
+      "label": "cd inside a script, no prompt drawn",
+      "command": "$env:Path = [Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [Environment]::GetEnvironmentVariable(\"Path\",\"User\")\n$env:_ZO_DATA_DIR = 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\data-script'\n. 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\Microsoft.PowerShell_profile.ps1'\nSet-Location 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\api-server'\nSet-Location 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo'\n'entries=' + @(zoxide query -l).Count\nzoxide query api 2>&1 | Out-String",
+      "exit": 0,
+      "output": "entries=0\r\nzoxide: no match found"
+    },
+    {
+      "label": "--cmd cd variant",
+      "command": "$env:Path = [Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [Environment]::GetEnvironmentVariable(\"Path\",\"User\")\n$env:_ZO_DATA_DIR = 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\data'\nInvoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })\nGet-Command cd, cdi | Format-Table CommandType, Name, Definition -AutoSize | Out-String -Width 200\nSet-Location 'C:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo'\ncd api; (Get-Location).Path",
+      "exit": 0,
+      "output": "\r\nCommandType Name Definition\r\n----------- ---- ----------\r\n      Alias cd   __zoxide_z\r\n      Alias cdi  __zoxide_zi\r\n\r\n\r\nC:\\Users\\YourName\\AppData\\Local\\Temp\\zo-evidence-20261108\\zo-demo\\projects\\api-server"
+    },
+    {
+      "label": "cleanup: uninstall",
+      "command": "winget uninstall --id ajeetdsouza.zoxide -e",
+      "exit": 0,
+      "output": "已找到 zoxide [ajeetdsouza.zoxide]\r\n正在启动程序包卸载...\r\n已成功卸载\r"
+    }
+  ]
+}

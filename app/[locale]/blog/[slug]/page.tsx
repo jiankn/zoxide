@@ -1,4 +1,6 @@
 import DiagnosticJourney from '@/components/TaskGuides/DiagnosticJourney';
+import SimulatorCallout from '@/components/RankingSimulator/SimulatorCallout';
+
 import { notFound, permanentRedirect } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -17,6 +19,9 @@ import { normalizeZoxideFacts, stripLeadingH1 } from '@/lib/markdown/normalize';
 import { getBlogContentOverride } from '@/data/blog-content-overrides';
 import { getEditorialGuide } from '@/data/zoxide-editorial-guides';
 import { getContentRedirect, localizePath } from '@/data/search-intents';
+
+// command-not-found 是没初始化的问题，跟排名无关，不放模拟器入口
+const simulatorSlugs = ['zoxide-not-working', 'troubleshooting-zoxide-no-match-found'];
 
 const ShareButtons = dynamic(
   () => import("@/components/ShareButtons/ShareButtons"),
@@ -329,6 +334,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </header>
 
             {slug === 'zoxide-not-working' && <DiagnosticJourney locale={locale} />}
+
+            {simulatorSlugs.includes(slug) && <SimulatorCallout locale={locale} slug={slug} />}
 
             <article className="markdown-content max-w-3xl mx-auto">
               <ReactMarkdown

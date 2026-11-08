@@ -12,6 +12,16 @@ import { getTutorialContentOverride } from "@/data/tutorial-content-overrides";
 import GuideLinks from "@/components/GuideLinks/GuideLinks";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { getContentRedirect, localizePath } from '@/data/search-intents';
+import SetupBuilder from "@/components/SetupBuilder/SetupBuilder";
+import { defaultChoice, type SetupChoice } from "@/data/setup-matrix";
+
+// 安装教程顶部嵌入预选好系统的配置生成器
+const builderPresets: Record<string, SetupChoice> = {
+  'install-macos': { ...defaultChoice, os: 'macos', shell: 'zsh' },
+  'install-windows': { ...defaultChoice, os: 'windows', shell: 'powershell' },
+  'install-ubuntu': { ...defaultChoice, os: 'ubuntu', shell: 'bash' },
+  'install-arch-nixos': { ...defaultChoice, os: 'arch', shell: 'bash' },
+};
 
 interface TutorialPageProps {
   params: Promise<{
@@ -159,6 +169,12 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
               </span>
             </div>
           </header>
+
+          {builderPresets[slug] && (
+            <div className="mx-auto max-w-5xl">
+              <SetupBuilder locale={locale} variant="compact" initial={builderPresets[slug]} />
+            </div>
+          )}
 
           <article className="markdown-content max-w-3xl mx-auto">
             <ReactMarkdown

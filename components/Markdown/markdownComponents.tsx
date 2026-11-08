@@ -37,7 +37,7 @@ export function createMarkdownComponents(
 
     return (
       <code
-        className="bg-[#E3E2E0] text-[#EB5757] px-1.5 py-0.5 rounded font-mono text-sm"
+        className="rounded bg-[#e6eaf1] px-1.5 py-0.5 font-mono text-[0.9em] text-ink"
         {...props}
       >
         {children}
@@ -82,7 +82,7 @@ export function createMarkdownComponents(
           href={href}
           target={target}
           rel={target === '_blank' ? 'noopener noreferrer' : props.rel}
-          className="text-gray-500 underline decoration-gray-300 underline-offset-4 hover:text-black transition-colors"
+          className="font-semibold text-blue-700 underline decoration-blue-200 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
         >
           {children}
         </a>
@@ -91,7 +91,7 @@ export function createMarkdownComponents(
     h1({ children, ...props }) {
       return (
         <h1
-          className="font-serif font-bold text-4xl text-[#37352F] mt-10 mb-4"
+          className="font-serif font-bold text-4xl text-ink mt-10 mb-4"
           {...props}
         >
           {children}
@@ -101,7 +101,7 @@ export function createMarkdownComponents(
     h2({ children, ...props }) {
       return (
         <h2
-          className="font-serif font-bold text-2xl text-[#37352F] border-b border-[#E9E9E7] pb-2 mt-10 mb-4"
+          className="font-serif font-bold text-2xl text-ink border-b border-rule pb-2 mt-10 mb-4"
           {...props}
         >
           {children}
@@ -111,7 +111,7 @@ export function createMarkdownComponents(
     h3({ children, ...props }) {
       return (
         <h3
-          className="font-serif font-bold text-xl text-[#37352F] mt-10 mb-4"
+          className="font-serif font-bold text-xl text-ink mt-10 mb-4"
           {...props}
         >
           {children}
@@ -121,7 +121,7 @@ export function createMarkdownComponents(
     p({ children, ...props }) {
       return (
         <p
-          className="font-sans text-base leading-7 text-[#37352F] mb-4"
+          className="font-sans text-base leading-7 text-ink mb-4"
           {...props}
         >
           {children}
@@ -131,7 +131,7 @@ export function createMarkdownComponents(
     ul({ children, ...props }) {
       return (
         <ul
-          className="list-disc text-[#37352F] mb-4 space-y-2 ml-6"
+          className="list-disc text-ink mb-4 space-y-2 ml-6"
           {...props}
         >
           {children}
@@ -141,7 +141,7 @@ export function createMarkdownComponents(
     ol({ children, ...props }) {
       return (
         <ol
-          className="list-decimal text-[#37352F] mb-4 space-y-2 ml-6"
+          className="list-decimal text-ink mb-4 space-y-2 ml-6"
           {...props}
         >
           {children}
@@ -150,7 +150,7 @@ export function createMarkdownComponents(
     },
     table({ children, ...props }) {
       return (
-        <div className="mb-6 max-w-full overflow-x-auto rounded-lg border border-gray-200">
+        <div className="mb-6 max-w-full overflow-x-auto rounded-lg border border-rule">
           <table
             className="min-w-full border-collapse bg-white text-left text-sm"
             {...props}
@@ -190,7 +190,7 @@ export function createMarkdownComponents(
     blockquote({ children, ...props }) {
       return (
         <blockquote
-          className="border-l-4 border-black pl-4 py-1 my-6 italic text-lg font-serif text-[#37352F]"
+          className="border-l-4 border-[var(--line-zsh)] bg-paper py-2 pl-4 pr-3 my-6 text-base text-ink"
           {...props}
         >
           {children}

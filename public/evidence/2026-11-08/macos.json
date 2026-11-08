@@ -1,0 +1,380 @@
+{
+  "test_date": "2026-11-08",
+  "test_timezone": "UTC",
+  "executed_at_utc": "2026-11-08T04:21:20.865767+00:00",
+  "source_run_id": "42446427141",
+  "source_commit": "997f2526f5e0e2f7fc4728b5c58b1b92e4ecaae6",
+  "runner_image": "macos26 20261102.0473.1",
+  "script": ".ci/evidence/shell-runtime.py macos",
+  "scope": "Command outputs from the run, cropped: tmux session control and scratch-directory creation are omitted. Everything else is kept as printed.",
+  "method": "Homebrew install on a GitHub-hosted macOS runner. Actual interactive login shells driven with tmux; query snapshots from a separate process.",
+  "install_log_tail": [
+    "\u001b[34m==>\u001b[0m \u001b[1mPouring libevent--2.1.13_1.arm64_tahoe.bottle.tar.gz\u001b[0m",
+    "馃嵑  /opt/homebrew/Cellar/libevent/2.1.13_1: 58 files, 2.3MB",
+    "\u001b[32m==>\u001b[0m \u001b[1mInstalling tmux dependency: \u001b[32mncurses\u001b[39m (6.6)\u001b[0m",
+    "\u001b[34m==>\u001b[0m \u001b[1mPouring ncurses--6.6.arm64_tahoe.bottle.tar.gz\u001b[0m",
+    "馃嵑  /opt/homebrew/Cellar/ncurses/6.6: 4,086 files, 10.3MB",
+    "\u001b[32m==>\u001b[0m \u001b[1mInstalling tmux dependency: \u001b[32mutf8proc\u001b[39m (2.12.0)\u001b[0m",
+    "\u001b[34m==>\u001b[0m \u001b[1mPouring utf8proc--2.12.0.arm64_tahoe.bottle.tar.gz\u001b[0m",
+    "馃嵑  /opt/homebrew/Cellar/utf8proc/2.12.0: 15 files, 461.5KB",
+    "\u001b[32m==>\u001b[0m \u001b[1mInstalling tmux dependency: \u001b[32mjemalloc\u001b[39m (5.4.0)\u001b[0m",
+    "\u001b[34m==>\u001b[0m \u001b[1mPouring jemalloc--5.4.0.arm64_tahoe.bottle.tar.gz\u001b[0m",
+    "馃嵑  /opt/homebrew/Cellar/jemalloc/5.4.0: 17 files, 3.1MB",
+    "\u001b[32m==>\u001b[0m \u001b[1mInstalling \u001b[32mtmux\u001b[39m\u001b[0m",
+    "\u001b[34m==>\u001b[0m \u001b[1mPouring tmux--3.8.arm64_tahoe.bottle.tar.gz\u001b[0m",
+    "馃嵑  /opt/homebrew/Cellar/tmux/3.8: 9 files, 1.6MB",
+    "\u001b[32m==>\u001b[0m \u001b[1mCaveats\u001b[0m",
+    "Bash completion has been installed to:",
+    "  /opt/homebrew/etc/bash_completion.d",
+    "\u001b[34m==>\u001b[0m \u001b[1mtmux\u001b[0m",
+    "Example configuration has been installed to:",
+    "  /opt/homebrew/opt/tmux/share/tmux"
+  ],
+  "scenarios": [
+    {
+      "name": "macos-zsh",
+      "shell": "/bin/zsh",
+      "initially_empty": "",
+      "learned": "   4.0 /Users/runner/work/client-portal\n   4.0 /Users/runner/work/api-docs\n   4.0 /Users/runner/work/api\n",
+      "jump": "/Users/runner/work/api-docs\n",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "name": "macos-bash",
+      "shell": "/bin/bash",
+      "initially_empty": "",
+      "learned": "   4.0 /Users/runner/work/client-portal\n   4.0 /Users/runner/work/api-docs\n   4.0 /Users/runner/work/api\n",
+      "jump": "/Users/runner/work/api-docs\n",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "name": "macos-zsh-cd",
+      "shell": "zsh",
+      "navigation": "cd",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    }
+  ],
+  "commands": [
+    {
+      "label": "sw_vers",
+      "command": "sw_vers",
+      "exit": 0,
+      "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t26.7.2\nBuildVersion:\t\t25G332\n",
+      "stderr": ""
+    },
+    {
+      "label": "uname -m",
+      "command": "uname -m",
+      "exit": 0,
+      "stdout": "arm64\n",
+      "stderr": ""
+    },
+    {
+      "label": "brew --version",
+      "command": "brew --version",
+      "exit": 0,
+      "stdout": "Homebrew 7.0.11\n",
+      "stderr": ""
+    },
+    {
+      "label": "brew list --versions zoxide",
+      "command": "brew list --versions zoxide",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "command -v zoxide",
+      "command": "command -v zoxide",
+      "exit": 0,
+      "stdout": "/opt/homebrew/bin/zoxide\n",
+      "stderr": ""
+    },
+    {
+      "label": "zoxide --version",
+      "command": "zoxide --version",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "/bin/zsh --version",
+      "command": "/bin/zsh --version",
+      "exit": 0,
+      "stdout": "zsh 5.9 (arm64-apple-darwin25.0)\n",
+      "stderr": ""
+    },
+    {
+      "label": "/bin/bash --version",
+      "command": "/bin/bash --version",
+      "exit": 0,
+      "stdout": "GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)\nCopyright (C) 2007 Free Software Foundation, Inc.\n",
+      "stderr": ""
+    },
+    {
+      "label": "command -v fzf",
+      "command": "command -v fzf",
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "bash --noprofile --norc -ic 'type -t z'",
+      "command": "bash --noprofile --norc -ic 'type -t z'",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "bash: no job control in this shell\n"
+    },
+    {
+      "label": "write ~/.zshrc",
+      "command": "(file edited)",
+      "exit": 0,
+      "stdout": "PS1=\"Z> \"\neval \"$(zoxide init zsh)\"\n",
+      "stderr": ""
+    },
+    {
+      "label": "write ~/.bash_profile",
+      "command": "(file edited)",
+      "exit": 0,
+      "stdout": "PS1=\"B> \"\nexport BASH_SILENCE_DEPRECATION_WARNING=1\neval \"$(zoxide init bash)\"\n",
+      "stderr": ""
+    },
+    {
+      "label": "macos-zsh: type z",
+      "command": "type z",
+      "exit": 0,
+      "stdout": "z is a shell function from /Users/runner/.zshrc\n",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: type zi",
+      "command": "type zi",
+      "exit": 0,
+      "stdout": "zi is a shell function from /Users/runner/.zshrc\n",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/Users/runner/.local/share/evidence-macos-zsh zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: cd ~/work/api && pwd",
+      "command": "cd ~/work/api && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/api\n",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: cd ~/work/api-docs && pwd",
+      "command": "cd ~/work/api-docs && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: cd ~/work/client-portal && pwd",
+      "command": "cd ~/work/client-portal && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/Users/runner/.local/share/evidence-macos-zsh zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /Users/runner/work/client-portal\n   4.0 /Users/runner/work/api-docs\n   4.0 /Users/runner/work/api\n",
+      "stderr": "",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: cd ~",
+      "command": "cd ~",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: z api && pwd",
+      "command": "z api && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-zsh: z zz-no-such-keyword-923",
+      "command": "z zz-no-such-keyword-923",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "method": "interactive macos-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh"
+    },
+    {
+      "label": "macos-bash: type z",
+      "command": "type z",
+      "exit": 0,
+      "stdout": "z is a function\nz () \n{ \n    __zoxide_z \"$@\"\n}\n",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: type zi",
+      "command": "type zi",
+      "exit": 0,
+      "stdout": "zi is a function\nzi () \n{ \n    __zoxide_zi \"$@\"\n}\n",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/Users/runner/.local/share/evidence-macos-bash zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: cd ~/work/api && pwd",
+      "command": "cd ~/work/api && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/api\n",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: cd ~/work/api-docs && pwd",
+      "command": "cd ~/work/api-docs && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: cd ~/work/client-portal && pwd",
+      "command": "cd ~/work/client-portal && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/Users/runner/.local/share/evidence-macos-bash zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /Users/runner/work/client-portal\n   4.0 /Users/runner/work/api-docs\n   4.0 /Users/runner/work/api\n",
+      "stderr": "",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: cd ~",
+      "command": "cd ~",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: z api && pwd",
+      "command": "z api && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "macos-bash: z zz-no-such-keyword-923",
+      "command": "z zz-no-such-keyword-923",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "method": "interactive macos-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-bash"
+    },
+    {
+      "label": "write ~/.zshrc",
+      "command": "(file edited)",
+      "exit": 0,
+      "stdout": "PS1=\"C> \"\neval \"$(zoxide init zsh --cmd cd)\"\n",
+      "stderr": ""
+    },
+    {
+      "label": "macos-zsh-cd: whence -w cd",
+      "command": "whence -w cd",
+      "exit": 0,
+      "stdout": "cd: function\n",
+      "stderr": "",
+      "method": "interactive macos-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    },
+    {
+      "label": "macos-zsh-cd: whence -w cdi",
+      "command": "whence -w cdi",
+      "exit": 0,
+      "stdout": "cdi: function\n",
+      "stderr": "",
+      "method": "interactive macos-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    },
+    {
+      "label": "macos-zsh-cd: whence -w z",
+      "command": "whence -w z",
+      "exit": 1,
+      "stdout": "z: none\n",
+      "stderr": "",
+      "method": "interactive macos-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    },
+    {
+      "label": "macos-zsh-cd: cd ~/work/client-portal && pwd",
+      "command": "cd ~/work/client-portal && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive macos-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    },
+    {
+      "label": "macos-zsh-cd: cd ~",
+      "command": "cd ~",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "method": "interactive macos-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    },
+    {
+      "label": "macos-zsh-cd: cd client && pwd",
+      "command": "cd client && pwd",
+      "exit": 0,
+      "stdout": "/Users/runner/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive macos-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/Users/runner/.local/share/evidence-macos-zsh-cd"
+    }
+  ]
+}

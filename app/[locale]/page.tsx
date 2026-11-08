@@ -1,4 +1,5 @@
-import Hero from '@/components/Hero/Hero';
+import SetupBuilder from '@/components/SetupBuilder/SetupBuilder';
+import TestMatrix from '@/components/SetupBuilder/TestMatrix';
 import { Link } from '@/i18n/routing';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
@@ -80,10 +81,33 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     primary.fzf,
   ];
 
+  const home = await getTranslations('home');
+
   return (
     <div className="flex flex-col">
-      {/* Hero 区域 */}
-      <Hero />
+      {/* 首屏：标题 + 配置生成器。生成器在服务端先渲染默认组合（macOS + zsh）的完整命令 */}
+      <section id="setup-builder" className="scroll-mt-20 border-b border-rule bg-[var(--background)]">
+        <div className="container mx-auto max-w-7xl px-4 pb-12 pt-8 md:px-7 md:pt-10">
+          <div className="grid gap-x-9 gap-y-3 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
+            <h1 className="max-w-[20ch] text-[34px] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink md:text-[44px]">
+              {home('title')}
+            </h1>
+            <p className="text-[15px] leading-6 text-ink-soft">
+              {home('description')}{' '}
+              <span className="block pt-1.5">
+                {home('independentNote')}{' '}
+                <a href="https://github.com/ajeetdsouza/zoxide" className="font-semibold text-ink underline">{home('officialProject')}</a>
+              </span>
+            </p>
+          </div>
+          <p className="mb-6 mt-4 max-w-[60ch] text-lg leading-7 text-ink">
+            {t('Pick your system and shell. You get the commands to paste, in order, and a record of where we ran them.',
+              '选好系统和 Shell，按顺序复制命令即可；每套命令都附上我们实际跑过的环境记录。',
+              'OS とシェルを選ぶと、貼り付けるコマンドが順番に表示されます。どこで実行したかの記録付きです。')}
+          </p>
+          <SetupBuilder locale={locale} />
+        </div>
+      </section>
 
       {/* 主内容区域 */}
       <div className="container mx-auto max-w-6xl px-5 pb-16 pt-8">
@@ -153,6 +177,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {guide.install.verification}
             </p>
             <Link href="/download" className="mt-4 inline-block font-semibold text-blue-700 hover:text-blue-900">{t('Choose commands for your system and shell →', '按系统与 Shell 选择安装步骤 →', 'OS・シェルに合う手順を選ぶ →')}</Link>
+          </section>
+
+          <section id="tested-setups" className="scroll-mt-24">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('Which setups we have tested', '哪些组合实测过', '検証済みの組み合わせ')}</h2>
+            <p className="max-w-3xl text-lg leading-8 text-gray-700">{t('A Tested cell means we ran zoxide with that shell on that system and recorded the output; its receipt links to the write-up or the archived output. Select a cell to load its commands into the builder above. Combinations we have not run stay marked as not tested.', '“已测”表示我们在这个系统上用这个 Shell 实际跑过 zoxide 并记录了输出，回执里能点开测试记录或归档的原始输出。点任意一格，上面的生成器就会切换到这个组合。没跑过的组合一律标“未测”。', '「検証済み」は、その OS とシェルで zoxide を実際に動かし、出力を記録した組み合わせです。記録へのリンクは各テスト記録にあります。セルを選ぶと上の生成ツールに反映されます。未実行の組み合わせは「未検証」と表示します。')}</p>
+            <div className="mt-6">
+              <TestMatrix locale={locale} builderId="setup-builder" />
+            </div>
           </section>
 
           <section id="activate-zoxide" className="scroll-mt-24">

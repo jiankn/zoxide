@@ -1,0 +1,370 @@
+{
+  "test_date": "2026-11-08",
+  "test_timezone": "UTC",
+  "executed_at_utc": "2026-11-08T04:21:13.803704+00:00",
+  "source_run_id": "42446427141",
+  "source_commit": "997f2526f5e0e2f7fc4728b5c58b1b92e4ecaae6",
+  "image_digests": [
+    "ubuntu@sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852"
+  ],
+  "script": ".ci/evidence/setup-ubuntu.sh, then .ci/evidence/shell-runtime.py ubuntu as user dev",
+  "scope": "Command outputs from the run, cropped: tmux session control and scratch-directory creation are omitted. Everything else is kept as printed.",
+  "method": "Official install script run as a normal user in the official ubuntu:24.04 container on a GitHub-hosted runner. Actual interactive login shells driven with tmux; query snapshots from a separate process.",
+  "install_command": "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh",
+  "install_log": [
+    "Detected architecture: x86_64-unknown-linux-musl",
+    "Downloaded package: zoxide.tar.gz",
+    "Installed zoxide to /home/dev/.local/bin",
+    "Installed manpages to /home/dev/.local/share/man",
+    "",
+    "zoxide is installed!",
+    "Note: /home/dev/.local/bin is not on your $PATH. zoxide will not work unless it is added to $PATH."
+  ],
+  "scenarios": [
+    {
+      "name": "ubuntu-bash",
+      "shell": "bash",
+      "initially_empty": "",
+      "learned": "   4.0 /home/dev/work/client-portal\n   4.0 /home/dev/work/api-docs\n   4.0 /home/dev/work/api\n",
+      "jump": "/home/dev/work/api-docs\n",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "name": "ubuntu-zsh",
+      "shell": "zsh",
+      "initially_empty": "",
+      "learned": "   4.0 /home/dev/work/client-portal\n   4.0 /home/dev/work/api-docs\n   4.0 /home/dev/work/api\n",
+      "jump": "/home/dev/work/api-docs\n",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "name": "ubuntu-zsh-cd",
+      "shell": "zsh",
+      "navigation": "cd",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    }
+  ],
+  "commands": [
+    {
+      "label": "id",
+      "command": "id",
+      "exit": 0,
+      "stdout": "uid=1001(dev) gid=1001(dev) groups=1001(dev)\n",
+      "stderr": ""
+    },
+    {
+      "label": "cat /etc/os-release",
+      "command": "cat /etc/os-release",
+      "exit": 0,
+      "stdout": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+      "stderr": ""
+    },
+    {
+      "label": "uname -m",
+      "command": "uname -m",
+      "exit": 0,
+      "stdout": "x86_64\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash -lc 'echo $PATH'",
+      "command": "bash -lc 'echo $PATH'",
+      "exit": 0,
+      "stdout": "/home/dev/.local/bin:/home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash -lc 'command -v zoxide'",
+      "command": "bash -lc 'command -v zoxide'",
+      "exit": 0,
+      "stdout": "/home/dev/.local/bin/zoxide\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash -lc 'zoxide --version'",
+      "command": "bash -lc 'zoxide --version'",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "bash --version",
+      "command": "bash --version",
+      "exit": 0,
+      "stdout": "GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)\nCopyright (C) 2022 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\nThis is free software; you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": ""
+    },
+    {
+      "label": "zsh --version",
+      "command": "zsh --version",
+      "exit": 0,
+      "stdout": "zsh 5.9 (x86_64-ubuntu-linux-gnu)\n",
+      "stderr": ""
+    },
+    {
+      "label": "command -v fzf",
+      "command": "command -v fzf",
+      "exit": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "bash --noprofile --norc -ic 'type -t z'",
+      "command": "bash --noprofile --norc -ic 'type -t z'",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "bash: cannot set terminal process group (2228): Inappropriate ioctl for device\nbash: no job control in this shell\n"
+    },
+    {
+      "label": "write ~/.zshrc",
+      "command": "(file edited)",
+      "exit": 0,
+      "stdout": "export PATH=\"$HOME/.local/bin:$PATH\"\nPS1=\"Z> \"\neval \"$(zoxide init zsh)\"\n",
+      "stderr": ""
+    },
+    {
+      "label": "append to ~/.bashrc",
+      "command": "(file edited)",
+      "exit": 0,
+      "stdout": "PS1=\"B> \"\neval \"$(zoxide init bash)\"\n",
+      "stderr": ""
+    },
+    {
+      "label": "ubuntu-bash: type z",
+      "command": "type z",
+      "exit": 0,
+      "stdout": "z is a function\nz () \n{ \n    __zoxide_z \"$@\"\n}\n",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: type zi",
+      "command": "type zi",
+      "exit": 0,
+      "stdout": "zi is a function\nzi () \n{ \n    __zoxide_zi \"$@\"\n}\n",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/home/dev/.local/share/evidence-ubuntu-bash zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: cd ~/work/api && pwd",
+      "command": "cd ~/work/api && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/api\n",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: cd ~/work/api-docs && pwd",
+      "command": "cd ~/work/api-docs && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: cd ~/work/client-portal && pwd",
+      "command": "cd ~/work/client-portal && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/home/dev/.local/share/evidence-ubuntu-bash zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /home/dev/work/client-portal\n   4.0 /home/dev/work/api-docs\n   4.0 /home/dev/work/api\n",
+      "stderr": "",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: cd ~",
+      "command": "cd ~",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: z api && pwd",
+      "command": "z api && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-bash: z zz-no-such-keyword-923",
+      "command": "z zz-no-such-keyword-923",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "method": "interactive ubuntu-bash login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-bash"
+    },
+    {
+      "label": "ubuntu-zsh: type z",
+      "command": "type z",
+      "exit": 0,
+      "stdout": "z is a shell function from /home/dev/.zshrc\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: type zi",
+      "command": "type zi",
+      "exit": 0,
+      "stdout": "zi is a shell function from /home/dev/.zshrc\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/home/dev/.local/share/evidence-ubuntu-zsh zoxide query --list --score",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: cd ~/work/api && pwd",
+      "command": "cd ~/work/api && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/api\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: cd ~/work/api-docs && pwd",
+      "command": "cd ~/work/api-docs && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: cd ~/work/client-portal && pwd",
+      "command": "cd ~/work/client-portal && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: query from outside terminal",
+      "command": "env _ZO_DATA_DIR=/home/dev/.local/share/evidence-ubuntu-zsh zoxide query --list --score",
+      "exit": 0,
+      "stdout": "   4.0 /home/dev/work/client-portal\n   4.0 /home/dev/work/api-docs\n   4.0 /home/dev/work/api\n",
+      "stderr": "",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: cd ~",
+      "command": "cd ~",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: z api && pwd",
+      "command": "z api && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/api-docs\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "ubuntu-zsh: z zz-no-such-keyword-923",
+      "command": "z zz-no-such-keyword-923",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "zoxide: no match found\n",
+      "method": "interactive ubuntu-zsh login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh"
+    },
+    {
+      "label": "write ~/.zshrc",
+      "command": "(file edited)",
+      "exit": 0,
+      "stdout": "export PATH=\"$HOME/.local/bin:$PATH\"\nPS1=\"C> \"\neval \"$(zoxide init zsh --cmd cd)\"\n",
+      "stderr": ""
+    },
+    {
+      "label": "ubuntu-zsh-cd: whence -w cd",
+      "command": "whence -w cd",
+      "exit": 0,
+      "stdout": "cd: function\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    },
+    {
+      "label": "ubuntu-zsh-cd: whence -w cdi",
+      "command": "whence -w cdi",
+      "exit": 0,
+      "stdout": "cdi: function\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    },
+    {
+      "label": "ubuntu-zsh-cd: whence -w z",
+      "command": "whence -w z",
+      "exit": 1,
+      "stdout": "z: none\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    },
+    {
+      "label": "ubuntu-zsh-cd: cd ~/work/client-portal && pwd",
+      "command": "cd ~/work/client-portal && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    },
+    {
+      "label": "ubuntu-zsh-cd: cd ~",
+      "command": "cd ~",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    },
+    {
+      "label": "ubuntu-zsh-cd: cd client && pwd",
+      "command": "cd client && pwd",
+      "exit": 0,
+      "stdout": "/home/dev/work/client-portal\n",
+      "stderr": "",
+      "method": "interactive ubuntu-zsh-cd login shell in tmux; separate prompt after each command",
+      "data_directory": "/home/dev/.local/share/evidence-ubuntu-zsh-cd"
+    }
+  ]
+}

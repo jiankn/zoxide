@@ -110,14 +110,15 @@ export default function Navigation() {
 
   const primary = getPrimaryPaths(locale);
   const navCopy = locale === 'zh'
-    ? ['安装设置', '故障排查', '命令参考', '工具对比']
-    : locale === 'ja' ? ['導入・設定', 'トラブル解決', 'コマンド', 'ツール比較']
-    : ['Install & set up', 'Troubleshoot', 'Commands', 'Compare'];
+    ? ['配置生成', '故障排查', '排名原理', '命令参考', '工具对比']
+    : locale === 'ja' ? ['設定ツール', 'トラブル解決', '順位の仕組み', 'コマンド', 'ツール比較']
+    : ['Setup builder', 'Fix a problem', 'How z ranks', 'Commands', 'Compare'];
   const navItems = [
-    { href: '/download', label: navCopy[0] },
+    { href: '/', label: navCopy[0] },
     { href: primary.troubleshooting, label: navCopy[1] },
-    { href: primary.commands, label: navCopy[2] },
-    { href: primary.alternatives, label: navCopy[3] },
+    { href: '/tools/ranking-simulator', label: navCopy[2] },
+    { href: primary.commands, label: navCopy[3] },
+    { href: primary.alternatives, label: navCopy[4] },
     { href: primary.doctor, label: 'zoxide-doctor' },
   ];
   const switchLocale = async (newLocale: string) => {
@@ -180,33 +181,32 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-      <div className="container mx-auto max-w-7xl px-4">
-        <div className="flex h-16 items-center justify-between gap-4">
+    <nav className="sticky top-0 z-50 w-full bg-ink text-white">
+      <div className="container mx-auto max-w-7xl px-4 md:px-7">
+        <div className="flex h-[60px] items-center justify-between gap-4">
           {/* Logo - 防止压缩，在中等屏幕时缩小 */}
           <Link href="/" className="flex items-center gap-2 group flex-shrink-0 min-w-0">
-            <Logo size={40} className="text-[#37352F] group-hover:opacity-80 transition-opacity sm:hidden" />
-            <Logo size={44} className="text-[#37352F] group-hover:opacity-80 transition-opacity hidden sm:block lg:hidden" />
-            <Logo size={48} className="text-[#37352F] group-hover:opacity-80 transition-opacity hidden lg:block" />
-            <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#37352F] whitespace-nowrap">
+            <Logo size={30} className="group-hover:opacity-85 transition-opacity" />
+            <span className="whitespace-nowrap text-[19px] font-extrabold tracking-[-0.01em] text-white">
               {t('brandName')}
             </span>
           </Link>
 
           {/* 桌面端导航 - 在lg断点才显示完整导航，md时隐藏避免重叠 */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-4 xl:space-x-6 flex-shrink min-w-0">
+          <div className="hidden xl:flex xl:h-full xl:items-stretch xl:gap-6 flex-shrink min-w-0">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative inline-flex items-center px-1 text-sm font-medium transition-colors ${isActive(item.href)
-                  ? 'text-blue-600'
-                  : 'text-gray-700 hover:text-blue-600'
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                className={`group relative inline-flex items-center whitespace-nowrap text-[15px] font-semibold transition-colors ${isActive(item.href)
+                  ? 'text-white'
+                  : 'text-[#c9d2e3] hover:text-white'
                   }`}
               >
                 <span>{item.label}</span>
                 <span
-                  className={`pointer-events-none absolute left-0 right-0 bottom-0 h-0.5 origin-left bg-blue-600 transition-all duration-300 ${isActive(item.href)
+                  className={`pointer-events-none absolute left-0 right-0 bottom-0 h-[3px] origin-left bg-[var(--line-zsh)] transition-all duration-300 ${isActive(item.href)
                     ? 'opacity-100 scale-x-100'
                     : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
                     }`}
@@ -228,7 +228,7 @@ export default function Navigation() {
                 href="https://github.com/ajeetdsouza/zoxide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                className="rounded-lg p-2 text-[#c9d2e3] hover:bg-white/10 hover:text-white transition-colors"
                 aria-label={t('github')}
               >
                 <Github className="h-5 w-5" />
@@ -238,7 +238,7 @@ export default function Navigation() {
               <div className="relative" ref={langMenuRef}>
                 <button
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors border border-gray-200"
+                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-white/10 transition-colors border border-white/25"
                   aria-label="切换语言"
                 >
                   {SquareFlagIcons[locale] || <Globe className="h-5 w-5" />}
@@ -277,7 +277,7 @@ export default function Navigation() {
             {/* 移动端菜单按钮（lg以下显示，包括md断点） */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden rounded-lg p-2 text-gray-700 hover:bg-gray-100"
+              className="xl:hidden rounded-lg p-2 text-white hover:bg-white/10"
               aria-label="切换菜单"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -287,7 +287,7 @@ export default function Navigation() {
 
         {/* 移动端菜单：包含搜索 / GitHub / 语言 + 导航链接（lg以下显示） */}
         {isOpen && (
-          <div className="lg:hidden border-t border-gray-200 py-4 space-y-4">
+          <div className="xl:hidden border-t border-white/15 py-4 space-y-4">
             {/* 搜索（移动端放在汉堡菜单内） */}
             <div className="px-4">
               <Search />
@@ -300,7 +300,7 @@ export default function Navigation() {
                 href="https://github.com/ajeetdsouza/zoxide"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                className="flex items-center rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
                 aria-label={t('github')}
               >
                 <Github className="mr-2 h-4 w-4" />
@@ -311,7 +311,7 @@ export default function Navigation() {
               <div className="relative" ref={langMenuRef}>
                 <button
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="flex items-center rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                  className="flex items-center rounded-lg px-3 py-2 text-sm text-white hover:bg-white/10 transition-colors"
                   aria-label="切换语言"
                 >
                   {SquareFlagIcons[locale] || <Globe className="mr-2 h-4 w-4" />}
@@ -347,14 +347,15 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`group relative block px-4 py-2 text-sm font-medium transition-colors ${isActive(item.href)
-                    ? 'text-blue-600'
-                    : 'text-gray-700 hover:bg-gray-100'
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  className={`group relative block px-4 py-2.5 text-[15px] font-semibold transition-colors ${isActive(item.href)
+                    ? 'text-white'
+                    : 'text-[#c9d2e3] hover:bg-white/10'
                     }`}
                 >
                   <span>{item.label}</span>
                   <span
-                    className={`pointer-events-none absolute left-4 right-4 bottom-1 h-0.5 origin-left bg-blue-600 transition-all duration-300 ${isActive(item.href)
+                    className={`pointer-events-none absolute left-4 right-4 bottom-1 h-[3px] origin-left bg-[var(--line-zsh)] transition-all duration-300 ${isActive(item.href)
                       ? 'opacity-100 scale-x-100'
                       : 'opacity-0 scale-x-0 group-hover:opacity-60 group-hover:scale-x-100'
                       }`}

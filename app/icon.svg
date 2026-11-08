@@ -1,19 +1,7 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bgDark" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#020617"/>
-      <stop offset="100%" stop-color="#0f172a"/>
-    </linearGradient>
-    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#facc15"/>
-      <stop offset="100%" stop-color="#fb923c"/>
-    </linearGradient>
-  </defs>
-  <!-- 背景 -->
-  <rect x="32" y="32" width="448" height="448" rx="112" fill="url(#bgDark)"/>
-  <!-- Z 闪电 -->
-  <path d="M180 120 H360 L260 260 H340 L160 392 L220 272 H150 Z"
-        fill="url(#bolt)"/>
+  <!-- 线路图站点标记：海军蓝底上的绿色站环 -->
+  <rect x="32" y="32" width="448" height="448" rx="112" fill="#14213d"/>
+  <rect x="96" y="226" width="320" height="60" rx="30" fill="#00985f"/>
+  <circle cx="256" cy="256" r="118" fill="#ffffff" stroke="#00985f" stroke-width="56"/>
+  <circle cx="256" cy="256" r="40" fill="#14213d"/>
 </svg>
-
-

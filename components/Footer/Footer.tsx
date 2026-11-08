@@ -32,7 +32,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-transparent bg-gradient-to-r from-[#0b1f4b] via-[#0f2f6b] to-[#123a7f] text-white">
+    <footer className="border-t-[6px] border-[var(--line-zsh)] bg-ink text-white">
       <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo 和描述 */}

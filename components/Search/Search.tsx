@@ -212,7 +212,7 @@ export default function Search() {
       {/* 搜索按钮 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="rounded-lg p-2 text-gray-700 hover:bg-gray-100 transition-colors"
+        className="rounded-lg p-2 text-[#c9d2e3] hover:bg-white/10 hover:text-white transition-colors"
         aria-label={t('search')}
       >
         <SearchIcon className="h-5 w-5" />

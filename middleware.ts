@@ -9,8 +9,10 @@ export default function middleware(request: NextRequest) {
   // 0. HTTP→HTTPS 保底重定向（301 永久重定向）
   // 主要由 Cloudflare 的 "Always Use HTTPS" 处理，此处作为安全保底
   // 防止 HTTP 版本被搜索引擎索引，避免重复内容问题
+  // 本机开发（localhost）不跳转，线上域名照常强制 HTTPS
   const proto = request.headers.get('x-forwarded-proto');
-  if (proto === 'http') {
+  const isLocalhost = ['localhost', '127.0.0.1'].includes(request.nextUrl.hostname);
+  if (proto === 'http' && !isLocalhost) {
     const httpsUrl = new URL(request.url);
     httpsUrl.protocol = 'https:';
     return NextResponse.redirect(httpsUrl, { status: 301 });

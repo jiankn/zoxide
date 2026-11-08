@@ -1,0 +1,38 @@
+name: macOS and Ubuntu installation evidence
+on:
+  push:
+    branches: [claude/macos-evidence-20261108]
+permissions:
+  contents: read
+jobs:
+  macos:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install with Homebrew and test zsh and bash
+        run: |
+          mkdir -p evidence
+          brew install zoxide tmux 2>&1 | tail -n 20 > evidence/brew-install.log
+          python3 .ci/evidence/shell-runtime.py macos evidence/macos-results.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macos-install-evidence
+          path: evidence/
+  ubuntu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test the official Ubuntu 24.04 container with the install script
+        run: |
+          mkdir -p evidence && chmod 777 evidence
+          docker pull ubuntu:24.04
+          docker image inspect ubuntu:24.04 --format '{{json .RepoDigests}}' > evidence/ubuntu-image.json
+          docker run --rm -v "$PWD:/work" -w /work ubuntu:24.04 bash .ci/evidence/setup-ubuntu.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ubuntu-install-evidence
+          path: evidence/

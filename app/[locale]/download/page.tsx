@@ -1,4 +1,4 @@
-import SetupJourney from '@/components/TaskGuides/SetupJourney';
+import SetupBuilder from '@/components/SetupBuilder/SetupBuilder';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generateMultilingualMetadata } from '@/lib/seo/metadata';
 import { Link, routing } from '@/i18n/routing';
@@ -119,7 +119,7 @@ export default async function DownloadPage({ params }: { params: Promise<{ local
           </p>
         </div>
 
-        <SetupJourney locale={locale} />
+        <SetupBuilder locale={locale} variant="compact" />
 
         <section aria-labelledby="official-release-downloads">
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
