@@ -67,6 +67,16 @@ The shell still opens, and after deleting the line the same test printed nothing
 
 ## Step 2: uninstall the program
 
+zoxide cannot remove itself. Its only commands are add, edit, import, init, query and remove, and remove deletes a folder from the database, not the program. Typing zoxide uninstall with zoxide 0.10.0 on Windows printed this and exited with status 2 ([raw record](/evidence/2026-11-08/uninstall-subcommand.json)); on macOS and Linux the usage line says zoxide instead of zoxide.exe:
+
+~~~text
+error: unrecognized subcommand 'uninstall'
+
+Usage: zoxide.exe <COMMAND>
+
+For more information, try '--help'.
+~~~
+
 Use the same tool you installed with. If you are not sure, run command -v zoxide (PowerShell: (Get-Command zoxide).Source) and look at the path.
 
 | Installed with | Path it reports | Uninstall command |
@@ -213,6 +223,16 @@ Invoke-Expression: Cannot bind argument to parameter 'Command' because it is nul
 
 ## 第 2 步：卸载程序
 
+zoxide 不能卸载自己。它只有 add、edit、import、init、query、remove 这几个命令，其中 remove 是从数据库里删掉某个目录，不是删程序。在 Windows 上用 zoxide 0.10.0 输入 zoxide uninstall，输出如下，退出码为 2（[原始记录](/evidence/2026-11-08/uninstall-subcommand.json)）；macOS 和 Linux 上用法那一行显示的是 zoxide 而不是 zoxide.exe：
+
+~~~text
+error: unrecognized subcommand 'uninstall'
+
+Usage: zoxide.exe <COMMAND>
+
+For more information, try '--help'.
+~~~
+
 用当初安装的那个工具卸载。不确定的话，运行 command -v zoxide（PowerShell 用 (Get-Command zoxide).Source），看路径就知道。
 
 | 安装方式 | 显示的路径 | 卸载命令 |
@@ -358,6 +378,16 @@ Invoke-Expression: Cannot bind argument to parameter 'Command' because it is nul
 ターミナル自体は開きます。行を消してから同じテストをすると、何も表示されませんでした。アンインストール後にこれらのメッセージが出たら、この手順が抜けています。fish のメッセージは記録していません。
 
 ## 手順 2：本体を削除する
+
+zoxide は自分自身を削除できません。コマンドは add、edit、import、init、query、remove だけで、remove はデータベースからフォルダーを消すもので、本体は消しません。Windows の zoxide 0.10.0 で zoxide uninstall と入力すると次のように表示され、終了コードは 2 でした（[生データ](/evidence/2026-11-08/uninstall-subcommand.json)）。macOS と Linux では使い方の行が zoxide.exe ではなく zoxide になります。
+
+~~~text
+error: unrecognized subcommand 'uninstall'
+
+Usage: zoxide.exe <COMMAND>
+
+For more information, try '--help'.
+~~~
 
 インストールに使ったのと同じツールで削除します。分からなければ command -v zoxide（PowerShell は (Get-Command zoxide).Source）を実行し、表示されたパスで判断します。
 

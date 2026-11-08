@@ -27,6 +27,12 @@
       "sha256": "6899bcab431bdb093f685d6e3c9e01630f73665f017e09f366b4b941135b89ac",
       "source_run_id": "42456771436",
       "source_commit": "9592f450dc8bb80fdab5fb25e2de42a1f969e7f5"
+    },
+    {
+      "file": "uninstall-subcommand.json",
+      "bytes": 1986,
+      "sha256": "1506c93070d68b29de78e2a604b875f11022176d40388579085240a77bfa981a",
+      "source": "local"
     }
   ]
 }

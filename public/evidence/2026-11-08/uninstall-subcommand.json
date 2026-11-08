@@ -1,0 +1,28 @@
+{
+  "test_date": "2026-11-08",
+  "test_timezone": "UTC",
+  "executed_at_utc": "2026-11-08T07:12:25.375875+00:00",
+  "source": "Local machine (Windows 11 Pro 10.0.22631)",
+  "binary": "zoxide-0.10.0-x86_64-pc-windows-msvc.zip from the official GitHub release v0.10.0, sha256 f465ae548f8754c8e7edbc60b45fbf58c92bfe123db83d790252d6810fa5daf1 (matches the release digest)",
+  "method": "Run the extracted zoxide.exe directly with _ZO_DATA_DIR pointed at an empty temporary folder. On Windows the usage line names zoxide.exe; on macOS and Linux the same message names zoxide.",
+  "commands": [
+    {
+      "command": "zoxide --version",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0",
+      "stderr": ""
+    },
+    {
+      "command": "zoxide uninstall",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "error: unrecognized subcommand 'uninstall'\n\nUsage: zoxide.exe <COMMAND>\n\nFor more information, try '--help'."
+    },
+    {
+      "command": "zoxide --help",
+      "exit": 0,
+      "stdout": "zoxide 0.10.0\nAjeet D'Souza <98ajeet@gmail.com>\nhttps://github.com/ajeetdsouza/zoxide\n\nA smarter cd command for your terminal\n\nUsage:\n  zoxide.exe <COMMAND>\n\nCommands:\n  add     Add a new directory or increment its rank\n  edit    Edit the database\n  import  Import entries from another application\n  init    Generate shell configuration\n  query   Search for a directory in the database\n  remove  Remove a directory from the database\n\nOptions:\n  -h, --help     Print help\n  -V, --version  Print version\n\nEnvironment variables:\n  _ZO_DATA_DIR          Path for zoxide data files\n  _ZO_ECHO              Print the matched directory before navigating to it when set to 1\n  _ZO_EXCLUDE_DIRS      List of directory globs to be excluded\n  _ZO_FZF_OPTS          Custom flags to pass to fzf\n  _ZO_MAXAGE            Maximum total age after which entries start getting deleted\n  _ZO_RESOLVE_SYMLINKS  Resolve symlinks when storing paths",
+      "stderr": ""
+    }
+  ]
+}
